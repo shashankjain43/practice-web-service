@@ -21,7 +21,7 @@ public class ILibraryController {
 	@Autowired private ILibraryService libraryService;
 
 	@RequestMapping(value = "/borrow", produces = "application/JSON", method = RequestMethod.POST)
-	public @ResponseBody BorrowResponse borrowBook(
+	public BorrowResponse borrowBook(
 			@RequestBody BorrowRequest request,
 			HttpServletRequest httpServletRequest) {
 		
