@@ -1,9 +1,9 @@
-package com.shashank.noon.dao;
+package com.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.shashank.noon.entity.BookDO;
+import com.entity.BookDO;
 
 @Repository
 public interface IBookDao extends CrudRepository<BookDO, Integer> {

@@ -1,6 +1,6 @@
-package com.shashank.noon.service;
+package com.service;
 
-import com.shashank.noon.exception.LibraryServiceException;
+import com.exception.LibraryServiceException;
 
 public interface IFineService {
 	

@@ -1,4 +1,4 @@
-package com.shashank.noon.exception;
+package com.exception;
 
 public class LibraryServiceException extends RuntimeException{
 	

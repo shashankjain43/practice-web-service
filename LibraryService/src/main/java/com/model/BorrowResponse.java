@@ -1,4 +1,4 @@
-package com.shashank.noon.model;
+package com.model;
 
 public class BorrowResponse extends ServiceResponse{
 	

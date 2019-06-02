@@ -1,28 +1,28 @@
-package com.shashank.noon.service;
+package com.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shashank.noon.exception.LibraryServiceException;
-import com.shashank.noon.model.Book;
-import com.shashank.noon.model.User;
+import com.exception.LibraryServiceException;
+import com.model.Book;
 
 @Service
 public class LibraryServiceImpl implements ILibraryService {
-	
-	@Autowired private IBorrowService borrowService;
-	
-	@Autowired private IFineService fineService;
-	
-	@Autowired private IUserService userService;
-	
-	
-	
+
+	@Autowired
+	private IBorrowService borrowService;
+
+	@Autowired
+	private IFineService fineService;
+
+	@Autowired
+	private IUserService userService;
+
 	@Override
 	public Book borrowBook(int bookId, int userId, int days) throws LibraryServiceException {
-		
+
 		Book book = borrowService.borrowBook(bookId, userId, days);
-		
+
 		return book;
 	}
 

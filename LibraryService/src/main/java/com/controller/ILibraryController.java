@@ -1,4 +1,4 @@
-package com.shashank.noon.controller;
+package com.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shashank.noon.model.Book;
-import com.shashank.noon.model.BorrowRequest;
-import com.shashank.noon.model.BorrowResponse;
-import com.shashank.noon.service.ILibraryService;
+import com.model.Book;
+import com.model.BorrowRequest;
+import com.model.BorrowResponse;
+import com.service.ILibraryService;
 
 @RestController
 @RequestMapping("/service/library")

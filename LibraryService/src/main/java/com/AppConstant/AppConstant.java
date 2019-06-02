@@ -1,4 +1,4 @@
-package com.shashank.noon.AppConstant;
+package com.AppConstant;
 
 public interface AppConstant {
 	

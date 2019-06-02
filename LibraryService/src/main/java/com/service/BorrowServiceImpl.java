@@ -1,4 +1,4 @@
-package com.shashank.noon.service;
+package com.service;
 
 import java.util.Date;
 import java.util.Map;
@@ -6,12 +6,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shashank.noon.AppConstant.AppConstant;
-import com.shashank.noon.dao.IBookDao;
-import com.shashank.noon.exception.LibraryServiceException;
-import com.shashank.noon.model.Book;
-import com.shashank.noon.model.BookBorrowInfo;
-import com.shashank.noon.model.User;
+import com.AppConstant.AppConstant;
+import com.dao.IBookDao;
+import com.exception.LibraryServiceException;
+import com.model.Book;
+import com.model.BookBorrowInfo;
+import com.model.User;
 
 @Service
 public class BorrowServiceImpl implements IBorrowService {
@@ -30,7 +30,7 @@ public class BorrowServiceImpl implements IBorrowService {
 	public Book borrowBook(int bookId, int userId, int days) throws LibraryServiceException {
 
 		User user = userService.getUserById(userId);
-		if (user.getBooksBorrowed() >= AppConstant.MAX_BOOKS_ALLOWED_PER_USER) {
+		if (user.getTotalBooksBorrowed() >= AppConstant.MAX_BOOKS_ALLOWED_PER_USER) {
 			throw new LibraryServiceException("ER-101", "MAx book borrowing limit reched!");
 		}
 		if (user.getCurrentBorrowedBook() != null) {
@@ -40,7 +40,7 @@ public class BorrowServiceImpl implements IBorrowService {
 			throw new LibraryServiceException("ER-103", "A book can be borrowed for max 7 days!");
 		}
 
-		if (user.getTotalPendingFine() >= AppConstant.MAX_PENDING_FINE_PER_USER) {
+		if (user.getTotalBooksBorrowed() >= AppConstant.MAX_PENDING_FINE_PER_USER) {
 			throw new LibraryServiceException("ER-104", "Please pay your pending fine first!");
 		}
 
@@ -52,7 +52,7 @@ public class BorrowServiceImpl implements IBorrowService {
 			Book book = availableBooks.remove(bookId);
 			borrowedBooks.put(bookId, book);
 
-			user.setBooksBorrowed(user.getBooksBorrowed() + 1);
+			user.setTotalBooksBorrowed(user.getTotalBooksBorrowed() + 1);
 			user.setCurrentBorrowedBook(book);
 
 			userService.updateUserInfo(user);

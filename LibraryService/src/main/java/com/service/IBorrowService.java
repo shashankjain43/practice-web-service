@@ -1,7 +1,7 @@
-package com.shashank.noon.service;
+package com.service;
 
-import com.shashank.noon.exception.LibraryServiceException;
-import com.shashank.noon.model.Book;
+import com.exception.LibraryServiceException;
+import com.model.Book;
 
 public interface IBorrowService {
 	
