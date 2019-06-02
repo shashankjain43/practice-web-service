@@ -1,11 +1,11 @@
 package com.service;
 
-import com.exception.LibraryServiceException;
+import com.exception.ServiceException;
 import com.model.User;
 
 public interface IUserService {
 	
-	public User getUserById(int userId) throws LibraryServiceException;
+	public User getUserById(int userId) throws ServiceException;
 
 	public void updateTotalBorrowed(int i);
 
