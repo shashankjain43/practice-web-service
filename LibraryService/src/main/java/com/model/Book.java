@@ -1,5 +1,8 @@
-package com.shashank.noon.model;
+package com.model;
 
+import lombok.Data;
+
+@Data
 public class Book {
 	
 	enum BookStatus {

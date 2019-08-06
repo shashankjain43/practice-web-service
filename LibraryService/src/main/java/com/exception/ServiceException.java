@@ -1,23 +1,23 @@
-package com.shashank.noon.exception;
+package com.exception;
 
-public class LibraryServiceException extends RuntimeException{
+public class ServiceException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 
 	   private String errCode;
 	   private String errMsg;
 
-	   public LibraryServiceException(String errMsg) {
+	   public ServiceException(String errMsg) {
 	      super(errMsg);
 	      this.errMsg = errMsg;
 	   }
-	   public LibraryServiceException(String errCode, String errMsg) {
+	   public ServiceException(String errCode, String errMsg) {
 		      super(errMsg);
 		      this.errCode = errCode;
 		      this.errMsg = errMsg;
 		   }
 
-	   public LibraryServiceException(String errCode, String message, Throwable cause) {
+	   public ServiceException(String errCode, String message, Throwable cause) {
 	      super(message, cause);
 	      this.errCode = errCode;
 	      this.errMsg = message;

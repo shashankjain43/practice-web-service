@@ -1,13 +1,13 @@
-package com.shashank.noon.LibraryService;
+package com.App;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LibraryServiceApplication {
+public class App {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LibraryServiceApplication.class, args);
+		SpringApplication.run(App.class, args);
 	}
 
 }
