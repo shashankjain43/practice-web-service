@@ -1,26 +1,35 @@
 package com.exception;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ServiceException extends RuntimeException {
-	
+
 	private static final long serialVersionUID = 1L;
 
-	   private String errCode;
-	   private String errMsg;
+	@Setter
+	@Getter
+	private String errCode;
 
-	   public ServiceException(String errMsg) {
-	      super(errMsg);
-	      this.errMsg = errMsg;
-	   }
-	   public ServiceException(String errCode, String errMsg) {
-		      super(errMsg);
-		      this.errCode = errCode;
-		      this.errMsg = errMsg;
-		   }
+	@Setter
+	@Getter
+	private String errMsg;
 
-	   public ServiceException(String errCode, String message, Throwable cause) {
-	      super(message, cause);
-	      this.errCode = errCode;
-	      this.errMsg = message;
-	   }
+	public ServiceException(String errMsg) {
+		super(errMsg);
+		this.errMsg = errMsg;
+	}
+
+	public ServiceException(String errCode, String errMsg) {
+		super(errMsg);
+		this.errCode = errCode;
+		this.errMsg = errMsg;
+	}
+
+	public ServiceException(String errCode, String message, Throwable cause) {
+		super(message, cause);
+		this.errCode = errCode;
+		this.errMsg = message;
+	}
 
 }

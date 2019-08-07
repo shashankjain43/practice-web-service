@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class User {
 	
-	int userId;
-	String userName;
-	int totalBooksBorrowed;
-	Book currentBorrowedBook;
-	boolean isMemberActive;
-	Date createDate;
+	private int userId;
+	private String userName;
+	private int totalBooksBorrowed;
+	private Book currentBorrowedBook;
+	private boolean isMemberActive;
+	private Date createDate;
 }
