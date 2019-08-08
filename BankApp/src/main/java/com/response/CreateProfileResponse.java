@@ -1,4 +1,6 @@
 package com.response;
 
-public class CreateProfileResponse {
+public class CreateProfileResponse extends BaseResponse {
+
+
 }

@@ -1,4 +1,5 @@
 package com.constants;
 
-public class AppConstant {
+public interface AppConstant {
+    String JSON = "application/json";
 }
