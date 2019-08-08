@@ -1,4 +1,4 @@
-package com.shashank.BankApp;
+package com.app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
