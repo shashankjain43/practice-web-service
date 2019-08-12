@@ -13,9 +13,6 @@ public class CreateProfileRequest extends BaseRequest {
     @NotEmpty(message = "Name is mandatory!")
     String name;
 
-    @Size(max = 4)
-    String doy;
-
     @NotEmpty(message = "Please provide a valid mobile number!")
     String mobile;
 

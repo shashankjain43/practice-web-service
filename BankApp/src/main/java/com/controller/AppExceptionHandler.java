@@ -6,6 +6,8 @@ import com.request.BaseRequest;
 import com.response.BaseResponse;
 import com.response.ServiceResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -22,10 +24,12 @@ import java.util.List;
 @Slf4j
 public class AppExceptionHandler {
 
+    //public static Logger log = LoggerFactory.getLogger(AppExceptionHandler.class);
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public <T extends BaseResponse> ServiceResponse<T> handleException(MethodArgumentNotValidException exception, HttpServletResponse http) {
         ServiceResponse<T> response = new ServiceResponse<T>();
-        //log.error("Error message is: " + exception.getMessage());
+        log.error("Error message is: " + exception.getMessage());
         List<ObjectError> allErrors = exception.getBindingResult().getAllErrors();
         String errorMsg = "Input Validation failure: ";
         for (ObjectError error : allErrors) {
@@ -40,7 +44,7 @@ public class AppExceptionHandler {
     @ExceptionHandler(ServiceException.class)
     public <T extends BaseResponse> ServiceResponse<T> handleException(ServiceException exception) {
         ServiceResponse<T> response = new ServiceResponse<T>();
-        //log.error("Error message is: " + exception.getMessage());
+        log.error("ServiceException: Error message is: " + exception);
         response.setException(exception);
         return response;
     }
@@ -49,7 +53,7 @@ public class AppExceptionHandler {
     public <T extends BaseResponse> ServiceResponse<T> handleException(RuntimeException exception) {
         ServiceResponse<T> response = new ServiceResponse<T>();
         ServiceException genericException = new ServiceException(exception.getMessage());
-        //log.error("Error message is: " + exception.getMessage());
+        log.error("RuntimeException: Error message is: " + exception);
         response.setException(genericException);
         return response;
     }

@@ -15,7 +15,6 @@ import javax.validation.ValidatorFactory;
 @SpringBootTest
 public class ValidationServiceTest {
 
-
     private static ValidationService service;
 
     @BeforeClass
@@ -26,15 +25,14 @@ public class ValidationServiceTest {
     @Test(expected = InvalidInputException.class)
     public void testCreateProfileRequest(){
         CreateProfileRequest request = new CreateProfileRequest();
-        request.setDoy("12345");
+        //request.setDoy("12345");
         request.setName("Assam");
-        request.setMobile("1234567890");
+        //request.setMobile("1234567890");
         service.validateRequest(request);
         /*try{
 
         } catch (Exception e){
             e.printStackTrace();
         }*/
-
     }
 }
