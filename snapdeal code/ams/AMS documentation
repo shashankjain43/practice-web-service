@@ -1,0 +1,23 @@
+AMS referred as Affiliate Management System designed to calculate and validate commission payouts for snapdeal affiliate parteners.
+
+HasOffers, a third party application/tool which is used by marketing team to manage snapdeal affiliates, generate the reports related to them and to store the payout status of the advertisers. This system has the facility to capture the details of affiliate transactions(orders placed by buyers on snapdeal.com via affiliate channel). HasOffers acts as a powerful affiliate network which is used by marketing team to analyse affiliate attribution. This is based on revenue share principle where each transaction done by customer is converted into affiliate commission.
+
+AMS system is responsible for calculating the commission on the order level. AMS fetches the order Id, amount, Transaction Id, date parameter, and status from HasOffers and applies snapdeal business rules as directed by the Marketing team to calculate the affiliate's commission. This calculated payout then updated back to the HasOffers through APIs provided by it.
+
+This system interacts with SQL to store the data.
+
+User visited the Affiliate site (coupondunia) and their user was redirected to Snapdeal site to buy a product. On successful payment, user lands to Thank you page.
+
+On backend, When ThankYou page is loaded , a Hasoffers pixel is fired which sends details like order id, sale amount, offerId and affiliateId to HasOffers system. 
+
+AMS system requests HasOffers Using getConversionStats API, to fetch the conversion report which records the payout, offer id and transaction id which is unique to each order captured on Hasoffers. AMS calculations include API calls to OMS, CAMS and Shipping systems for the required information. Commission is calculated on the bases of:
+-percentage mapping (category/supc wise)
+-shipping status of this suborder.
+
+AMS process each order for payout calculations and update it back to the HasOffers through updateConversionByTxnId API. The payout is calculated at suborder level.
+
+
+
+
+--------------------------------------------------------------
+AMS calculates the commission payout twice for each order, namely predicted and final payouts. Predicted payout is the calculated for fresh orders, placed a day before by ignoring the shipping status and represents the expected payout for the affiliates. Final payout is calculated for the orders placed 30 days ago and thus include the order shipping status and represents the final or actual payout to be given to affiliate. Thus a single order is executed twice to conclude the calculations. AMS fetchs the data to be executed, from the HasOffers system through getConversionStats API and start processing each order for payout calculation. It first calls the OMS system through getOrderByCode API and fetches order and suborder details. For each suborder contained in an order, CAMS and shipping systems are called through APIs getPOContentById and getShippingInfoForSuborder respectively. After applying all business rules to calculate commission, each order is updated back to HasOffers system by using updateConversionByTxnId API.
