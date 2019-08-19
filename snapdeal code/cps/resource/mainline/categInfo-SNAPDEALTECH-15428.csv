@@ -1,0 +1,572 @@
+5	Home & Kitchen	5	Home & Garden	false
+6	Fashion Jewellery	6	Apparel & Accessories > Jewelry	false
+7	TVs, Audio & Video	7	Electronics	false
+8	Perfumes	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+9	Appliances	9	Home & Garden > Household Appliances	false
+10	Collectible Toys	66	Toys & Games > Toys	false
+11	Cosmetics	586	Health & Beauty > Personal Care > Cosmetics	true
+12	Mobiles & Tablets	12	Electronics > Communications > Telephony	false
+15	Sunglasses	473	Apparel & Accessories > Clothing Accessories > Sunglasses	false
+16	Womens Handbags	474	Apparel & Accessories > Handbags, Wallets & Cases > Handbags	false
+17	Men's Apparel	17	Apparel & Accessories	false
+20	Hair Care	586	Health & Beauty > Personal Care > Hair Care	true
+21	Computers & Peripherals	21	Electronics > Computers	false
+23	Women's Apparel	23	Apparel & Accessories	false
+29	Mobile Accessories	12	Electronics > Communications > Telephony > Mobile Phone Accessories	false
+31	Fragrances	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+32	Bath & Body	586	Health & Beauty > Personal Care > Cosmetics > Bath & Body	true
+33	Health Devices	586	Health & Beauty > Health Care	false
+34	Skin Care	586	Health & Beauty > Personal Care > Cosmetics > Skin Care	true
+38	Luggage	474	Luggage & Bags	false
+48	Anklets, Toe-rings & More	6	Apparel & Accessories > Jewelry > Anklets	false
+49	Mens Jewellery	6	Apparel & Accessories > Jewelry	false
+52	Pen Drives	21	Electronics > Electronics Accessories > Memory > Flash Memory	false
+53	External Hard Disks	21	Electronics > Computers > Computer Components > Storage Devices > Hard Drives	false
+54	Memory Cards	21	Electronics > Electronics Accessories > Memory Accessories	false
+55	Desktops	21	Electronics > Computers > Desktop Computers	false
+56	Computer Components	21	Electronics > Computers > Computer Components	false
+57	Laptops	21	Electronics > Computers > Laptops	false
+58	Printers & Scanners	21	Electronics > Print, Copy, Scan & Fax	false
+59	Software	21	Software > Computer Software	false
+62	Portable Audio - Players / Docks	7	Electronics > Audio > Audio Players & Recorders	false
+63	Landline Phones	7	Electronics > Communications > Telephony	false
+64	Televisions	7	Electronics > Video > Televisions	false
+66	Infants, Kids & Toys	66	Toys & Games	false
+67	Education & Learning Toys	66	Toys & Games > Toys > Educational Toys	false
+68	Indoor Games & Puzzles	66	Toys & Games > Puzzles	false
+69	Baby Care	66	Baby & Toddler > Baby Health	false
+71	Kids Room Decor	66	Furniture > Baby & Toddler Furniture	false
+72	Outdoor Play	66	Toys & Games > Outdoor Play Equipment	false
+73	Soft Toys	66	Toys & Games > Toys	false
+85	Movies	516	Media > DVDs & Videos	false
+88	Bar & Glassware	5	Home & Garden > Kitchen & Dining > Barware	false
+89	Cookware & Bakeware	5	Home & Garden > Kitchen & Dining > Cookware & Bakeware	false
+93	Hardware & Fixtures	5	Hardware	false
+95	Home Cleaning	5	Home & Garden > Household Supplies > Household Cleaning Supplies	false
+96	Home Decor	217	Home & Garden > D??????cor	false
+107	Formal Wear	17	Apparel & Accessories > Clothing	false
+108	Casual Wear	17	Apparel & Accessories > Clothing	false
+109	Sports Wear	17	Apparel & Accessories > Clothing	false
+110	Ethnic Wear	17	Apparel & Accessories > Clothing	false
+111	Winter Wear	17	Apparel & Accessories > Clothing > Outerwear	false
+112	Inner Wear	17	Apparel & Accessories > Clothing > Underwear & Socks	false
+113	Night Wear	17	Apparel & Accessories > Clothing > Sleepwear & Loungewear	false
+114	Formal Wear	23	Apparel & Accessories > Clothing	false
+115	Casual Wear	23	Apparel & Accessories > Clothing	false
+116	Sports Wear	23	Apparel & Accessories > Clothing	false
+117	Ethnic Wear	23	Apparel & Accessories > Clothing	false
+118	Winter Wear	23	Apparel & Accessories > Clothing > Outerwear	false
+119	Inner Wear	23	Apparel & Accessories > Clothing > Underwear & Socks	false
+120	Night Wear	23	Apparel & Accessories > Clothing > Sleepwear & Loungewear	false
+121	Monitors	21	Electronics > Video > Computer Monitors	false
+122	Perfumes	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+129	Religion & Spirituality	217	Apparel & Accessories > Jewelry > Charms & Pendants	false
+132	Electronic Toys	66	Toys & Games > Toys > Electronic Toys	false
+133	Tablets	12	Electronics > Computers > Tablet Computers	false
+136	Deodorants	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+137	Gift sets	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+138	Air Freshners	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+140	Eyeglasses	473	Health & Beauty > Personal Care > Vision Care > Eyeglasses	false
+144	Shaving & Grooming	586	Health & Beauty > Personal Care > Shaving & Grooming	true
+150	Computer Accessories	21	Electronics > Computers > Computer Accessories	false
+151	Mouse	21	Electronics > Computers > Computer Components > Input Devices	false
+152	Keyboard	21	Electronics > Computers > Computer Components > Input Devices	false
+153	Speakers	21	Electronics > Audio > Audio Components > Speakers	false
+154	Headphones & Mics	21	Electronics > Audio > Audio Components > Headphones	false
+157	Contact Lens	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+158	Sexual Wellness	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+159	Sports & Fitness	159	Sporting Goods	false
+160	Outdoor Adventure Gear	159	Sporting Goods > Outdoor Recreation > Camping, Backpacking & Hiking	false
+161	Badminton	159	Sporting Goods > Racquet Sports > Badminton	false
+162	Basketball	159	Sporting Goods > Team Sports > Basketball	false
+163	Cricket	159	Sporting Goods > Team Sports > Cricket	false
+164	Tennis	159	Sporting Goods > Racquet Sports > Tennis	false
+165	Squash	159	Sporting Goods > Racquet Sports > Squash	false
+166	Golf	159	Sporting Goods > Outdoor Recreation > Golf	false
+167	Football	159	Sporting Goods > Team Sports > Football	false
+168	Swimming & Water Sports	159	Sporting Goods > Water Sports > Swimming	false
+169	Table Tennis	159	Sporting Goods > Racquet Sports > Tennis	false
+170	Other Sports	159	Sporting Goods	false
+171	Fitness Equipment	159	Sporting Goods > Exercise & Fitness	false
+172	Fitness Accessories	159	Sporting Goods > Exercise & Fitness	false
+175	Mobile Phones	12	Electronics > Communications > Telephony > Mobile Phones	false
+176	Sarees	23	Apparel & Accessories > Clothing > Dresses	false
+177	Suits & Lehangas	23	Apparel & Accessories > Clothing > Dresses	false
+178	Kurtis	23	Apparel & Accessories > Clothing > Dresses	false
+179	Dress Material	23	Apparel & Accessories > Clothing > Dresses	false
+180	Tops & Tshirts	23	Apparel & Accessories > Clothing > Shirts & Tops	false
+181	Trousers,Denims & Jeggings	23	Apparel & Accessories > Clothing > Pants	false
+182	Innerwear	23	Apparel & Accessories > Clothing > Underwear & Socks	true
+183	Dresses & Skirts	23	Apparel & Accessories > Clothing	false
+184	Nightwear	23	Apparel & Accessories > Clothing > Sleepwear & Loungewear	false
+185	Outerwear & Jackets	23	Apparel & Accessories > Clothing > Outerwear	false
+186	Sportswear	23	Apparel & Accessories > Clothing > Activewear	false
+187	Salwars & Churidhars	23	Apparel & Accessories > Clothing > Dresses	false
+188	Shorts, Capris & Tights	23	Apparel & Accessories > Clothing > Shorts	false
+189	Dupattas	23	Apparel & Accessories > Clothing > Dresses	false
+190	Burqas	23	Apparel & Accessories > Clothing > Dresses	false
+191	Shirts	17	Apparel & Accessories > Clothing > Shirts & Tops	false
+192	Trousers	17	Apparel & Accessories > Clothing > Pants	false
+193	T Shirts	17	Apparel & Accessories > Clothing > Shirts & Tops > T-Shirts	false
+194	Jeans	17	Apparel & Accessories > Clothing > Pants > Jeans	false
+195	Suits & Blazers	17	Apparel & Accessories > Clothing > Suits	false
+196	Innerwear	17	Apparel & Accessories > Clothing > Underwear & Socks	true
+197	Ethnicwear	17	Apparel & Accessories > Clothing > Dresses	false
+198	Sports Wear	17	Apparel & Accessories > Clothing > Activewear	false
+199	Nightwear	17	Apparel & Accessories > Clothing > Sleepwear & Loungewear	false
+200	Jackets	17	Apparel & Accessories > Clothing > Outerwear	false
+201	Shorts & Cargos	17	Apparel & Accessories > Clothing > Shorts	false
+203	Microwave Cooking	5	Home & Garden > Kitchen & Dining > Kitchen Appliance Accessories > Microwave Oven Accessories	false
+204	Cutting & Cooking Tools	5	Home & Garden > Kitchen & Dining > Kitchen Tools & Utensils	false
+205	Dining & Serving	5	Home & Garden > Kitchen & Dining > Tableware	false
+206	Tea & Coffee Serveware	5	Home & Garden > Kitchen & Dining > Tableware > Coffee & Tea Sets	false
+207	Kitchen Storage	5	Home & Garden > Kitchen & Dining > Food Storage	false
+208	Flasks & Tiffins	5	Home & Garden > Kitchen & Dining > Food & Beverage Carriers	false
+209	Bath Linen	475	Home & Garden > Linens & Bedding	false
+210	Bathroom Accessories	5	Home & Garden > Bathroom Accessories	false
+211	Bed Linen	475	Home & Garden > Linens & Bedding > Bedding	false
+212	Candles & Fragrances	217	Home & Garden > Decor > Candles	false
+213	Clocks	217	Home & Garden > Decor > Clocks	false
+214	Curtains & Blinds	475	Home & Garden > Decor > Window Treatments > Curtains & Drapes	false
+215	Plants & Gardening	217	Home & Garden > Lawn & Garden > Gardening	false
+216	Handicrafts	217	Home & Garden > Decor	false
+217	Home Decoratives	217	Home & Garden > Decor	false
+218	Lamps & Lighting	217	Home & Garden > Lighting	false
+220	Mats & Carpets	475	Home & Garden > Decor	false
+221	Table & Kitchen Linen	475	Home & Garden > Linens & Bedding	false
+222	Wall Decor	217	Home & Garden > Decor	false
+223	Oral Care	586	Health & Beauty > Personal Care > Oral Care	true
+225	Pet Supplies	5	Animals & Pet Supplies > Pet Supplies	false
+226	Men's Footwear	226	Apparel & Accessories > Shoes	false
+227	Women's Footwear	227	Apparel & Accessories > Shoes	false
+228	Memory Cards	12	Electronics > Electronics Accessories > Memory	false
+229	Personal Care Appliances	9	Health & Beauty > Personal Care	false
+230	Air Conditioner	9	Home & Garden > Household Appliances > Climate Control Appliances > Air Conditioners	false
+231	Air Purifier & Dishwashers	9	Home & Garden > Kitchen & Dining > Kitchen Appliances	false
+232	Chimney & Hoods	9	Home & Garden > Kitchen & Dining > Kitchen Appliances	false
+233	Choppers & Blenders	9	Home & Garden > Kitchen & Dining > Kitchen Tools & Utensils	false
+234	Coffee Maker & Kettles	9	Home & Garden > Kitchen & Dining > Kitchen Appliances	false
+236	Emergency Light & CFLs	9	Home & Garden > Lighting	false
+237	Fans & Air Coolers	9	Home & Garden > Household Appliances > Climate Control Appliances > Fans	false
+238	Food Processors	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Food Processors	false
+239	Gas Stoves & Hobs	9	Home & Garden > Kitchen & Dining > Kitchen Appliances	false
+240	Grills & Tandoor	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Electric Griddles & Grills	false
+241	Induction Cookers	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Cooktops	false
+242	Iron	9	Home & Garden > Household Appliances > Laundry Appliances > Irons	false
+243	Juicer Mixer Grinders	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Food Grinders & Mills	false
+244	Microwave Ovens & OTGs	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Microwave Ovens	false
+245	Refrigerator	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Refrigerators	false
+246	Cookers & Steamers	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Food Cookers & Steamers	false
+247	Toasters & Sandwich maker	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Toasters & Grills	false
+248	Roti maker & Snack maker	9	Home & Garden > Kitchen & Dining > Kitchen Appliances	false
+249	Vacuum Cleaners	9	Home & Garden > Household Appliances > Vacuums	false
+250	Washing Machines & Dryers	9	Home & Garden > Household Appliances > Laundry Appliances > Washing Machines	false
+252	Water Purifiers	9	Home & Garden > Kitchen & Dining > Kitchen Appliances > Water Filters	false
+253	Formal Shoes	226	Apparel & Accessories > Shoes	false
+254	Casual Shoes	226	Apparel & Accessories > Shoes	false
+255	Sports Shoes	226	Apparel & Accessories > Shoes > Athletic Shoes & Sneakers	false
+256	Sandals	226	Apparel & Accessories > Shoes > Sandals	false
+257	Slippers & Flip Flops	226	Apparel & Accessories > Shoes > Slippers	false
+258	Casual Shoes	227	Apparel & Accessories > Shoes	false
+259	Sports Shoes	227	Apparel & Accessories > Shoes > Athletic Shoes & Sneakers	false
+261	Slippers & Flip Flops	227	Apparel & Accessories > Shoes > Slippers	false
+262	Ballerinas	227	Apparel & Accessories > Shoes > Espadrilles	false
+263	Ethnic	227	Apparel & Accessories > Shoes > Sandals	false
+264	Flat Slip-on & Sandal	227	Apparel & Accessories > Shoes > Flats	false
+265	Boots	227	Apparel & Accessories > Shoes > Boots	false
+266	Sanitary Napkins	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+267	Geysers & Heating Appliances	9	Home & Garden > Household Appliances > Water Heaters	false
+268	Party Decoratives	5	Arts & Entertainment > Party & Celebration > Party Supplies	false
+280	Bicycles & Accessories	159	Sporting Goods > Outdoor Recreation > Cycling	false
+282	Webcams	21	Cameras & Optics > Cameras > Webcams	false
+283	Internal Hard Drives	21	Electronics > Computers > Computer Components > Storage Devices > Hard Drives > Solid State Drives	false
+285	Cooling Pads/Laptop Tables	21	Electronics > Computers > Computer Components > Computer System Cooling	false
+286	Routers & Modems	21	Electronics > Networking	false
+288	Headphones & Earphones	7	Electronics > Audio > Audio Components > Headphones	false
+290	Cameras & Accessories	290	Cameras & Optics > Cameras	false
+291	Digital Cameras	290	Cameras & Optics > Cameras > Digital Cameras	false
+292	Digital SLRs	290	Cameras & Optics > Cameras > Digital Cameras > Digital SLRs	false
+293	Camcorders	290	Cameras & Optics > Cameras > Video Cameras	false
+294	Digital Photo Frames	290	Home & Garden > Decor > Picture Frames > Digital Picture Frames 	false
+295	Binoculars & Telescopes	290	Cameras & Optics > Optics	false
+296	Camera Accessories	290	Cameras & Optics > Camera & Optic Accessories > Camera Accessories	false
+297	Nutrition	586	Health & Beauty > Health Care	false
+298	Supports & Rehabilitation	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+299	Clinical Supplies	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+300	Wallets	481	Apparel & Accessories > Handbags, Wallets & Cases	false
+304	Memory Cards	290	Electronics > Electronics Accessories > Memory Accessories	false
+305	Graphic Cards	21	Electronics > Computers > Computer Components > I/O Cards & Adapters	false
+306	Feminine Care	586	Health & Beauty > Personal Care > Cosmetics	true
+307	Boxing	159	Sporting Goods > Combat Sports > Boxing	false
+308	Hockey	159	Sporting Goods > Team Sports > Hockey	false
+309	Leisure Sports	159	Sporting Goods > Indoor Games	false
+310	Automotive	310	Vehicles & Parts > Vehicle Parts & Accessories	false
+311	Car Audio & Video	310	Vehicles & Parts > Vehicle Parts & Accessories > Car Audio & Video	false
+312	Car Care	310	Vehicles & Parts > Vehicle Parts & Accessories > Motor Vehicle Care	false
+313	Car Interior & Accessories	310	Vehicles & Parts > Vehicle Parts & Accessories > Motor Vehicle Interior	false
+314	Car Exterior	310	Vehicles & Parts > Vehicle Parts & Accessories > Motor Vehicle Interior	false
+315	Car Fresheners	310	Vehicles & Parts > Vehicle Parts & Accessories > Motor Vehicle Care	false
+316	Car GPS & Navigation	310	Electronics > GPS > Automotive GPS	false
+317	Biker Gear & Accessories	310	Vehicles & Parts > Vehicle Parts & Accessories > Motorcycle Accessories	false
+318	Health & Nutrition	318	Health & Beauty > Health Care	false
+319	Contact Lenses	318	Health & Beauty > Personal Care > Vision Care > Contact Lenses	false
+321	Health Devices	318	Health & Beauty > Health Care	true
+322	Nutrition & Supplements	318	Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements	false
+323	Supports & Rehabilitation	318	Health & Beauty > Health Care > Mobility & Accessibility	false
+324	Sexual Wellness	318	Health & Beauty > Health Care > Contraceptives	true
+325	Home Security	9	Home & Garden > Home Security	false
+326	Laptop Batteries	21	Electronics > Electronics Accessories > Power > Batteries > Laptop Batteries	false
+327	Adapters	21	Electronics > Computers > Computer Accessories > Laptop Accessories	false
+328	Belts	481	Apparel & Accessories > Clothing Accessories > Belts	false
+334	Data Cards	21	Electronics > Communications > Telephony	false
+335	Car Wheels & Alloys	310	Vehicles & Parts > Vehicle Parts & Accessories > Motor Vehicle Parts > Motor Vehicle Wheel Systems	false
+336	Tablet Accessories	12	Electronics > Computers > Computer Accessories > Tablet Computer Accessories	false
+337	Cushions & Covers	475	Home & Garden > Decor > Chair & Sofa Cushions	false
+339	Ayurveda & Organic Products	318	Health & Beauty > Health Care	false
+341	Earrings	6	Apparel & Accessories > Jewelry > Earrings	false
+342	Rings	6	Apparel & Accessories > Jewelry > Rings	false
+343	Pendant & Sets	6	Apparel & Accessories > Jewelry > Charms & Pendants	false
+344	Necklaces & Sets	6	Apparel & Accessories > Jewelry > Necklaces	false
+345	Mangalsutra	6	Apparel & Accessories > Jewelry	false
+346	Bangles & Bracelets	6	Apparel & Accessories > Jewelry > Bracelets	false
+347	Nosepins	6	Apparel & Accessories > Jewelry	false
+348	Chains	6	Apparel & Accessories > Jewelry	false
+349	Gold Coins & Bars	6	Apparel & Accessories > Jewelry	false
+350	Loose Solitaires & Gems	6	Apparel & Accessories > Jewelry > Loose Stones	false
+351	Idols & Articles	6	Apparel & Accessories > Jewelry	false
+352	Gifting Ideas & Hampers	6	Apparel & Accessories > Jewelry	false
+353	Jewellery Boxes & Cleaning Kits	6	Health & Beauty > Jewelry Cleaning & Care >	false
+354	Kids Jewellery	6	Apparel & Accessories > Jewelry	false
+355	Dolls & Doll Houses	66	Toys & Games > Toys > Dolls, Playsets & Toy Figures	false
+356	Baby Toys & Accessories	66	Toys & Games > Toys	false
+357	Trackpants & Tracksuits	17	Apparel & Accessories > Clothing > Activewear > Active Dresses	false
+358	Sweatshirts	17	Apparel & Accessories > Clothing > Shirts & Tops > Sweatshirts	false
+359	Sweaters	17	Apparel & Accessories > Clothing > Shirts & Tops > Sweaters & Cardigans	false
+360	School Uniforms	66	Apparel & Accessories > Clothing > Uniforms > School Uniforms	false
+361	Prams & Strollers	66	Baby & Toddler > Baby Transport	false
+362	Plus Sizes	17	Apparel & Accessories > Clothing	false
+363	Stoles & Scarves	481	Apparel & Accessories > Clothing Accessories > Scarves & Shawls	false
+364	Books	364	Media > Books	false
+365	Literature and Fiction	364	Media > Books > Fiction >	false
+366	Academic and Professional	364	Media > Books > Non-Fiction > Education Books	false
+367	Arts	364	Media > Books > Non-Fiction > Art Books	false
+368	Award Winners	364	Media > Books > Non-Fiction > Award Winners	false
+370	Other Books	364	Media > Books > Non-Fiction >	false
+371	Business	364	Media > Books > Non-Fiction > Business & Economics Books	false
+372	Children and Young Adults	364	Media > Books > Fiction > Children's Books	false
+373	Coffee Table	364	Media > Books > Non-Fiction > Coffee Table Books	false
+374	Comics and Graphic Novels	364	Media > Books > Fiction > Comics	false
+375	Competitive Exams	364	Media > Books > Non-Fiction > Education Books	false
+376	Computers and Internet	364	Media > Books > Non-Fiction > Computer Books	false
+377	Cooking	364	Media > Books > Non-Fiction > Cooking Books	false
+378	Crafts and Hobbies	364	Media > Books > Non-Fiction > Craft, Hobby & Activity Books	false
+379	Family and Relationships	364	Media > Books > Non-Fiction > Family Relationship Books	true
+380	Health and Fitness	364	Media > Books > Non-Fiction > Health & Fitness Books	true
+381	History and Politics	364	Media > Books > Non-Fiction > History Books	false
+382	Nature and Outdoors	364	Media > Books > Non-Fiction > Travel Books	false
+383	Music	364	Media > Books > Non-Fiction > Music Books	false
+384	Philosophy	364	Media > Books > Non-Fiction > Philosophy Books	false
+385	Reference	364	Media > Books > Non-Fiction > Reference Books	false
+386	Religion and Spirituality	364	Media > Books > Non-Fiction > Religion Books	false
+387	Science and Technology	364	Media > Books > Non-Fiction > Science Books	false
+388	Self-Help	364	Media > Books > Non-Fiction > Self Help Books	false
+389	Sports and Games	364	Media > Books > Non-Fiction > Sports Books	false
+390	Travel	364	Media > Books > Non-Fiction > Travel Books	false
+391	Boots	226	Apparel & Accessories > Shoes > Boots	false
+392	Ethnic	226	Apparel & Accessories > Shoes > Sandals	false
+393	Floater Sandals	226	Apparel & Accessories > Shoes > Loafers & Slip-Ons	false
+394	Heeled Slip-on & Pump	227	Apparel & Accessories > Shoes > Dress Shoes	false
+395	Heeled Sandals	227	Apparel & Accessories > Shoes > Dress Shoes	false
+396	Floater Sandal	227	Apparel & Accessories > Shoes > Loafers & Slip-Ons	false
+397	Formal Shoes	227	Apparel & Accessories > Shoes	false
+398	Biographies and Autobiographies	364	Media > Books > Non-Fiction > Biographies	false
+399	Cufflinks	481	Apparel & Accessories > Clothing Accessories > Cufflinks	false
+400	Necktie	481	Apparel & Accessories > Clothing Accessories > Neckties	false
+401	Gift Sets	481	Apparel & Accessories > Clothing Accessories	false
+402	Backpacks	474	Luggage & Bags > Backpacks	false
+404	Chocolates  & Cookies	403	Food, Beverages & Tobacco > Food Items	false
+405	Gift Packs	403	Arts & Entertainment > Party & Celebration > Gift Giving	false
+416	Salwar Suits	23	Apparel & Accessories > Clothing > Dresses	false
+417	Lehengas	23	Apparel & Accessories > Clothing > Dresses	false
+418	Bean Bags	217	Furniture > Chairs > Bean Bag Chairs	false
+419	Cardigans & Pullovers	23	Apparel & Accessories > Clothing > Shirts & Tops > Sweaters & Cardigans	false
+420	Sweatshirts	23	Apparel & Accessories > Clothing > Shirts & Tops > Sweaters & Cardigans	false
+421	Tees & Polos	23	Apparel & Accessories > Clothing > Shirts & Tops > Polo Shirts	false
+422	Shirts & Blouses	23	Apparel & Accessories > Clothing > Shirts & Tops	false
+423	Trackpants & Track Suits	23	Apparel & Accessories > Clothing > Activewear > Active Dresses	false
+424	Plus & Maternity	23	Apparel & Accessories > Clothing	false
+425	Tanks & Spaghettis	23	Apparel & Accessories > Clothing > Shirts & Tops > Camisoles & Tank Tops	false
+426	Swimwear	23	Apparel & Accessories > Clothing > Swimwear	false
+427	Beach Dresses, Sarongs & more	23	Apparel & Accessories > Clothing > Dresses	true
+428	Car Service & Repair	310	Vehicles & Parts > Vehicle Parts & Accessories	false
+429	Diapers & Potty Training	66	Baby & Toddler > Potty Training	false
+430	Baby Feeding	66	Baby & Toddler > Nursing & Feeding	true
+431	Baby Bedding	66	Baby & Toddler	false
+432	DTH & Accessories	7	Electronics > Electronics Accessories > Antennas > TV Antennas	false
+433	Vitamins & Minerals	318	Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements	true
+434	Laptop Bags	474	Luggage & Bags > Business Bags > Electronics Bags & Cases > Laptop Bags & Cases	false
+435	Travel Accessories	474	Luggage & Bags > Luggage Accessories	false
+436	School Bags	474	Luggage & Bags > Backpacks	false
+437	Outdoor & Adventure Bags	474	Luggage & Bags	false
+438	Travel Bags	474	Luggage & Bags	false
+455	Socks	481	Apparel & Accessories > Clothing > Underwear & Socks > Socks	false
+456	Inverters & Stabilizers	9	Electronics > Electronics Accessories > Power > Power Adapters	false
+458	Loafers	226	Apparel & Accessories > Shoes > Loafers & Slip-Ons	false
+459	Activity Sets	66	Toys & Games > Toys > Activity Toys	false
+460	Action Games & Figures	66	Toys & Games > Toys > Dolls, Playsets & Toy Figures	false
+461	Stationery & Office Supplies	461	Office Supplies > General Supplies	false
+462	Pens & Markers	461	Office Supplies > Office Instruments > Writing & Drawing Instruments > Pens & Pencils	false
+463	Stationery	461	Office Supplies > General Supplies	false
+464	Office Supplies & Machines	461	Office Supplies > General Supplies	false
+465	Art & Craft Supplies	461	Arts & Entertainment > Hobbies & Creative Arts	false
+466	Posters & Gifts	461	Arts & Entertainment > Hobbies & Creative Arts > Artwork > Posters	false
+467	Bulk Discount	461	Office Supplies > General Supplies	false
+468	Imported Appliances	9	Home & Garden > Household Appliances	false
+470	Polo T Shirts	17	Apparel & Accessories > Clothing > Shirts & Tops > Polo Shirts	false
+471	Car Performance & Racing	310	Sporting Goods > Outdoor Recreation > Motorsports > Auto Racing	false
+472	Speciality Footwear	226	Apparel & Accessories > Shoes	false
+473	Eyewear	473	Health & Beauty > Personal Care > Vision Care	false
+474	Bags & Luggage	474	Luggage & Bags	false
+475	Home Furnishing	475	Home & Garden > D??????cor	false
+476	Watches	476	Apparel & Accessories > Jewelry > Watches	false
+477	Men's Watches	476	Apparel & Accessories > Jewelry > Watches	false
+478	Women's Watches	476	Apparel & Accessories > Jewelry > Watches	false
+479	Kids Watches	476	Apparel & Accessories > Jewelry > Watches	false
+480	Couple Watches	476	Apparel & Accessories > Jewelry > Watches	false
+481	Fashion Accessories	481	Apparel & Accessories > Clothing Accessories	false
+482	Mufflers	481	Apparel & Accessories > Clothing Accessories > Earmuffs	false
+483	Handkerchiefs	481	Apparel & Accessories > Clothing Accessories > Handkerchiefs	false
+484	Cravats	481	Apparel & Accessories > Clothing Accessories	false
+485	Headwraps	481	Apparel & Accessories > Clothing Accessories > Headwear	false
+486	Umbrella	481	Home & Garden > Parasols & Rain Umbrellas	false
+487	Mobile Pouches	481	Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases	false
+488	Hats & Caps	481	Apparel & Accessories > Clothing Accessories > Hats	false
+489	Suspenders	481	Apparel & Accessories > Clothing Accessories > Suspenders	false
+490	Pocket Squares	481	Apparel & Accessories > Clothing Accessories	false
+491	Key Chains	481	Apparel & Accessories > Handbag & Wallet Accessories > Keychains	false
+492	Magazines	364	Media > Books > Non-Fiction > Magazines & Newspapers	false
+493	Kids Footwear	493	Apparel & Accessories > Shoes	false
+494	Boys Footwear	493	Apparel & Accessories > Shoes	false
+495	Girls Footwear	493	Apparel & Accessories > Shoes	false
+496	Infants Footwear	493	Apparel & Accessories > Shoes	false
+497	Cycling	159	Sporting Goods > Outdoor Recreation > Cycling	false
+498	Volleyball & Other Ball Sports	159	Sporting Goods	false
+499	Roller Skates	159	Sporting Goods > Outdoor Recreation > Skating	false
+500	Billiards & Pool	159	Sporting Goods > Indoor Games > Billiards	false
+501	Chess, Carrom & Darts	159	Sporting Goods > Indoor Games	false
+502	Musical Instruments	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments	false
+503	Guitars & Accessories	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > String Instruments > Guitars	false
+504	Harmonicas	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > Woodwinds > Harmonicas	false
+505	Keyboard, Piano & Synthesizer	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments	false
+506	Indian Instruments	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments	false
+507	Drums & Percussions	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > Percussion	false
+508	Saxophone, Violin & Flute	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > Woodwinds	false
+509	Amplifier, Recorder & Mixer	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments	false
+510	Other Musical Instruments	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments	false
+511	Combos for Bulk Buy	310	Vehicles & Parts > Vehicle Parts & Accessories	false
+513	Party Supplies	66	Arts & Entertainment > Party & Celebration	true
+514	Outdoor & Utility Appliances	9	Home & Garden > Household Appliances	false
+515	Combos for Bulk Buy	318	Health & Beauty > Health Care	true
+516	Movies & Music	516	Media > DVDs & Videos	false
+517	Hollywood Movies	516	Media > DVDs & Videos	true
+518	Bollywood Movies	516	Media > DVDs & Videos	true
+519	World Cinema	516	Media > DVDs & Videos	true
+520	Regional Movies	516	Media > DVDs & Videos	true
+521	TV Shows	516	Media > DVDs & Videos	true
+522	International Music	516	Media > Music	true
+523	Indian Music	516	Media > Music	true
+524	Boys Clothing	524	Apparel & Accessories > Clothing	false
+525	Ethnicwear	524	Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing	false
+526	T-Shirts	524	Apparel & Accessories > Clothing > Shirts & Tops > T-Shirts	false
+527	Shirts	524	Apparel & Accessories > Clothing > Shirts & Tops	false
+528	Shorts & Bermudas	524	Apparel & Accessories > Clothing > Shorts	false
+529	Capris, Cargos & Dungarees	524	Apparel & Accessories > Clothing > Shorts	false
+530	Jeans & Pants	524	Apparel & Accessories > Clothing > Pants	false
+531	Trousers	524	Apparel & Accessories > Clothing > Pants	false
+532	Sets	524	Apparel & Accessories > Clothing	false
+533	Jumpsuits	524	Apparel & Accessories > Clothing > One-pieces > Jumpsuits & Rompers	false
+534	Trackpants	524	Apparel & Accessories > Clothing > Pants	false
+535	Night Wear	524	Apparel & Accessories > Clothing > Sleepwear & Loungewear	false
+536	School Uniforms	524	Apparel & Accessories > Clothing > Uniforms	false
+537	Winterwear	524	Apparel & Accessories > Clothing > Outerwear > Coats & Jackets	false
+538	Fashion Accessories	524	Apparel & Accessories > Clothing Accessories	false
+539	Girls Clothing	539	Apparel & Accessories > Clothing	false
+540	Ethnicwear	539	Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing	false
+541	Frocks & Dresses	539	Apparel & Accessories > Clothing > Dresses	false
+542	Dresses	539	Apparel & Accessories > Clothing > Dresses	false
+543	Tops & Tees	539	Apparel & Accessories > Clothing > Shirts & Tops	false
+544	Skirts	539	Apparel & Accessories > Clothing > Skirts	false
+545	Leggings & Pyjamas	539	Apparel & Accessories > Clothing > Pants > Leggings	false
+546	Jumpsuits	539	Apparel & Accessories > Clothing > One-pieces > Jumpsuits & Rompers	false
+547	Winterwear	539	Apparel & Accessories > Clothing	false
+548	Night Wear & Innerwear	539	Apparel & Accessories > Clothing	false
+549	Denims	539	Apparel & Accessories > Clothing > Pants > Jeans	false
+550	Trousers & Trackpants	539	Apparel & Accessories > Clothing > Pants	false
+551	Capris, Cargos & Dungarees	539	Apparel & Accessories > Clothing > Shorts	false
+552	Shorts & Bermudas	539	Apparel & Accessories > Clothing > Shorts	false
+553	Sets	539	Apparel & Accessories > Clothing	false
+554	School Uniforms	539	Apparel & Accessories > Clothing > Uniforms	false
+555	Fashion Accessories	539	Apparel & Accessories > Clothing Accessories	false
+556	Shirts & Blouses	539	Apparel & Accessories > Clothing > Shirts & Tops	false
+557	Infant Wear	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing	false
+558	Frocks, Dresses & Skirts	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby & Toddler Dresses	false
+560	Tops for Boys	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby & Toddler Tops	false
+562	Body Suit For Boys	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby Onesies	false
+563	Frocks	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby & Toddler Dresses	false
+564	Rompers & Body Suits	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby Onesies	false
+565	Baby Sets & Gift Sets	557	Baby & Toddler > Baby & Toddler Gift Sets	false
+566	Bibs & Hankies	557	Baby & Toddler > Nursing & Feeding > Bibs	false
+567	Mittens & Socks	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing	false
+569	Baby Towels	557	Baby & Toddler > Baby Bathing	false
+570	Solar Appliances	9	Hardware > Renewable Energy > Solar Energy > Solar Energy Kits	false
+571	Body Studs	6	Apparel & Accessories > Jewelry	false
+572	Utility Bags	474	Luggage & Bags > Business Bags	false
+573	Clutches	474	Apparel & Accessories > Handbags, Wallets & Cases > Handbags > Clutches & Special Occasion Bags	false
+574	Value Added Services	12	Electronics > Communications > Telephony	false
+575	Gaming	575	Arts & Entertainment > Hobbies & Creative Arts	false
+576	Gaming Consoles	575	Electronics > Video Game Consoles	false
+577	Gaming Accessories	575	Electronics > Video Game Console Accessories	false
+578	Gaming Titles	575	Software > Video Game Software	false
+579	Mattresses	475	Furniture > Beds & Accessories > Mattresses	false
+580	Furniture	580	Furniture	false
+581	Living	580	Furniture > Sofas	false
+582	Bedroom	580	Furniture > Beds & Accessories	false
+583	Dining/Coffee Table	580	Furniture > Tables	false
+584	Storage & Shelves	580	Furniture > Cabinets & Storage	false
+585	Office & Study	580	Furniture	false
+586	Beauty & Personal Care	586	Health & Beauty > Personal Care	true
+587	Body Mists	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+588	Beauty Accessories	586	Health & Beauty > Personal Care > Cosmetics	true
+589	Beauty Gift Sets	586	Health & Beauty > Personal Care > Cosmetics	true
+590	Cars & Bikes	310	Vehicles & Parts > Vehicle Parts & Accessories	false
+591	Imported Toys	66	Toys & Games > Toys	false
+592	Smart Watches	476	Apparel & Accessories > Jewelry > Watches	false
+593	Watch Accessories	476	Apparel & Accessories > Jewelry > Watches	false
+594	Power Eyeglasses	473	Health & Beauty > Personal Care > Vision Care > Eyeglasses	false
+595	Diabetic Care	318	Health & Beauty > Health Care > Diabetes Care	true
+596	Imported Products	318	Health & Beauty > Health Care	true
+597	Health Foods	318	Health & Beauty > Health Care > Fitness & Nutrition	true
+598	Card Holders	481	Apparel & Accessories > Handbags, Wallets & Cases > Business Card Cases	false
+599	Stockings	481	Apparel & Accessories > Clothing > Underwear & Socks > Socks	false
+600	Bath & Sanitaryware	5	Home & Garden > Bathroom Accessories	false
+601	School Supplies	461	Office Supplies > General Supplies	false
+602	Flowers	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+603	Pet Food	403	Animals & Pet Supplies > Pet Supplies	false
+604	Cakes	643	Food, Beverages & Tobacco > Food Items > Bakery > Cakes	false
+605	Gifts & Craft Supplies	475	Home & Garden > Decor	false
+606	Fabrics	475	Arts & Entertainment > Hobbies & Creative Arts > Crafts & Hobbies > Fibercraft & Textile Arts > Textile Art Materials > Fabric	false
+607	Blankets & Quilts	475	Home & Garden > Linens & Bedding > Bedding > Blankets	false
+608	Imported Fragrances	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+609	T-Shirts & Tops	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby & Toddler Tops	false
+610	Bottomwear	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing > Baby & Toddler Bottoms	false
+611	Ethnic Wear	557	Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing	false
+612	Winter Wear	557	Apparel & Accessories > Clothing > Baby & Toddler Clothing	false
+613	Shorts, Capris & Dungarees	524	Apparel & Accessories > Clothing > Shorts	false
+614		364	Media > Books > Non-Fiction > Education Books	false
+615	Camera Lenses	290	Cameras & Optics > Camera & Optic Accessories > Camera & Optic Lenses > Camera Lenses	false
+616	Tables	580	Furniture > Tables	false
+617	Storage Cabinets	580	Furniture > Cabinets & Storage	false
+618	Shelves	580	Furniture > Shelving	false
+619	Chairs	580	Furniture > Chairs	false
+620	Outdoor & Garden Furniture	580	Furniture > Outdoor Furniture	false
+621	Bottomwear	539	Apparel & Accessories > Clothing > Pants	false
+623	Drums & Precussions	502	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments > Percussion	false
+625	Calculators	461	Office Supplies > Office Equipment > Calculators	false
+626	Personalized Products	461	Office Supplies > General Supplies	false
+627	MP3 & Media Players	7	Electronics > Audio > Audio Players & Recorders > MP3 Players	false
+628	Video Players	7	Electronics > Video > Video Players & Recorders	false
+629	Projectors	7	Electronics > Video > Projectors	false
+630	Home Theatre Systems	7	Electronics > Audio > Audio Players & Recorders > Home Theater Systems	false
+631	Speakers	7	Electronics > Audio > Audio Components > Speakers	false
+632	Stereo Components	7	Electronics > Audio > Audio Components	false
+633	Portable Audio Players	7	Electronics > Audio > Audio Players & Recorders > Stereo Systems	false
+634	DJ & Karaoke	7	Electronics > Audio > DJ & Specialty Audio	false
+635	Audio & Video Accessories	7	Electronics > Electronics Accessories	false
+637	Rain Wear	23	Apparel & Accessories > Clothing	false
+638	Catering Equipment	5	Home & Garden > Kitchen & Dining > Kitchen Tools & Utensils	false
+640	Kitchen	475	Home & Garden > Kitchen & Dining	false
+641	Imported Movie Titles	516	Media > DVDs & Videos	true
+642	Imported Music Titles	516	Media > Music	true
+643	Gifting & Events	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+644	Gift For Her	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+645	Gift For Him	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+646	Gift For Kids	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+647	Gifts for Family	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+648	Gift Vouchers	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+649	Souvenirs & Antiques	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+650	Corporate Gifts	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+651	Greeting Cards	643	Arts & Entertainment > Party & Celebration > Gift Giving > Greeting Cards	false
+652	Dry Fruits & Chocolates	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+653	Event Essentials	643	Arts & Entertainment > Party & Celebration > Gift Giving	false
+654	Flags	481	Home & Garden > D??????cor > Flags & Windsocks	false
+655	Lighters	481	Home & Garden > Smoking Accessories > Lighters	false
+656	Hunters	481	Apparel & Accessories	false
+657	Shawls	481	Apparel & Accessories > Clothing Accessories > Scarves & Shawls	false
+658	Precious Jewellery	658	Apparel & Accessories > Jewelry	false
+659	Rings	658	Apparel & Accessories > Jewelry > Rings	false
+660	Earrings	658	Apparel & Accessories > Jewelry > Earrings	false
+661	Pendants	658	Apparel & Accessories > Jewelry > Charms & Pendants	false
+662	Coins & Bars	658	Apparel & Accessories > Jewelry	false
+663	Mangalsutra	658	Apparel & Accessories > Jewelry	false
+664	Chains	658	Apparel & Accessories > Jewelry	false
+665	Nosepins & Noserings	658	Apparel & Accessories > Jewelry	false
+666	Mens Jewellery	658	Apparel & Accessories > Jewelry	false
+667	Bangles & Bracelets	658	Apparel & Accessories > Jewelry > Bracelets	false
+668	Necklaces & Sets	658	Apparel & Accessories > Jewelry > Necklaces	false
+669	Loose Diamonds	658	Apparel & Accessories > Jewelry > Loose Stones	false
+670	Loose Gemstones	658	Apparel & Accessories > Jewelry > Loose Stones	false
+671	Precious Gifts & Articles	658	Apparel & Accessories > Jewelry	false
+672	Anklets & Toe-rings	658	Apparel & Accessories > Jewelry	false
+673	Kids Jewellery	658	Apparel & Accessories > Jewelry	false
+674	Wedding Accessories	658	Apparel & Accessories > Jewelry	false
+675	Bluetooth Devices	12	Electronics > Audio > Audio Components > Audio Transmitters > Bluetooth Transmitters	false
+676	Cases & Covers	12	Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Cases	false
+677	Screen Guards	12	Electronics > Electronics Accessories > Electronics Films & Shields > Screen Protectors	false
+678	Batteries	12	Electronics > Electronics Accessories > Power > Batteries > Mobile Phone Batteries	false
+679	Power Banks	12	Electronics > Electronics Accessories > Power > Batteries > Mobile Phone Batteries	false
+680	Value Added Services	290	Cameras & Optics > Cameras	false
+681	Gaming Imports	575	Electronics	false
+682	Hobbies	682	Arts & Entertainment > Hobbies & Creative Arts	false
+683	Remote Control Models	682	Arts & Entertainment > Hobbies & Creative Arts	false
+684	Crafts & Hobbies	682	Arts & Entertainment > Hobbies & Creative Arts > Artwork	false
+685	Art & Hobbies	682	Arts & Entertainment > Hobbies & Creative Arts	false
+686	Science Kits	682	Arts & Entertainment > Hobbies & Creative Arts	false
+687	Antiques & Collectibles	682	Arts & Entertainment > Hobbies & Creative Arts > Collectibles	false
+688	Outdoor Hobbies	682	Arts & Entertainment > Hobbies & Creative Arts	false
+689	Indoor Games & Hobbies	682	Arts & Entertainment > Hobbies & Creative Arts	false
+690	Party Supplies	682	Arts & Entertainment > Hobbies & Creative Arts	false
+691	Women's Ethnic Wear	691	Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing	false
+692	Blouses and Petticoats	691	Apparels & Accessories > Clothing	false
+693	Alternative Therapies	318	Health & Beauty > Health Care	true
+694	Kitchen & Bathroom Fittings	694	Hardware > Plumbing > Plumbing Fixtures	false
+695	Faucets	694	Hardware > Plumbing > Plumbing Fixtures > Faucets	false
+696	Showers	694	Hardware > Plumbing > Plumbing Fixtures > Shower	false
+697	Sanitaryware	694	Hardware > Plumbing > Plumbing Fixtures > Toilets & Bidets	false
+698	Board Games	66	Toys & Games > Games > Board Games	false
+699	Puzzles	66	Toys & Games > Puzzles	false
+700	Bicycles & Tricycles	66	Sporting Goods > Outdoor Recreation > Cycling	false
+701	Scooters & Skates	66	Sporting Goods > Outdoor Recreation	false
+702	Ride-On Toys	66	Toys & Games > Outdoor Play Equipment	false
+703	RAM	21	Electronics > Electronics Accessories > Memory > RAM	false
+704	Processor	21	Electronics > Computers > Computer Components > Computer Processors	false
+705	Value Added Services	21	Electronics > Computers	false
+706	Photography	682	Arts & Entertainment > Hobbies & Creative Arts	false
+707	Musical Instruments	682	Arts & Entertainment > Hobbies & Creative Arts > Musical Instruments	false
+708	Gaming	682	Arts & Entertainment > Hobbies & Creative Arts	false
+709	Pharmacy	318	Health & Beauty > Health Care	true
+710	Crockery	5	Home & Garden > Kitchen & Dining > Tableware > Serveware	false
+711	Diwali Gifting	217	Home & Garden > Decor	false
+712	Zero Power Glasses	473	Health & Beauty > Personal Care > Vision Care > Eyeglasses	false
+713	Reading Glasses	473	Health & Beauty > Personal Care > Vision Care > Eyeglasses	false
+714	Hair Accessories	481	Apparel & Accessories > Clothing Accessories > Hair Accessories	false
+715	Baby Care	715	Baby & Toddler > Baby Health	false
+716	Imported Products	715	Baby & Toddler	false
+717	Baby Gear & Safety	715	Baby & Toddler > Baby Safety	false
+718	Moms & Maternity	715	Baby & Toddler > Nursing & Feeding	false
+719	Gifting & Super Savers	715	Baby & Toddler > Baby & Toddler Gift Sets	false
+720	Kids Decor	720	Home & Garden > Decor	false
+721	Kids Bedding	720	Furniture > Baby & Toddler Furniture > Baby & Toddler Furniture Sets	false
+722	Kids Bath	720	Baby & Toddler > Baby Bathing	false
+723	Kids Living	720	Baby & Toddler	false
+728	Men's Perfume	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false
+729	Women's Perfume	31	Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne	false

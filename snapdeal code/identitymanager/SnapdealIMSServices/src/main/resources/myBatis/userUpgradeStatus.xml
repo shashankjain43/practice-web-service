@@ -1,0 +1,120 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.migration.dbmapper.UpgradeUserStatusMapper">
+
+	<resultMap id="userUpgradeResult"
+		type="com.snapdeal.ims.migration.model.entity.UpgradeStatus">
+		<result property="id" column="id" />
+		<result property="email" column="email" />
+		<result property="initialState" column="initial_state"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.State"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStateTypeHandler" />
+		<result property="currentState" column="current_state"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.State"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStateTypeHandler" />
+		<result property="upgradeStatus" column="upgrade_status"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.Upgrade"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStatusTypeHandler" />
+		<result property="userId" column="user_id" />
+		<result property="fcId" column="fc_id" />
+		<result property="sdId" column="sd_id" />
+		<result property="dontUpgrade" column="dont_upgrade" />
+		<result property="upgradeChannel" column="upgrade_channel"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.UpgradeChannel"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeChannelTypeHandler" />
+		<result property="upgradeSource" column="upgrade_source"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.UpgradeSource"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeSourceTypeHandler" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+
+	<resultMap id="userUpgradeHistorytresult"
+		type="com.snapdeal.ims.migration.model.entity.UpgradeHistory">
+		<result property="upgradeId" column="upgrade_id" />
+		<result property="currentState" column="current_state"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.State"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStateTypeHandler" />
+		<result property="upgradeStatus" column="upgrade_status"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.Upgrade"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStatusTypeHandler" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+
+	<sql id="base_column_list_upgradeUser">
+		id,email,initial_state,current_state,upgrade_status,user_id,fc_id,sd_id,upgrade_source,upgrade_channel,dont_upgrade,created_date
+	</sql>
+	<sql id="base_column_list_upgradeUserHistory">
+		upgrade_id,current_state,upgrade_status
+	</sql>
+
+	<insert id="createUpgrateUser"
+		parameterType="com.snapdeal.ims.migration.model.entity.UpgradeStatus"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT IGNORE INTO upgrade
+		(
+		email,initial_state,current_state,upgrade_status,user_id,fc_id,sd_id,dont_upgrade,created_date
+		)
+		VALUES
+		(#{email},#{initialState},#{currentState},#{upgradeStatus},#{userId},
+		#{fcId},#{sdId},#{dontUpgrade},
+		now())
+		
+	</insert>
+
+	<select id="getUpgradeStatus" resultMap="userUpgradeResult"
+		parameterType="String">
+		select
+		<include refid="base_column_list_upgradeUser" />
+		from upgrade
+		where email=#{email}
+	</select>
+
+	<insert id="createUpgradeUserHistory"
+		parameterType="com.snapdeal.ims.migration.model.entity.UpgradeHistory">
+		INSERT INTO upgrade_history
+		(
+		<include refid="base_column_list_upgradeUserHistory" />
+		)
+		VALUES
+		(#{upgradeId},#{currentState},#{upgradeStatus})
+	</insert>
+
+	<update id="updateUpgradationStatus"
+		parameterType="com.snapdeal.ims.migration.model.entity.UpgradeStatus">
+		update upgrade
+		set
+		upgrade_status = #{upgradeStatus},
+		current_state = #{currentState},
+		upgrade_channel=#{upgradeChannel},
+		upgrade_source=#{upgradeSource},
+		<if test="fcId !=null">
+			fc_id=#{fcId},
+		</if>
+		<if test="sdId !=null">
+			sd_id=#{sdId},
+		</if>
+		updated_date = now()
+		where id = #{id}
+	</update>
+	
+	<update id="updateUpgradationStatusWithEmailVerifiedCount"
+		parameterType="com.snapdeal.ims.migration.model.entity.UpgradeStatus">
+		update upgrade
+		set
+		upgrade_status = #{upgradeStatus},
+		current_state = #{currentState},
+		upgrade_channel=#{upgradeChannel},
+		upgrade_source=#{upgradeSource},
+		send_email_count=99,
+		<if test="fcId !=null">
+			fc_id=#{fcId},
+		</if>
+		<if test="sdId !=null">
+			sd_id=#{sdId},
+		</if>
+		updated_date = now()
+		where id = #{id}
+	</update>
+</mapper>

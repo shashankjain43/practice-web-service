@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.activity.dbmapper.IActivityDetailsMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.ims.client.dbmapper.entity.Activity">
+		<result property="id" column="id" />
+		<result property="activityType" column="activity_type" />
+		<result property="activitySubtype" column="activity_subtype" />
+		<result property="ipAddress" column="ip_address" />
+		<result property="status" column="status"
+			javaType="com.snapdeal.ims.client.dbmapper.entity.info.ActivityStatus"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.ActivityStatusTypeHandler" />
+		<result property="entityId" column="entity_id" />
+		<result property="macAddress" column="mac_address" />
+		<result property="clientId" column="client_id" />
+		<result property="serverIpAddress" column="server_ip_address" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		activity_type,activity_subtype,ip_address,status,entity_id,mac_address,client_id,server_ip_address,created_date
+	</sql>
+
+	<insert id="createActivity" parameterType="com.snapdeal.ims.client.dbmapper.entity.Activity"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ACTIVITY_LOG
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{activityType},#{activitySubtype},#{ipAddress},#{status},#{entityId},#{macAddress},
+		#{clientId},#{serverIpAddress}, now())
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			SELECT
+			LAST_INSERT_ID();
+		</selectKey>
+	</insert>
+</mapper>

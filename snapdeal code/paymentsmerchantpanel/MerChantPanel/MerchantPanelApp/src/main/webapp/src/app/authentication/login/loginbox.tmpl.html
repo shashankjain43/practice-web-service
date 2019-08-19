@@ -1,0 +1,60 @@
+<md-dialog ng-controller="LoginController as vm" style="width: 500px">
+<div ng-if="vm.isLoading" class="popupLoader">
+  <md-progress-circular class="md-warn md-hue-3" md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+</div>
+    <md-dialog-content>
+        <form name="loginForm" class="col-xs-12 login-cont" novalidate autocomplete="off">
+                <div class="row login-title-area"> <div class="col-xs-12 ">
+                    <h2  class="text-orange">Welcome!</h2>
+                    <span class="title">Sign in to continue to Freecharge Merchant Panel</span></div></div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                        <div class="form-control-wrapper">
+                            <input class="form-control" name="email"  id="email" ng-model="vm.user.loginName" required form-value-empty ng-class={'empty':!vm.user.loginName}>
+                            <div class="floating-label">Login Name</div>
+                            <span class="material-input"></span>
+                        </div>
+                        <div class="row">
+                            <div ng-messages="loginForm.email.$error" ng-if="loginForm.email.$dirty" class="login-error" style="padding-left: 12px; color: red">
+                                <div ng-message="required">Please enter the email Id.</div>
+                            </div>
+                        </div>
+                            </div>
+                        <div class="form-group">
+                        <div class="form-control-wrapper">
+                            <input class="form-control" name="password" id="password" type="password" ng-model="vm.user.password" required
+                            form-value-empty ng-class={'empty':!vm.user.password}>
+                            <input form-value-empty style="display:none">
+                            <div class="floating-label" >Password</div>
+                            <span class="material-input"></span>
+                        </div>
+                            <div class="row">
+                                <div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$dirty" class="login-error" style="padding-left: 12px; color: red">
+                                    <div ng-message="required">Please enter password.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+                        <div class="pull-left forgot-link text-orange" id="forgotPwdLink" ng-click="vm.forgotPwd()" style="line-height:50px;"><a  class="text-orange">Forgot password?</a></div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 text-center">
+                        <button id="loginButton" class="btn btn-orange-border"
+                                ng-disabled="loginForm.$invalid" ng-click="vm.loginClick(vm.user.loginName, vm.user.password)" style="width:100%;">
+                            LOGIN</button>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 text-center">Dont' have an account? <a ng-click="vm.signupbox($event)" class="text-orange">Register</a></div>
+                </div>
+                <div class="row" ng-if="vm.error">
+                    <div style="padding-left: 12px; color: red">
+                        <div class="error-msz-box" id="erorDiv"  ng-if="vm.errorMessage!=''">{{vm.errorMessage}}</div>
+                    </div>
+                </div>
+
+
+                
+            </form>
+    </md-dialog-content>
+</md-dialog>

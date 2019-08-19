@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property file="${config.path}/log.properties" />
+	<include resource="PaymentCommons/logback.xml" />
+	<appender name="app_file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.file}</File>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.GEventEvaluator">
+				<expression>
+				event.getLoggerName().contains("IdleConnectionMonitor")
+				</expression>
+			</evaluator>
+			<OnMatch>DENY</OnMatch>
+		</filter>
+		<encoder>
+			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} -APP- %X{HOST} %X{requestId}
+				[%t] %.-5level %logger{36}.%M-%L - %msg %n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${log.folder}/${log.file}-%d{YYYY-MM-dd}.%i.log.gz
+			</fileNamePattern>
+			<maxHistory>90</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>1024MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="ASYNC_APP" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>500</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="app_file" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+
+	<root level="${log.level}">
+		<appender-ref ref="ASYNC_APP" />
+	</root>
+</configuration>
+

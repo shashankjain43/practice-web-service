@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TokenDetails">
+
+	<resultMap id="result"
+		type="com.snapdeal.ims.token.entity.TokenDetailsEntity">
+		<result property="token" column="token_string" />
+		<result property="clientId" column="client_id" />
+		<result property="globalTokenId" column="global_token_id" />
+		<result property="expiryTime" column="expiry_time" />
+		<result property="createdTime" column="created_time" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		token_string,client_id,global_token_id,expiry_time,created_time
+	</sql>
+
+	<insert id="save"
+		parameterType="com.snapdeal.ims.token.entity.TokenDetailsEntity"
+		keyProperty="token" keyColumn="token_string">
+		INSERT INTO token_details
+		(token_string,client_id,global_token_id,expiry_time,created_time)
+		values (#{token}, #{clientId}, #{globalTokenId},#{expiryTime},
+		#{createdTime})
+	</insert>
+</mapper>

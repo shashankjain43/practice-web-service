@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.merchant.dao.IDownloadHistoryDao">
+	
+	<resultMap id="userDownloadInfoResult" type="downloadEntity">
+		<result property="id" column="id" />
+		<result property="filterId" column="filter_id" />
+		<result property="status" column="download_status" 
+			javaType="com.snapdeal.merchant.enums.DownloadStatus"/>
+		<result property="viewed" column="viewed" />
+		<result property="userId" column="user_id" />
+		<result property="fileName" column="file_name" />
+		<result property="createdOn" column="created_on" />
+		<!-- <result property="objectKey" column="object_key" /> -->
+	</resultMap>
+
+	<select id="getUserDownloadInfoList" resultMap="userDownloadInfoResult" parameterType="downloadEntity">
+		select t.id as id, t.download_status as download_status , t.viewed as viewed , t.file_name as file_name, t.created_on as created_on 
+		from download_history t  where t.user_id = #{userId} order by t.created_on DESC
+	</select>
+	
+	<select id="getUserDownloadInfo" resultMap="userDownloadInfoResult" parameterType="downloadEntity">
+		select * from download_history   where  id = #{id} and user_id = #{userId} order by created_on DESC
+	</select>
+	
+	<insert id="insertDownloadInfoResult" parameterType="downloadEntity" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into download_history (filter_id,download_status,file_name,user_id,viewed,created_on) values(#{filterId},#{status},#{fileName},#{userId},#{viewed},CURRENT_TIMESTAMP())
+	</insert>
+	
+	<update id="updateDownloadInfoStatus" parameterType="downloadEntity" >
+		update download_history set download_status = #{status}, file_name=#{fileName} where id = #{id}
+	</update>
+	
+	<update id="updateDownloadInfoVisited" parameterType="downloadEntity" >
+		update download_history set viewed = #{viewed} where id = #{id}
+	</update>
+
+</mapper>

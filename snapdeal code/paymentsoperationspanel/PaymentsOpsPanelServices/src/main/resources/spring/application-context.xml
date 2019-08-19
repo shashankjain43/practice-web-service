@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" xmlns:task="http://www.springframework.org/schema/task"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+           http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:annotation-config />
+	<task:executor id="actionBulkExecutor" pool-size="2"
+		queue-capacity="50000" />
+	<task:executor id="bulkPromotionExecutor" pool-size="2"
+		queue-capacity="120000" />
+	<task:executor id="bulkFOSExecutor" pool-size="15"
+		queue-capacity="120000" />
+	<task:executor id="reportHelperExecutor" pool-size="15"
+		queue-capacity="12000" />
+	<task:executor id="bulkReversalExecutor" pool-size="2"
+		queue-capacity="40000" />
+
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="locations">
+			<list>
+				<value>file:${config.path}/application.properties</value>
+				<value>file:${config.path}/db.properties</value>
+				<value>file:${config.path}/log.properties</value>
+				<value>file:${config.path}/config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="initialization"
+		class="com.snapdeal.opspanel.promotion.clientInit.IMSInitialization"
+		init-method="initIMS">
+		<property name="host" value="${ims.host}" />
+		<property name="port" value="${ims.port}" />
+		<property name="clientSecret" value="${ims.clientSecret}" />
+		<property name="clientId" value="${ims.clientId}" />
+		<!-- <property name="apiTimeOut" value="${ims.apiTimeOut}" /> -->
+
+	</bean>
+	<bean id="userServiceId" class="com.snapdeal.ims.client.impl.UserServiceClientImpl"></bean>
+	<bean id="blackwhitelistservice"
+		class="com.snapdeal.ims.client.impl.BlackWhiteListServiceClientImpl"></bean>
+	<bean id="userMigrationServiceId"
+		class="com.snapdeal.ims.client.impl.UserMigrationServiceClientImpl"></bean>
+	<bean id="dashboardClientService" class="com.snapdeal.ims.client.impl.DashboardClientServiceImpl"></bean>
+	<bean id="dealerServicesImpl" class="com.snapdeal.mob.client.impl.DealerServicesImpl"></bean>
+	<bean id="partnerServicesImpl" class="com.snapdeal.mob.client.impl.PartnerServicesImpl"></bean>
+	<bean id="platformServicesImpl" class="com.snapdeal.mob.client.impl.PlatformServicesImpl"></bean>
+	<bean id="categoryServicesImpl" class="com.snapdeal.mob.client.impl.CategoryServicesImpl"></bean>
+	<bean id ="imsActivityServiceClient" class = "com.snapdeal.ims.client.impl.ActivityServiceClient"></bean>
+	<bean id="amlAndAbusiveServiceClientImpl" class="com.snapdeal.ims.client.impl.AmlAndAbusiveServiceClientImpl"></bean>
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="classpath:/resources" />
+	<!-- <context:component-scan base-package="com.snapdeal.payments" /> -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<mvc:interceptors>
+		<bean
+			class="com.snapdeal.payments.roleManagementModel.interceptor.RoleMgmtRequestContextInterceptor" />
+	</mvc:interceptors>
+
+	<bean id="dataSourceParent" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${database.driverClassName}" />
+		<property name="url" value="${database.url}"></property>
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+		<property name="defaultAutoCommit" value="${database.autocommit}" />
+		<property name="initialSize" value="${database.initialsize}" />
+		<property name="maxActive" value="${database.maxactive}" />
+		<property name="maxWait" value="${database.maxwait}" />
+	</bean>
+
+	<bean id="dataSource" parent="dataSourceParent">
+
+	</bean>
+
+
+	<!-- <bean id="dataSource2" parent="dataSourceParent"> <property name="url" 
+		value="${snapdeal.payment.database.url2}" /> </bean> <bean id="dataSource3" 
+		parent="dataSourceParent"> <property name="url" value="${snapdeal.payment.database.url3}" 
+		/> </bean> -->
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:spring/sqlmap-config.xml" />
+	</bean>
+
+	<bean id="mvClient"
+		class=" com.snapdeal.payments.view.client.impl.MerchantViewClient"></bean>
+	<bean id="aggClient"
+		class="com.snapdeal.payments.aggregator.client.impl.PaymentsAggregatorServiceClient"></bean>
+
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		name="mybatis">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.snapdeal.opspanel.audit.dao,com.snapdeal.opspanel.promotion.dao,com.snapdeal.payments.ts.dao,com.snapdeal.opspanel.userpanel.dao, com.snapdeal.opspanel.clientkeymanagement.dao, com.snapdeal.bulkprocess.dao, com.snapdeal.opspanel.promotion.dao, com.snapdeal.vanila.dao" />
+		<property name="sqlSessionTemplateBeanName" value="mybatis"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="configStoreClientFileImpl"
+		class="com.snapdeal.payments.configstore.impl.ConfigStoreClientFileImpl">
+		<property name="configStorePersistenceFileName"
+			value="${config.path}/ConfigStorePersistenceFile.ini" />
+	</bean>
+
+</beans>

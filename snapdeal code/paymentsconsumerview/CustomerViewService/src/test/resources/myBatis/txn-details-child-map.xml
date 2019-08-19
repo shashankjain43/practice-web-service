@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.snapdeal.payments.view.mapper.ITransactionDetailChildMapper">
+
+	<resultMap id="resultTransactionStateDetails"
+		type="com.snapdeal.payments.view.entity.TransactionDetailChildEntity">
+		<result column="freecharge_txn_id" property="fcTxnID" />
+		<result column="child_freecharge_txn_id" property="childFcTxnId" />
+		<result column="txn_type" property="txnType" />
+		<result column="child_txn_type" property="childTxnType" />
+	</resultMap>
+	
+	<sql id="base_column_list_txn_child_map">
+		freecharge_txn_id,
+		child_freecharge_txn_id,
+		txn_type,
+		child_txn_type
+	</sql>
+	
+	<insert id="saveTxnChildMap" parameterType="com.snapdeal.payments.view.entity.TransactionDetailChildEntity">
+	INSERT INTO global_latest_child_map(
+		<include refid="base_column_list_txn_child_map" />
+		)
+		VALUES(
+			#{fcTxnID},
+			#{childFcTxnId},
+			#{txnType},
+			#{childTxnType}
+		)
+	</insert>
+	
+	
+	<select id="getUpLinkTransaction" parameterType="java.util.Map" 
+			resultMap="resultTransactionStateDetails">
+		SELECT <include refid="base_column_list_txn_child_map" /> 
+		FROM global_latest_child_map
+		where child_freecharge_txn_id = #{fcTxnId} AND
+			  child_txn_type = #{txnType} limit 1
+	</select>
+	
+</mapper>

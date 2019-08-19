@@ -1,0 +1,4 @@
+insert into configuration (config_type, config_key, config_value, description) values ("global","default.tokengeneration.service.version","V01", "Token Generation Service version in use.");
+INSERT INTO `ims`.`configuration` (`config_type`, `config_key`, `config_value`, `description`) VALUES ('global', 'default.transfertokengeneration.service.V01', 'com.snapdeal.ims.token.service.impl.TransferTokenGenerationServiceV01Impl', 'Transfer Token Generation Service V01 implementation class.');
+INSERT INTO `ims`.`configuration` (`config_type`, `config_key`, `config_value`, `description`) VALUES ('global', 'default.transfertokengeneration.service.version', 'V01', 'Transfer Token Generation Service in use.');
+INSERT INTO `ims`.`configuration` (`config_type`, `config_key`, `config_value`, `description`) VALUES ('global', 'transfer.token.expiry.time.in.seconds', '15', 'Transfer Token expiry time in Seconds');

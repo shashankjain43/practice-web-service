@@ -1,0 +1,110 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.client.dbmapper.IClientDetailsMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.ims.client.dbmapper.entity.Client">
+		<result property="clientId" column="client_id" />
+		<result property="clientName" column="client_name" />
+		<result property="clientKey" column="client_key" />
+		<result property="clientType" column="client_type" 
+			javaType="com.snapdeal.ims.client.dbmapper.entity.info.ClientType" 
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.ClientTypeTypeHandler"/>
+		<result property="clientPlatform" column="client_platform" 
+			javaType="com.snapdeal.ims.client.dbmapper.entity.info.ClientPlatform"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.ClientPlatformTypeHandler"/>
+		<result property="clientStatus" column="client_status" 
+			javaType="com.snapdeal.ims.client.dbmapper.entity.info.ClientStatus" 
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.ClientStatusTypeHandler"/>
+		<result property="merchant" column="merchant" 
+			javaType="com.snapdeal.ims.enums.Merchant" 
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.MerchantTypeHandler"/>
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		client_id,client_name,client_key,client_type,client_platform,client_status,merchant,created_time,updated_time
+	</sql>
+
+	<insert id="createClient"
+		parameterType="com.snapdeal.ims.client.dbmapper.entity.Client">
+		INSERT INTO client
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{clientId},#{clientName},#{clientKey},#{clientType},#{clientPlatform},#{clientStatus},#{merchant},
+		now(), now())
+	</insert>
+
+	<select id="updateClientStatus" parameterType="java.lang.String">
+		update client set
+		client_status=#{newStatus}, updated_time=now() where client_id =
+		#{clientId}
+	</select>
+
+	<select id="updateClientKey" parameterType="java.lang.String">
+		update client set
+		client_key=#{newKey}, updated_time=now() where client_id = #{clientId}
+	</select>
+
+	<select id="getAllClient" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client
+	</select>
+
+	<select id="getClientById" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_id = #{clientId}
+	</select>
+
+	<select id="getClientByName" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name = #{clientName}
+	</select>
+
+	<select id="getClientByType" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_type = <![CDATA['${clientType.toString()}']]>
+	</select>
+
+    <select id="getClientByPlatform" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_platform = <![CDATA['${clientPlatform.toString()}']]>
+	</select>
+
+	<select id="getClientByClientStatus" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_status = <![CDATA['${clientStatus.toString()}']]>
+	</select>
+
+	<select id="getClientByMerchant" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE merchant = <![CDATA['${merchant.toString()}']]>
+	</select>
+
+	<select id="getClientByNameAndMerchant" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name=#{clientName} and merchant = <![CDATA['${merchant.toString()}']]>
+	</select>
+
+</mapper>

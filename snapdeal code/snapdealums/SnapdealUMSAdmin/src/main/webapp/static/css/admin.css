@@ -1,0 +1,422 @@
+#internal-content{
+	width:90% !important;
+	}
+	
+#internal-content .content-bdr{
+	width:auto !important;
+	}	
+	
+#body-content {margin-top: 48px!important;
+			   margin-left: 142px!important;
+			   }	
+
+.graybox-admin {
+	/*width: 885px;*/
+	margin: 0 auto;
+	padding-top: 0px;
+}
+
+.graybox-admin .gray-cont-admin {
+	overflow: hidden;
+	padding: 15px 25px 20px 25px;
+	background: #f9f9f9;
+	border: 1px #ebebeb solid;
+	border-radius:0 0 10px 10px;
+	-moz-border-radius: 0 0 10px 10px;
+	-webkit-border-radius: 0 0 10px 10px;
+	margin:0 0 30px 0 
+}
+
+.submit-button, .continue-button, .editor-button, .upload-button, .do-assign-button, .assign-button, .confirm-button-yes, .confirm-button-no{
+	color: #f15a24;
+    float: left;
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 27px;
+    width: auto;
+    margin-left:2px;
+    -moz-border-radius:3px;
+    background: url(/img/festival/adminv1/button_bg.gif) repeat-x;
+    border:1px solid #cecece;
+    cursor:pointer;
+    padding:0 8px;    
+	}
+ul.admin-tabs{
+	
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+   	}
+   	
+ul.vendor-tabs{
+	
+    display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+   	}   	
+   	
+ul.admin-tabs li {
+	-moz-border-radius: 5px 5px 0 0;
+    background: #20B7E2;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0 2px 0 0px;
+    padding:5px 20px;
+    text-decoration: none;
+    text-align: center;
+    cursor: default;
+    cursor:pointer
+}
+
+ul.admin-tabs li.current {
+	background: #ebebeb;
+	-moz-border-radius: 5px 5px 0 0;
+	color: #797979;
+	
+}
+
+ul.vendor-tabs li {
+	-moz-border-radius: 10px 10px 10px 10px;
+    background: url("/img/sign.png?v=5") repeat-x scroll 0 0 transparent;
+    border: 0 none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 12px;
+    text-decoration: none;
+    text-align: center;
+    cursor: default;
+    cursor:pointer;
+    width:120px;
+    float:left;
+    margin: 0 15px 20px 0;
+    display: block !important;
+    
+}
+
+ul.vendor-tabs li.vendor-active {
+	background: #5599bb;
+	
+	
+}
+
+.admin-tabs-outer{
+	width:885px;
+	overflow:hidden;
+	margin:0 auto
+	}
+	
+
+ul#tabcontent, ul#vendor-tabcontent{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul#tabcontent li, ul#vendor-tabcontent li {
+    display: none;
+}
+
+ul#tabcontent .active_tab_content, ul#vendor-tabcontent .active_tab_content {
+    display: block;
+    zoom: 1;
+}
+
+.vendor_links{
+	width: 100%; 
+	display:block; 
+	overflow:hidden; 
+	margin-bottom: 20px
+	}
+	
+.vendor-search{
+	width: 100px;  
+	float:left; 
+	margin-right:15px; 
+	font-size:15px
+	}
+	
+.vendor-create{
+	width: 150px;  
+	float:left; 
+	font-size:15px
+	}
+.admin-tbl{
+	border:0px;
+	}
+.admin-tbl th{
+	font-weight: bold;
+	color: #B80901;
+	background: #ccc;
+	padding: 3px 5px;
+	text-align: left;
+	}
+.admin-tbl td{
+	padding: 5px;	
+	}
+.admin-tbl td table{
+	border: 1px #ccc solid;
+}
+.admin-tbl td table td{
+	text-align: center;
+	}
+	
+/********** COD Admin Start ***************/
+.cod-heading{
+	margin: 25px 0 5px 0;
+	font-size: 13px;
+	font-weight: bold;
+	padding:5px;
+	border-bottom:1px solid #cccccc;
+	background:#fff9d9
+	}
+.tbl-blue{
+   border-left:1px #cccccc solid;
+   border-top:1px #cccccc solid;
+}
+.tbl-blue th{
+   border-right:1px #cccccc solid;
+   border-bottom:1px #cccccc solid;
+   background:#e5e3e3;
+   color:#000;
+   padding:2px;
+   font:bold 12px Arial, Helvetica, sans-serif;
+}
+.tbl-blue td{
+   border-right:1px #cccccc solid;
+   border-bottom:1px #cccccc solid;
+   color:#000;
+   font:12px Arial, Helvetica, sans-serif;
+   padding:5px;
+}
+
+.tbl-blue td a:hover{
+   text-decoration:none;
+}
+.yello-box{
+	background: #fffdef;
+	border: 1px #ccc solid;
+	color: #cc0000;
+	padding: 5px 10px;
+	}
+.cod-dash-menu{
+	width: 100%;
+	overflow: hidden;
+	}
+.cod-dash-menu ul{
+	margin: 0 0 0px 0;
+	padding: 0;
+	list-style: none; 
+	height: 27px;
+	border-bottom: 1px #2ccfff solid;
+	}
+.cod-dash-menu ul li{
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+}
+.cod-dash-menu ul li a{
+	padding: 5px 10px;
+	margin:0 10px 0 0;
+	display: block;
+	float: left;
+	font-size: 13px;
+	font-weight: bold;
+	color: #FFF;
+	background: #12addb;
+	border: 1px #2ccfff solid;
+}
+.cod-dash-menu ul li a:hover, .cod-dash-menu ul li a.active{
+	color: #12addb;
+	background:#FFF;
+	border-bottom-color:#FFF;
+	text-decoration: none;
+	}
+.blue-button{
+	padding: 10px 0 0 0;
+	}
+.blue-button a {
+-moz-border-radius:10px;
+border-radius:10px;
+text-decoration:none;
+font-size:13px;
+font-weight:700;
+background:url(/img/sign.png?v=5) repeat-x;
+color:#FFF;
+border:0;
+cursor:pointer;
+padding:2px 12px;
+}
+.pagelink{
+	padding: 10px 0 0 0;
+	}
+.order-id{
+	font-size: 16px;
+	color: #000;
+	font-weight: bold;
+	padding: 10px;
+	}
+.order-id span{
+	color: #cc0000;
+	}
+.order-con{
+	font-family: Arial,Helvetica,sans-serif; color: rgb(17, 137, 167); font-size: 18px;
+	
+	}
+.deliveryDate{
+	width: 210px;
+	} 
+	
+.cod-dealdateform{
+	border:1px solid #ccc;
+	background:#e5e3e3;
+	font-size:11px;
+	font-weight:normal;
+	}
+	
+.input-fld-small, .select-fld-small, .input-fld-large{
+background-color:#FFF;
+border:1px solid #D4D4D4;
+color:#333;
+font-size:12px;
+width:350px;
+padding:3px 2px;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.input-fld-small, .select-fld-small {
+	width:150px;
+	}
+	
+.input-fld-large {
+width:450px;
+}
+
+.textarea-fld-small {
+background-color:#FFF;
+border:1px solid #D4D4D4;
+color:#333;
+font-size:12px;
+width:98%;
+height:80px;
+padding:3px 2px;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+.cod-outer{
+	border:1px solid #2ccfff; 
+	padding:15px; 
+	border-top:0px
+	}
+	
+.cod-table-cont{
+	border-left:1px solid #ccc; 
+	border-top:1px solid #ccc; 
+	background:#f9f9f9
+	}	
+	
+/********** COD Admin End ***************/	
+
+/********** Reconcillation ***************/	
+.form-date-outer{
+	overflow:hidden;
+	width:550px;
+	border:1px solid #ccc;
+	background:#e5e3e3;
+	color:#000;
+	font-size:11px;
+	margin-bottom:25px;
+	padding:5px 5px;
+}
+
+
+.start-date, .to-date, .datefield, .datesubmit{
+	float:left;
+	
+}
+
+.start-date{
+	margin:3px 20px 0 0
+	}
+	
+.datefield{
+	margin-right:15px;
+	}
+	
+.form-data-display-head-outer{
+   border-left:1px #cccccc solid;
+   border-top:1px #cccccc solid;
+}
+.form-data-display-head-outer th{
+   border-right:1px #cccccc solid;
+   border-bottom:1px #cccccc solid;
+   background:#e5e3e3;
+   color:#000;
+   font:bold 12px Arial, Helvetica, sans-serif;
+}
+.form-data-display-head-outer td{
+   border-right:1px #cccccc solid;
+   border-bottom:1px #cccccc solid;
+   font:12px Arial, Helvetica, sans-serif;
+}
+
+.tbl-blue td a:hover{
+   text-decoration:none;
+}	
+
+.form-data-display-date-outer-red{
+	background:#bc0800;
+	font-weight:normal;
+	color:#fff;
+	border-top:0px;
+	}
+	
+.form-data-display-date-outer-blue{
+	font-weight:normal;
+	border-top:0px;
+	}			
+
+
+/********** end of Reconcillation ***************/	
+
+.role_type {
+	float: left;
+	}
+.role_type ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+/*vendors*/
+
+.dataTables_wrapper{
+	overflow:hidden;
+	}
+
+.dataTables_length, .dataTables_filter{
+	float:left;
+	margin-bottom:5px;
+	background:#f1f1f1;
+	height:22px;
+	width:50%;
+	/*padding:3px 8px;
+	border:1px solid #dddddd;*/
+	}
+.dataTables_length{
+	border-right:0px !important;
+	}	
+	
+.dataTables_filter{
+	float:right !important;
+	text-align:right;
+	border-left:0px !important;
+	}	

@@ -1,0 +1,169 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.promotion.dao.FileMetaDao">
+
+	<resultMap id="result"
+		type="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		<result property="userId" column="userId" />
+		<result property="fileName" column="fileName" />
+		<result property="totalRows" column="totalRows" />
+		<result property="totalMoney" column="totalMoney" />
+		<result property="successRowsNum" column="successRowsNum" />
+		<result property="totalSuccessMoney" column="totalSuccessMoney" />
+		<result property="uploadTime" column="uploadTime" />
+		<result property="smsTemplateId" column="smsTemplateId" />
+		<result property="mailTemplateId" column="mailTemplateId" />
+		<result property="status" column="status" />
+		<result property="message" column="message" />
+		<result property="idempotencyId" column="idempotencyId" />
+		<result property="corporateAccountName" column="corporateAccountName" />
+	</resultMap>
+
+
+	<sql id="base_column_list">
+		userId,fileName,totalRows,totalMoney,successRowsNum,totalSuccessMoney,uploadTime,smsTemplateId,mailTemplateId,status,idempotencyId,message,corporateAccountName
+	</sql>
+
+	<insert id="insertFileMetaEntity"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		INSERT INTO file_meta_data
+		(userId,fileName,totalRows,totalMoney,successRowsNum,totalSuccessMoney,uploadTime,smsTemplateId,mailTemplateId,status,idempotencyId,message,corporateAccountName)
+		VALUES
+		(#{userId},#{fileName},#{totalRows},#{totalMoney},#{successRowsNum},#{totalSuccessMoney},#{uploadTime},
+		#{smsTemplateId},#{mailTemplateId}, #{status},
+		#{idempotencyId},#{message},#{corporateAccountName})
+	</insert>
+
+	<select id="getAllFilesMeta" resultMap="result">
+		SELECT *
+		FROM
+		file_meta_data
+		ORDER BY uploadTime DESC;
+	</select>
+
+	<select id="getAllFilesMetaByUser" resultMap="result"
+		parameterType="java.lang.String">
+		SELECT *
+		FROM file_meta_data
+		WHERE userId = #{userId}
+
+	</select>
+
+	<select id="getFileMetaStatusUtil"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity"
+		resultType="java.lang.String">
+		SELECT status
+		FROM file_meta_data
+		WHERE userId = #{userId}
+		AND fileName = #{fileName}
+
+	</select>
+
+	<select id="getFileMetaStatusForAnyUser"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity"
+		resultType="java.lang.String">
+		SELECT status
+		FROM file_meta_data
+		WHERE fileName =
+		#{fileName}
+
+	</select>
+	<select id="getUserIdForFile" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT userId
+		FROM file_meta_data
+		WHERE fileName =
+		#{fileName}
+	</select>
+
+	<select id="getCampaignKey" parameterType="java.lang.String"
+		resultMap="result">
+		select * from file_meta_data where
+		idempotencyId=#{idempotencyKey} limit 1;
+	</select>
+
+	<update id="updateFileMetaStatus"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		UPDATE file_meta_data
+		SET status = #{status}
+		WHERE
+		fileName = #{fileName}
+
+	</update>
+
+	<update id="updateFileMetaMessage"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		UPDATE file_meta_data
+		SET message = #{message}
+		WHERE
+		fileName = #{fileName}
+	</update>
+
+	<update id="updateFileMetaTotalSuccessMoney"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		UPDATE file_meta_data
+		SET totalSuccessMoney =
+		#{totalSuccessMoney}
+		WHERE fileName = #{fileName}
+	</update>
+
+	<update id="updateFileMetaSuccessRowsNum"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		UPDATE file_meta_data
+		SET successRowsNum =
+		#{successRowsNum}
+		WHERE fileName = #{fileName}
+	</update>
+
+	<update id="updateFileMetaEntity"
+		parameterType="com.snapdeal.opspanel.promotion.model.FileMetaEntity">
+		UPDATE file_meta_data
+		<set>
+			<if test="userId != null">
+				userId = #{ userId },
+			</if>
+			<if test="totalRows != null">
+				totalRows = #{totalRows},
+			</if>
+			<if test="totalMoney != null">
+				totalMoney = #{totalMoney},
+			</if>
+			<if test="successRowsNum != null">
+				successRowsNum = #{successRowsNum},
+			</if>
+			<if test="totalSuccessMoney != null">
+				totalSuccessMoney = #{totalSuccessMoney},
+			</if>
+			<if test="uploadTime != null">
+				uploadTime = #{uploadTime},
+			</if>
+			<if test="smsTemplateId != null">
+				smsTemplateId = #{smsTemplateId},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="idempotencyId != null">
+				idempotencyId = #{idempotencyId},
+			</if>
+			<if test="message != null">
+				message = #{message},
+			</if>
+			<if test="mailTemplateId != null">
+				mailTemplateId = #{mailTemplateId},
+			</if>
+			<if test="corporateAccountName != null">
+				corporateAccountName = #{corporateAccountName},
+			</if>
+			<if test="processingRow != null">
+				processingRow = #{processingRow},
+			</if>
+			<if test="completionTime != null">
+				completionTime = #{completionTime}
+			</if>
+		</set>
+		WHERE fileName = #{fileName} 
+		</update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<mappers>
+		<mapper resource="myBatis/client.xml" />
+	    <mapper resource="myBatis/transaction-details.xml" />
+		<mapper resource="myBatis/transaction-state-details.xml" />
+		<mapper resource="myBatis/merchant-view.xml" />  
+		<mapper resource="myBatis/merchant-view-audit.xml" />
+		<mapper resource="myBatis/request-txn-details.xml" /> 
+		<mapper resource="myBatis/request-view-audit.xml" />
+		<mapper resource="myBatis/action-txn-details.xml" />
+		<mapper resource="myBatis/client-migrate.xml" />
+		<mapper resource="myBatis/client.xml"/>
+		<mapper resource="myBatis/load-view.xml" />
+	</mappers>
+</configuration>

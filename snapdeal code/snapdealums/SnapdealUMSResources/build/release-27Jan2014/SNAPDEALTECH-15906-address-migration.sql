@@ -1,0 +1,1 @@
+insert into ums_property(name,value) values('use.oms.addresses','true');

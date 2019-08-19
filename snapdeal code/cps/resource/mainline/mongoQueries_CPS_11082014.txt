@@ -1,0 +1,140 @@
+/* Creating and separating category info */
+
+db.createCollection("categoryBackup");
+db.createCollection("googleCategoryInfo");
+
+db.categoryInfo.find().forEach(function(c){
+    db.categoryBackup.insert(c);
+    db.googleCategoryInfo.insert({_id:c._id,name:c.googleProductCategory,banned:c.isAdult});
+    db.categoryInfo.update({_id:c._id},{$unset:{googleProductCategory:"",isAdult:""}});
+})
+
+db.categoryBackup.count()
+db.categoryInfo.count()
+db.googleCategoryInfo.count()       /* All must be equal */
+
+
+/* Creating and separating seller subaccounts */
+
+db.vendorInfo.renameCollection("vendorBackup");
+db.createCollection("sellerInfo");
+db.createCollection("googleSubaccountInfo");
+
+db.vendorBackup.find().forEach(function(v){
+    db.sellerInfo.insert({_id:v._id,name:v.vendorName,displayName:v.googleVendorName});
+    db.googleSubaccountInfo.insert({_id:v.googleVendorId,sellerCode:v._id});
+})
+
+db.sellerInfo.count()
+db.googleSubaccountInfo.count()
+db.vendorBackup.count()             /* All must be equal */
+
+/* Renaming keyword Info */
+
+db.keywordInfo.renameCollection("googleKeywordInfo");
+
+/* Separate out books from both publishedPOG and pogVendorList */
+
+db.createCollection("booksListing");
+
+db.publishedPOG.find({parentCategoryID:364}).forEach(function(b){
+    var bl = db.pogVendorList.findOne({_id:b._id})
+    if(bl!=null){
+        db.booksListing.insert(bl);
+        db.pogVendorList.remove(bl);
+    }
+    db.publishedPOG.remove(b);
+
+})
+
+
+/* Creating ProductInfo */
+db.createCollection("productInfo");
+db.publishedPOG.renameCollection("productsBackup");
+
+db.productsBackup.find().forEach(function(p){
+    db.productInfo.insert({
+        _id:p._id,
+        title:p.title,
+        url:p.url,
+        description:p.description,
+        imageLink:p.imageLink,
+        brand:p.brand,
+        availability:p.availability,
+        sellerCode:p.internalVendorCode,
+        price:p.price,
+        subCategoryId:p.subCategoryID,
+        mrank:p.mRank,
+        updateTs:p.publishedTs
+    });
+
+})
+
+/* Create indexes on productInfo */
+db.productInfo.ensureIndex({mrank: 1})
+
+db.productsBackup.count()
+db.productInfo.count()      /* Both must be equal */
+
+
+/* Remove products which are not present in productsBackup from pogVendorList */
+db.pogVendorList.find().forEach(function(p){
+    var pi = db.productsBackup.findOne({_id:p._id});
+    if(pi==null){
+        db.pogVendorList.remove(p);
+    }
+})
+
+db.productInfo.count()
+db.pogVendorList.count()    /* Can be greater */
+
+/* Create GoogleProductListing collection */
+db.createCollection("googlePL");
+
+db.productInfo.find().forEach(function(p){
+    var pl = db.pogVendorList.findOne({_id:p._id});
+    if(pl!=null){
+        var psc = p.sellerCode;
+        var ps = db.vendorBackup.findOne({_id:psc});
+        var subarr = [];
+        var j = 0;
+        if(ps!=null){
+            subarr[0] = ps.googleVendorId;
+            j = 1;
+        }
+        var vl = pl.vendorList;
+        for(var i=0;i<vl.length;i++){
+            if(psc != vl[i]){
+                var v = db.vendorBackup.findOne({_id:vl[i]});
+                if(v!=null){
+                    subarr[j] = v.googleVendorId;
+                    j = j + 1;
+                }
+            }
+        }
+        db.googlePL.insert({_id:p._id,gsIds:subarr});
+    }
+})
+
+
+db.googlePL.count()
+db.productInfo.count()      /* Both must be equal */
+
+/* Rename Property collection and insert values for new process*/
+db.publisherPropertyInfo.renameCollection("processPropertyInfo")
+db.processPropertyInfo.update({},{$rename:{publisherName:"processName"}},{multi:true})
+
+db.processPropertyInfo.insert({processName:"deleteSuspendedSellerTask", propertyName:"gmail.id", propertyValue:"onlinemarketing@snapdeal.com"})
+db.processPropertyInfo.insert({processName:"deleteSuspendedSellerTask", propertyName:"gmail.pass", propertyValue:"@dwords123"})
+db.processPropertyInfo.insert({processName:"deleteSuspendedSellerTask", propertyName:"gmail.folder", propertyValue:"INBOX"})
+db.processPropertyInfo.insert({processName:"deleteSuspendedSellerTask", propertyName:"gmc.email", propertyValue:"shopping-noreply@google.com"})
+db.processPropertyInfo.insert({processName:"deleteSuspendedSellerTask", propertyName:"gmc.email.suspension.subject", propertyValue:"Suspension"})
+
+
+db.processPropertyInfo.insert({processName:"googlePublisher", propertyName:"updatesLimit", propertyValue:"100000"})
+db.processPropertyInfo.insert({processName:"googlePublisher", propertyName:"testSellers", propertyValue:"S03310,S03649,S03650,S03654"})
+
+/* Insert DeleteSeller task details in last run info */
+db.lastRunInfo.insert({processName:"deleteSuspendedSellerTask",lastRunTs:ISODate("2014-08-01T00:00:00.000Z")})
+
+

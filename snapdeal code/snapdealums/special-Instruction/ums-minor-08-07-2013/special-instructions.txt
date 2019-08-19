@@ -1,0 +1,10 @@
+######################################## Naveen Upadhyay #####################################
+
+On UMS Admin Server do : -
+
+create a folder hierarchy of this kind
+
+/srv/www/lighttpd/static/img/subscription/
+
+
+the tomcat user should have write permissions to this directory.

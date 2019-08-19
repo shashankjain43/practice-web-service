@@ -1,0 +1,87 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.vanila.dao.MOBOperationsDao">
+
+
+	<resultMap id="merchantContactHistory"
+		type="com.snapdeal.vanila.dto.MerchantCallHistoryEntity">
+		<result property="merchantId" column="merchant_id" />
+		<result property="contactType" column="contact_type" />
+		<result property="callStatus" column="contact_status" />
+		<result property="attemptsCount" column="attempt_count" />
+		<result property="callTime" column="created_time" />
+		<result property="createdBy" column="created_by" />
+		<result property="callpath" column="callpath" />
+		<result property="description" column="description" />
+
+	</resultMap> 
+
+	<resultMap id="merchantPointOfContact"
+		type="com.snapdeal.vanila.response.MerchantPointOfContactResponse">
+		<result property="merchantId" column="merchant_id" />
+		<result property="emailId" column="email_id" />
+		<result property="name" column="name" />
+		
+	</resultMap> 
+	
+	<select id="getMerchantCallHistory"
+		parameterType="com.snapdeal.vanila.request.GetMerchantCallHistoryRequest"
+		resultMap="merchantContactHistory">
+		SELECT *
+		FROM merchant_contact_history
+		where merchant_id= #{merchantId}
+		order by contact_type desc,
+		attempt_count desc
+	
+	</select>	
+	
+	<select id="getAttemptsForMerchantandCallType"
+parameterType="com.snapdeal.vanila.request.GetAttemptsRequest"
+resultType="int">
+select count(*)
+from merchant_contact_history
+where merchant_id = #{merchantId}
+and contact_type=#{callType}
+</select>
+	
+
+	<insert id="insertMerchantCallHistory"
+		parameterType="com.snapdeal.vanila.dto.MerchantCallHistoryEntity">
+		INSERT INTO
+		merchant_contact_history
+		(merchant_id,contact_type,contact_status,attempt_count,created_time,created_by,callpath,description)
+		VALUES
+        (#{merchantId},#{contactType},#{callStatus},#{attemptsCount},#{callTime},#{createdBy},#{callpath},#{description})
+	</insert>
+
+	<insert id="insertMerchantPointOfContact"
+		parameterType="com.snapdeal.vanila.request.MerchantPointOfContactRequest">
+		INSERT INTO
+		merchant_point_of_contact
+		(merchant_id,email_id,name)
+		VALUES
+        (#{merchantId},#{emailId},#{name})
+	</insert>
+
+	<select id="getMerchantPointOfContact"
+		parameterType="com.snapdeal.vanila.request.MerchantPointOfContactRequest" 
+		resultMap="merchantPointOfContact">
+		SELECT * FROM
+		merchant_point_of_contact
+		WHERE
+        merchant_id = #{merchantId}
+    </select>
+
+	<update id="updateMerchantPointOfContact"
+		parameterType="com.snapdeal.vanila.request.MerchantPointOfContactRequest" >
+		UPDATE
+		merchant_point_of_contact
+		SET 
+		email_id = #{emailId} , name = #{name}
+        WHERE 
+        merchant_id = #{merchantId} AND email_id = #{oldEmailId}
+	</update>
+
+</mapper>

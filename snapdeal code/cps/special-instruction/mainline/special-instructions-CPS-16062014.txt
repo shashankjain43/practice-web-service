@@ -1,0 +1,39 @@
+Cleanup, Backup and Setup
+==========================
+
+1. Log onto the CPS system
+
+2. Kill the following processes
+
+-bash-4.1$ ps -ef | grep GoogleData
+st3703   17944 17442  0 11:19 pts/3    00:00:00 grep GoogleData
+tomcat   31834     1  0 May22 ?        00:44:51 java -DpropertyDir=./appdata/properties -Denv=prod -jar GoogleDataFeed-0.0.1-SNAPSHOT.one-jar.jar
+
+kill -15 <pid>
+
+3. Log onto mongo shell using the below command:
+mongo CPS_DB
+
+4. Execute all the mongo queries mentioned in resource file: mongoQueries_CPS_16062014.txt
+
+5. Exit the mongo shell and go the directory /apps01/cps
+
+6. Remove all the log and .out files
+
+Deployment
+==========
+
+7. Get the .tar.gz build folder from jenkins server and extract it at /apps01/cps
+
+8. cp cps_dist/jars/FilePublishers-1.0-SNAPSHOT.one-jar.jar .
+
+9. cp cps_dist/properties/fp.properties appdata/properties/
+
+10. Check if appdata/properties/fp.properties has the right values
+
+11. From the directory /apps01/cps and execute the following command:
+
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar FilePublishers-1.0-SNAPSHOT.one-jar.jar &
+
+
+

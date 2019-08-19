@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.snapdeal.ims</groupId>
+	<artifactId>SnapdealIMSServices</artifactId>
+	<version>2.5.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>SnapdealIMSServices</name>
+	<description>IMS project</description>
+
+	<distributionManagement>
+		<repository>
+			<id>gitserver.snapdeal.com</id>
+			<name>gitserver.snapdeal.com-snapshots</name>
+			<url>http://server.development.com:8080/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>gitserver.snapdeal.com</id>
+			<name>gitserver.snapdeal.com-snapshots</name>
+			<url>http://server.development.com:8080/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.2.1.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>com.snapdeal.ims.IMSApplication</start-class>
+		<java.version>1.7</java.version>
+		<logstash-logback-encoder.version>3.4</logstash-logback-encoder.version>
+		<mysql.version>5.1.32</mysql.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-ws</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.klickpay</groupId>
+			<artifactId>klickpay-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<artifactId>FCNotifierClient</artifactId>
+			<groupId>com.snapdeal.fcNotifier</groupId>
+			<version>2.1.6-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--Health Check -->
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>DeepHealthCheck</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-sns</artifactId>
+			<version>1.9.20.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.ims</groupId>
+			<artifactId>SnapdealOTPService</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>
+						spring-boot-starter-security
+					</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Logstash Logback Encoder -->
+
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${logstash-logback-encoder.version}</version>
+		</dependency>
+
+		<!-- Mojo Client -->
+		<dependency>
+			<groupId>com.freecharge.mojo</groupId>
+			<artifactId>mojo-client</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+		<!-- Mybatis -->
+
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.23</version>
+		</dependency>
+
+		<!-- for transaction of mybatis -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.1.1.RELEASE</version>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.4</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.ims</groupId>
+			<artifactId>SnapdealIMSCommons</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>snapdeal.ums.client</groupId>
+			<artifactId>SnapdealUMSClient</artifactId>
+			<version>3.3-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate</artifactId>
+				</exclusion>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-validator</artifactId>
+				</exclusion>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-commons-annotations</artifactId>
+				</exclusion>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-entitymanager</artifactId>
+				</exclusion>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>org.hibernate</groupId>
+					<artifactId>ejb3-persistence</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>jcl-over-slf4j</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.activemq</groupId>
+					<artifactId>activemq-all</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- authorization dependency starts -->
+		<dependency>
+			<groupId>com.snapdeal.ims</groupId>
+			<artifactId>authorization-lib</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- authorization dependency ends -->
+		<!-- Common Exceptions dependency starts -->
+		<dependency>
+			<groupId>com.snapdeal.ims</groupId>
+			<artifactId>SnapdealIMSServiceExceptions</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+		</dependency>
+		<!-- Common Exceptions dependency ends -->
+		<!-- Payment Commons: Metrics dependency starts -->
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>PaymentCommons</artifactId>
+			<version>2.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.snapdeal</groupId>
+			<artifactId>Notifier</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+		</dependency>
+		<!-- Payments Commons: Metrics dependency ends -->
+		<!-- Collect Activity dependency starts -->
+		<dependency>
+			<groupId>com.snapdeal.ims</groupId>
+			<artifactId>activity-lib</artifactId>
+			<version>2.3.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Collect Activity dependency ends -->
+		<!-- Aerospike dependency starts -->
+		<dependency>
+			<groupId>com.aerospike</groupId>
+			<artifactId>aerospike-client</artifactId>
+			<version>3.0.32</version>
+		</dependency>
+		<!-- Aerospike dependency ends -->
+		<!-- Freecharge Client -->
+		<dependency>
+			<groupId>com.freecharge</groupId>
+			<artifactId>ums-client</artifactId>
+			<version>2.8.0-SNAPSHOT</version>
+		</dependency>
+		<!-- Valut Key Management -->
+		<dependency>
+			<groupId>KeyManagement</groupId>
+			<artifactId>KeyManagement</artifactId>
+			<version>tmp-SNAPSHOT</version>
+		</dependency>
+		<!-- Wallet Service dependency -->
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>SDMoneyJavaClient</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- New relic dependency for embedded tomcat starts -->
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-agent</artifactId>
+			<version>3.12.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- New relic dependency for embedded tomcat ends -->
+		<dependency>
+			<groupId>com.snapdeal.ims</groupId>
+			<artifactId>SnapdealIMSServicesCommons</artifactId>
+			<version>2.5.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>IMSService</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- <jvmArguments>
+						 -Dconfig.path=/home/praveen/git/IdentityManager/SnapdealIMSServices/src/main/resources/conf
+						-Xdebug
+						-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5006 
+					</jvmArguments> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<additionalProjectnatures>
+						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+					</additionalBuildcommands>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<!-- Added for new relic -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>newrelic-agent</includeArtifactIds>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Premain-Class>com.newrelic.bootstrap.BootstrapAgent</Premain-Class>
+							<Can-Redefine-Classes>true</Can-Redefine-Classes>
+							<Can-Retransform-Classes>true</Can-Retransform-Classes>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<version>1.2.1</version> <configuration> <mainClass>org.test.int1.Main</mainClass> 
+				</configuration> </plugin> -->
+			<!-- This is present in the top pom.xml -->
+			<!-- <plugin> <artifactId>maven-antrun-plugin</artifactId> <version>1.4</version> 
+				<executions> <execution> <phase>package</phase> <configuration> <tasks> <property 
+				file="${basedir}/user.properties" /> <echo message="+++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+				/> <echo message=" deleteing war from tomcat server" /> <echo message="+++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+				/> <delete includeEmptyDirs="true" failonerror="true"> <fileset dir="${snapdeal.payment.webapp.home}" 
+				/> </delete> <echo message="+++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+				/> <echo message=" copying war to tomcat server" /> <echo message="+++++++++++++++++++++++++++++++++++++++++++++++++++++" 
+				/> <copy todir="${snapdeal.payment.webapp.home}" overwrite="true"> <fileset 
+				dir="${project.build.directory}/IdentityManager-0.0.1-SNAPSHOT"> <include 
+				name="**/*" /> </fileset> </copy> </tasks> </configuration> <goals> <goal>run</goal> 
+				</goals> </execution> </executions> </plugin> -->
+		</plugins>
+	</build>
+
+</project>

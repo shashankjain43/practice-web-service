@@ -1,0 +1,126 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.admin.dao.IClientDetailsDao">
+
+	<resultMap id="result"
+		type="com.snapdeal.admin.dao.entity.Client">
+		<result property="clientId" column="client_id" />
+		<result property="clientName" column="client_name" />
+		<result property="clientKey" column="client_key" />
+		<result property="clientType" column="client_type" />
+		<result property="clientPlatform" column="client_platform" />
+		<result property="clientStatus" column="client_status" />
+		<result property="merchant" column="merchant" />
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+		<result property="imsInternalAlias" column="ims_internal_alias" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		client_id,client_name,client_key,client_type,client_platform,client_status,merchant,created_time,updated_time,ims_internal_alias
+	</sql>
+
+	<insert id="createClient"
+		parameterType="com.snapdeal.admin.dao.entity.Client">
+		INSERT INTO client
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{clientId},#{clientName},#{clientKey},#{clientType},#{clientPlatform},#{clientStatus},#{merchant},
+		now(), now(), #{imsInternalAlias})
+	</insert>
+
+	<select id="updateClientStatus" parameterType="java.lang.String">
+		update client set
+		client_status=#{newStatus}, updated_time=now() where client_id =
+		#{clientId}
+	</select>
+
+	<select id="updateClientKey" parameterType="java.lang.String">
+		update client set
+		client_key=#{newKey}, updated_time=now() where client_id = #{clientId}
+	</select>
+
+	<select id="getAllClient" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client
+	</select>
+
+	<select id="getClientById" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_id = #{clientId}
+	</select>
+
+	<select id="getClientByName" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name = #{clientName}
+	</select>
+
+	<select id="getClientByType" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_type = <![CDATA['${clientType.toString()}']]>
+	</select>
+
+    <select id="getClientByPlatform" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_platform = <![CDATA['${clientPlatform.toString()}']]>
+	</select>
+
+	<select id="getClientByClientStatus" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_status = <![CDATA['${clientStatus.toString()}']]>
+	</select>
+
+	<select id="getClientByMerchant" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE merchant = #{merchant}
+	</select>
+
+	<select id="getClientByNameAndMerchant" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name=#{clientName} and merchant = #{merchant}
+	</select>
+
+	<select id="getClientByMultipleParam" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client where
+		<if test="clientStatus !=null and clientStatus != '' ">
+			client_status = #{clientStatus} and
+		</if>
+		<if test="clientName !=null and clientName != '' ">
+			client_name = #{clientName} and
+		</if>
+		<if test="merchant !=null and merchant != '' ">
+			merchant = #{merchant} and
+		</if>
+		<if test="clientType !=null and clientType != '' ">
+			client_type = #{clientType} and
+		</if>
+		<if test="clientPlatform !=null and clientPlatform != ''">
+			client_platform = #{clientPlatform} and
+		</if>
+		client_id is not null
+	</select>
+	
+</mapper>

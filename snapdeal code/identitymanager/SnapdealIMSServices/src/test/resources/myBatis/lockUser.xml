@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IUserLockMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.ims.dbmapper.entity.UserLockDetails">
+		<result property="userId" column="user_id" />
+		<result property="expiryTime" column="expiry_time" />
+		<result property="createdTime" column="created_time" />
+		<result property="loginAttempts" column="login_attempts" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<sql id="base_column_list">
+		user_id,expiry_time,created_time,login_attempts,status
+	</sql>
+
+	<insert id="lockUserEntry" parameterType="com.snapdeal.ims.dbmapper.entity.UserLockDetails">
+		INSERT INTO lock_user
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{userId},#{expiryTime},#{createdTime},#{loginAttempts},#{status})
+	</insert>
+
+	<update id="updateLockUserEntry" parameterType="com.snapdeal.ims.dbmapper.entity.UserLockDetails">
+		update lock_user set
+		user_id=#{userId}, status=#{status},expiry_time=#{expiryTime},created_time=#{createdTime},login_attempts=#{loginAttempts}
+		where user_id=#{userId}
+	</update>
+
+	<select id="getLockUserEntry" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM lock_user WHERE user_id = #{userId}
+	</select>
+
+	<delete id="unLockUser" parameterType="java.lang.String">
+		DELETE
+		FROM lock_user
+		WHERE user_id = #{userId}
+	</delete>
+
+</mapper>

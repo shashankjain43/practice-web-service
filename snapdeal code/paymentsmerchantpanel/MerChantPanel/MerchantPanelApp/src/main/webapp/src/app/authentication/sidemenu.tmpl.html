@@ -1,0 +1,51 @@
+ <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top homeTopNav" role="navigation" style="z-index: 16;" ng-controller="LoginController as vm">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navWrapper">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle homeToggle" ng-click="vm.showMobMenu()">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#/" style="margin-left: 15px; display: block;"><img src="assets/images/Logo.png" alt="Freecharge" width="120" class="pull-left fclogo"></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav" style="padding: 0 6px; margin-right:0">
+                <li>
+                	<button class="btn-orange btn  btn-small" ng-click="vm.loginbox($event)">LOGIN</button>
+           		</li>
+                <li>
+                	<button class="btn-orange-border btn btn-small" ng-click="vm.signupbox($event)" style="margin-left: 10px;">REGISTER</button>
+                </li>
+            </ul>
+            </div>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav home-side-nav">
+                    <li><a ng-href="/#" ng-class="{'sidemenuActive': vm.getActiveTab('/')}">Home</a></li>
+			        <li><a ng-href="#offlineproducts" ng-click="vm.productsPage()" ng-class="{'sidemenuActive': (vm.getActiveTab('/offlineproducts') || vm.getActiveTab('/onlineproducts'))}">Our Products</a></li>
+			        <li><a ng-href="#pricing" ng-click="vm.pricingPage()" ng-class="{'sidemenuActive': vm.getActiveTab('/pricing')}"> Pricing</a></li>
+			        <li><a target="_blank" ng-href="#helpsupport" ng-class="{'sidemenuActive': vm.getActiveTab('/helpsupport')}">Help</a></li>
+                    <li><a ng-href="#contactus" ng-class="{'sidemenuActive': vm.getActiveTab('/contactus')}">Contact Us</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+
+
+<div class="mobileOverlayMenu" id="mobOverlayMenu">
+<div ng-click="vm.showMobMenu()" class="cross"><i class="material-icons">clear</i></div>
+	<ul>
+		<li><a ng-href="/#" ng-class="{'sidemenuActive': vm.getActiveTab('/')}" ng-click="vm.homePage()">Home</a></li>
+        <li><a ng-href="#offlineproducts" ng-click="vm.productsPage()" ng-class="{'sidemenuActive': (vm.getActiveTab('/offlineproducts') || vm.getActiveTab('/onlineproducts'))}">Our Products</a></li>
+        <li><a ng-href="#pricing" ng-click="vm.pricingPage()" ng-class="{'sidemenuActive': vm.getActiveTab('/pricing')}">Pricing</a></li>
+        <li><a ng-href="#helpsupport" ng-click="vm.showMobMenu()" ng-class="{'sidemenuActive': vm.getActiveTab('/helpsupport')}">Help</a></li>
+        <li><a ng-href="#contactus" ng-click="vm.showMobMenu()" ng-class="{'sidemenuActive': vm.getActiveTab('/contactus')}">Contact Us</a></li>
+        <li><a ng-click="vm.showMobMenu(); vm.loginbox($event)">Login</a></li>
+        <li><a ng-click="vm.showMobMenu(); vm.signupbox($event)">Register</a></li>
+	</ul>
+</div>

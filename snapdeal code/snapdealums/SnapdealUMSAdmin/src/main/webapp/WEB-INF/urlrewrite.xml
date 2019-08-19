@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite  PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN" "http://www.tuckey.org/res/dtds/urlrewrite3.2.dtd">
+<urlrewrite>
+
+	<rule enabled="true">
+		<from>^(/secure)?/js/[a-z0-9]+/(.+\.js)$</from>
+		<set type="response-header" name="Cache-Control">private, max-age=3600000</set>
+		<set type="response-header" name="Expires">Thu, 06 Aug 2011 16:00:00 GMT</set>
+		<to last="true">/static/js/$2</to>
+	</rule>
+	<rule enabled="true">
+		<from>^(/secure)?/css/[a-z0-9]+/(.+\.css)$</from>
+		<set type="response-header" name="Cache-Control">private, max-age=3600000</set>
+		<set type="response-header" name="Expires">Thu, 06 Aug 2011 16:00:00 GMT</set>
+		<to last="true">/static/css/$2</to>
+	</rule>
+	<rule enabled="true">
+		<from>^(/secure)?/(img|font|w3c|doc)/(.*)$</from>
+		<set type="response-header" name="Cache-Control">public, max-age=3600000</set>
+		<to last="true">/static/$2/$3</to>
+	</rule>
+	<rule enabled="true">
+		<from>^/favicon.ico$</from>
+		<set type="response-header" name="Cache-Control">public, max-age=7776000</set>
+		<to last="true">/static/img/icons/favicon.ico</to>
+	</rule>
+</urlrewrite>

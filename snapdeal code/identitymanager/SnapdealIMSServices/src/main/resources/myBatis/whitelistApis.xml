@@ -1,0 +1,55 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IWhiteListAPIsMapper">
+	<resultMap id="resultWhiteListAPI"
+		type="com.snapdeal.ims.dbmapper.entity.WhiteListAPI" >
+		<result property="clientId" column="client_id" />
+		<result property="imsApiId" column="ims_api_id" />
+		<result property="allowed" column="is_allowed" />
+	</resultMap>
+	
+	<insert id="create" parameterType="com.snapdeal.ims.dbmapper.entity.WhiteListAPI"> 
+		INSERT INTO whitelist_apis
+		(	
+		client_id,
+		ims_api_id,
+		is_allowed
+		)
+		VALUES
+		(
+		#{clientId},
+		#{imsApiId},
+		#{allowed}
+		)
+	</insert>
+	
+	<select id="getAllEntities" parameterType="java.lang.String"
+		resultMap="resultWhiteListAPI">
+		SELECT
+		client_id,
+		ims_api_id,
+		is_allowed
+		FROM whitelist_apis
+	</select>
+	
+	<update id="update" parameterType="com.snapdeal.ims.dbmapper.entity.WhiteListAPI">
+		UPDATE whitelist_apis
+		SET is_allowed=#{allowed}
+		WHERE
+		client_id=#{clientId} 
+		AND 
+		ims_api_id=#{imsApiId}
+	</update>
+	
+	<delete id="remove" parameterType="com.snapdeal.ims.dbmapper.entity.WhiteListAPI">
+		DELETE FROM whitelist_apis
+		WHERE
+		client_id=#{clientId} 
+		AND 
+		ims_api_id=#{imsApiId}
+	</delete>
+	
+		
+</mapper>

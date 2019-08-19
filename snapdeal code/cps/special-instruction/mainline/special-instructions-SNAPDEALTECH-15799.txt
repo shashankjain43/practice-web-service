@@ -1,0 +1,4 @@
+1. Log on to CPS production system
+2. Copy the fixed JAR with the following command:
+
+cp /home/st_temp01/GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar /apps01/cps

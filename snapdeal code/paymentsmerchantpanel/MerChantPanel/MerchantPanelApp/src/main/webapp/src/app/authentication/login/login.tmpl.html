@@ -1,0 +1,64 @@
+<div id="wrapper" ng-init="vm.homePage()">
+  <ng-include src="'app/authentication/sidemenu.tmpl.html'"></ng-include>
+  <div id="page-wrapper">
+      <div class="container-fluid">  
+        <ng-include src="'app/authentication/login/slider.tmpl.html'"></ng-include>
+        <div class="divider">
+          <i><img src="assets/images/Arrow.png"></i>
+       </div>
+       <div class="row">
+
+          <div class="col-md-4 col-sm-4 mobHomeSection">
+              <div class="col-md-12">
+                  <img src="assets/images/PresentinOnline_instores.png" alt="Merchant accounts for Online and Offline Stores">
+              </div>
+              <div class="col-md-12">
+                  <div class="uspHeading">
+                      <h2>Present in online and in-stores</h2>
+                      <p >Becasue every customer counts</p>
+                      <!-- <button class="btn btn-white">LEARN MORE</button>  -->
+                  </div>
+              </div>
+          </div> 
+
+          <div class="col-md-4 col-sm-4 mobHomeSection">
+              <div class="col-md-12">
+                  <img src="assets/images/CustomizablePricing.png" alt="Merchant accounts for Online and Offline Stores">
+              </div>
+              <div class="col-md-12">
+                  <div class="uspHeading">
+                      <h2>Customizable pricing</h2>
+                      <p >Making fee structure seamless</p>
+                      <!-- <button class="btn btn-white">LEARN MORE</button>  -->
+                  </div>
+              </div>
+          </div> 
+
+           <div class="col-md-4 col-sm-4 mobHomeSection">
+              <div class="col-md-12">
+                  <img src="assets/images/SecureTransaction.png" alt="Merchant accounts for Online and Offline Stores">
+              </div>
+              <div class="col-md-12">
+                  <div class="uspHeading">
+                      <h2>100% secure transactions</h2>
+                      <p >No error means higher customer satisfaction</p>
+                      <!-- <button class="btn btn-white">LEARN MORE</button>  -->
+                  </div>
+              </div>
+          </div> 
+
+      </div>
+  <div class="divider">
+    <i><img src="assets/images/Arrow.png"></i>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+        <ng-include src="'app/authentication/login/testimonial.tmpl.html'"></ng-include>
+      </div> 
+  </div>
+ 
+</div>
+</div>
+<div ng-if="vm.isLoading" id="loadMask" style="display:block">
+    <div class="f-bolt"></div>
+</div>

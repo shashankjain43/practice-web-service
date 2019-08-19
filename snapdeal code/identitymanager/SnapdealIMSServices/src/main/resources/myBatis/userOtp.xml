@@ -1,0 +1,70 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dashboard.dbmapper.IUserOtpDetailsDao">
+	<resultMap id="resultUser" type="com.snapdeal.ims.entity.UserOtp">
+		<result property="userId" column="user_id" />
+		<result property="email" column="email" />
+		<result property="mobileNumber" column="mobile_number" />
+		<result property="otpId" column="otp_id" />
+		<result property="invalidAttempts" column="invalid_attempts" />
+		<result property="resendAttempts" column="resend_attempts" />
+		<result property="expiryTime" column="expiry_time" />
+		<result property="otpType" column="otp_type" />
+		<result property="otpstatus" column="otp_status" />
+		<result property="createdDate" column="created_date" />
+		<result property="updatedDate" column="updated_date" />
+		<result property="clientId" column="client_id" />
+		<result property="token" column="token" />
+	</resultMap>
+
+
+	<sql id="base_column_list_user_otp">
+		user_id,
+		email,
+		mobile_number,
+		otp_id,
+		invalid_attempts,
+		resend_attempts,
+		expiry_time,
+		otp_type,
+		otp_status,
+		created_date,
+		updated_date,
+		client_id,
+		token
+	</sql>
+	<select id="getUserOtpDetailsWithMobile" resultMap="resultUser"
+		parameterType="com.snapdeal.ims.entity.GetUserOtpDetailsEntity">
+		select
+		<include refid="base_column_list_user_otp" />
+		from user_otp
+		where mobile_number=#{value}
+	</select>
+
+	<select id="getUserOtpDetailsWithEmail" resultMap="resultUser"
+		parameterType="com.snapdeal.ims.entity.GetUserOtpDetailsEntity">
+		select
+		<include refid="base_column_list_user_otp" />
+		from user_otp
+		where email=#{value}
+	</select>
+
+	<select id="getUserOtpDetailsWithUserid" resultMap="resultUser"
+		parameterType="com.snapdeal.ims.entity.GetUserOtpDetailsEntity">
+		select
+		<include refid="base_column_list_user_otp" />
+		from user_otp
+		where user_id=#{value}
+	</select>
+
+	<select id="getUserOtpDetailsWithOtpid" resultMap="resultUser"
+		parameterType="com.snapdeal.ims.entity.GetUserOtpDetailsEntity">
+		select
+		<include refid="base_column_list_user_otp" />
+		from user_otp
+		where otp_id=#{value}
+	</select>
+
+</mapper>

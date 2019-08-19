@@ -1,0 +1,32 @@
+<div class="nav-bg"></div>
+<div class="side-nav">
+  <div class="logo-area">
+    <button class="navigation pull-left ripple-effect">
+      <i title="Show navigation" class="material-icons material-spec-icon">menu</i>
+    </button>
+    <h1 class="pull-left nav-logo"><img src="assets/images/lightbox-logo.png" alt="logo" width="130"></h1>
+  </div>
+  <div class="menu-area">
+    <div class="profile-detail">
+      <h5 style="word-wrap: break-word" class="ng-binding">{{vm.username}}</h5>
+      <span class="ng-binding" style="padding-right: 20px;word-wrap: break-word">{{vm.emailId}}</span>
+      <button type="button" ng-click="vm.signOutClick()" class="signout"> Sign out</button>
+    </div>
+    <ul>
+      <li ng-repeat="menuItem in vm.MENU_CONSTANTS">
+        <a ng-if="menuItem.isDropdown && menuItem.name != 'ACCOUNTS'" class="ripple-effect" id="{{menuItem.name}}" has-permission="{{menuItem.name}}">{{menuItem.displayName}}</a>
+        <a ng-if="!menuItem.isDropdown && menuItem.name != 'ACCOUNTS'"  class="ripple-effect" id="{{menuItem.name}}"  has-permission="{{menuItem.name}}" ng-click="vm.navigate(menuItem.state);">{{menuItem.displayName}}</a>
+        <a ng-if="menuItem.name == 'ACCOUNTS'" ng-click="vm.accountClick()" id="myAccountButton" class="ripple-effect">My Account </a>
+        <ul ng-if="menuItem.permissions.length > 0 && menuItem.isDropdown && menuItem.name != 'ACCOUNTS'">
+          <li has-permission="{{permission.name}}" ng-if="menuItem.permissions.length > 0" ng-repeat="permission in menuItem.permissions">
+            <a ng-click="vm.navigate(permission.state);" class="ripple-effect" id="permission.name">{{permission.displayName}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="sideBarStatic">
+  <a ng-href="#helpsupport" target="_blank">Help and Support</a> <span> | </span> 
+  <a ng-href="#contactus" target="_blank">Contact Us</a>
+  </div>
+</div>

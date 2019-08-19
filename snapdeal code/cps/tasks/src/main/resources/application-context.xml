@@ -1,0 +1,105 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <context:annotation-config />
+
+    <bean id="propertyPlaceholder"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="locations">
+            <list>
+                <value>file:${propertyDir}/user.properties</value>
+                <value>file:${propertyDir}/tasks.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Setting up Mongo -->
+<!--     <mongo:mongo host="${mongo.hostname}" port="${mongo.port}" /> -->
+<!--     <mongo:db-factory dbname="${mongo.db.name}"></mongo:db-factory> -->
+
+<!--     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> -->
+<!--         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" /> -->
+<!--     </bean> -->
+    
+    <!-- Setting up mongo -->
+	<mongo:mongo replica-set="${mongo.replicaSet}" id="mongoCPS">
+        <mongo:options auto-connect-retry="true" 
+                       connections-per-host="${mongo.connectionsPerHost}"
+                       slave-ok="true" />
+    </mongo:mongo>
+    
+    <mongo:db-factory dbname="${mongo.db.name}" mongo-ref="mongoCPS" id="mongoDbFactoryCPS" />
+
+    <bean id="readPref" class="com.mongodb.ReadPreference" factory-method="secondaryPreferred" />
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactoryCPS" />
+        <property name="readPreference" ref="readPref" />
+    </bean>
+    
+    <!-- Setting up MySQL datasource -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="${mysql.dwh.url}" />
+        <property name="username" value="${mysql.dwh.user}" />
+        <property name="password" value="${mysql.dwh.pass}" />
+    </bean>
+
+    
+    <!-- Scan all components -->
+    <context:component-scan base-package="com.snapdeal.cps" />
+    
+    <!-- Quartz Job Configurations -->
+    <bean id="rankPogJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="rankPogTask" />
+        <property name="targetMethod" value="rankMonthly" />
+        <property name="concurrent" value="false" />
+    </bean>
+    
+    <bean id="deleteSellerJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="deleteSuspendedSellerTask" />
+        <property name="targetMethod" value="deleteSuspendedSellers" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <!-- Trigger the jobs for specified parameters -->
+    <bean id="rankPogJobTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="rankPogJob" />
+        <property name="cronExpression"
+            value="${cps.tasks.rankpog.cron}" />
+    </bean>
+    
+    <bean id="deleteSellerJobTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="deleteSellerJob" />
+        <property name="cronExpression"
+            value="${cps.tasks.deletesellers.cron}" />
+    </bean>
+    
+    
+    <!-- Scheduling the quartz triggers -->
+    <bean id="quartzScheduler"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+        destroy-method="destroy">
+        <property name="triggers">
+            <list>
+                <ref bean="rankPogJobTrigger" />
+                <ref bean="deleteSellerJobTrigger" />
+            </list>
+        </property>
+    </bean>
+
+</beans>

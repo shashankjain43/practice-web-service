@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.admin.dao.IWhitelistApisDao">
+	
+	<resultMap id="result"
+		type="com.snapdeal.admin.dao.entity.WhitelistAPIDetails">
+		<result property="clientId" column="client_id" />
+		<result property="imsApiId" column="ims_api_id" />
+		<result property="isAllowed" column="is_allowed" />
+	</resultMap>
+	
+	<sql id="base_column_list">
+		client_id, ims_api_id, is_allowed
+	</sql>
+	
+	<insert id="insert"
+		parameterType="com.snapdeal.admin.dao.entity.WhitelistAPIDetails">
+		INSERT INTO whitelist_apis
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{clientId},#{imsApiId},#{isAllowed})
+	</insert>
+	
+	<update id="updateStatus" parameterType="com.snapdeal.admin.dao.entity.WhitelistAPIDetails">
+		update whitelist_apis set
+		is_allowed=#{isAllowed} 
+		WHERE client_id = #{clientId} AND ims_api_id=#{imsApiId}
+	</update>
+
+	<select id="getWhitelistApiByClientIdAndImsApiId" resultMap="result">
+		SELECT <include refid="base_column_list"/>
+		FROM whitelist_apis WHERE client_id=#{clientId} AND ims_api_id=#{imsApiId}
+	</select>
+		
+</mapper>

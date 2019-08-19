@@ -1,0 +1,511 @@
+<style type="text/css">
+    .search-box,  .login-area  {
+    display: none !important;
+    }
+</style>
+<div class="container mocContainer" style="margin-top: 50px; background: #fff; box-shadow: 0 0px 15px rgba(0,0,0,0.2);">
+    <h3 style="font-weight: 600; color: #5D5D5D;">Congratulations!</h3>
+    <p style="font-size: 16px; margin-bottom: 40px;">We've put together a to-do list to help you start transacting right away!</p>
+
+    <div class="mobTabs">
+        <div class="mobTab activeMobTab" ng-click="vm.selectTab(0,'basic')" id="basic">
+            <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">1</md-button>
+            <span class="dispInBlck" ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">Basic Information</span>
+        </div>
+        <div class="mobTab" ng-if="vm.integrationMode == 'online'" ng-click="vm.selectTab(1, 'sandbox')" id="sandbox">
+            <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">2</md-button>
+            <span class="dispInBlck" ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">Get the Integration kit</span>
+        </div>
+        <div class="mobTab" ng-if="vm.integrationMode == 'online'" ng-disabled="!vm.merchantStatus.BASIC_INFO" ng-click="vm.selectTab(2, 'bank')" id="bank">
+            <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}" ng-if="vm.integrationMode == 'online'">3</md-button>
+            <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}" ng-if="vm.integrationMode == 'offline'">2</md-button>
+            <span class="dispInBlck" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}">Fill Your Bank Details</span>
+        </div>
+        <div class="mobTab" ng-if="vm.integrationMode == 'online'" ng-disabled="!vm.merchantStatus.BASIC_INFO" ng-click="vm.selectTab(3, 'kyc')" id="kyc">
+            <div class="kycTab" ng-click="vm.getKycDocs(vm.mobForm.businessType)">
+                <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.KYC}" ng-if="vm.integrationMode == 'online'">4</md-button>
+                <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.KYC}" ng-if="vm.integrationMode == 'offline'">3</md-button>
+                <span class="dispInBlck" ng-class="{'greenTab': vm.merchantStatus.KYC}">Submit KYC Documents</span>
+            </div>
+        </div>
+        <div class="mobTab" ng-if="vm.integrationMode == 'offline'" ng-disabled="!vm.merchantStatus.BASIC_INFO" ng-click="vm.selectTab(1, 'bank')" id="bank">
+            <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}" ng-if="vm.integrationMode == 'online'">3</md-button>
+            <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}" ng-if="vm.integrationMode == 'offline'">2</md-button>
+            <span class="dispInBlck" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}">Fill Your Bank Details</span>
+        </div>
+        <div class="mobTab" ng-if="vm.integrationMode == 'offline'" ng-disabled="!vm.merchantStatus.BASIC_INFO" ng-click="vm.selectTab(2, 'kyc')" id="kyc">
+            <div class="kycTab" ng-click="vm.getKycDocs(vm.mobForm.businessType)">
+                <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.KYC}" ng-if="vm.integrationMode == 'online'">4</md-button>
+                <md-button class="dispInBlck md-icon-button" ng-class="{'greenTab': vm.merchantStatus.KYC}" ng-if="vm.integrationMode == 'offline'">3</md-button>
+                <span class="dispInBlck" ng-class="{'greenTab': vm.merchantStatus.KYC}">Submit KYC Documents</span>
+            </div>
+        </div>
+    </div>
+    <md-tabs md-dynamic-height md-selected="vm.selectedIndex">
+        <md-tab id="tab1">
+            <md-tab-label >
+                <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">1</md-button>
+                <span ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">Basic Information</span>
+            </md-tab-label>
+            <md-tab-body>
+                <div class="md-block" style="margin-bottom: 50px; text-align: center;">
+                    <h3 ng-if="vm.integrationMode == 'online'">Please fill up the form below to get the integration kit</h3>
+                    <h3 ng-if="vm.integrationMode == 'offline'">Please fill up the form given below</h3>
+                </div>
+                <form name="mobSignUp">
+                    <p class="md-block mobFormHeading">Basic Information</p>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Your Name (As it appears on TIN/TAN)</label>
+                            <input ng-model="vm.mobForm.merchantName" required name="mname" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.mname.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Business Name (Display Name)</label>
+                            <input ng-model="vm.mobForm.businessName" name="mbname" required ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.mbname.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <p class="md-block mobFormHeading">Contact Information</p>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Primary Email</label>
+                        <input ng-model="vm.merchantEmail" disabled />
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Secondary Email</label>
+                        <input ng-model="vm.mobForm.secondaryEmail" name="semail" type="email" ng-pattern="'^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$'" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        <div ng-messages="mobSignUp.semail.$error" role="alert" multiple>
+                            <div ng-message="pattern" class="my-message">Please enter a valid email</div>
+                        </div>
+                    </md-input-container>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Mobile</label>
+                            <input ng-model="vm.mobForm.primaryMobile" name="mmob" required ng-pattern="'^[7-9][0-9]{9}$'" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.mmob.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                                <div ng-message="pattern" class="my-message">Please enter a valid phone number</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Business Landline (eg: 27243223)</label>
+                            <input ng-model="vm.mobForm.landLineNumber" name="mbmob"  ng-pattern="'^[0-9]{6,9}$'" minlength="6" maxlength="9" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.mmob.$error" role="alert" multiple>
+                                <div ng-message="minlength" class="my-message">Landline number cannot be less than 6 digits</div>
+                                <div ng-message="maxlength" class="my-message">Landline number cannot be more than 9 digits</div>
+                                <div ng-message="pattern" class="my-message">Please enter a valid landline number</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Address line 1</label>
+                            <input ng-model="vm.mobForm.address1" required name="add1" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.add1.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Address line 2</label>
+                            <input ng-model="vm.mobForm.address2" name="add2" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>City</label>
+                            <input ng-model="vm.mobForm.city" required name="city" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.city.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>State</label>
+                            <input ng-model="vm.mobForm.state" name="state" required ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.state.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Postal Code</label>
+                            <input name="postalCode" ng-model="vm.mobForm.pincode" required md-maxlength="6" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.postalCode.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                                <div ng-message="md-maxlength" class="my-message">Please add an appropriate postal code</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <p class="md-block mobFormHeading">Business Information</p>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>PAN/TIN</label>
+                            <input ng-model="vm.mobForm.tin" name="pan" required minlength="9" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                            <div ng-messages="mobSignUp.pan.$error" role="alert" multiple>
+                                <div ng-message="required" class="my-message">You must supply a PAN/TIN</div>
+                                <div ng-message="minlength" class="my-message">You must supply a valid PAN/TIN</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':!vm.merchantStatus.BASIC_INFO}">
+                            <label>Date of business formation</label>
+                            <input ng-model="vm.mobForm.dateOfFormation" name="dateOfFormation" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        </md-input-container>
+                        <div class="md-block" flex-gt-sm ng-class="{'hideInput':vm.merchantStatus.BASIC_INFO}">
+                            <j-md-datepicker ng-model="vm.testDate" placeholder="Date of business formation" orientation="landscape"></j-md-datepicker>
+                        </div>
+                    </div>
+                    <div layout-gt-sm="row">
+
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':vm.merchantStatus.BASIC_INFO}"> 
+                            <label>Business Type <sup style="font-size:13px;">*</sup></label>
+                            <md-select ng-model="vm.mobForm.businessType" required name="btype" ng-disabled="vm.merchantStatus.BASIC_INFO"> 
+                                <md-option ng-repeat="b in vm.bTypes" value="{{b.value}}">
+                                    {{b.displayValue}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="mobSignUp.btype.$error" role="alert" class="md-errors-spacer" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':!vm.merchantStatus.BASIC_INFO}">
+                            <label>Business Type</label>
+                            <input ng-model="vm.mobForm.businessType" name="businessType"  ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':vm.merchantStatus.BASIC_INFO}">
+
+                            <label>Business Category <sup style="font-size:13px;">*</sup></label>
+                            <md-select ng-model="vm.mobForm.businessCategory" required name="bcat"  ng-change="vm.businessSubCateogory(vm.mobForm.businessCategory)" ng-disabled="vm.merchantStatus.BASIC_INFO"> 
+                                <md-option ng-repeat="bc in vm.bCats" value="{{bc.value}}">
+                                    {{bc.displayValue}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="mobSignUp.bcat.$error" role="alert" class="md-errors-spacer" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':!vm.merchantStatus.BASIC_INFO}">
+                            <label>Business Category</label>
+                            <input ng-model="vm.mobForm.businessCategory" name="businessCategory" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':vm.merchantStatus.BASIC_INFO}">
+
+                            <label>Business Sub-category <sup style="font-size:13px;">*</sup></label> 
+                            <md-select ng-model="vm.mobForm.subCategory" required name="bstate"  ng-disabled="vm.merchantStatus.BASIC_INFO"> 
+                                <md-option ng-repeat="sbc in vm.bSubCats" value="{{sbc.value}}">
+                                    {{sbc.displayValue}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="mobSignUp.bstate.$error" role="alert" class="md-errors-spacer" multiple>
+                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm ng-class="{'hideInput':!vm.merchantStatus.BASIC_INFO}">
+                            <label>Business Sub-category</label> 
+                            <input ng-model="vm.mobForm.subCategory" name="subCategory"   ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        </md-input-container>
+                    </div>
+                    <div layout-gt-sm="row">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Website (format: http://domainname)</label>
+                            <input ng-model="vm.mobForm.website" name="website" type="url" ng-disabled="vm.merchantStatus.BASIC_INFO"> 
+                        </md-input-container>
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Your mobile app name (If any)</label>
+                            <input ng-model="vm.mobForm.appName" name="appname" ng-disabled="vm.merchantStatus.BASIC_INFO">
+                        </md-input-container>
+                    </div>
+                    <md-input-container class="md-block">
+                        <div class="alert alert-danger" ng-if="vm.errormob" style="margin-bottom:10px;">{{vm.errorMessage}}</div>
+                        <div class="alert alert-success" ng-if="vm.successmob" style="margin-bottom:10px;">
+                            <strong>{{vm.successMessage}}</strong> 
+                        </div>
+                        <md-button ng-if="!vm.successmob && !vm.merchantStatus.BASIC_INFO" style="margin-right:20px;" class="btn-orange" ng-disabled="mobSignUp.$invalid" ng-click="vm.submitMobForm()">
+                            SUBMIT
+                        </md-button>
+                        <span ng-if="vm.successmob || vm.merchantStatus.BASIC_INFO" style="width:265px; display:block;">
+                            <md-button class="btn-orange" ng-click="vm.printDiv('print')">
+                                <i class="material-icons" style="float: left; margin-top: 6px;">get_app</i> <span>PRINT/SAVE PDF</span>
+                            </md-button>
+                            <md-button class="btn-orange" ng-click="vm.nextTab(); vm.loadIntegrationKit()" ng-if="vm.integrationMode == 'online'">
+                                NEXT <i class="material-icons" style="float: right; margin-top: 6px;">play_arrow</i>
+                            </md-button>
+                            <md-button class="btn-orange" ng-click="vm.nextTab(); vm.loadBank()" ng-if="vm.integrationMode == 'offline'">
+                                NEXT <i class="material-icons" style="float: right; margin-top: 6px;">play_arrow</i>
+                            </md-button>
+                        </span>
+                    </md-input-container>
+                </form>
+            </md-tab-body>
+        </md-tab>
+        <md-tab id="tab2" ng-disabled="!vm.merchantStatus.BASIC_INFO" ng-if="vm.integrationMode == 'online'">
+            <md-tab-label >
+                <span ng-click="vm.loadSandboxTab()">
+                <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">2</md-button>
+                <span ng-class="{'greenTab': vm.merchantStatus.BASIC_INFO}">Get the Integration kit</span>
+                </span>
+            </md-tab-label>
+            <md-tab-body>
+                <div style="width: 100%;">
+                    <div class="row" ng-if="vm.sandboxData.error!==null">
+                        <div id="erroSandboxrMessage" class="error-msz-box" id="successDiv">{{vm.errorMessage}}</div>
+                    </div>
+                    <div class="row"  ng-if="vm.sandboxData.error===null">
+                        <div class="col-xm-12 change-password">
+                            <p class="mobpara" style="text-align: center;">Start testing your transactions on freecharge on our testing environment by using below mentioned sandbox keys. Please refer to integration guide for details.</p>
+                            <div class="form-group clearfix">
+                                <label id="urlLabel" for="urlInput" class="col-sm-2 control-label">Sandbox Url</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="urlInput"
+                                        name="urlInput"
+                                        ng-model="vm.sandboxData.data.url" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group clearfix">
+                                <label id="keyLabel" for="keyInput" class="col-sm-2 control-label">Sandbox Key</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="keyInput"
+                                        name="keyInput"
+                                        ng-model="vm.sandboxData.data.key" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/assets/templates/MerchantIntegrationGuide.pdf" ng-click="vm.clickIntegrationkit()" class="btn btn-default btn-raised download" target="_blank" style="margin-left: 10px;">Integration Guide</a>
+                        <md-button  class="btn-orange" ng-click="vm.nextTab(); vm.loadBank();">
+                            NEXT <i class="material-icons" style="float: right; margin-top: 6px;">play_arrow</i>
+                        </md-button>
+                    </div>
+                </div>
+                <div id="loadMask" style="display:block" ng-if="vm.isLoading">
+                    <div class="f-bolt"></div>
+                </div>
+            </md-tab-body>
+        </md-tab>
+        <md-tab id="tab3" ng-disabled="!vm.merchantStatus.BASIC_INFO">
+            <md-tab-label >
+                <span ng-click="vm.loadBank()">
+                <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}" ng-if="vm.integrationMode == 'online'">3</md-button>
+                <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}" ng-if="vm.integrationMode == 'offline'">2</md-button>
+                <span ng-class="{'greenTab': vm.merchantStatus.BANK_INFO}">Fill Your Bank Details</span>
+                </span>
+            </md-tab-label>
+            <md-tab-body>
+                <div>
+                    <div class="row">
+                        <div class="col-xm-12 col-sm-12">
+                            <p class="mobpara" style="text-align: center; ">Please provide us your bank details to start accepting payments from customers into your bank account.</p>
+                            <form name="bankForm" style="margin-top: 80px;">
+                                <div layout-gt-sm="row">
+
+                                        <md-input-container class="md-block md-input-has-messages md-input-has-value" flex-gt-sm>
+                                            <label>Account Holder Name</label>
+                                            <input name="accountHolderName"  ng-disabled="vm.bankSubmitInfo" focus-delay="300" max-limit="127" ng-pattern="'^[a-zA-Z ]*$'" ng-model="vm.bank.accountHolderName" required aria-invalid="false" >
+                                            <div ng-messages="bankForm.accountHolderName.$error" aria-live="assertive" multiple>
+                                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                                                <div ng-message="pattern" class="my-message">Please enter a valid account holder name</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block md-input-has-messages" flex-gt-sm>
+                                            <label translate="" class="ng-scope">Account Number</label>
+                                            <input name="accountNumber" ng-disabled="vm.bankSubmitInfo"  type="text" number-only max-limit="18" ng-model="vm.bank.bankAccount" required aria-required="false" aria-invalid="false">
+                                            <div ng-messages="bankForm.accountNumber.$error" aria-live="assertive" multiple>
+                                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                                            </div>
+                                        </md-input-container>
+                                </div>
+                                <div layout-gt-sm="row">
+                                        <md-input-container class="md-block md-input-has-messages" flex-gt-sm>
+                                            <label translate="" class="ng-scope">Bank Name</label>
+                                            <input type="text" ng-disabled="vm.bankSubmitInfo"  name="bankName" max-limit="127" ng-pattern="'^[a-zA-Z ]*$'" ng-model="vm.bank.bankName" required aria-required="false" aria-invalid="false">
+                                            <div ng-messages="bankForm.bankName.$error" aria-live="assertive" multiple>
+                                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                                                <div ng-message="pattern" class="my-message">Please enter a valid bank name</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container class="md-block md-input-has-messages md-light-green-theme md-input-has-value" flex-gt-sm>
+                                            <label translate="" class="ng-scope">IFSC Code</label>
+                                            <input name="ifsc" ng-disabled="vm.bankSubmitInfo"  ng-model="vm.bank.ifscCode" max-limit="11" ng-pattern="'^([a-zA-Z0-9]{11})$'" required aria-required="false" aria-invalid="false">
+                                            <div ng-messages="bankForm.ifsc.$error" aria-live="assertive" multiple>
+                                                <div ng-message="required" class="my-message">This field is mandatory</div>
+                                                <div ng-message="pattern" class="my-message">Please enter a valid IFSC Code</div>
+                                            </div>
+                                        </md-input-container>
+                                </div>
+                                <div layout-gt-sm="row">
+                                    <md-input-container class="md-block">
+                                        <md-button ng-if="!vm.bankSubmitInfo" class="btn-orange" ng-disabled="bankForm.$invalid" ng-click="vm.submitBankForm()">
+                                            SUBMIT
+                                        </md-button>
+                                        <md-button class="btn-orange" ng-click="vm.getKycDocs(vm.mobForm.businessType); vm.nextTab(); vm.loadKyc()">
+                                            NEXT <i class="material-icons" style="float: right; margin-top: 6px;">play_arrow</i>
+                                        </md-button>
+                                        <div ng-if="vm.errorbank">
+                                            <div class="alert alert-danger" style="margin-bottom:10px;">
+                                                {{vm.errorMessage}}
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success" ng-if="vm.successbank" style="margin-bottom:10px;">
+                                            <strong>{{vm.successMessage}}</strong> 
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </md-tab-body>
+        </md-tab>
+        <md-tab id="tab4" ng-disabled="!vm.merchantStatus.BASIC_INFO">
+            <md-tab-label style="padding:0">
+                <div class="kycTab" ng-click="vm.getKycDocs(vm.mobForm.businessType); vm.loadKyc()">
+                    <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.KYC}" ng-if="vm.integrationMode == 'online'">4</md-button>
+                    <md-button class="md-icon-button" ng-class="{'greenTab': vm.merchantStatus.KYC}" ng-if="vm.integrationMode == 'offline'">3</md-button>
+                    <span ng-class="{'greenTab': vm.merchantStatus.KYC}">Submit KYC Documents</span>
+                </div>
+            </md-tab-label>
+            <md-tab-body>
+                <div class="col-md-12 col-sm-12">
+                    <p class="mobpara">You are just a step away from making your account LIVE and start receiving payments. For this we request you to upload the required documents from below.</p>
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="alert alert-danger" ng-if="vm.errorKyc" style="background:#fed7d8; color:#f91a24">
+                      <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close" style="background:#fed7d8; color:#f91a24; opacity: 1;">&times;</a>
+                      <strong>ERROR: </strong>{{vm.errorKycMsg}}
+                    </div>
+                </div>
+                <div ng-repeat="doc in vm.kycDocList" style="font-weight:500;" ng-if="doc.docCategory != 'Agreement'">
+                    <div class="row kycRow" ng-if="doc.uploadedKyc.docStatus != 'Rejected' && doc.uploadedstatus">
+                        <div class="col-md-4 col-sm-12 col-xs-12 kycDocCategory">
+                            <p class="kycDocCat">
+                                <a href="javascript:void(0)" class="kycTooltip" tooltip-show ng-if="doc.docCategory == 'Signing Authority'" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="<a href='assets/templates/BoardResolutionDraft.pdf' target='_blank' style='color:#fff; opacity:0.7'>Resolution document that will provide the decision taken by the company board for signing authority. Sample board resolution template is available here</a>"><img src="assets/images/tooltipImg.PNG" style="width: 24px; height: 24px;"></a>
+                                <a href="javascript:void(0)" class="kycTooltip" tooltip-show ng-if="doc.docCategory == 'Application'" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Form downloaded from basic information section to be self attested and uploaded"><img src="assets/images/tooltipImg.PNG" style="width: 24px; height: 24px;"></a>
+                                {{doc.docCategory}}
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12 kycDocType" ng-if="doc.uploadedstatus">
+                            <div class="md-block">
+                                <p style="line-height:38px;"> {{doc.uploadedKyc.documentType}} </p>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-sm-12 kycFileUpload">
+                            <span style="color:#7fb94e;" class="kycUploadText" ng-if="doc.uploadedKyc.docStatus == 'Awaiting approval'"><img src="assets/images/Files-Submitted.jpg" style="width: 15px; margin-right: 5px;">File Submitted, waiting for approval</span>
+                            <span style="color:#7fb94e;" class="kycUploadText" ng-if="doc.uploadedKyc.docStatus == 'Approved'"><img src="assets/images/Files-Submitted.jpg" style="width: 15px; margin-right: 5px;">File Submitted &amp; Approved</span>
+                        </div>
+                    </div>
+                    <div class="row" ng-class="{'hideInput':doc.uploadedstatus}">
+                        <!--similar to ng-if="!doc.uploadStatus"> -->
+                        <div class="col-md-4 col-sm-12 col-xs-12 kycDocCategory">
+                            <p class="kycDocCat">
+                                <a href="javascript:void(0)" class="kycTooltip" tooltip-show ng-if="doc.docCategory == 'Signing Authority'" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Resolution document that will provide the decision taken by the company board for signing authority. Sample board resolution template is available <a class='text-orange' href='assets/templates/BoardResolutionDraft.pdf' target='_blank'>here</a>"><img src="assets/images/tooltipImg.PNG" style="width: 24px; height: 24px;"></a>
+                                <a href="javascript:void(0)" class="kycTooltip" tooltip-show ng-if="doc.docCategory == 'Application'" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Form downloaded from basic information section to be self attested and uploaded"><img src="assets/images/tooltipImg.PNG" style="width: 24px; height: 24px;"></a>
+                                {{doc.docCategory}}
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12">
+                            <md-input-container class="md-block" md-no-float>
+                                <md-select class="kycSelect md-block" ng-model="vm.mobForm.kycdoctype[doc.docCategory]" required name="bcat" placeholder="Select Type" 
+                                    style="display:block !important;">
+                                    <md-option ng-repeat="d in doc.docType" ng-value="d">
+                                        {{d}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="mobSignUp.bcat.$error" role="alert" class="md-errors-spacer" multiple>
+                                    <div ng-message="required" class="my-message">This field is mandatory</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                            <button class="btn btn-grey-border" style="display:inline" ng-disabled="!vm.mobForm.kycdoctype[doc.docCategory] || kycFile">
+                            <span ng-click="vm.uploadKycDoc(KycFile,'bulkFile',doc.docCategory,vm.mobForm.kycdoctype[doc.docCategory], doc)" ng-disabled="!vm.mobForm.kycdoctype[doc.docCategory] || kycFile" > Upload Doc </span>
+                            </button>
+                            <input type="file" file-model="KycFile" class="kycInputFile" aria-label="kycFile{{$index}}">
+                        </div>
+                    </div>
+                    <div ng-if="doc.uploadedKyc.docStatus == 'Rejected' && doc.uploadedstatus">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <p class="kycDocCat">
+                                    <a href="#" class="kycTooltip" tooltip-show ng-if="doc.docCategory == 'Signing Authority'" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Resolution document that will provide the decision taken by the company board for signing authority. Sample board resolution template is available <a class='text-orange' href='assets/templates/BoardResolutionDraft.pdf' target='_blank'>here</a>"><img src="assets/images/tooltipkyc.PNG" style="width: 24px; height: 24px;"></a>
+                                    <a href="#" class="kycTooltip" tooltip-show ng-if="doc.docCategory == 'Application'" data-placement="top" data-toggle="popover" data-trigger="focus" data-content="Form downloaded from basic information section to be self attested and uploaded"><img src="assets/images/tooltipkyc.PNG" style="width: 24px; height: 24px;"></a>
+                                    {{doc.docCategory}}
+                                </p>
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12">
+                                <div class="md-block">
+                                    <p style="line-height:38px;"> {{doc.uploadedKyc.documentType}} </p>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-12">
+                                <span style="color:#ff080e;" class="kycUploadText"><img src="assets/images/Files-Rejected.jpg" style="width: 15px; margin-right: 5px;">File rejected, please upload again</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-3 col-sm-12 col-xs-12">
+                                <md-input-container class="md-block" md-no-float>
+                                    <md-select class="kycSelect md-block" ng-model="vm.mobForm.kycdoctype[doc.docCategory]" required name="bcat" placeholder="Select Type" 
+                                        style="display:block !important;">
+                                        <md-option ng-repeat="d in doc.docType" ng-value="d">
+                                            {{d}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="mobSignUp.bcat.$error" role="alert" class="md-errors-spacer" multiple>
+                                        <div ng-message="required" class="my-message">This field is mandatory</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <button class="btn btn-grey-border" style="display:inline" ng-disabled="!vm.mobForm.kycdoctype[doc.docCategory] || kycFile">
+                                <span ng-click="vm.uploadKycDoc(KycFile,'bulkFile',doc.docCategory,vm.mobForm.kycdoctype[doc.docCategory], doc)" ng-disabled="!vm.mobForm.kycdoctype[doc.docCategory] || kycFile" > Upload Doc </span>
+                                </button>
+                                <input type="file" class="kycInputFile" file-model="KycFile"  aria-label="kycFile{{$index}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <p class="mobpara" style="margin-top: 20px;">For any queries or concerns please reach out to us at <u class="text-orange">merchantsupport@freecharge.com</u></p>
+                </div>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+</div>
+<div id="print" style=" display: none; ">
+    <div  style="    width: 100%;
+    float: left;
+    clear: both;
+    padding: 10px 30px;">
+    <div style="width: 50%; float: left;">
+        <p><b>Merchant Name :</b> {{vm.mobForm.merchantName}}</p>
+        <p><b>Primary Email :</b> {{vm.merchantEmail}}</p>
+        <p><b>Secondary Email :</b> {{vm.mobForm.secondaryEmail}}</p>
+        <p><b>Business Type :</b> {{vm.mobForm.businessType}}</p>
+        <p><b>Business Category :</b> {{vm.mobForm.businessCategory}}</p>
+        <p><b>PAN/TIN :</b> {{vm.mobForm.tin}}</p>
+        <p><b>Website Link: </b>{{vm.mobForm.website}}</p>
+        <p><b>Address Line 1 :</b> {{vm.mobForm.address1}}</p>
+        <p><b>Address Line 2 :</b> {{vm.mobForm.address2}}</p>
+        <p><b>City :</b> {{vm.mobForm.city}}</p>
+        <p ng-if="vm.integrationMode == 'online'"><b>Merchant Discount Rate Applicable :</b> 2%</p>
+        <p ng-if="vm.integrationMode == 'offline'"><b>Merchant Discount Rate Applicable :</b> &nbsp;</p>
+    </div>
+    <div style="width: 50%; float: left;">
+        <p><b>Business Name :</b> {{vm.mobForm.businessName}}</p>
+        <p><b>Mobile No :</b> {{vm.mobForm.primaryMobile}}</p>
+        <p><b>Business Landline :</b> {{vm.mobForm.landLineNumber}}</p>
+        <p><b>Integration Mode :</b> {{vm.integrationMode}}</p>
+        <p><b>Business SubCategory :</b> {{vm.mobForm.subCategory}}</p>
+        <p><b>Date of formation :</b> {{vm.mobForm.dateOfFormation}}</p>
+        <p><b>App Name :</b> {{vm.mobForm.appName}}</p>
+        <p><b>State : </b>{{vm.mobForm.state}}</p>
+        <p><b>Postal Code :</b> {{vm.mobForm.pincode}}</p>        
+    </div>
+    </div>
+</div>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>
+<route-loading-indicator />

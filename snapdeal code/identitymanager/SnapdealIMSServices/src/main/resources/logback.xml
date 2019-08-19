@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property file="${config.path}/log.properties" />
+	<include resource="PaymentCommons/logback.xml" />
+
+	<!-- USE FOR CONSOLE LOGGING -->
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} -APP- %X{HOST} %X{apprequestid} [%t] %.-5level %logger{36}.%M-%L - %msg %n</pattern>
+		</encoder>
+	</appender>
+	<appender name="app_file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.app.fileName}</File>
+		<encoder>
+			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} -APP- %X{HOST} %X{apprequestid} [%t] %.-5level %logger{36}.%M-%L - %msg %n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${log.folder}/${log.app.fileName}-%d{YYYY-MM-dd}.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>${log.file.maxsize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="activity_appender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.activity.fileName}</File>
+		<encoder>
+			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} -APP- %X{HOST} %X{apprequestid} [%t] %.-5level %logger{60}.%M-%L - %msg %n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${log.folder}/${log.activity.fileName}-%d{YYYY-MM-dd}.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>${log.file.maxsize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="email_log"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.email.fileName}</File>
+		<encoder>
+			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} -APP- %X{HOST} %X{apprequestid} [%t] %.-5level %logger{60}.%M-%L - %msg %n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${log.folder}/${log.email.fileName}-%d{YYYY-MM-dd}.%i
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 100MB -->
+				<maxFileSize>${log.file.maxsize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="ASYNC_ACTIVITY" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>500</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="activity_appender" />
+	</appender>
+
+	<appender name="ASYNC_APP" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>500</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="app_file" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+		
+	<logger name="com.snapdeal.payments.metrics.TimedMethodInterceptor" additivity="false" level="DEBUG">
+		<appender-ref ref="ASYNC_ACTIVITY" />
+		<includeCallerData>true</includeCallerData>
+	</logger>
+
+	<logger name="com.snapdeal" additivity="false" level="ERROR">
+		<appender-ref ref="ASYNC_APP" />
+	</logger>
+	<logger name="com.snapdeal.ims" additivity="false" level="${log.level}">
+		<appender-ref ref="ASYNC_APP" />
+	</logger>
+
+	<logger name="com.snapdeal.mail" additivity="false" level="${log.level}">
+		<appender-ref ref="ASYNC_APP" />
+	</logger>
+
+	<root level="ERROR">
+		<appender-ref ref="email_log" />
+		<appender-ref ref="ASYNC_APP" />
+	</root>
+</configuration>

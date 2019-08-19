@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+	<property file="${config.path}/log.properties" />
+	<include resource="PaymentCommons/logback.xml" />
+	<appender name="app_file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.app.fileName}</File>
+		<!-- <encoder> <pattern> [%date][%X{workflowId}][%X{parentworkflowId}][%X{requestId}][%t][%.-5level][%logger{0}]::%msg%n 
+			</pattern> </encoder> -->
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+			<fieldNames>
+				<version>[ignore]</version>
+			</fieldNames>
+			<shortenedLoggerNameLength>0</shortenedLoggerNameLength>
+			<throwableConverter
+				class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+				<maxDepthPerThrowable>30</maxDepthPerThrowable>
+				<maxLength>2048</maxLength>
+				<!-- <shortenedClassNameLength>0</shortenedClassNameLength> -->
+				<exclude>sun\.reflect\..*\.invoke.*</exclude>
+				<exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+				<exclude>org\.springframework\.aop\.*</exclude>
+
+				<rootCauseFirst>true</rootCauseFirst>
+			</throwableConverter>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${log.folder}/${log.app.fileName}.%d{yyyy-MM-dd:HH}.%i.gz
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 500MB -->
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>1000</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="scheduler_file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.app.scheduler.fileName}</File>
+		<encoder>
+			<pattern>[%date][%X{requestId}][%t][%color{%.-5level}][%logger{0}]:: %msg%n
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${log.folder}/${log.app.scheduler.fileName}.%d{yyyy-MM-dd:HH}.%i.gz
+			</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 500MB -->
+				<maxFileSize>500MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>1000</maxHistory>
+		</rollingPolicy>
+
+	</appender>
+
+
+	<appender name="ASYNC_ACTIVITY" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="activity_appender" />
+    </appender>
+
+    <appender name="ASYNC_APP" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="app_file" />
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <logger name="com.snapdeal.payments.metrics.TimedMethodInterceptor"
+        additivity="false" level="DEBUG">
+        <appender-ref ref="ASYNC_ACTIVITY" />
+        <includeCallerData>true</includeCallerData>
+      <!--   <appender-ref ref="CONSOLE" /> -->
+    </logger>
+
+    <logger name="com.snapdeal" additivity="false" level="ERROR">
+        <appender-ref ref="ASYNC_APP" />
+      <!--   <appender-ref ref="CONSOLE" /> -->
+    </logger>
+    <logger name="com.snapdeal.payments.view.mapper" level="ERROR">
+   		<appender-ref ref="ASYNC_APP" />
+    </logger>
+    <logger name="com.snapdeal.payments" additivity="false" level="${log.level}">
+        <appender-ref ref="ASYNC_APP" />
+       <!--  <appender-ref ref="CONSOLE" /> -->
+    </logger>
+
+    <root level="ERROR">
+        <appender-ref ref="ASYNC_APP" />
+      <!--   <appender-ref ref="CONSOLE" /> -->
+    </root>
+
+</configuration>

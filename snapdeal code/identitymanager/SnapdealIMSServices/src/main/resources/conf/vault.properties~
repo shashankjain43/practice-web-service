@@ -1,0 +1,7 @@
+vaultDisable=0
+vaultIP=52.76.179.38
+port=8200
+jssecacertPath=/home/local/JASPERINDIA/kishan.tulsyan/git/identityManager/Vault_Certificates/jssecacerts
+keystorePath=/home/local/JASPERINDIA/kishan.tulsyan/git/identityManager/Vault_Certificates/scripts.p12
+keyPassword=whatever
+backendPath=secret/payments

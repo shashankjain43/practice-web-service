@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>MerchantPanelApp</artifactId>
+	<packaging>jar</packaging>
+
+	<name>MerchantPanelApp</name>
+	<description>merchant panel</description>
+
+	<parent>
+		<groupId>com.snapdeal.merchant</groupId>
+		<artifactId>MerchantPanel</artifactId>
+		<version>4.0.0</version>
+	</parent>
+
+	<properties>
+		<jar.name>mpanel</jar.name>
+		<version.value>0.0.1-SNAPSHOT</version.value>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.3.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.10.40</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.12</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
+			<version>2.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>3.0.4.RELEASE</version>
+		</dependency>
+		
+		<!-- Merchant panel Dependency -->
+		<dependency>
+			<groupId>com.snapdeal.merchant</groupId>
+			<artifactId>MerchantPanelCommons</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.merchant</groupId>
+			<artifactId>AmazonS3ServiceProvider</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev-rel</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<finalName>${jar.name}</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<!-- uncomment this code for debug -->
+						 <!-- <configuration> <jvmArguments> -Dconfig.path=/home/local/JASPERINDIA/darshan.mahor/conf 
+					-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5010 </jvmArguments> 
+					</configuration>  -->
+				       <!--  code end here -->
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<source>1.7</source>
+							<target>1.7</target>
+							<compilerArgument>-Xlint:all</compilerArgument>
+							<showWarnings>true</showWarnings>
+							<showDeprecation>true</showDeprecation>
+							<excludes>
+								<exclude>com/snapdeal/merchant/rest/stub/service/impl/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+					<!-- <plugin> <artifactId>maven-war-plugin</artifactId> <configuration> 
+						<packagingExcludes> com/snapdeal/merchant/rest/stub/service/impl/** </packagingExcludes> 
+						</configuration> </plugin> -->
+
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>0.0.26</version>
+						<configuration>
+							<workingDirectory>src/main/webapp</workingDirectory>
+							<installDirectory>
+								src/main/webapp
+							</installDirectory>
+						</configuration>
+						<executions>
+							<execution>
+								<id>install node and npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+								<configuration>
+									<nodeVersion>v0.12.2</nodeVersion>
+									<npmVersion>2.7.6</npmVersion>
+								</configuration>
+							</execution>
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<!-- Optional configuration which provides for running any npm command -->
+								<configuration>
+									<arguments>update</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>bower install</id>
+								<goals>
+									<goal>bower</goal>
+								</goals>
+								<configuration>
+									<arguments>update</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>gulp build</id>
+								<goals>
+									<goal>gulp</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<arguments>build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<!--  testng build test cases during mvn clean install -->
+				 	<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.19.1</version>
+						<configuration>
+						<useFile>false</useFile>
+							<suiteXmlFiles>
+								<suiteXmlFile>testng.xml</suiteXmlFile>
+							</suiteXmlFiles>
+							
+						</configuration>
+					</plugin> 
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>dev-stub</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<finalName>${jar.name}</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.5.1</version>
+						<configuration>
+							<source>1.7</source>
+							<target>1.7</target>
+							<compilerArgument>-Xlint:all</compilerArgument>
+							<showWarnings>true</showWarnings>
+							<showDeprecation>true</showDeprecation>
+							<excludes>
+								<exclude>com/snapdeal/merchant/rest/service/impl/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>0.0.26</version>
+						<configuration>
+							<workingDirectory>src/main/webapp</workingDirectory>
+							<installDirectory>
+								src/main/webapp
+							</installDirectory>
+						</configuration>
+						<executions>
+							<execution>
+								<id>install node and npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+								<configuration>
+									<nodeVersion>v5.4.0</nodeVersion>
+									<npmVersion>3.5.3</npmVersion>
+								</configuration>
+							</execution>
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<!-- Optional configuration which provides for running any npm command -->
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>bower install</id>
+								<goals>
+									<goal>bower</goal>
+								</goals>
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>gulp build</id>
+								<goals>
+									<goal>gulp</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<arguments>build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.19.1</version>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>testng.xml</suiteXmlFile>
+							</suiteXmlFiles>
+							<useFile>false</useFile>
+						</configuration>
+					</plugin>
+					
+					
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.snapdeal.merchant</groupId>
+				<artifactId>MerchantPanelCommons</artifactId>
+				<version>4.0.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>
+  
+  

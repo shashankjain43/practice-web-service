@@ -1,0 +1,56 @@
+[
+  {
+    "id": 101,
+    "displayName": "displayRoleName",
+    "permissions": [
+      {
+        "id": 1010,
+        "name": "name1",
+        "displayName": "displayName2",
+        "enabled": true
+      },
+      {
+        "id": 1011,
+        "name": "name1",
+        "displayName": "displayName2",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "displayName": "displayRoleName",
+    "permissions": [
+      {
+        "id": 1020,
+        "name": "name1",
+        "displayName": "displayName2",
+        "enabled": true
+      },
+      {
+        "id": 1021,
+        "name": "name1",
+        "displayName": "displayName2",
+        "enabled": true
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "displayName": "displayRoleName",
+    "permissions": [
+      {
+        "id": 1030,
+        "name": "name1",
+        "displayName": "displayName2",
+        "enabled": true
+      },
+      {
+        "id": 1031,
+        "name": "name1",
+        "displayName": "displayName2",
+        "enabled": true
+      }
+    ]
+  }
+]

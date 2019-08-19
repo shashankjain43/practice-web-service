@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<mappers>
+		<mapper resource="myBatis/client.xml" />
+		<mapper resource="myBatis/user.xml" />
+		<mapper resource="myBatis/socialUser.xml" />
+		<mapper resource="myBatis/configuration.xml" />
+		<mapper resource="myBatis/tokenDetails.xml" />
+		<mapper resource="myBatis/globalTokenDetails.xml" />
+		<mapper resource="myBatis/lockUser.xml" />
+		<mapper resource="myBatis/user-verification.xml" />
+		<mapper resource="myBatis/userUpgradeStatus.xml" />
+		<!--OTP Mybatis Schema Starts -->
+		<mapper resource="data-xml/otp.xml" />
+		<mapper resource="data-xml/freezeAccount.xml" />
+		
+		<!-- Task Scheduler -->
+		<mapper resource="myBatis/task.xml" />
+	 	<mapper resource="myBatis/taskExecution.xml" />
+	 	<mapper resource="myBatis/blacklist.xml"/>
+		<!-- OTP Mybatis schema ends -->
+		
+		<!-- WhiteList API  -->
+	 	<mapper resource="myBatis/whitelistApis.xml"/>
+	 	<mapper resource="myBatis/IMSApi.xml"/>
+	 	
+	 	<!-- Dashboard API  -->
+	 	<mapper resource="myBatis/maintainUserHistory.xml"/>
+	 	<mapper resource="myBatis/user_archive.xml" />
+	 	<mapper resource="myBatis/activity.xml" />	
+	 	
+	 	
+		
+	</mappers>
+</configuration>

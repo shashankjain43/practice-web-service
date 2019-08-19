@@ -1,0 +1,75 @@
+<md-dialog ng-controller="LoginController as vm" style="width: 500px;padding: 10px;">
+    <md-toolbar style="background: #fff">
+      <div class="md-toolbar-tools">
+        <h2>Please fill in your bank details here</h2>
+        <span flex></span>
+        <!--<md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog" style="color: #d7d7d7"></md-icon>
+        </md-button>-->
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="padding:20px;">
+            <form name="bankForm">
+                <div class="flex layout layout-column">
+                    <div class="flex layout layout-sm layout-sm-column">
+                        <md-input-container class="flex md-input-has-messages md-input-has-value">
+                            <label for="input_62">Account Holder Name</label>
+                            <input name="accountHolderName" focus-delay="300" max-limit="127" ng-pattern="^[a-zA-Z ]*$" ng-model="vm.data.bankAccountDetailsDTO.accountHolderName" required id="input_62" aria-invalid="false" >
+                            <div ng-messages="bankForm.accountHolderName.$error" aria-live="assertive">
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="flex md-input-has-messages">
+                            <label translate="" class="ng-scope" for="input_63">Account Number</label>
+                            <input name="accountNumber" type="text" number-only max-limit="18" ng-pattern="^\d{9,18}$" ng-model="vm.data.bankAccountDetailsDTO.accountNumber" required id="input_63" aria-required="false" aria-invalid="false">
+                            <div ng-messages="bankForm.accountNumber.$error" aria-live="assertive">
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="flex layout layout-sm layout-sm-column">
+                        <md-input-container class="flex md-input-has-messages">
+                            <label translate="" class="ng-scope" for="input_64">Bank Name</label>
+                            <input type="text" name="bankName" max-limit="127" ng-pattern="^[a-zA-Z ]*$" ng-model="vm.data.bankAccountDetailsDTO.bankName" required id="input_64" aria-required="false" aria-invalid="false">
+                            <div ng-messages="bankForm.bankName.$error" aria-live="assertive"></div>
+                        </md-input-container>
+                        <md-input-container class="flex md-input-has-messages md-light-green-theme md-input-has-value">
+                            <label translate="" class="ng-scope" for="input_65">IFSC Code</label>
+                            <input name="ifsc" ng-model="vm.data.bankAccountDetailsDTO.ifsccode" max-limit="11" ng-pattern="^([a-zA-Z0-9]{11})$" required id="input_65" aria-required="false" aria-invalid="false">
+                            <div ng-messages="bankForm.ifsc.$error" aria-live="assertive"></div>
+                        </md-input-container>
+                    </div>
+
+
+                      <md-input-container class="md-block">
+                        <label>Settlement Time</label>
+                        <md-select name="settlementTime" ng-model="vm.data.bankAccountDetailsDTO.disburseDifferencePeriod" required>
+                          <md-option value="online">ONLINE</md-option>
+                          <md-option value="offline">OFFLINE</md-option>
+                        </md-select>
+                        <div class="md-errors-spacer"></div>
+                      </md-input-container>
+
+                      <md-input-container class="md-block">
+                        <label>Bank Account Status</label>
+                        <md-select name="accountStatus" ng-model="vm.bankStatus" required>
+                          <md-option value="online">ONLINE</md-option>
+                          <md-option value="offline">OFFLINE</md-option>
+                        </md-select>
+                        <div class="md-errors-spacer"></div>
+                      </md-input-container>
+
+                </div>
+            </form>
+
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="vm.cancel()" class="btn-white">
+        CANCEL
+      </md-button>
+      <md-button style="margin-right:20px;" class="btn-orange">
+        SUBMIT AND DOWNLOAD
+      </md-button>
+    </md-dialog-actions>
+</md-dialog>
+
+

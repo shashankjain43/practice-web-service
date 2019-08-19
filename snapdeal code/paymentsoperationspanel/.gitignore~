@@ -1,0 +1,14 @@
+	.metadata/
+	.recommenders/
+	*~
+	*/.settings/
+*.classpath
+*.gitignore
+*.project
+*/bin/*
+*.springBeans
+PaymentsOpsPanelServices/data/elasticsearch/
+PaymentsOpsPanelServices/src/main/resources/META-INF/
+PaymentsOpsPanelServices/src/main/webapp/node_modules/*
+PaymentsOpsPanelServices/src/main/webapp/node/*
+

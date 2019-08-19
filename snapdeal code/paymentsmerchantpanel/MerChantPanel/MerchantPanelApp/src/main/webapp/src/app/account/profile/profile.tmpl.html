@@ -1,0 +1,141 @@
+<div class="row">
+  <div class="col-xs-12 sub-breadcrumb">
+    <!--<a href="javascript:void(0)">Home /</a><a href="javascript:void(0)">Account/</a> <span>Profile</span--> </div>
+</div>
+
+<div class="row wrapper">
+  <div class="col-xs-12">
+    <div class="col-xm-12 myprofile-tab">
+      <ul>
+        <li class="merchant-contact"><a href="javascript:void(0)" ng-click="vm.contactTab()" id="mContactInfoTab"
+                                        class="active ">Merchant Contact Info</a></li>
+        <li class="business-info"><a href="javascript:void(0)" ng-click="vm.businessTab()" id="mBussinessTab" class="">Business
+          Info</a></li>
+        <li class="bank-info"><a href="javascript:void(0)" ng-click="vm.bankInfoTab()" id="mBankInfoTab" class="">Bank
+          Info</a></li>
+      </ul>
+    </div>
+    <div class="col-xm-12 myprofile">
+
+      <div id="merchant-contact">
+        <div class="row wrapper" ng-if="vm.errorMessage!=undefined">
+          <div id="errorProductDMessage" class="error-msz-box">{{vm.errorMessage}}</div>
+        </div>
+        <div class="row wrapper" ng-if="vm.errorMessage==undefined">
+          <div class="form-group clearfix" ng-if="vm.businessInfo.primaryEmail!=undefined">
+            <label for="PrimaryEmail" id="primaryemailLabel" class="col-sm-2 control-label">Primary Email</label>
+            <div class="col-sm-10">
+              <input class="form-control" readonly id="PrimaryEmail" value="{{vm.businessInfo.primaryEmail}}"
+                     type="text">
+            </div>
+          </div>
+          <div class="form-group clearfix" ng-if="vm.businessInfo.secondaryEmail!=undefined">
+            <label for="SecondryEmail" id="secondryemailLabel" class="col-sm-2 control-label">Secondry Email</label>
+            <div class="col-sm-10">
+              <input class="form-control" readonly id="SecondryEmail" value="{{vm.businessInfo.secondaryEmail}}"
+                     type="text">
+            </div>
+          </div>
+
+          <div class="form-group clearfix" ng-if="vm.businessInfo.primaryMobile!=undefined">
+            <label for="Mobile" id="mobileLabel" class="col-sm-2 control-label">Mobile</label>
+            <div class="col-sm-10">
+              <input class="form-control" readonly id="Mobile" value="{{vm.businessInfo.primaryMobile}}" type="text">
+            </div>
+          </div>
+          <div class="form-group clearfix" ng-if="vm.businessInfo.landLineNumber!=undefined">
+            <label for="inputlandline" class="col-sm-2 control-label" id="inputlandlineLabel">Landline</label>
+            <div class="col-sm-10">
+              <input class="form-control" readonly id="inputlandline" value="{{vm.businessInfo.landLineNumber}}" type="text">
+            </div>
+          </div>
+          <div class="form-group clearfix" ng-if="vm.businessInfo.address1!=null || vm.businessInfo.address2!=null">
+            <label for="Address" class="col-sm-2 control-label" id="addressLabel">Address</label>
+            <div class="col-sm-10">
+              <input class="form-control" readonly id="Address" value="{{vm.businessInfo.address1+' '+vm.businessInfo.address2}}"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="business-info">
+
+
+        <div class="row wrapper" ng-if="vm.errorMessage!=undefined">
+          <div id="bussinessError" class="error-msz-box">{{vm.errorMessage}}</div>
+        </div>
+        <div class="row wrapper" ng-if="vm.errorMessage==undefined">
+          <div class="form-group clearfix" ng-if="vm.businessInfo.businessType!=undefined">
+            <div class="form-group clearfix">
+              <label for="Business-Type" id="typeLabel" class="col-sm-2 control-label">Business Type</label>
+              <div class="col-sm-10">
+                <input readonly class="form-control" id="Business-Type"
+                       value="{{vm.businessInfo.businessType}}" type="text">
+              </div>
+            </div>
+
+            <label for="Business-Category" id="catLabel" class="col-sm-2 control-label">Business Category</label>
+
+            <div class="col-sm-10">
+              <input readonly class="form-control" id="Business-Category"
+                     value="{{vm.businessInfo.businessCategory}}" type="text">
+
+            </div>
+          </div>
+
+          <div class="form-group clearfix" ng-if="vm.businessInfo.subCategory!=undefined">
+            <label for="Sub-Category" class="col-sm-2 control-label">Sub Category</label>
+
+            <div class="col-sm-10">
+              <input readonly class="form-control" id="Sub-Category"
+                     value="{{vm.businessInfo.subCategory}}" type="text">
+            </div>
+          </div>
+          <div class="form-group clearfix" ng-if="vm.businessInfo.tin!=undefined">
+            <label for="TIN" class="col-sm-2 control-label">TIN</label>
+
+            <div class="col-sm-10">
+              <input readonly class="form-control" id="TIN" value="{{vm.businessInfo.tin}}"
+                     type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="bank-info">
+        <div class="row wrapper" ng-if="vm.errorMessage!=undefined">
+          <div id="bankError" class="error-msz-box">{{vm.errorMessage}}</div>
+        </div>
+        <div class="row wrapper" ng-if="vm.errorMessage==undefined">
+          <div class="form-group clearfix" ng-if="vm.bankInfo.bankAccount!=undefined">
+            <label for="Bank_Ac" class="col-sm-2 control-label">Bank A/c</label>
+
+            <div class="col-sm-10">
+              <input readonly class="form-control" id="Bank_Ac"
+                     value="{{vm.bankInfo.bankAccount}}"
+                     type="text">
+            </div>
+          </div>
+          <div class="form-group clearfix" ng-if="vm.bankInfo.bankName!=undefined">
+            <label for="Branch" class="col-sm-2 control-label">Branch</label>
+
+
+            <div class="col-sm-10">
+              <input readonly class="form-control" id="Branch" value="{{vm.bankInfo.bankName}}"
+                     type="text">
+            </div>
+          </div>
+          <div class="form-group clearfix" ng-if="vm.bankInfo.ifscCode!=undefined">
+            <label for="IFSC" class="col-sm-2 control-label">IFSC</label>
+
+
+            <div class="col-sm-10">
+              <input readonly class="form-control" id="IFSC" value="{{vm.bankInfo.ifscCode}}"
+                     type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,42 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs-12 sub-breadcrumb">
+        </div>
+    </div>
+    <div class="row wrapper" ng-if="vm.sandboxData.error!==null">
+        <div id="erroSandboxrMessage" class="error-msz-box" id="successDiv">{{vm.errorMessage}}</div>
+    </div>
+    <div class="row wrapper"  ng-if="vm.sandboxData.error===null">
+        <div class="col-xs-12">
+
+            <div class="col-xm-12 change-password">
+                <div class="form-group clearfix">
+                    <label id="urlLabel" for="urlInput" class="col-sm-2 control-label">Sandbox Url</label>
+
+                    <div class="col-sm-10">
+                        <input class="form-control" id="urlInput"
+                               name="urlInput"
+                               ng-model="vm.sandboxData.data.url" readonly>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label id="keyLabel" for="keyInput" class="col-sm-2 control-label">Sandbox Key</label>
+
+                    <div class="col-sm-10">
+                        <input class="form-control" id="keyInput"
+                               name="keyInput"
+                               ng-model="vm.sandboxData.data.key" readonly>
+                    </div>
+                </div>
+            </div>
+            <a href="javascript:void(0)" ngclipboard data-clipboard-text="{{vm.sandboxData.data.key}}"  id="downloadButton" class="btn btn-default btn-raised download"
+               ng-click="vm.downloadFiles()">Copy Key</a>
+
+        </div>
+    </div>
+</div>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>
+

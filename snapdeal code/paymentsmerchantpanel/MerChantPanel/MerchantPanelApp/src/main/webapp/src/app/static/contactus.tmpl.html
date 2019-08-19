@@ -1,0 +1,112 @@
+<div id="wrapper">
+  <ng-include src="'app/authentication/sidemenu.tmpl.html'"></ng-include>
+  <div id="page-wrapper">
+
+        <div class="container-fluid">  
+
+        <div class="col-md-7 col-sm-6 bannerImgCont" style="float:right;">
+          <span class="helper"></span>
+          <img src="assets/images/bannerImages/ContactUs.png" alt="Freecharge" class="bannerImg" style="max-width: 100%;  margin-left:-20px;">
+        </div>
+        <div class="col-md-5 col-sm-5" style="float:left; width:300px;">
+            <div class="bannerHeading">
+                <h1>Contact <span class="orange">Us</span></h1>
+                <p>Check out the option below to get in touch with us</p>
+            </div>
+        </div>
+
+   </div>
+   <div class="divider">
+    <i><img src="assets/images/Arrow.png"></i>
+  </div>
+
+        <div class="container-fluid">  
+             <div class="col-md-6 col-sm-12" style="border-right:1px solid #f7f7f7">
+
+             <p style="font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  text-align: left;
+  color: #7a7a79;">Send us message</p>
+                <div class="col-md-12">
+                    <div class="error-msz-box" ng-if="vm.errorMessage">
+                        {{vm.errorMessage}}
+                    </div>
+                    <div class="success-msz-box" ng-if="vm.successMessage">
+                        {{vm.successMessage}}
+                    </div>
+                </div>
+               <form name="contactForm" novalidate>
+                <div class="search-box contactIssues pull-left">
+                    <div class="pull-left col-xs-12 issue">
+                        <select id="searchOptions" name="searchOptions" class="select" ng-model="vm.contactIssue">
+                            <option id="searchOption" value="">--Select Issue--</option>
+                            <option value="Account Management" id="1">Account Management</option>
+                            <option value="Transaction" id="2">Transaction</option>
+                            <option value="Settlement" id="3">Settlement</option>
+                            <option value="Adding Users" id="4">Adding Users</option>
+                            <option value="Permissions" id="5">Permissions</option>
+                        </select>
+                    </div>
+                </div> <!--issue box -->
+                <div class="contactDesc pull-left" style="width: 100%;">
+                    <div class="form-group clearfix" style="margin-top:20px;">
+                        <div class="form-control-wrapper">
+                            <textarea name="description" id="desc" class="form-control" required form-value-empty
+                                      ng-class="{'empty':!vm.contactDesc}" style="height: 100px"
+                                      ng-model="vm.contactDesc"></textarea>
+                            <div for="desc" class="floating-label">Description</div>
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div ng-messages="contactForm.description.$error" ng-if="contactForm.description.$dirty"
+                             class="login-error" style="padding-left: 12px; color: red">
+                            <div ng-message="required">{{vm.required}} description</div>
+                        </div>
+                    </div>
+                </div> <!-- description -->
+                <div class="contactEmail pull-left" style="width: 100%;">
+                    <div class="form-group clearfix" style="margin-top:20px;">
+                        <div class="form-control-wrapper">
+                            <input type="text" id="email" required name="email" required class="form-control" ng-disabled="vm.loggedInCheck"
+                                   form-value-empty ng-class="{'empty':!vm.contactEmail}" ng-model="vm.contactEmail">
+                            <div required class="floating-label">Email</div>
+                            <span class="material-input"></span>
+                        </div>
+                    </div>
+                </div> <!-- description -->
+                <a href="javascript:void(0)" ng-disabled="contactForm.$invalid||vm.contactIssue==''||vm.contactDesc==''"
+                   class="btn btn-orange-border edituser"
+                   ng-click="vm.contactMail()">Submit</a>
+            </form>
+           </div>
+           <div class="col-md-6 col-sm-12" style="padding-left:20px">
+            <p style="font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  text-align: left;
+  color: #7a7a79;">Email us</p>
+              <div class="contactMailBox">
+                <div class="col-md-12" style="text-align:center">
+                    <img src="assets/images/products/4.png" style="width:110px;">
+                </div>
+                <div class="col-md-12" style="text-align:center">
+                <p style="color: #7a7a79; font-weight:400; font-size:14px; margin-top:10px;">Feel free to write to us at:</p>
+                <p style="font-size: 16px;
+  font-weight: 400;
+  line-height: 1.13;
+  text-align: center;
+  color: #ee714e;">merchantsupport@freecharge.com</p>
+                </div>
+                </div>
+           </div>
+
+        </div>
+  </div>
+</div>
+
+
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>

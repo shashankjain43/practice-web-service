@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <Match>
+        <Confidence value="2"></Confidence>
+        <OR>
+           	<Rank value="1"></Rank>
+	    	<Rank value="2"></Rank>
+	   	<Rank value="3"></Rank>
+        </OR>
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snapdeal.ims.dashboard.dbmapper.IUserSearchDao">
+	<resultMap type="com.snapdeal.ims.entity.UserEntity" id="userResult">
+		<result column="user_id" property="user_id" />
+		<result column="sd_user_id" property="sd_user_id" />
+		<result column="fc_user_id" property="fc_user_id" />
+		<result column="sd_fc_user_id" property="sd_fc_user_id" />
+		<result column="originating_src" property="originating_src" />
+		<result column="is_enabled" property="is_enabled" />
+		<result column="email" property="email" />
+		<result column="mobile_number" property="mobile_number" />
+		<result column="display_name" property="display_name" />
+		<result column="updated_time" property="updated_time" />
+		<result column="upgrade_status" property="migration_status" />
+		<result column="create_wallet_status" property="create_wallet_status" />
+	</resultMap>
+
+	<sql id="base_column_list_user">
+		user.user_id,user.sd_user_id,user.fc_user_id,user.sd_fc_user_id,user.originating_src,is_enabled,user.email,user.mobile_number,user.display_name,user.updated_time,user.create_wallet_status
+	</sql>
+
+	<sql id="base_column_list_user_archived">
+		user_archive.user_id,user_archive.sd_user_id,user_archive.fc_user_id,user_archive.sd_fc_user_id,user_archive.originating_src,is_enabled,user_archive.email,user_archive.mobile_number,user_archive.display_name,user_archive.updated_time,user_archive.create_wallet_status
+	</sql>
+
+	<select id="getUpgradeStatus" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select upgrade.upgrade_status from upgrade where
+		upgrade.email = #{email}
+	</select>
+
+	<select id="getUserSearch" resultMap="userResult"
+		parameterType="com.snapdeal.ims.entity.UserSearchEnteredEntity">
+		select
+		<include refid="base_column_list_user" />
+		from user
+		<where>
+			<if test="userId!=null">
+				user.user_id = #{userId}
+			</if>
+			<if test="sdfc_user_id!=-1">
+				(user.sd_user_id = #{sdfc_user_id} OR user.fc_user_id =
+				#{sdfc_user_id} OR user.sd_fc_user_id = #{sdfc_user_id})
+			</if>
+			<if test="name!=null">
+				and user.display_name = #{name}
+			</if>
+			<if test="email!=null">
+				and user.email = #{email}
+			</if>
+			<if test="mobile!=null">
+				and user.mobile_number = #{mobile}
+			</if>
+			<if test="fromDate!=null and toDate!=null">
+				and user.created_time BETWEEN #{fromDate} AND #{toDate}
+			</if>
+		</where>
+	</select>
+
+	<select id="getUserArchivedSearch" resultMap="userResult"
+		parameterType="com.snapdeal.ims.entity.UserSearchEnteredEntity">
+		select
+		<include refid="base_column_list_user_archived" />
+		from user_archive
+		<where>
+			<if test="userId!=null">
+				user_archive.user_id = #{userId}
+			</if>
+			<if test="sdfc_user_id!=-1">
+				(user_archive.sd_user_id = #{sdfc_user_id} OR
+				user_archive.fc_user_id = #{sdfc_user_id} OR
+				user_archive.sd_fc_user_id = #{sdfc_user_id})
+			</if>
+			<if test="name!=null">
+				and user_archive.display_name = #{name}
+			</if>
+			<if test="email!=null">
+				and user_archive.email = #{email}
+			</if>
+			<if test="mobile!=null">
+				and user_archive.mobile_number = #{mobile}
+			</if>
+			<if test="fromDate!=null and toDate!=null">
+				and user_archive.created_time BETWEEN #{fromDate} AND
+				#{toDate}
+			</if>
+		</where>
+
+	</select>
+
+</mapper>

@@ -1,0 +1,86 @@
+Cleanup, Backup and Setup
+==========================
+
+1. Log onto the CPS system
+
+2. Kill the listener process.
+
+-bash-4.1$ ps -ef | grep Listener
+st3703    5515  5490  0 13:17 pts/0    00:00:00 grep Listener
+root     29044     1  0 Apr01 ?        09:16:51 java -DpropertyDir=./appdata/properties -Denv=prod -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar
+
+kill -15 <pid>
+
+2. Wait for the publisher to finish its run.
+
+3. Kill the publisher process.
+
+-bash-4.1$ ps -ef | grep Publisher
+
+st3703    5622  5490  0 13:19 pts/0    00:00:00 grep Publisher
+tomcat   19309     1  1 Mar06 ?        18:02:02 java -DpropertyDir=./appdata/properties -Denv=prod -jar GooglePublisher-1.0.0-SNAPSHOT.one-jar.jar
+
+kill -15 <pid>
+
+4. Log onto mongo shell using the below command:
+mongo CPS_DB
+
+
+5. Execute the mongo queries mentioned in resource file: mongoQueries_CPS_19052014.txt under the heading => Update LastRun
+
+6. Exit the mongo shell and go the directory /home/st3703
+
+7. Run the following command from this directory:
+
+mongoimport --db CPS_DB --collection categoryTemp --fields _id,name --type tsv --file categNames.csv --stopOnError
+
+8. Execute the mongo queries mentioned in resource file: mongoQueries_CPS_19052014.txt under the heading => Insert parent category names and Clean up
+
+9. Go to /apps01/cps
+
+8. Execute the following commands:
+
+mkdir files
+touch files/file_google.txt
+
+10. Remove all the log and .out files
+
+11. Take backup of all the existing JARs
+
+12. Go to directory /apps01/cps/appdata/properties
+
+13. Take backup of the properties file: user.properties
+
+
+Release deployment
+===================
+
+14. Go to the dir /apps01/cps
+
+15. Get the .tar.gz build folder from jenkins server and extract it at /apps01/cps
+
+16. cp cps_dist/jars/*.jar .
+
+17. cp cps_dist/properties/*.properties appdata/properties
+
+18. Go to appdata/properties
+
+19. rm dev.properties staging.properties
+
+20. Check if all the IP addresses are according to the production environment in production.properties
+
+21. mv production.properties user.properties
+
+22. Check if gdf.properties and tasks.properties also have the right values.
+
+23. Go to /apps01/cps
+
+24. Execute the following commands to start the processes:
+
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &
+
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar GooglePublisher-1.0.0-SNAPSHOT.one-jar.jar &
+
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar GoogleDataFeed-0.0.1-SNAPSHOT.one-jar.jar &
+
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar RankPog-0.1-SNAPSHOT.one-jar.jar &

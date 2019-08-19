@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE MESSAGE SYSTEM "http://127.0.0.1/psms/dtd/messagev12.dtd" >
+<MESSAGE VER="1.2">
+	<USER USERNAME="jasperapi" PASSWORD="pli03api09" />
+	<SMS UDH="0" CODING="1" TEXT="${messagetext}" PROPERTY="0" ID="1">
+		<ADDRESS FROM="SNAPDEAL" TO="${usermobile}" SEQ="1" TAG="" />
+	</SMS>
+</MESSAGE>
+

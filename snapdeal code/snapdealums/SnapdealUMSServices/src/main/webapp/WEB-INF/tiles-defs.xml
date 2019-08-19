@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name=".commonPage" template="/views/layout/base.jsp">
+		<put-attribute name="header" value="/views/layout/header_old.jsp" />
+		<put-attribute name="navigation" value="/views/layout/navigation_old.jsp" />
+		<put-attribute name="footer" value="/views/layout/footer_old.jsp" />
+	</definition>
+	
+
+
+	<definition name="popupCoupon" template="/views/layout/popup.jsp">
+		<put-attribute name="body" value="/views/deal/printCoupon.jsp" />
+	</definition>
+
+	<definition name="menuPopup" template="/views/layout/popup.jsp">
+		<put-attribute name="body" value="/views/deal/menuPopup.jsp" />
+	</definition>
+	
+	<definition name="ebay" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/ebay.jsp" />
+	</definition>
+	
+	<definition name="htMain" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/htMain.jsp" />
+	</definition>
+	
+	<definition name="htSmallBanner" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/htSmallBanner.jsp" />
+	</definition>
+	
+	<definition name="htLargeBanner" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/htLargeBanner.jsp" />
+	</definition>
+	
+	
+	<definition name="dailydealmobile" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealmobile.jsp" />
+	</definition>
+	
+	<definition name="dailydealsubscription" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealsubscription.jsp" />
+	</definition>
+	<definition name="dailydealmobileNew" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealmobileNew.jsp" />
+	</definition>
+	
+	<definition name="dailydealmobilesubscription" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealmobilesubscription.jsp" />
+	</definition>
+	
+	<definition name="mobileverification" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/mobileverification.jsp" />
+	</definition>
+	
+	<definition name="emailsubscribe" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/emailsubscribe.jsp" />
+	</definition>
+	
+	<definition name="dailydealsubscriptionthankyou" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealsubscriptionthankyou.jsp" />
+	</definition>
+	
+	<definition name="dailydealmobilesubscriptionV1.1" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealmobilesubscriptionV1.1.jsp" />
+	</definition>
+	
+	<definition name="oneminpromotion" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/oneminpromotion.jsp" />
+	</definition>
+	<definition name="mobileverificationV1.1" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/mobileverificationV1.1.jsp" />
+	</definition>
+	
+	<definition name="dailydealsubscriptionv1.2" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealsubscriptionv1.2.jsp" />
+	</definition>
+	
+	<definition name="dailymobilesubscriptionv1.2" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailymobilesubscriptionv1.2.jsp" />
+	</definition>
+	
+	<definition name="dailydealsubscriptionv1.3" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealsubscriptionv1.3.jsp" />
+	</definition>
+	
+	<definition name="mobileverificationv1.2" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/mobileverificationv1.2.jsp" />
+	</definition>
+	
+	<definition name="dailydealmobileverification" template="/views/layout/partners.jsp">
+		<put-attribute name="body" value="/views/partners/dailydealmobileverification.jsp" />
+	</definition>
+	
+	<definition name="report" template="/views/layout/reportLayout.jsp">
+		<put-attribute name="body" value="/views/report/report.jsp" />
+	</definition>
+
+</tiles-definitions>

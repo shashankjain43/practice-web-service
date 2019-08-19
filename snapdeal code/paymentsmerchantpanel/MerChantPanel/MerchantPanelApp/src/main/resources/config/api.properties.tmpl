@@ -1,0 +1,87 @@
+api.version=<%= @api_version %>
+
+####MOB Config ############
+payments.mob.ip=<%= @payments_mob_ip %>
+payments.mob.port=<%= @payments_mob_port %>
+payments.mob.clientname=<%= @payments_mob_clientname %>
+payments.mob.apitimeout=<%= @payments_mob_apitimeout %>
+
+#########RMS Config ######
+payments.rms.ip=<%= @payments_rms_ip %>
+payments.rms.port=<%= @payments_rms_port %>
+payments.rms.apitimeout=<%= @payments_rms_apitimeout %>
+
+
+####Merchant View Config ############
+payments.mv.ip=<%= @payments_mv_ip %>
+payments.mv.port=<%= @payments_mv_port %>
+payments.mv.clientid=<%= @payments_mv_clientid %>
+payments.mv.clientkey=<%= @payments_mv_clientkey %>
+payments.mv.apitimeout=<%= @payments_mv_apitimeout %>
+
+####Aggregator Config ##############
+payments.ag.ip=<%= @payments_ag_ip %>
+payments.ag.port=<%= @payments_ag_port %>
+payments.ag.clientid=<%= @payments_ag_clientid %>
+payments.ag.clientkey=<%= @payments_ag_clientkey %>
+payments.ag.apitimeout=<%= @payments_ag_apitimeout %>
+
+mpanel.roles=<%= @mpanel_roles %>
+mpanel.api.retrycount=<%= @mpanel_api_retrycount %>
+
+### log config ##########
+log.folder=<%= @log_folder %>
+log.activity.filename=<%= @log_activity_filename %>
+log.file=<%= @log_file %>
+log.level=<%= @log_level %>
+
+db.classname=<%= @db_classname %>
+db.url=<%= @db_url %>
+db.username=<%= @db_username %>
+db.password=<%= @db_password %>
+
+############AWS S3############
+aws.s3.accesskey=<%= @aws_s3_accesskey %>
+aws.s3.secretkey=<%= @aws_s3_secretkey %>
+aws.s3.bucketname=<%= @aws_s3_bucketname %>
+aws.s3.prefix=<%= @aws_s3_prefix %>
+aws.s3.endpoint=<%= @aws_s3_endpoint %>
+aws.s3.url.expirytime=<%= @aws_s3_url_expirytime %>
+
+temp.file.path=<%= @temp_file_path %>
+
+txn.export.count=<%= @txn_export_count %>
+
+mpanel.checkout.sandbox.url=<%= @mpanel_checkout_sandbox_url %>
+mpanel.checkout.production.url=<%=@mpanel_checkout_production_url %>
+
+refund.templ.file=<%=@refund_templ_file %>
+
+payments.sr.url=<%=@payments_sr_url %>
+payments.sr.clientname=<%=@payments_sr_clientname %>
+payments.sr.clientkey=<%=@payments_sr_clientkey %>
+
+payments.fcnotifier.host=<%= @payments_fcnotifier_host %>
+payments.fcnotifier.port=<%= @payments_fcnotifier_port %>
+payments.fcnotifier.apitimeout=<%= @payments_fcnotifier_apitimeout %>
+
+mpanel.merchantuser.contactus.templatekey=<%= @mpanel_merchantuser_contactus_templatekey %>
+mpanel.contactus.fromemailid=<%= @mpanel_contactus_fromemailid %>
+mapnel.contactus.replytoemailid=<%= @mpanel_contactus_replytoemailid %>
+
+mpanel.task.execution.time=<%= @mpanel_task_execution_time %>
+mapnel.task.retry.wait.time=<%= @mapnel_task_retry_wait_time %>
+mpanel.task.execution.stop.time=<%= @mpanel_task_execution_stop_time %>
+mpanel.task.retry.limit=<%= @mpanel_task_retry_limit%>
+
+mpanel.limit.loop.count=<%=@mpanel_limit_loop_count%>
+
+mpanel.superadmin.loginname=<%= @mpanel_superadmin_loginname %>
+mpanel.superadmin.password=<%= @mpanel_superadmin_password %>
+mapnel.merchantfee.value=<%= @mapnel_merchantfee_value %>
+mpanel.fixedfee.value=<%= @mpanel_fixedfee_value %>
+mpanel.generaluser.contactus.templatekey=<%= @mpanel_generaluser_contactus_templatekey %>
+mpanel.contactus.toemailid=<%= @mpanel_contactus_toemailid %>
+mpanel.createmerchant.templatekey=<%= @mpanel_createmerchant_templatekey %>
+mpanel.createmerchant.offline.toemailids=<%= @mpanel_createmerchant_offline_toemailids %>
+mpanel.createmerchant.online.toemailids=<%= @mpanel_createmerchant_online_toemailids %>

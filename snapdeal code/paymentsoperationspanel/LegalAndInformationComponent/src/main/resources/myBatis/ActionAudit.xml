@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.userpanel.dao.ActionAuditDao">
+
+	<insert id="auditAction"
+		parameterType="com.snapdeal.opspanel.userpanel.entity.ActionAuditEntity">
+		INSERT INTO
+		action_audit
+		(client_name,client_role,action,action_key_type,action_key,reason,action_time,comments,type_of_fraud)
+		VALUES
+		(#{clientName},#{clientRole},#{action},#{actionkeyType},#{actionKey},#{reason},#{actionTime},#{comments},#{typeOfFraud})
+	</insert>
+
+
+	<resultMap id="actionViewUser"
+		type="com.snapdeal.opspanel.userpanel.response.ViewUserAccountResponse">
+		<result property="agentId" column="client_name" />
+		<result property="action" column="action" />
+		<result property="actionKeyType" column="action_key_type" />
+		<result property="actionKey" column="action_key" />
+		<result property="reason" column="reason" />
+		<result property="actionTime" column="action_time" />
+		<result property="comments" column="comments" />
+		<result property="typeOfFraud" column="type_of_fraud" />
+	</resultMap>
+
+	<select id="viewUserHistory" resultMap="actionViewUser"
+		parameterType="java.lang.String">
+		SELECT * from action_audit
+		where action_key=#{userId} AND not (client_name ='NULL' OR client_name ='null')
+	</select>
+
+</mapper>
+

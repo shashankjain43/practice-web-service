@@ -1,0 +1,16 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.userpanel.dao.FraudAuditDao">
+
+	<insert id="auditFraud" parameterType="com.snapdeal.opspanel.userpanel.entity.FraudManagementEntity">
+		INSERT INTO
+		fraud_management_audit
+		(request_id,agent_id,user_ims_involved,transaction_id,original_amount,amount_refunded,reason,action,action_time)
+		VALUES
+		(#{requestId},#{clientId},#{userIdInvolved},#{transactionId},#{originalAmount},#{amountRefunded},#{reason},#{action},#{actionTime})
+	</insert>
+		
+</mapper>
+

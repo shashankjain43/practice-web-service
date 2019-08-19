@@ -1,0 +1,8 @@
+
+1. Like with server.log, please provision archiving of audit.log (will be created in the same "logs" folder). The intension is to have a new file created everyday like server.log and the old one to be postFixed with the date it was created.
+
+2. Open UMS web and admin production server ports 80 and 8080 for excomm trigger haproxy server(s).
+
+3. Host UMS admin server as UMSAdmin.snapdeal.com 
+
+

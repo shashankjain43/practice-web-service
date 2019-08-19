@@ -1,0 +1,60 @@
+<div class="adduser-bg"></div>
+<div class="row">
+    <div class="col-xs-12 sub-breadcrumb">
+        <!--<a href="javascript:void(0)">Home /</a><a
+            href="javascript:void(0)">Account/</a> <span>Manage User</span--></div>
+</div>
+
+<div class="row wrapper">
+    <div class="col-xs-12">
+            <div class="row transaction-row">
+                <div id="'editAddDiv" class="col-md-12 col-sm-12 manageuser-button" >
+                    <a href="javascript:void(0)" id="editButton"
+                       ng-if="vm.permissionUserJson.length > 0"
+                       ng-disabled="vm.userSelect==undefined"
+                       class="btn btn-default btn-raised adduser "
+                       ng-click="vm.editUserClick()">Edit
+                        User</a>
+                    <a href="javascript:void(0)" id="addButton"
+                       class="btn btn-material-green btn-raised adduser"
+                       ng-click="vm.addUserClick()">Add User</a></div>
+            </div>
+        <div id="messageDiv" ng-if="vm.permissionUserJson.length < 1">
+            <div class="error-msz-box" id="successDiv">{{vm.errorMessage}}</div>
+        </div>
+            <div class="row" ng-if="vm.permissionUserJson.length >0">
+                <div class="col-xs-12 manageuser-table">
+                    <table id="userTable" class="table  table-hover  table-responsive">
+                        <thead>
+                        <tr id="headingRow" class="active table-heading">
+                            <td id="loginHeader">Login Name <input type="text" style="margin-left: 15px; width: 200px;" placeholder="Type username to search" ng-model="loginname"/></td>
+                            <td id="permissionHeader">Permission</td>
+                        </tr>
+                        </thead>
+                        <tbody id="userTableBody">
+                        <tr  id="{{key}}" ng-repeat="(key,value) in vm.permissionUserJson | filter:loginname">
+                            <td>
+                                <div class="radio">
+                                    <label>
+                                        <input id="{{value.userName}}" ng-checked="key==-1" type="radio" name="radio" value="{{value}}" ng-model="vm.userSelect">
+                                      <div>  {{value.userName}} </div>
+                                    </label>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{value.permissionString}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+    </div>
+</div>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>
+
+<script>
+    $.material.radio()
+</script>

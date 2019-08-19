@@ -1,0 +1,44 @@
+Step 1:
+Take Dump of these tables to ums db.
+i.e. copy from snapdeal schema..create ums schema and copy them there.
++------------------------------+
+| Tables_in_ums                |
++------------------------------+
+| affiliate_subscription_offer |
+| cs_zentrix                   |
+| customer_email_score         |
+| customer_filter              |
+| customer_mobile_score        |
+| email_city_esp_mapping       |
+| email_mobile_association     |
+| email_service_provider       |
+| email_subscriber             |
+| email_subscriber_detail      |
+| esp_filter_city_mapping      |
+| esp_profile_field            |
+| facebook_user                |
+| facebook_user_likes          |
+| mobile_subscriber            |
+| mobile_subscriber_detail     |
+| newsletter                   |
+| newsletter_esp_mapping       |
+| sd_wallet                    |
+| sd_wallet_activity_type      |
+| sd_wallet_history            |
+| sd_wallet_transaction        |
+| sms_scheduler                |
+| subscriber_profile           |
+| user                         |
+| user_address                 |
+| user_information             |
+| user_openid_mapping          |
+| user_preference              |
+| user_referral_tracking       |
+| user_referrals               |
+| user_role                    |
+| zendesk_user                 |
++------------------------------+
+34 rows in set (0.00 sec)
+
+Step 2:
+run wrapper.sql

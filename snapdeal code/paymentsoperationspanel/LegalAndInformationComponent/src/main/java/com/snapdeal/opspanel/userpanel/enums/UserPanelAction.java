@@ -1,0 +1,15 @@
+package com.snapdeal.opspanel.userpanel.enums;
+
+public enum UserPanelAction {
+
+	ENABLE_USER,
+	DISABLE_USER,
+	SUSPEND_WALLET,
+	BULK_SUSPEND_WALLET,
+	BLACK_LIST_USER,
+	WHITE_LIST_USER,
+	CLOSE_USER_ACCOUNT,
+	ENABLE_WALLET,
+	USER_ACOUNT_HISTORY
+
+}

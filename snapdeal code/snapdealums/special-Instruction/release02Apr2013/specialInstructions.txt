@@ -1,0 +1,14 @@
+--------------------------------------------------------------------------------------
+Snapdeal-4066 Similar Search Keywords
+Developer- Shishir Jain
+Added By- Ghanshyam
+--------------------------------------------------------------------------------------
+Please add this in web tomcat's ROOT.xml(<apache-home>/conf/Catalina/localhost/ROOT.xml) 
+in UMS boxes with relevant values.
+
+<Resource name="jdbc/SnapdealSimilarSearchDwhDS" auth="Container" 
+	type="javax.sql.DataSource" maxActive="100" maxIdle="20" maxWait="15000" 
+	username="<username>" password="<password>" driverClassName="com.mysql.jdbc.Driver" 
+	removeAbandoned="true" removeAbandonedTimeout="30" 
+	url="jdbc:mysql://<jdbc-ip>:<jdbc-port>/dwh?autoReconnect=true"/>
+-------------------------------------------------------------------------------------

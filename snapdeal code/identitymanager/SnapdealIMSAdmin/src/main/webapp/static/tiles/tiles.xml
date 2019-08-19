@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition" template="/static/views/layout/layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/static/views/header.jsp" />
+		<put-attribute name="menu" value="/static/views/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/static/views/footer.jsp" />
+	</definition>
+
+	<definition name="contact" extends="base.definition">
+		<put-attribute name="title" value="Contact Manager" />
+		<put-attribute name="body" value="/static/views/contact.jsp" />
+	</definition>
+
+	<definition name="hello" extends="base.definition">
+		<put-attribute name="title" value="Hello Spring MVC" />
+		<put-attribute name="body" value="/static/views/hello.jsp" />
+	</definition>
+
+
+
+	<!-- Templates -->
+
+	<definition name="layout.basic" template="/static/views/layout/basic.jsp">
+		<put-attribute name="title" value="Spring Web MVC with Tiles 3" />
+		<put-attribute name="header" value="/static/views/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/static/views/footer.jsp" />
+	</definition>
+
+	<definition name="admin" template="/static/views/layout/layout.jsp">
+		<put-attribute name="title" value="Admin Dashboard" />
+		<put-attribute name="header" value="/static/views/header.jsp" />
+		<put-attribute name="body" value="/static/views/adminReport.jsp" />
+		<put-attribute name="footer" value="/static/views/footer.jsp" />
+	</definition>
+
+
+
+	<!-- Pages -->
+
+	<definition name="site.homepage" extends="layout.basic">
+		<put-attribute name="body" value="/static/views/home.jsp" />
+	</definition>
+
+	<definition name="site.greeting" extends="layout.basic">
+		<put-attribute name="body" value="/static/views/greeting.jsp" />
+	</definition>
+
+</tiles-definitions>
+
+
+
+

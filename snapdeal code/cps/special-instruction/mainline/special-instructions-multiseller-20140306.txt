@@ -1,0 +1,46 @@
+1. Log onto the CPS system
+2. Kill the running listener process
+
+[st_temp01@catalog_cps ~]$ ps -ef | grep Listener
+2055      3357  3243  0 13:02 pts/1    00:00:00 grep Listener
+root     16752     1  0 Feb17 ?        01:13:07 java -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar
+
+kill -9 16752
+
+3. Disable the cron job which for GooglePublisher.
+4. Go to directory /apps01/cps
+5. Remove the following files:
+
+rm *.log.*
+rm nohup.out
+rm GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar.03-01-14
+rm cps-0.0.1-SNAPSHOT.one-jar.jar
+rm GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar_new.03-01-14
+rm appdata/properties/user.properties.05-11-13
+rm appdata/properties/user.properties_bck
+
+6. Take backup of the existing JARs and files
+
+mv VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar_20140306
+mv GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar_20140306
+mv appdata/properties/user.properties appdata/properties/user.properties_bck
+
+7. Check that the publisher is not running
+
+8. Execute the mongo queries from the file : resource/mainline/mongoQueries-multiseller-20140306.txt
+
+9. Copy the following JARs from Jenkins into /apps01/cps directory
+
+VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar
+GooglePublisher-1.0.0-SNAPSHOT.one-jar.jar
+
+10. Copy properties file to /apps01/cps/appdata/properties
+11. Rename production.properties to user.properties
+12. Provide appropiate permissions
+13. From the directory /apps01/cps. Execute the following commands to start the listener and the publisher processes:
+
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar GooglePublisher-1.0.0-SNAPSHOT.one-jar.jar &
+
+
+

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/oxm
+        http://www.springframework.org/schema/oxm/spring-oxm-3.1.xsd
+        http://www.springframework.org/schema/aop 
+    	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    	http://www.springframework.org/schema/util 
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	<context:annotation-config />
+
+	<!-- <context:property-placeholder location="file:${config.path}/api.properties" 
+		/> -->
+
+	<bean id="mpPlaceholderConfig" class="com.snapdeal.merchant.util.SpringPropertiesUtil">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="locations">
+			<list>
+				<value>file:${config.path}/api.properties</value>
+				<value>file:${config.path}/task.scheduler.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<mvc:resources mapping="/static/**" location="classpath:/resources/" />
+
+	<mvc:annotation-driven conversion-service="conversionService" />
+
+	<bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<!-- <bean class="com.snapdeal.merchant.request.coverter.StringToDateConverter" 
+					/> -->
+				<!-- <bean class="com.snapdeal.merchant.request.coverter.StringToVerifyUserRequestConverter" 
+					/> -->
+				<!-- <bean class="com.snapdeal.merchant.request.coverter.StringToMerchantKeyRequest" 
+					/> -->
+			</list>
+		</property>
+	</bean>
+
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/api/**" />
+			<bean class="com.snapdeal.merchant.rest.interceptor.MDCRequestInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/api/**" />
+			<mvc:exclude-mapping path="/api/session/**" />
+			<mvc:exclude-mapping path="/api/merchant/v1/create/**"/>
+			<mvc:exclude-mapping path="/api/merchant/v1/get/uidata"/>
+			<mvc:exclude-mapping path="/api/v1/healthcheck"/>
+			<mvc:exclude-mapping path="/api/user/v2/generaluser/contactus"/>  
+			<bean class="com.snapdeal.merchant.rest.interceptor.TokenInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/api/txn/v1/refund" />
+			<mvc:mapping path="/api/txn/v1/bulkrefund" />
+			<mvc:mapping path="/api/txn/v1/refundamount" />
+			<mvc:mapping path="/api/txn/v1/gettxns" />
+			<mvc:mapping path="/api/data/v1/download/refundtmpl" />
+			<mvc:mapping path="/api/data/v1/get/bulkrefund/listdownloads" />
+			<mvc:mapping path="/api/data/v1/bulkrefund/download" />
+			<mvc:mapping path="/api/data/v2/get/settlementreport"/>
+			<mvc:mapping path="/api/data/v2/get/invoice"/>
+			<bean
+				class="com.snapdeal.payments.roleManagementModel.interceptor.RoleMgmtRequestContextInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/api/txn/**" />
+			<mvc:mapping path="/api/data/**" />
+			<mvc:mapping path="/api/integrate/**" />
+			<bean
+				class="com.snapdeal.merchant.rest.interceptor.UserMerchantMappingInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	  
+
+	<!-- MOB client Beans -->
+	<bean id="mobServiceClient" class="com.snapdeal.mob.client.impl.MOBServicesClient">
+	</bean>
+
+	<bean id="userService" class="com.snapdeal.mob.client.impl.UserServiceImpl"></bean>
+
+	<!-- RMS client bean -->
+	<bean id="roleClient"
+		class="com.snapdeal.payments.roleManagementClient.client.RoleMgmtClient"></bean>
+
+	<bean id="mvClient"
+		class="com.snapdeal.payments.view.client.impl.MerchantViewClient"></bean>
+
+	<bean id="aggClient"
+		class="com.snapdeal.payments.aggregator.client.impl.PaymentsAggregatorServiceClient"></bean>
+
+	<bean id="srClient"
+		class="com.snapdeal.payments.settlement.report.client.SettlementReportClient">
+		<constructor-arg index="0" value="${payments.sr.url}" />
+		<constructor-arg index="1" value="${payments.sr.clientname}" />
+		<constructor-arg index="2" value="${payments.sr.clientkey}" />
+	</bean>
+	
+	 <bean id="fcNotifier" class="com.snapdeal.fcNotifier.client.impl.NotifierServiceClient"></bean>
+</beans> 

@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.clientkeymanagement.dao.TargetApiMapperDao">
+
+	<resultMap id="result" type="com.snapdeal.opspanel.clientkeymanagement.entity.TargetApiMapperEntity">
+		<result property="targetApplication" column="target_application" />
+		<result property="apiId" column="api_id" />
+		<result property="apiName" column="api_name" />
+		<result property="activeStatus" column="active_status" />
+
+	</resultMap>
+	
+	
+	<resultMap type="java.lang.String" id="apiNames"> 
+     	<result property="apiId" column="api_id" />  	 
+	</resultMap>
+	
+
+	<resultMap type="java.lang.String" id="targetApplications"> 
+     	<result property="targetApplication" column="target_application" /> 
+	</resultMap>
+	
+	<sql id="base_column_list">
+		target_application,api_id,api_name,active_status;
+	</sql>
+
+	<insert id="insertIntoTargetApiMapper" parameterType="com.snapdeal.opspanel.clientkeymanagement.entity.TargetApiMapperEntity">
+		INSERT INTO target_api_mapper
+		(target_application,api_id,api_name,active_status)
+		VALUES
+		(#{targetApplication},#{apiId},#{apiName},#{activeStatus})
+	</insert>
+
+	<select id="getAllTargetApiMapper" resultMap="result">
+		SELECT target_application,api_id,api_name,active_status
+		FROM
+		target_api_mapper
+	</select>
+
+	<select id="getApisForTargetApplication" parameterType="java.lang.String" resultMap="apiNames">
+		SELECT api_id
+		FROM target_api_mapper
+		WHERE target_application = #{targetApplication}
+	</select>
+
+
+	<update id="updateApiName" parameterType="com.snapdeal.opspanel.clientkeymanagement.entity.TargetApiMapperEntity">
+		UPDATE target_api_mapper
+		SET api_name = #{apiName}, api_id = #{apiId}
+		WHERE api_id = #{oldApiId} AND api_name = #{oldApiId} AND target_application = #{targetApplication} 
+	</update>
+	
+	
+	<update id = "disableApi" parameterType = "com.snapdeal.opspanel.clientkeymanagement.entity.TargetApiMapperEntity">
+      UPDATE target_api_mapper
+	  SET active_status = 0
+	  WHERE api_id = #{apiId} AND api_name = #{apiName} AND target_application = #{targetApplication}
+   </update>
+   
+   <update id = "enableApi" parameterType = "com.snapdeal.opspanel.clientkeymanagement.entity.TargetApiMapperEntity">
+      UPDATE target_api_mapper
+	  SET active_status = 1
+	  WHERE api_id = #{apiId} AND api_name = #{apiName} AND target_application = #{targetApplication}
+   </update>
+
+	<delete id="deleteApi" parameterType = "com.snapdeal.opspanel.clientkeymanagement.entity.TargetApiMapperEntity">
+	  DELETE FROM target_api_mapper
+	  WHERE api_id = #{apiId} AND target_application = #{targetApplication}
+	</delete>
+
+</mapper>

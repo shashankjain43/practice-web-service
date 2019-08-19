@@ -1,0 +1,8 @@
+1. Log on to CPS home directory
+2. Copy the following JARs of the mentioned components from Jenkins:
+
+VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar and GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar
+
+3. Restart the listener process using the following command:
+
+nohup java -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &

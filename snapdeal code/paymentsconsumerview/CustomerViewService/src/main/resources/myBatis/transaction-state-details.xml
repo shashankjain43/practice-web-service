@@ -1,0 +1,79 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.snapdeal.payments.view.mapper.ITransactionStateDetailsMapper">
+
+	<resultMap id="resultTransactionStateDetails"
+		type="com.snapdeal.payments.view.entity.TransactionStateDetailsEntity">
+		<result column="txn_id" property="txnId" />
+		<result column="txn_state" property="txnState" />
+		<result column="created_on" property="createdOn" />
+		<result column="updated_on" property="updatedOn" />
+		<result column="tsm_time_stamp" property="tsmTimeStamp" />
+	</resultMap>
+
+
+	<sql id="base_column_list_txn_state_details">
+		txn_id,
+		txn_state,
+		created_on,
+		updated_on,
+		tsm_time_stamp
+	</sql>
+	
+	
+	<select id="verifyForTxnStatusValid" parameterType="com.snapdeal.payments.view.entity.TransactionStateDetailsEntity" resultMap="resultTransactionStateDetails">
+		SELECT <include refid="base_column_list_txn_state_details" />
+		FROM txn_state_details
+		WHERE txn_state = #{txnState} AND 
+				txn_id = #{txnId} order by tsm_time_stamp DESC limit 1 
+	</select>
+	
+	<update id="updateForAlreadyExistState" parameterType="com.snapdeal.payments.view.entity.TransactionStateDetailsEntity">
+	<![CDATA[
+		UPDATE txn_state_details
+		set updated_on = now(3),
+			tsm_time_stamp = #{tsmTimeStamp}
+		where tsm_time_stamp < #{tsmTimeStamp}
+		and txn_state = #{txnState}
+		and txn_id=#{txnId}
+	]]>
+	</update>
+
+	<insert id="saveTransactionStateDetails"
+		parameterType="com.snapdeal.payments.view.entity.TransactionStateDetailsEntity">
+		INSERT INTO txn_state_details(
+		<include refid="base_column_list_txn_state_details" />
+		)
+		VALUES(
+		#{txnId},
+		#{txnState},
+		now(3),
+		now(3),
+		#{tsmTimeStamp}
+		)
+	</insert>
+
+
+	<insert id="saveTransactionStateDetailsForSettlement"
+		parameterType="java.util.List">
+		INSERT INTO txn_state_details(
+		<include refid="base_column_list_txn_state_details" />
+		)
+		VALUES
+
+		<foreach item="entity" collection="transaction" separator=",">
+
+			(
+			#{txnId},
+			#{txnState},
+			now(3),
+			now(3),
+			#{tsmTimeStamp}
+			)
+
+		</foreach>
+	</insert>
+
+</mapper>

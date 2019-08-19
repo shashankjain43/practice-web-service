@@ -1,0 +1,19 @@
+1. Get MySQL CSV dump from product_vendor table of IPMS database in an output file vendorOut.txt using the following command
+
+mysql -h [HOST] [DATABASE] -u[USER] -p[PASS] <  [ resource/mainline/vendorQuery-SNAPDEAL-13723.sql ] > vendorOut.txt
+
+2. Export category and brand data from CAMS staging/production-replica mongoDB as per the following commands:
+
+mongoexport --host [HOST] --port [PORT] --db [DATABASE] --collection productCategoryVO --fields _id,parentCategoryId --out categExport.json
+
+mongoexport --host [HOST] --port [PORT] --db [DATABASE] --collection productBrandVO --fields _id,name --out brandExport.json
+
+3. Run the mongo query present in the file mongoQuery-SNAPDEAL-13723.txt on CAMS staging/production-replica mongoDB using the following command:
+
+mongo --host [HOST] --port [PORT] [DATABASE] mongoQuery-SNAPDEAL-13723.txt
+
+The query takes the entire catalog and modifies and inserts it in another collection pogMigrationVO. This step will take some time.
+
+4. Once the commands successfully completes, export all the data into a file using the command:
+
+mongoexport --host [HOST] --port [PORT] --db [DATABASE] --collection pogMigrationVO --out pogExport.json

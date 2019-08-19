@@ -1,0 +1,181 @@
+<form name="transactionForm" novalidate>
+    <div>
+        <div class="adduser-bg"></div>
+        <div class="row haeding-area">
+            <!--div class="col-xs-6 sub-breadcrumb">
+                <a href="javascript:void(0)">Home /</a><a href="javascript:void(0)"> Payment /</a>
+                <span>Initiate Refund</span></div-->
+            <div class="col-sm-12 sandbox-datepicker">
+                <div id="refund-datepicker">
+                    <input type="text" readonly="readonly" name="fromDate" required
+                           id="{{vm.filtersVM.fromDateFilter.value}}"
+                           ng-model="vm.filtersVM.fromDateFilter.value"
+                           date-lower-than="{{vm.filtersVM.toDateFilter.value}}"
+                           placeholder="{{vm.filtersVM.fromDateFilter.value}}" class="fromDate">
+                    <span>-</span>
+                    <input type="text" readonly="readonly" name="toDate"
+                           date-greater-than="{{vm.filtersVM.fromDateFilter.value}}"
+                           id="{{vm.filtersVM.toDateFilter.value}}" required min="{{vm.filtersVM.fromDateFilter.value}}"
+                           ng-model="vm.filtersVM.toDateFilter.value" placeholder="{{vm.filtersVM.toDateFilter.value}}" class="toDate">
+                </div>
+
+                <div  id="errorMsg" class="error" ng-if="vm.filtersVM.fromDateFilter.value != 'From Date' && vm.filtersVM.fromDateFilter.value != 'To Date'">
+                    <div ng-if="vm.checkDateValidation(transactionForm.fromDate.$error.dateLowerThan,transactionForm.toDate.$error.dateGreaterThan)">
+                        {{vm.dateMessage}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row wrapper">
+            <form name="refundSearchForm" id="refundSearchForm" novalidate>
+                <div class="col-xs-12">
+                    <div class="row transaction-row">
+                        <div class="col-md-10 col-sm-9">
+                            <div class="row initiate-search">
+                                <div class="col-lg-3 col-md-3 col-sm-6 btl-dropdown">
+
+                                    <select id="idDropdown" class="select" ng-model="vm.selectedSearchId">
+
+                                        <option id="TransactionId" value="{{vm.refundSearch[0]}}">Transaction Id
+                                        </option>
+                                        <option id="OrderId" value="{{vm.refundSearch[1]}}">
+                                            {{vm.refundSearch[1].displayValue}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-sm-6">
+                                    <div class="form-group clearfix">
+                                        <div class="form-control-wrapper">
+                                            <input type="text" name="searchText" id="searchText"
+                                                   ng-model="vm.searchText"
+                                                   required class="form-control" form-value-empty ng-class={'empty':!vm.searchText}>
+
+                                            <div required class="floating-label">Search</div>
+                                            <span class="material-input"></span></div>
+                                        <div style="margin-left: 20px" ng-messages="refundSearchForm.searchText.$error"
+                                             ng-if="refundSearchForm.searchText.$dirty"
+                                             class="error">
+                                            <div ng-message="required" id="refundSearchError">{{vm.requiredMessage}} id
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left inner-search">
+                                        <button id="searchButton" ng-click="vm.search()"
+                                                ng-disabled="refundSearchForm.$invalid"
+                                                class="pull-left btn" style="margin: 0">
+                                            <i class="mdi-action-search "></i>
+
+                                            <div class="ripple-wrapper"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="vm.allTransactionHeader.length < 1 || vm.allTransactionsValue.length == 0">
+                        <div class="error-msz-box" id="errorDiv">{{vm.errorMessage}}</div>
+                    </div>
+                      <div class="row" ng-if="vm.allTransactionsValue.length > 0">
+                        <div class="col-xs-12 initiate-refund-table  ">
+                            <table id="refundtable" class="table  table-hover  table-responsive">
+                                <thead>
+                                <tr id="refundTableHeader" class="active table-heading">
+
+                                    <td id="{{headers.displayValue}}" nowrap
+                                        ng-repeat="headers in vm.allTransactionHeader ">
+                                        <span ng-if="header.key == 'txnDate'">
+                                            {{headers.displayValue}}
+                                        </span>
+                                        <span ng-if="header.key != 'txnDate'">
+                                            {{headers.displayValue}}
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr id="{{transaction.txnDate}}Row" ng-repeat="transaction in vm.allTransactionsValue">
+                                    <td ng-repeat="header in vm.allTransactionHeader" nowrap>
+                                          <span ng-if="header.key == 'txnDate'">
+                                      <div class="radio">
+                                          <label>
+                                              <input type="radio" name="radio" id="{{transaction[header.key]}}Input"
+                                                     value="{{transaction}}" ng-model="vm.selctedTransaction">
+
+                                              <div>{{transaction[header.key] | date:'d MMM yy, h:mm a'}}</div>
+                                          </label>
+                                      </div>
+                                  </span>
+                                        <span ng-if="header.key != 'txnDate'">{{transaction[header.key]}}</span>
+
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+
+
+                        <div class="col-sm-6 initate-efund" ng-click="vm.initiateRefund()">
+                            <a href="javascript:void(0)" id="initiateButton"
+                               class="btn orangeBtnFill edituser"
+                               ng-disabled="vm.selctedTransaction==undefined">Initiate Refund</a></div>
+
+                        <div class="col-sm-6 pagination-box">
+                            <ul class="pagination pull-right">
+                                <li ng-class="(vm.filtersVM.page.displayValue == 1)? 'disabled':''"
+                                    ng-click="vm.getTransactionsOfPage(vm.filtersVM.page.displayValue-1)">
+                                    <a href="javascript:void(0)" id="previous">Previous</a></li>
+                                <li class="active">
+                                    <a href="javascript:void(0)" id="{{vm.filtersVM.page.displayValue}}">{{vm.filtersVM.page.displayValue}}</a>
+                                </li>
+                                <li ng-class="vm.allTransactionsValue.length<10?'disabled':''"
+                                    ng-click="vm.allTransactionsValue.length<10?'':vm.getTransactionsOfPage(vm.filtersVM.page.displayValue+1)">
+                                    <a href="javascript:void(0)" id="next">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</form>
+
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>
+
+<script>
+    var startDate = new Date();
+    var FromEndDate = new Date();
+    var ToEndDate = new Date();
+    $('.fromDate').datepicker({
+    autoclose: true,
+    startDate: '',
+    format: 'dd/mm/yyyy',
+    endDate: '+0d'
+    }).on('changeDate', function(selected){
+            startDate = new Date(selected.date.valueOf());
+            startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+            $('.toDate').datepicker('setStartDate', startDate);
+        });
+
+    $('.toDate').datepicker({
+        autoclose: true,
+        endDate: '+0d',
+        format: 'dd/mm/yyyy',
+    }).on('changeDate', function(selected){
+            FromEndDate = new Date(selected.date.valueOf());
+            FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
+            $('.fromDate').datepicker('setEndDate', FromEndDate);
+        });
+    $.material.init();
+</script>

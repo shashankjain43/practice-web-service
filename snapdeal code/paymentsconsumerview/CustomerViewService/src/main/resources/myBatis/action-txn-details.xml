@@ -1,0 +1,171 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- customerId need to be add -->
+<mapper namespace="com.snapdeal.payments.view.mapper.IActionDetailsDaoMapper">
+
+	<resultMap id="resultTransactionDetails"
+		type="com.snapdeal.payments.view.entity.ActionDetailsEntity">
+
+		<result column="id" property="id" />
+		<result column="action_id" property="actionId" />
+		<result column="action_type" property="actionType" />
+		<result column="action_state" property="actionState" />
+		<result column="action_view_state" property="actionViewState" />
+		<result column="action_taken" property="actionTaken" />
+		<result column="valid_action_commands" property="validActionCommands" />
+		<result column="user_id" property="userId" />
+		<result column="user_type" property="userType" />
+		<result column="other_party_id" property="otherPartyId" />
+		<result column="reference_id" property="referenceId" />
+		<result column="reference_type" property="referenceType" />
+		<result column="metadata" property="actionContext" />
+		<result column="action_initiation_timestamp" property="actionInitiationTimestamp" />
+		<result column="action_expiry_time" property="actionExpiryTime" />
+		<result column="action_last_update_timestamp" property="actionLastIpdateTimestamp" />
+		<result column="action_next_schedule_timestamp" property="actionNextScheduleTimestamp" />
+	</resultMap>
+
+
+	<resultMap id="resultActionTxnDetailsDTO"
+		type="com.snapdeal.payments.view.request.commons.dto.ActionTxnDetailsDTO">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="reference_id" property="referenceId" />
+		<result column="reference_type" property="referenceType" />
+		<result column="metadata" property="actionContext" />
+	</resultMap>
+	<sql id="base_column_list_action_details_dto">
+		id,user_id,reference_id,reference_type,metadata
+	</sql>
+	<sql id="base_column_list_action_details_entity">
+		id,action_id,action_type,action_state,
+		action_view_state,action_taken,valid_action_commands,
+		user_type,user_id,
+		other_party_id,reference_id,reference_type,
+		metadata,action_initiation_timestamp,action_expiry_time,
+		action_last_update_timestamp,action_next_schedule_timestamp
+	</sql>
+
+	<sql id="Filters">
+	    
+	    <![CDATA[
+			action_initiation_timestamp >= #{startDate} 
+		]]>
+		
+		<![CDATA[
+				AND action_initiation_timestamp <= #{endDate}  
+			]]>
+
+		<if test="userId!=null">
+			AND user_id = #{userId}
+		</if>
+
+		<if test="otherPartyId!=null">
+			AND other_party_id = #{otherPartyId}
+		</if>
+
+		<if test="actionTypes!=null and !actionTypes.isEmpty()">
+			AND action_type IN
+			<foreach item="item" index="index" collection="actionTypes"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		
+		<if test="referenceId!=null">
+			AND reference_id = #{referenceId}
+		</if>
+
+		<if test="referenceTypes!=null and !referenceTypes.isEmpty()">
+			AND reference_type IN
+			<foreach item="item" index="index" collection="referenceTypes"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+
+		<if test="txnStatus!=null and !txnStatus.isEmpty()">
+			AND action_state IN
+			<foreach item="item" index="index" collection="txnStatus"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+
+
+	</sql>
+
+	<select id="getActionsByFilter" resultMap="resultTransactionDetails"
+		parameterType="com.snapdeal.payments.view.request.commons.dto.ActionFilter">
+		SELECT
+		<include refid="base_column_list_action_details_entity" />
+		FROM action_details
+		WHERE <include refid="Filters" />
+		
+		<choose>
+			<when test="lastEvaluatedkey != null">
+				<choose>
+					<when test="isPrevious == 1">
+						AND action_initiation_timestamp <![CDATA[>=]]> #{lastEvaluatedkey}
+						ORDER BY action_initiation_timestamp
+						LIMIT #{limit},#{limit}  <!-- to skip one page-->
+					</when>
+					<otherwise>
+						AND action_initiation_timestamp <![CDATA[<]]> #{lastEvaluatedkey}  
+						ORDER BY action_initiation_timestamp DESC
+						LIMIT #{limit}
+					</otherwise>
+				</choose>
+			</when>
+			<when test="lastEvaluatedkey == null">
+				ORDER BY action_initiation_timestamp DESC
+				LIMIT #{limit}
+			</when>
+		</choose>
+
+	</select>
+
+
+	<insert id="saveActionViewEntity" parameterType="java.util.List">
+		INSERT IGNORE INTO action_details(
+		<include refid="base_column_list_action_details_entity" />
+		) VALUES
+		<foreach collection="list" item="element" index="index"
+			separator=",">
+			(
+			#{element.id},#{element.actionId},#{element.actionType},#{element.actionState},
+			#{element.actionViewState},#{element.actionTaken},#{element.validActionCommands},
+			#{element.userType},#{element.userId},
+			#{element.otherPartyId},#{element.referenceId},#{element.referenceType},
+			#{element.actionContext},#{element.actionInitiationTimestamp},#{element.actionExpiryTime},
+			#{element.actionLastIpdateTimestamp},#{element.actionNextScheduleTimestamp}
+			)
+		</foreach>
+	</insert>
+	<update id="updateActionTxnDetails" parameterType="java.util.Map">
+		UPDATE action_details
+		SET action_state = #{actionTxnState},
+		action_view_state = #{actionViewState},
+		action_last_update_timestamp =
+		#{actionLastIpdateTimestamp},
+		metadata = #{actionContext}
+		<if test="userId!=null">
+			,user_id = #{userId}
+		</if>
+		WHERE id = #{id} AND 
+				<![CDATA[ 
+				  action_last_update_timestamp <= #{actionLastIpdateTimestamp}
+				]]>
+	</update>
+	<select id="getActiontViewTxnDetails" parameterType="java.util.Map"
+		resultMap="resultActionTxnDetailsDTO">
+		SELECT
+		<include refid="base_column_list_action_details_dto" />
+		FROM action_details
+		WHERE action_id = #{fcTxnId} AND
+		action_type =
+		#{txnType};
+	</select>
+</mapper>

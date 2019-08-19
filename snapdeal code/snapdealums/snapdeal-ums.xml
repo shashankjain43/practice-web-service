@@ -1,0 +1,26 @@
+<project name="ums" default="snapdeal.ums.admin.copy.resources">
+<!-- sample -->
+    <property file="user.properties"/>
+
+    <target name="snapdeal.ums.admin.copy.resources" description="Push jsps and other static content to tomcat webapps folder">
+       <!-- Copy class files. -->
+       <!-- Copy class files. -->
+        <copy todir="${tomcat.home}/webapps/ROOT/">
+			<fileset dir="SnapdealUMSAdmin/src/main/webapp">
+				<include name="**/*" />
+                <exclude name="**/WEB-INF/**"/>
+                <exclude name="**/.svn/**"/>
+			</fileset>
+        </copy>
+    </target>
+
+    <target name="snapdealums.admin.deploy.webapp" description="Copy the entire Snapdeal UMS Admin webapp into tomcat directory">
+       <!-- Copy class files. -->
+        <copy todir="${tomcat.home}/webapps/ROOT/">
+			<fileset dir="SnapdealUMSAdminWeb/target/snapdeal-web">
+				<include name="**/*" />
+			</fileset>
+        </copy>
+    </target>
+	
+</project>

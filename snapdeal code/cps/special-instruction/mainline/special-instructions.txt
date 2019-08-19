@@ -1,0 +1,63 @@
+CATALOG PUBLISHING SYSTEM
+=========================
+
+The system listens to VIPMS queue for any changes in primary vendor, price of a POG ID and publishes it to Google Merchant Center using Google Content API. The system stores basic details of POG IDs in a mongo database.
+
+SETUP INSTRUCTIONS
+==================
+
+1. Checkout the code from git repo 'cps'.
+2. There are 3 folders GoogleCPS, GoogleOAuthSetup and VIPMSQueueListener which contain the source for different modules.
+All the 3 folders are maven projects. Build them with 'mvn install' command.
+3. For each of the projects a jar named *.one-jar.jar will be generated. Copy these jars in the required destination directory.
+4. Also copy staging.properties kept in appdata/properties folder alongwith the "resource" directory to the destination folder.
+5. In the same destination directory where jars are kept, create the following dir structure:
+	appdata
+	|--properties
+	|--credentials
+		|-- gOAuth
+
+6. Rename the staging.properties file to user.properties and move it to the folder appdata/properties.
+7. Make sure a Mongo Demon (mongod) process is runnning in the background.
+8. Run the following command from the directory in which jars are kept:
+	
+mongoimport --db CPS_DB --collection gpcMapping --file ./resource/mainline/GPCMapping.csv --type tsv --stopOnError --fields _id,subCategoryName,categoryID,googleProductCategory
+
+9. Next start the mongo shell and execute the queries in the file ./resource/mainline/mongoQueries.txt
+
+
+This system consists of 2 modules:
+
+LISTENER
+========
+
+The Listener module listenes to the VIPMS queue and save the contents in mongoDB. 
+The required configurations are stored in user.properties file.
+This process will run continuously in the background and keep listening to the queue.
+The jar will be run using "java -jar" command without any arguments.
+
+PUBLISHER
+=========
+
+The publisher module requires a one time OAuth setup and runs at fixed times in a day via cron jobs. Please find below the details:
+
+1. GoogleOAuthSetup: This a maven project which setups OAuth Credentials to be used by the publisher. It will be run only one time.
+When the jar is run, it prints out a URL. 
+Open the URL in the browser. The service would ask for permissions. 
+Login via onlinemarketing@snapdeal.com and give the required permissions. 
+An auth token is generated. Paste this token on the console and wait while the module setups credentials. 
+Once the credentials are set, the program will automatically exit with success.
+
+2. GoogleCPS: This maven project will run 9 times a day via cron jobs at the following times: 
+Every half hour between 9AM-12PM each day: 9AM, 9:30AM, 10:00AM, 10:30AM, 11:00AM, 11:30AM, 12:00PM
+Next run will be in the evening at 4PM
+The last run of the day will be in the night at 8PM
+
+The jar accepts environment as a command line argument. 
+When running in production pass "prod" as the argument.
+
+Command to be executed in staging: java -jar <name of the GoogleCPS jar> test
+Command to be executed in production: java -jar <name of the GoogleCPS jar> prod
+
+This reads and writes to a MongoDB database.
+

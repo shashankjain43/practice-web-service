@@ -1,0 +1,1930 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch0="http://www.snapdeal.com/services/" xmlns:sch1="http://www.snapdeal.com/services/traveldeals"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.snapdeal.com/services/"
+	targetNamespace="http://www.snapdeal.com/services/" xmlns:p="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema xmlns:sd="http://www.snapdeal.com/services/"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+			elementFormDefault="qualified" targetNamespace="http://www.snapdeal.com/services/">
+			<xs:element name="GetLocalDealsByLocalityRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Categories">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Category">
+										<xs:complexType>
+											<xs:attribute name="id" type="xs:integer" />
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="zoneId" type="xs:integer" />
+						<xs:element name="localityId" type="xs:integer" />
+						<xs:element name="start" type="xs:integer" />
+						<xs:element name="noOfResults" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLocalDealsByLocalityResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Cities" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLocalDealsByLatLongRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Categories">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Category">
+										<xs:complexType>
+											<xs:attribute name="id" type="xs:integer" />
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="zoneId" type="xs:integer" />
+						<xs:element name="Location">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="latitude" type="xs:double" />
+									<xs:element name="longitude" type="xs:double" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="start" type="xs:integer" />
+						<xs:element name="noOfResults" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLocalDealsByLatLongResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Cities" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDealsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="start" type="xs:integer" />
+						<xs:element name="noOfResults" type="xs:integer" />
+						<xs:element name="Zones">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Zone">
+										<xs:complexType>
+											<xs:attribute name="id" type="xs:integer" use="required" />
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetDealsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Cities" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetDealOfTheDayRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cityName" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetDealOfTheDayResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Deal" minOccurs="0" />
+						<xs:element ref="sd:ProductOffer" minOccurs="0" />
+						<xs:element ref="sd:GetawayDeal" minOccurs="0" />
+						<xs:element name="zonePageUrl" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Cities">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:City" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="City">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Zones" />
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:integer" use="required" />
+					<xs:attribute name="name" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Zones">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:Zone" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Zone">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Deals" />
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:integer" use="required" />
+					<xs:attribute name="name" type="xs:string" use="required" />
+					<xs:attribute name="pageUrl" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Deals">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" ref="sd:Deal" />
+					</xs:sequence>
+					<xs:attribute name="distanceFromLocality" type="xs:string" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Deal">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="title" type="xs:string" />
+						<xs:element name="url" type="xs:anyURI" />
+						<xs:element name="price" type="xs:integer" />
+						<xs:element name="payToMerchant" type="xs:integer" />
+						<xs:element name="voucherPrice" type="xs:integer" />
+						<xs:element name="discount" type="xs:integer" />
+						<xs:element name="percentOffDeal" type="xs:boolean" />
+						<xs:element name="startTime" type="xs:dateTime" />
+						<xs:element name="endTime" type="xs:dateTime" />
+						<xs:element name="validUpto" type="xs:dateTime" />
+						<xs:element name="description" type="xs:string" />
+						<xs:element name="newsletterLocations" type="xs:string" />
+						<xs:element name="dealCategoryId" type="xs:int" />
+						<xs:element minOccurs="0" ref="sd:Highlights" />
+						<xs:element minOccurs="0" ref="sd:FinePrints" />
+						<xs:element ref="sd:Vendor" />
+						<xs:element minOccurs="0" ref="sd:Images" />
+						<xs:element name="updated" type="xs:dateTime" />
+					</xs:all>
+					<xs:attribute name="id" type="xs:integer" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Highlights">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="highlight"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FinePrints">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="finePrint"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Vendor">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="description" type="xs:string" />
+						<xs:element minOccurs="0" name="website" type="xs:string" />
+						<xs:element minOccurs="0" ref="sd:Reviews" />
+						<xs:element minOccurs="0" ref="sd:Outlets" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Reviews">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" ref="sd:Review" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Review">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="content" type="xs:string" />
+						<xs:element name="source" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Outlets">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" ref="sd:Outlet" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Outlet">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element minOccurs="0" name="address1" type="xs:string" />
+						<xs:element minOccurs="0" name="address2" type="xs:string" />
+						<xs:element minOccurs="0" name="pinCode" type="xs:string" />
+						<xs:element minOccurs="0" name="phone" type="xs:string" />
+						<xs:element minOccurs="0" name="fax" type="xs:string" />
+						<xs:element minOccurs="0" name="timing" type="xs:string" />
+						<xs:sequence minOccurs="0">
+							<xs:element minOccurs="0" name="latitude" type="xs:decimal" />
+							<xs:element minOccurs="0" name="longitude" type="xs:decimal" />
+						</xs:sequence>
+						<xs:element minOccurs="0" name="zoneId" type="xs:integer" />
+						<xs:element minOccurs="0" name="globalOutlet" type="xs:boolean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Images">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:Image" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Image">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contentPath" type="xs:string" />
+						<xs:element name="url" type="xs:anyURI" />
+					</xs:sequence>
+					<xs:attribute name="displayOrder" type="xs:integer"
+						use="required" />
+					<xs:attribute name="type" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Authentication">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="apiKey" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Login">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="loginToken" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetZonesRequest">
+				<xs:complexType />
+			</xs:element>
+			<xs:element name="GetZonesResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:ZoneDetail" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ZoneDetail">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="pageUrl" type="xs:string" />
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:integer" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetProductDealsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="categoryId" type="xs:integer" />
+						<xs:element name="start" type="xs:integer" />
+						<xs:element name="noOfResults" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetProductDealsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="ProductOfferGroups">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										ref="sd:ProductOfferGroup" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ProductOfferGroup">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:integer" />
+						<xs:element name="url" type="xs:string" />
+						<xs:element minOccurs="0" name="brandName" type="xs:string" />
+						<xs:element minOccurs="0" name="percentOff" type="xs:integer" />
+						<xs:element minOccurs="0" name="initAttributeType"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="soldOut" type="xs:boolean" />
+
+						<xs:element minOccurs="0" name="ProductOffers">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										ref="sd:ProductOffer" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" ref="sd:DefaultProductOfferContent" />
+						<xs:element minOccurs="0" name="ProductAttributeDTOs">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										ref="sd:ProductAttributeDTO" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ProductOffer">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="startTime" type="xs:dateTime" />
+						<xs:element name="endTime" type="xs:dateTime" />
+						<xs:element ref="sd:ProductOfferContent" />
+						<xs:element name="name" type="xs:string" />
+						<xs:element minOccurs="0" name="priority" type="xs:integer" />
+						<xs:element name="shippingCharges" type="xs:integer" />
+						<xs:element name="shippingChargesBorneBy" type="xs:integer" />
+						<xs:element name="discount" type="xs:integer" />
+						<xs:element name="price" type="xs:integer" />
+						<xs:element name="sellingPrice" type="xs:integer" />
+						<xs:element name="updated" type="xs:dateTime" />
+						<xs:element minOccurs="0" name="categories">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										ref="sd:ProductCategory" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:all>
+					<xs:attribute name="id" type="xs:integer" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element minOccurs="0" name="ProductCategory">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="name" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ProductOfferContent">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:integer" />
+						<xs:element minOccurs="0" name="pageUrl" type="xs:string" />
+						<xs:element minOccurs="0" name="title" type="xs:string" />
+						<xs:element minOccurs="0" name="description" type="xs:string" />
+						<xs:element minOccurs="0"
+							name="descriptionWithoutWidthAndHeight" type="xs:string" />
+						<xs:element minOccurs="0" name="subTitle" type="xs:string" />
+						<xs:element minOccurs="0" name="newsletterLocations"
+							type="xs:string" />
+						<xs:element minOccurs="0" name="warrantyDetails" type="xs:string" />
+						<xs:element minOccurs="0" name="ProductHighlights">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										name="ProductHighlight" type="xs:string" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element minOccurs="0" name="ProductImages">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										name="ProductImage">
+										<xs:complexType>
+											<xs:all>
+												<xs:element minOccurs="0" name="contentPath"
+													type="xs:string" />
+												<xs:element minOccurs="0" name="url" type="xs:string" />
+												<xs:element minOccurs="0" name="imageType" type="xs:string" />
+												<xs:element minOccurs="0" name="displayOrder"
+													type="xs:integer" />
+											</xs:all>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ProductAttributeDTO">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="value" type="xs:string" />
+						<xs:element name="price" type="xs:integer" />
+						<xs:element name="sellingPrice" type="xs:integer" />
+						<xs:element name="catalogId" type="xs:integer" />
+						<xs:element name="soldOut" type="xs:boolean" />
+						<xs:element minOccurs="0" name="SubAttributes">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										ref="sd:ProductAttributeDTO" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DefaultProductOfferContent">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:ProductOfferContent" />
+						<xs:element minOccurs="0" name="ProductContentTabs">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" minOccurs="0"
+										ref="sd:ProductContentTab" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ProductContentTab">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="heading" type="xs:string" />
+						<xs:element name="htmlContent" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetTravelDealsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="zoneId" type="xs:integer" />
+						<xs:element name="start" type="xs:integer" />
+						<xs:element name="noOfResults" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetTravelDealsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:GetawayDeals" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetawayDeals">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" maxOccurs="unbounded" ref="sd:GetawayDeal" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetawayDeal">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="title" type="xs:string" />
+						<xs:element name="url" type="xs:anyURI" />
+						<xs:element name="price" type="xs:integer" />
+						<xs:element name="payToMerchant" type="xs:integer" />
+						<xs:element name="voucherPrice" type="xs:integer" />
+						<xs:element name="discount" type="xs:integer" />
+						<xs:element name="percentOffDeal" type="xs:boolean" />
+						<xs:element name="startTime" type="xs:dateTime" />
+						<xs:element name="endTime" type="xs:dateTime" />
+						<xs:element name="updated" type="xs:dateTime" />
+						<xs:element name="validUpto" type="xs:dateTime" />
+						<xs:element name="description" type="xs:string" />
+						<xs:element minOccurs="0" ref="sd:GetawayHighlights" />
+						<xs:element minOccurs="0" ref="sd:GetawayFinePrints" />
+						<xs:element ref="sd:Vendor" />
+						<xs:element minOccurs="0" ref="sd:GetawayImages" />
+					</xs:all>
+					<xs:attribute minOccurs="0" name="id" type="xs:integer"
+						use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetawayHighlights">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="GetawayHighlight"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetawayFinePrints">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" name="GetawayFinePrint"
+							type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetawayImages">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:GetawayImage" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetawayImage">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="url" type="xs:anyURI" />
+					</xs:sequence>
+					<xs:attribute name="displayOrder" type="xs:integer"
+						use="required" />
+					<xs:attribute name="type" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLocalityRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="searchParam" type="xs:string" />
+						<xs:element name="zoneId" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetLocalityResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Localities" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Localities">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:Locality" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Locality">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:integer" />
+						<xs:element name="name" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCmsContentRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="contentIdentifier" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCmsContentResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cmsContent" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="LoginRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="email" type="xs:string" />
+						<xs:element name="password" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LoginResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="message" type="xs:string" />
+						<xs:element name="loginToken" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="LogoutRequest">
+			</xs:element>
+
+			<xs:element name="LogoutResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="message" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="SignupRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="email" type="xs:string" />
+						<xs:element name="password" type="xs:string" />
+						<xs:element name="mobile" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SignupResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="message" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetSDCashRequest" />
+
+			<xs:element name="GetSDCashResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sdCashEarned" type="xs:integer" />
+						<xs:element name="referralRewardSDCash" type="xs:integer" />
+						<xs:element name="sdCash" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ChangePasswordRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="oldPassword" type="xs:string" />
+						<xs:element name="newPassword" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ChangePasswordResponse">
+			</xs:element>
+
+			<xs:element name="CreateOrderRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="userId" type="xs:int" />
+						<xs:element name="email" type="xs:string" />
+						<xs:element name="mobile" type="xs:int" />
+						<xs:element name="zoneId" type="xs:string" />
+						<xs:element name="customerName" type="xs:string" />
+						<xs:element name="paymentMode" type="xs:string" />
+						<xs:element name="paymentModeSubtype" type="xs:string" />
+						<xs:element name="shippingMethod" type="xs:string" />
+						<xs:element ref="sd:Address" minOccurs="0" />
+						<xs:element ref="sd:Cart" minOccurs="0" />
+						<xs:element name="latitude" type="xs:string" />
+						<xs:element name="longitude" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Address">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element minOccurs="0" name="addressLine1" type="xs:string" />
+						<xs:element minOccurs="0" name="addressLine2" type="xs:string" />
+						<xs:element minOccurs="0" name="city" type="xs:string" />
+						<xs:element minOccurs="0" name="state" type="xs:string" />
+						<xs:element minOccurs="0" name="zip" type="xs:string" />
+						<xs:element minOccurs="0" name="mobile" type="xs:integer" />
+						<xs:element minOccurs="0" name="landline" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="orderId" type="xs:int" />
+						<xs:element name="orderCode" type="xs:string" />
+						<xs:element name="txnId" type="xs:int" />
+						<xs:element name="amount" type="xs:int" />
+						<xs:element name="orderStatus" type="xs:string" />
+						<xs:element name="txnCode" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Cart">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="userEmail" type="xs:string" />
+
+
+						<xs:sequence>
+							<xs:element ref="sd:CartItem" maxOccurs="1" />
+						</xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="DealCategory">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:int" />
+						<xs:element name="code" type="xs:string" />
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="groupCode" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="CartItem">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="catalogId" type="xs:int" />
+						<xs:element name="quantity" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Address">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="description" type="xs:string" />
+						<xs:element minOccurs="0" name="website" type="xs:string" />
+						<xs:element minOccurs="0" ref="sd:Reviews" />
+						<xs:element minOccurs="0" ref="sd:Outlets" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetCityListRequest">
+			</xs:element>
+
+			<xs:element name="GetCityListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" ref="sd:citydto" />
+						</xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="citydto">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:int" />
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="priority" type="xs:int" />
+						<xs:element name="defaultLocation" type="xs:string" />
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" ref="sd:ZoneDetail" />
+						</xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetOrderListRequest">
+			</xs:element>
+
+			<xs:element name="GetOrderListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:Order" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Order">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="orderId" type="xs:string" />
+						<xs:element name="purchaseDate" type="xs:string" />
+						<xs:element name="totalAmount" type="xs:string" />
+						<xs:element name="orderStatus" type="xs:string" />
+						<xs:element name="orderCode" type="xs:string" />
+						<xs:element name="Categories">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element maxOccurs="unbounded" name="Items">
+										<xs:complexType>
+											<xs:attribute name="item" type="xs:string" />
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetOrderDetailsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="orderId" type="xs:int" />
+						<xs:element name="code" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetOrderDetailsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:integer" />
+						<xs:element name="code" type="xs:string" />
+						<xs:element name="price" type="xs:int" />
+						<xs:element name="sellingPrice" type="xs:int" />
+						<xs:element name="paidAmount" type="xs:int" />
+						<xs:element name="sdCash" type="xs:int" />
+						<xs:element name="promoValue" type="xs:int" />
+						<xs:element name="refundAmount" type="xs:int" />
+						<xs:element name="orderStatus" type="xs:string" />
+						<xs:element maxOccurs="unbounded" ref="sd:Order" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Suborder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="id" type="xs:integer" />
+						<xs:element name="suborderStatus" type="xs:string" />
+						<xs:element name="catalogId" type="xs:int" />
+						<xs:element name="code" type="xs:string" />
+						<xs:element name="suborderType" type="xs:string" />
+						<xs:element name="price" type="xs:int" />
+						<xs:element name="sellingPrice" type="xs:int" />
+						<xs:element name="paidAmount" type="xs:int" />
+						<xs:element name="sdCash" type="xs:int" />
+						<xs:element name="promoValue" type="xs:int" />
+						<xs:element name="refundAmount" type="xs:int" />
+						<xs:element name="shippingCharges" type="xs:int" />
+						<xs:element name="shippingMethodCharges" type="xs:int" />
+						<xs:element name="validTill" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetFeedbackRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="email" type="xs:string" />
+						<xs:element name="city" type="xs:string" />
+						<xs:element name="category" type="xs:string" />
+						<xs:element name="message" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FeedbackResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="message" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetOrderDetailRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="orderId" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetOrderDetailResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="orderId" type="xs:string" />
+						<xs:element name="amount" type="xs:int" />
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="mobile" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetEventDetailRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="eventType" type="xs:string" />
+						<xs:element name="zoneId" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetEventDetailResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:EventDetail" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EventDetail">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="imagePath" type="xs:string" />
+						<xs:element name="pageUrl" type="xs:string" />
+						<xs:element name="type" type="xs:string" />
+						<xs:element name="altText" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="VerifyPincodeRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="pincode" type="xs:string"></xs:element>
+						<xs:element name="shippingMethodCode" type="xs:string"></xs:element>
+						<xs:element name="catalogId" type="xs:string"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="VerifyPincodeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="valid" type="xs:boolean"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetProductCategoryListRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="categoryId" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetProductCategoryListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" ref="sd:productCategories" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="productCategories">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" />
+						<xs:element name="id" type="xs:integer" />
+						<xs:element name="priority" type="xs:integer" />
+						<xs:element name="parentId" type="xs:integer" />
+						<xs:element name="visible" type="xs:boolean" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetBankOTPRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="bankName" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetBankOTPResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="bankName" type="xs:string"></xs:element>
+						<xs:element name="smsKey" type="xs:string"></xs:element>
+						<xs:element name="numOfDigits" type="xs:integer"></xs:element>
+						<xs:element maxOccurs="unbounded" ref="sd:shortCodes"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="shortCodes">
+				<xs:complexType>
+					<xs:attribute name="shortcode" type="xs:string" />
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetCatalogQuantityRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="catalogId" type="xs:integer" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetCatalogQuantityResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="quantity" type="xs:integer"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetPromoCodeSdCashRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Cart" minOccurs="1" />
+						<xs:element name="promoCode" type="xs:string" />
+						<xs:element name="sdCash" type="xs:integer" />
+						<xs:element name="email" type="xs:string" />
+						<xs:element name="mobile" type="xs:int" />
+						<xs:element name="zoneId" type="xs:string" />
+						<xs:element name="deviceType" type="xs:string"  minOccurs="0" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetPromoCodeSdCashResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="promoCodeMessage" type="xs:string"></xs:element>
+						<xs:element name="promoCodeValue" type="xs:integer"></xs:element>
+						<xs:element name="sdCashMessage" type="xs:string"></xs:element>
+						<xs:element name="sdCashValue" type="xs:integer"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetPromoCodeValueRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:Cart" minOccurs="1" />
+						<xs:element name="promoCode" type="xs:string" />
+						<xs:element name="email" type="xs:string" />
+						<xs:element name="mobile" type="xs:int" />
+						<xs:element name="zoneId" type="xs:string" />
+						<xs:element name="deviceType" type="xs:string"  minOccurs="0" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetPromoCodeValueResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="promoCodeMessage" type="xs:string"></xs:element>
+						<xs:element name="promoCodeValue" type="xs:integer"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="ValidatePaytmPaymentRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="txnCode" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ValidatePaytmPaymentResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="paymentStatus" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateSubOrderRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="txnCode" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CreateSubOrderResponse">
+				<xs:complexType>
+					<xs:sequence>
+					    <xs:element name="orderId" type="xs:int" />
+					    <xs:element name="orderCode" type="xs:string" />
+					    <xs:element name="totalAmount" type="xs:int"/>
+						<xs:element name="shippingCharges" type="xs:int"/>
+						<xs:element name="shippingMethodCharges" type="xs:int" />
+						<xs:element name="paidAmount" type="xs:int"/>
+						<xs:element name="promoValue" type="xs:int"/>
+						<xs:element name="purchaseDate" type="xs:string"/>
+					<xs:element ref="sd:SubOrder"  />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubOrder">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subOrderId" type="xs:int" />
+						<xs:element name="voucherCode" type="xs:string" />
+						<xs:element name="validUpto" type="xs:dateTime"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="GetDealsCategoryListRequest">
+			</xs:element>
+
+			<xs:element name="GetDealsCategoryListResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="sd:DealCategory"></xs:element>
+				</xs:sequence>
+				</xs:complexType>
+				</xs:element>
+				
+			<xs:element name="GetCityByLatLongRequest">
+			<xs:complexType>
+                     <xs:sequence>
+						<xs:element name="latitude" type="xs:double" />
+						<xs:element name="longitude" type="xs:double" />
+					</xs:sequence>
+				</xs:complexType>				
+			</xs:element>
+			
+			<xs:element name="GetCityByLatLongResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="zoneId" type="xs:int"  />
+						<xs:element name="cityId" type="xs:int"  />
+						<xs:element name="cityName" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="AuthenticationHeader">
+		<wsdl:part name="Authentication" element="tns:Authentication" />
+	</wsdl:message>
+	<wsdl:message name="LoginHeader">
+		<wsdl:part name="Login" element="tns:Login" />
+	</wsdl:message>
+	<wsdl:message name="GetLocalDealsByLocalityResponse">
+		<wsdl:part element="tns:GetLocalDealsByLocalityResponse"
+			name="GetLocalDealsByLocalityResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetLocalDealsByLocalityRequest">
+		<wsdl:part element="tns:GetLocalDealsByLocalityRequest"
+			name="GetLocalDealsByLocalityRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetZonesResponse">
+		<wsdl:part element="tns:GetZonesResponse" name="GetZonesResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetProductDealsResponse">
+		<wsdl:part element="tns:GetProductDealsResponse" name="GetProductDealsResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetLocalDealsByLatLongResponse">
+		<wsdl:part element="tns:GetLocalDealsByLatLongResponse"
+			name="GetLocalDealsByLatLongResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetLocalDealsByLatLongRequest">
+		<wsdl:part element="tns:GetLocalDealsByLatLongRequest" name="GetLocalDealsByLatLongRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetDealsResponse">
+		<wsdl:part element="tns:GetDealsResponse" name="GetDealsResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetDealOfTheDayRequest">
+		<wsdl:part element="tns:GetDealOfTheDayRequest" name="GetDealOfTheDayRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetDealOfTheDayResponse">
+		<wsdl:part element="tns:GetDealOfTheDayResponse" name="GetDealOfTheDayResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetTravelDealsRequest">
+		<wsdl:part element="tns:GetTravelDealsRequest" name="GetTravelDealsRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetProductDealsRequest">
+		<wsdl:part element="tns:GetProductDealsRequest" name="GetProductDealsRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetZonesRequest">
+		<wsdl:part element="tns:GetZonesRequest" name="GetZonesRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetDealsRequest">
+		<wsdl:part element="tns:GetDealsRequest" name="GetDealsRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetTravelDealsResponse">
+		<wsdl:part element="tns:GetTravelDealsResponse" name="GetTravelDealsResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetLocalityRequest">
+		<wsdl:part name="GetLocalityRequest" element="tns:GetLocalityRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetLocalityResponse">
+		<wsdl:part name="GetLocalityResponse" element="tns:GetLocalityResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCmsContentRequest">
+		<wsdl:part name="GetCmsContentRequest" element="tns:GetCmsContentRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCmsContentResponse">
+		<wsdl:part name="GetCmsContentResponse" element="tns:GetCmsContentResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="LoginRequest">
+		<wsdl:part name="LoginRequest" element="tns:LoginRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="LoginResponse">
+		<wsdl:part name="LoginResponse" element="tns:LoginResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="LogoutRequest">
+		<wsdl:part name="LogoutRequest" element="tns:LogoutRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="LogoutResponse">
+		<wsdl:part name="LogoutResponse" element="tns:LogoutResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="SignupRequest">
+		<wsdl:part name="SignupRequest" element="tns:SignupRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="SignupResponse">
+		<wsdl:part name="SignupResponse" element="tns:SignupResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="GetSDCashRequest">
+		<wsdl:part name="GetSDCashRequest" element="tns:GetSDCashRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetSDCashResponse">
+		<wsdl:part name="GetSDCashResponse" element="tns:GetSDCashResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="ChangePasswordRequest">
+		<wsdl:part name="ChangePasswordRequest" element="tns:ChangePasswordRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ChangePasswordResponse">
+		<wsdl:part name="ChangePasswordResponse" element="tns:ChangePasswordResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="CreateOrderRequest">
+		<wsdl:part name="CreateOrderRequest" element="tns:CreateOrderRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="CreateOrderResponse">
+		<wsdl:part name="CreateOrderResponse" element="tns:CreateOrderResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="GetCityListRequest">
+		<wsdl:part name="GetCityListRequest" element="tns:GetCityListRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCityListResponse">
+		<wsdl:part name="GetCityListResponse" element="tns:GetCityListResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="GetOrderListRequest">
+		<wsdl:part name="GetOrderListRequest" element="tns:GetOrderListRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOrderListResponse">
+		<wsdl:part name="GetOrderListResponse" element="tns:GetOrderListResponse"></wsdl:part>
+	</wsdl:message>
+
+
+	<wsdl:message name="GetOrderDetailsRequest">
+		<wsdl:part name="GetOrderDetailsRequest" element="tns:GetOrderDetailsRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOrderDetailsResponse">
+		<wsdl:part name="GetOrderDetailsResponse" element="tns:GetOrderDetailsResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="GetFeedbackRequest">
+		<wsdl:part name="GetFeedbackRequest" element="tns:GetFeedbackRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="FeedbackResponse">
+		<wsdl:part name="FeedbackRespone" element="tns:FeedbackResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="GetOrderDetailRequest">
+		<wsdl:part name="GetOrderDetailRequest" element="tns:GetOrderDetailRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetOrderDetailResponse">
+		<wsdl:part name="GetOrderDetailResponse" element="tns:GetOrderDetailResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="GetEventDetailRequest">
+		<wsdl:part name="GetEventDetailRequest" element="tns:GetEventDetailRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetEventDetailResponse">
+		<wsdl:part name="GetEventDetailResponse" element="tns:GetEventDetailResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="VerifyPincodeRequest">
+		<wsdl:part name="VerifyPincodeRequest" element="tns:VerifyPincodeRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="VerifyPincodeResponse">
+		<wsdl:part name="VerifyPincodeResponse" element="tns:VerifyPincodeResponse"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetProductCategoryListRequest">
+		<wsdl:part element="tns:GetProductCategoryListRequest" name="GetProductCategoryListRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetProductCategoryListResponse">
+		<wsdl:part element="tns:GetProductCategoryListResponse"
+			name="GetProductCategoryListResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetBankOTPRequest">
+		<wsdl:part element="tns:GetBankOTPRequest" name="GetBankOTPRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetBankOTPResponse">
+		<wsdl:part element="tns:GetBankOTPResponse" name="GetBankOTPResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCatalogQuantityRequest">
+		<wsdl:part element="tns:GetCatalogQuantityRequest" name="GetCatalogQuantityRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCatalogQuantityResponse">
+		<wsdl:part element="tns:GetCatalogQuantityResponse" name="GetCatalogQuantityResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetPromoCodeSdCashRequest">
+		<wsdl:part element="tns:GetPromoCodeSdCashRequest" name="GetPromoCodeSdCashRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetPromoCodeSdCashResponse">
+		<wsdl:part element="tns:GetPromoCodeSdCashResponse" name="GetPromoCodeSdCashResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetPromoCodeValueRequest">
+		<wsdl:part element="tns:GetPromoCodeValueRequest" name="GetPromoCodeValueRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetPromoCodeValueResponse">
+		<wsdl:part element="tns:GetPromoCodeValueResponse" name="GetPromoCodeValueResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="CreateSubOrderRequest">
+		<wsdl:part element="tns:CreateSubOrderRequest" name="CreateSubOrderRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="CreateSubOrderResponse">
+		<wsdl:part element="tns:CreateSubOrderResponse" name="CreateSubOrderResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ValidatePaytmPaymentRequest">
+		<wsdl:part element="tns:ValidatePaytmPaymentRequest" name="ValidatePaytmPaymentRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="ValidatePaytmPaymentResponse">
+		<wsdl:part element="tns:ValidatePaytmPaymentResponse" name="ValidatePaytmPaymentResponse">
+		</wsdl:part>
+	</wsdl:message> 
+	<wsdl:message name="GetCityByLatLongRequest">
+		<wsdl:part element="tns:GetCityByLatLongRequest" name="GetCityByLatLongRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetCityByLatLongResponse">
+		<wsdl:part element="tns:GetCityByLatLongResponse" name="GetCityByLatLongResponse">
+		</wsdl:part>
+	</wsdl:message>
+	
+	<wsdl:message name="GetDealsCategoryListRequest">
+		<wsdl:part element="tns:GetDealsCategoryListRequest" name="GetDealsCategoryListRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="GetDealsCategoryListResponse">
+		<wsdl:part element="tns:GetDealsCategoryListResponse" name="GetDealsCategoryListResponse">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="Snapdeal">
+		<wsdl:operation name="GetLocalDealsByLocality">
+			<wsdl:input message="tns:GetLocalDealsByLocalityRequest"
+				name="GetLocalDealsByLocalityRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetLocalDealsByLocalityResponse"
+				name="GetLocalDealsByLocalityResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetZones">
+			<wsdl:input message="tns:GetZonesRequest" name="GetZonesRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetZonesResponse" name="GetZonesResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetProductDeals">
+			<wsdl:input message="tns:GetProductDealsRequest" name="GetProductDealsRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetProductDealsResponse" name="GetProductDealsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLocalDealsByLatLong">
+			<wsdl:input message="tns:GetLocalDealsByLatLongRequest"
+				name="GetLocalDealsByLatLongRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetLocalDealsByLatLongResponse"
+				name="GetLocalDealsByLatLongResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDeals">
+			<wsdl:input message="tns:GetDealsRequest" name="GetDealsRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetDealsResponse" name="GetDealsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDealOfTheDay">
+			<wsdl:input message="tns:GetDealOfTheDayRequest" name="GetDealOfTheDayRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetDealOfTheDayResponse" name="GetDealOfTheDayResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTravelDeals">
+			<wsdl:input message="tns:GetTravelDealsRequest" name="GetTravelDealsRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetTravelDealsResponse" name="GetTravelDealsResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLocality">
+			<wsdl:input message="tns:GetLocalityRequest" name="GetLocalityRequest"></wsdl:input>
+			<wsdl:output message="tns:GetLocalityResponse" name="GetLocalityResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCmsContent">
+			<wsdl:input message="tns:GetCmsContentRequest" name="GetCmsContentRequest"></wsdl:input>
+			<wsdl:output message="tns:GetCmsContentResponse" name="GetCmsContentResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Login">
+			<wsdl:input message="tns:LoginRequest" name="LoginRequest"></wsdl:input>
+			<wsdl:output message="tns:LoginResponse" name="LoginResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Logout">
+			<wsdl:input message="tns:LogoutRequest" name="LogoutRequest"></wsdl:input>
+			<wsdl:output message="tns:LogoutResponse" name="LogoutResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Signup">
+			<wsdl:input message="tns:SignupRequest" name="SignupRequest"></wsdl:input>
+			<wsdl:output message="tns:SignupResponse" name="SignupResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSDCash">
+			<wsdl:input message="tns:GetSDCashRequest" name="GetSDCashRequest"></wsdl:input>
+			<wsdl:output message="tns:GetSDCashResponse" name="GetSDCashResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="ChangePassword">
+			<wsdl:input message="tns:ChangePasswordRequest" name="ChangePasswordRequest"></wsdl:input>
+			<wsdl:output message="tns:ChangePasswordResponse" name="ChangePasswordResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateOrder">
+			<wsdl:input message="tns:CreateOrderRequest" name="CreateOrderRequest"></wsdl:input>
+			<wsdl:output message="tns:CreateOrderResponse" name="CreateOrderResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetCityList">
+			<wsdl:input message="tns:GetCityListRequest" name="GetCityListRequest"></wsdl:input>
+			<wsdl:output message="tns:GetCityListResponse" name="GetCityListResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOrderList">
+			<wsdl:input message="tns:GetOrderListRequest" name="GetOrderListRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOrderListResponse" name="GetOrderListResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetOrderDetails">
+			<wsdl:input message="tns:GetOrderDetailsRequest" name="GetOrderDetailsRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOrderDetailsResponse" name="GetOrderDetailsResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetFeedback">
+			<wsdl:input message="tns:GetFeedbackRequest" name="GetFeedbackRequest"></wsdl:input>
+			<wsdl:output message="tns:FeedbackResponse" name="FeedbackResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetOrderDetail">
+			<wsdl:input message="tns:GetOrderDetailRequest" name="GetOrderDetailRequest"></wsdl:input>
+			<wsdl:output message="tns:GetOrderDetailResponse" name="GetOrderDetailResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetEventDetail">
+			<wsdl:input message="tns:GetEventDetailRequest" name="GetEventDetailRequest"></wsdl:input>
+			<wsdl:output message="tns:GetEventDetailResponse" name="GetEventDetailResponse"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="VerifyPincode">
+			<wsdl:input message="tns:VerifyPincodeRequest" name="VerifyPincodeRequest"></wsdl:input>
+			<wsdl:output message="tns:VerifyPincodeResponse" name="VerifyPincodeResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetProductCategoryList">
+			<wsdl:input message="tns:GetProductCategoryListRequest"
+				name="GetProductCategoryListRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetProductCategoryListResponse"
+				name="GetProductCategoryListResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetBankOTP">
+			<wsdl:input message="tns:GetBankOTPRequest" name="GetBankOTPRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetBankOTPResponse" name="GetBankOTPResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCatalogQuantity">
+			<wsdl:input message="tns:GetCatalogQuantityRequest" name="GetCatalogQuantityRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:GetCatalogQuantityResponse"
+				name="GetCatalogQuantityResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPromoCodeSdCashValue">
+			<wsdl:input message="tns:GetPromoCodeSdCashRequest" name="GetPromoCodeSdCashRequest"></wsdl:input>
+			<wsdl:output message="tns:GetPromoCodeSdCashResponse"
+				name="GetPromoCodeSdCashResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPromoCodeValue">
+			<wsdl:input message="tns:GetPromoCodeValueRequest" name="GetPromoCodeValueRequest"></wsdl:input>
+			<wsdl:output message="tns:GetPromoCodeValueResponse"
+				name="GetPromoCodeValueResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateSubOrder">
+			<wsdl:input message="tns:CreateSubOrderRequest" name="CreateSubOrderRequest"></wsdl:input>
+			<wsdl:output message="tns:CreateSubOrderResponse"
+				name="CreateSubOrderResponse"></wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ValidatePaytmPayment">
+			<wsdl:input message="tns:ValidatePaytmPaymentRequest" name="ValidatePaytmPaymentRequest"></wsdl:input>
+			<wsdl:output message="tns:ValidatePaytmPaymentResponse"
+				name="ValidatePaytmPaymentResponse"></wsdl:output>
+		</wsdl:operation>
+		
+
+		<wsdl:operation name="GetDealsCategoryList">
+			<wsdl:input message="tns:GetDealsCategoryListRequest" name="GetDealsCategoryListRequest"></wsdl:input>
+			<wsdl:output message="tns:GetDealsCategoryListResponse"
+				name="GetDealsCategoryListResponse"></wsdl:output>
+        </wsdl:operation>
+		<wsdl:operation name="GetCityByLatLong">
+			<wsdl:input message="tns:GetCityByLatLongRequest" name="GetCityByLatLongRequest"></wsdl:input>
+			<wsdl:output message="tns:GetCityByLatLongResponse"
+				name="GetCityByLatLongResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="SnapdealSoap11" type="tns:Snapdeal">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="GetLocalDealsByLocality">
+			<soap:operation soapAction="GetLocalDealsByLocality" />
+			<wsdl:input name="GetLocalDealsByLocalityRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetLocalDealsByLocalityResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetZones">
+			<soap:operation soapAction="GetZones" />
+			<wsdl:input name="GetZonesRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetZonesResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetProductDeals">
+			<soap:operation soapAction="GetProductDeals" />
+			<wsdl:input name="GetProductDealsRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetProductDealsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLocalDealsByLatLong">
+			<soap:operation soapAction="GetLocalDealsByLatLong" />
+			<wsdl:input name="GetLocalDealsByLatLongRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetLocalDealsByLatLongResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDeals">
+			<soap:operation soapAction="GetDeals" />
+			<wsdl:input name="GetDealsRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetDealsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetDealOfTheDay">
+			<soap:operation soapAction="GetDealOfTheDay" />
+			<wsdl:input name="GetDealOfTheDayRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetDealOfTheDayResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTravelDeals">
+			<soap:operation soapAction="GetTravelDeals" />
+			<wsdl:input name="GetTravelDealsRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetTravelDealsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLocality">
+			<soap:operation soapAction="GetLocality" />
+			<wsdl:input name="GetLocalityRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetLocalityResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCmsContent">
+			<soap:operation soapAction="GetCmsContent" />
+			<wsdl:input name="GetCmsContentRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetCmsContentResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+
+		</wsdl:operation>
+
+		<wsdl:operation name="Login">
+			<soap:operation soapAction="Login" />
+			<wsdl:input name="LoginRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="LoginResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Logout">
+			<soap:operation soapAction="Logout" />
+			<wsdl:input name="LogoutRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+				<soap:header message="tns:LoginHeader" part="Login" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="LogoutResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="Signup">
+			<soap:operation soapAction="Signup" />
+			<wsdl:input name="SignupRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="SignupResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+
+		<wsdl:operation name="GetFeedback">
+			<soap:operation soapAction="GetFeedback" />
+			<wsdl:input name="GetFeedbackRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="FeedbackResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetSDCash">
+			<soap:operation soapAction="GetSDCash" />
+			<wsdl:input name="GetSDCashRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+				<soap:header message="tns:LoginHeader" part="Login" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetSDCashResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="ChangePassword">
+			<soap:operation soapAction="ChangePassword" />
+			<wsdl:input name="ChangePasswordRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+				<soap:header message="tns:LoginHeader" part="Login" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="ChangePasswordResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="CreateOrder">
+			<soap:operation soapAction="CreateOrder" />
+			<wsdl:input name="CreateOrderRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="CreateOrderResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetCityList">
+			<soap:operation soapAction="GetCityList" />
+			<wsdl:input name="GetCityListRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetCityListResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetOrderList">
+			<soap:operation soapAction="GetOrderList" />
+			<wsdl:input name="GetOrderListRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+				<soap:header message="tns:LoginHeader" part="Login" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetOrderListResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetOrderDetails">
+			<soap:operation soapAction="GetOrderDetails" />
+			<wsdl:input name="GetOrderDetailsRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetOrderDetailsResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetOrderDetail">
+			<soap:operation soapAction="GetOrderDetail" />
+			<wsdl:input name="GetOrderDetailRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetOrderDetailResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetEventDetail">
+			<soap:operation soapAction="GetEventDetail" />
+			<wsdl:input name="GetEventDetailRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetEventDetailResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="VerifyPincode">
+			<soap:operation soapAction="VerifyPincode" />
+			<wsdl:input name="VerifyPincodeRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="VerifyPincodeResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetProductCategoryList">
+			<soap:operation soapAction="GetProductCategoryList" />
+			<wsdl:input name="GetProductCategoryListRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetProductCategoryListResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetBankOTP">
+			<soap:operation soapAction="GetBankOTP" />
+			<wsdl:input name="GetBankOTPRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetBankOTPResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="GetCatalogQuantity">
+			<soap:operation soapAction="GetCatalogQuantity" />
+			<wsdl:input name="GetCatalogQuantityRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetCatalogQuantityResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPromoCodeSdCashValue">
+			<soap:operation soapAction="GetPromoCodeSdCashValue" />
+			<wsdl:input name="GetPromoCodeSdCashRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+				<soap:header message="tns:LoginHeader" part="Login" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetPromoCodeSdCashResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPromoCodeValue">
+			<soap:operation soapAction="GetPromoCodeValue" />
+			<wsdl:input name="GetPromoCodeValueRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetPromoCodeValueResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateSubOrder">
+			<soap:operation soapAction="CreateSubOrder" />
+			<wsdl:input name="CreateSubOrderRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="CreateSubOrderResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ValidatePaytmPayment">
+			<soap:operation soapAction="ValidatePaytmPayment" />
+			<wsdl:input name="ValidatePaytmPaymentRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="ValidatePaytmPaymentResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+
+		<wsdl:operation name="GetDealsCategoryList">
+			<soap:operation soapAction="GetDealsCategoryList" />
+			<wsdl:input name="GetDealsCategoryListRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetDealsCategoryListResponse">
+			<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	
+	 <wsdl:operation name="GetCityByLatLong">
+			<soap:operation soapAction="GetCityByLatLong" />
+			<wsdl:input name="GetCityByLatLongRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="GetCityByLatLongResponse">
+			     <soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SnapdealService">
+		<wsdl:port binding="tns:SnapdealSoap11" name="SnapdealSoap11">
+			<soap:address location="http://localhost:80/services/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

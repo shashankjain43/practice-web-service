@@ -1,0 +1,96 @@
+<div class="add-user" ng-model="vm.userObject" >
+        <form name="userForm" id="userForm" novalidate >
+        <h3>{{vm.heading}}</h3>
+        <div class="success-msz-box" id="successDiv"  ng-if="vm.successError=='success'">{{vm.message}}</div>
+        <div class="error-msz-box" id="erorDiv" ng-if="vm.successError=='failure'">{{vm.message}}</div>
+        <div class="form-group clearfix" ng-if="vm.action == 'edit'">
+            <div class="form-control-wrapper">
+            <input class="form-control" name="readLoginName"
+                   id="readLoginName"    ng-disabled="true"  ng-model="vm.userObject.loginName" required readonly type="text" form-value-empty ng-class={'empty':!vm.userObject.loginName}>
+                <div class="floating-label">Login Name</div>
+                <span class="material-input"></span></div>
+
+            </div>
+        <div class="form-group clearfix" ng-if="vm.action == 'add'">
+            <div class="form-control-wrapper">
+            <input class="form-control empty" required ng-blur="vm.onBlur($event)" name="loginName" id="loginName" ng-model="vm.userObject.loginName" type="text" form-value-empty ng-class={'empty':!vm.userObject.loginName}>
+            <div class="floating-label">Login Name</div>
+            <span class="material-input"></span></div>
+            <div ng-messages="userForm.loginName.$error"  ng-if="userForm.loginName.$dirty" id="loginNameError" class="error">
+                <div ng-message="required">{{vm.requiredMessage}} login name</div>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <div class="form-control-wrapper">
+                <input class="form-control"   name="userName" id="userName"
+                       ng-model="vm.userObject.userName" required type="text" form-value-empty ng-class={'empty':!vm.userObject.userName}>
+                <div class="floating-label">User Name</div>
+                <span class="material-input"></span>
+            </div>
+            <div ng-messages="userForm.userName.$error" ng-if="userForm.userName.$dirty"  class="error">
+                <div ng-message="required" id="userError">{{vm.requiredMessage}} user name</div>
+            </div>
+        </div>
+        <div class="form-group clearfix">
+            <div class="form-control-wrapper">
+            <input class="form-control"  ng-disabled="vm.action == 'add'?false:true"  name="email" id="emailID"
+                ng-pattern='vm.emailPattern' required  ng-model="vm.userObject.emailId" type="text" form-value-empty ng-class={'empty':!vm.userObject.emailId}>
+
+            <div class="floating-label">Email</div>
+            <span class="material-input"></span></div>
+                <div ng-messages="userForm.email.$error"  ng-if="userForm.email.$dirty" id="emailError" class="error">
+                <div ng-message="required">{{vm.requiredMessage}} email Id</div>
+                <div ng-message="pattern">{{vm.correctMessage}} email Id</div>
+            </div>
+        </div>
+
+       <!-- <div class="form-group clearfix" ng-if="vm.action == 'add'">
+            <div class="form-control-wrapper">
+            <input class="form-control" type="password" id="password" name="password" minlength="8" maxlength="16" ng-model="vm.password"
+                   ng-if="vm.action=='add'" form-value-empty ng-class={'empty':!vm.password}>
+            <div class="floating-label">Enter Password</div>
+            <span class="material-input"></span></div>
+            <div ng-messages="userForm.passowrd.$error" ng-if="userForm.passowrd.$dirty" class="error">
+            <div ng-message="minlength"> {{vm.pwdLengthRange}}</div>
+                </div>
+
+        </div>
+        <div class="form-group clearfix" ng-if="vm.action == 'add'">
+            <div class="form-control-wrapper">
+            <input class="form-control" onpaste="return false;" type="password" name="confirmPassword" id="confirmPassowrd" compare-to="vm.password"  minlength="8" maxlength="16" required  ng-model="vm.confirmPassword" form-value-empty ng-class={'empty':!vm.password}>
+            <div class="floating-label">Confirm Password</div>
+            <span class="material-input"></span></div>
+            <div ng-messages="userForm.confirmPassword.$error" ng-if="userForm.confirmPassword.$dirty" class="error">
+                <div ng-message="required">{{vm.requiredMessage}} confirm password</div>
+                <div ng-message="minlength"> {{vm.pwdLengthRange}}</div>
+                <div ng-message="noMatch">Password does not match the confirm Password.</div>
+            </div>
+        </div>-->
+        <h3>Permission</h3>
+        <div ng-repeat="(key,roleValue) in vm.allRoles">
+            <h4>{{roleValue.name}}</h4>
+            <div class="checkbox-area clearfix">
+                <div class="checkbox"  ng-repeat="(key,value) in roleValue.permissions">
+                    <label>
+                        <input name="permssionInput" id="{{value.displayName}}"
+                               ng-disabled="vm.currentUserLoginName == vm.userObject.loginName"
+                               type="checkbox" ng-model="value.enabled" ng-click="vm.checkedClick(value)">
+                    <span class="checkbox-material">
+                        <span class="check" id="{{value.displayName}}check">
+                        </span>
+                    </span>
+                        {{value.displayName}}</label>
+                </div>
+            </div>
+        </div>
+        <div align="center"  class="adduser-button">
+            <button type="button" name="submit" id="submitUserButton" class="btn btn-lg btn-material-green"
+                    ng-click="vm.submit()" ng-disabled="userForm.$invalid">Submit
+            </button>
+            <button type="button" class="btn btn-lg" id="cancelUserButton" ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </form>
+</div>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>

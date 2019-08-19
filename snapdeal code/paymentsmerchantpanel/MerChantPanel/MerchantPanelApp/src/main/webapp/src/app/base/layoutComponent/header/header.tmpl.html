@@ -1,0 +1,49 @@
+<header class="col-xs-12">
+  <div class="row">
+    <div class="col-md-3 nav">
+      <nav class="nav-button">
+        <button class="navigation">
+          <i title="Show navigation" id="menu" class="material-icons material-spec-icon">menu</i>
+        </button>
+      </nav>
+      <h1 style="margin:5px 25px" class="pull-left"><img src="assets/images/Logo.png" alt="freecharge" width="150">
+      </h1>
+    </div>
+    <div class="col-md-7">
+      <div class="search-box pull-left" has-permission="VIEW_TRANSACTION">
+        <div class="pull-left col-xs-4">
+          <select id="searchOptions" class="select" ng-model="vm.selectedDrodownItem">
+            <option id="searchOption" value="">--search criteria--</option>
+            <option id="{{::vm.dropdown[0].displayValue}}" value="{{::vm.dropdown[0]}}">{{::vm.dropdown[0].displayValue}}</option>
+            <option id="{{::vm.dropdown[1].displayValue}}" value="{{::vm.dropdown[1]}}">{{::vm.dropdown[1].displayValue}}</option>
+            <option id="{{::vm.dropdown[2].displayValue}}" value="{{::vm.dropdown[2]}}">{{::vm.dropdown[2].displayValue}}</option>
+            <option id='{{::vm.dropdown[3].displayValue}}' value="{{::vm.dropdown[3]}}">{{::vm.dropdown[3].displayValue}}</option>
+            <option id='{{::vm.dropdown[4].displayValue}}' value="{{::vm.dropdown[4]}}">{{::vm.dropdown[4].displayValue}}</option>
+            <option id='{{::vm.dropdown[5].displayValue}}' value="{{::vm.dropdown[5]}}">{{::vm.dropdown[5].displayValue}}</option>
+            <option id='{{::vm.dropdown[6].displayValue}}' value="{{::vm.dropdown[6]}}">{{::vm.dropdown[6].displayValue}}</option>
+            <option id='{{::vm.dropdown[7].displayValue}}' value="{{::vm.dropdown[7]}}">{{::vm.dropdown[7].displayValue}}</option>
+          </select>
+        </div>
+        <input id="inputText" type="text" placeholder="Search"
+               ng-model="vm.searchValue" class="pull-left search col-xs-6">
+        <button id="searchButton" class="pull-left btn" ng-click="vm.search()">
+          <i class="mdi-action-search "></i>
+        </button>
+      </div>
+      <!--<div style="padding-left: 40%" ng-show="vm.viewMenuShow">
+        <div class="error" ng-if="vm.isShowError">{{vm.requiredMessage}}{{vm.selectedDrodownItem.displayValue}}</div>
+      </div>-->
+    </div>
+    <div class="col-md-2 login-area">
+      <div>
+        <i class="mdi-action-search header-search-icon"></i>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="login-bg"></div>
+
+
+
+
+

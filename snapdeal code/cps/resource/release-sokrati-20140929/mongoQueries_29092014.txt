@@ -1,0 +1,156 @@
+/* Take backup of process Property Info */
+db.processPropertyInfo.find().forEach(function(p){
+    db.processPropertyInfoBackUp.insert(p);
+})
+
+/* Remove csv file publishers */
+db.processPropertyInfo.remove({processName:"electronicsCsv"})
+db.processPropertyInfo.remove({processName:"fashionCsv"})
+db.processPropertyInfo.remove({processName:"GMCsv"})
+db.processPropertyInfo.remove({processName:"AllTopCsv"})
+
+db.lastRunInfo.remove({processName:"electronicsCsv"})
+db.lastRunInfo.remove({processName:"fashionCsv"})
+db.lastRunInfo.remove({processName:"GMCsv"})
+db.lastRunInfo.remove({processName:"AllTopCsv"})
+
+/* Update process names*/
+db.processPropertyInfo.update({processName:"electronicsXml"},{$set:{processName:"electronicsPublisher"}},{multi:true})
+db.processPropertyInfo.update({processName:"fashionXml"},{$set:{processName:"fashionPublisher"}},{multi:true})
+db.processPropertyInfo.update({processName:"GMXml"},{$set:{processName:"gmPublisher"}},{multi:true})
+db.processPropertyInfo.update({processName:"AllTopXml"},{$set:{processName:"allTopPublisher"}},{multi:true})
+
+db.lastRunInfo.update({processName:"electronicsXml"},{$set:{processName:"electronicsPublisher"}},{multi:true})
+db.lastRunInfo.update({processName:"fashionXml"},{$set:{processName:"fashionPublisher"}},{multi:true})
+db.lastRunInfo.update({processName:"GMXml"},{$set:{processName:"gmPublisher"}},{multi:true})
+db.lastRunInfo.update({processName:"AllTopXml"},{$set:{processName:"allTopPublisher"}},{multi:true})
+
+/* Update file names */
+db.processPropertyInfo.find({propertyName:"fileName"}).forEach(function(p){
+    var name = p.propertyValue;
+    var pname = name.split(".")[0];
+    p.propertyValue = pname;
+    db.processPropertyInfo.save(p);
+})
+
+/* Update file type values */
+db.processPropertyInfo.find({propertyName:"type"}).forEach(function(p){
+    p.propertyValue = "csv,xml";
+    db.processPropertyInfo.save(p);
+})
+
+/* Insert separator values */
+db.processPropertyInfo.insert({processName:"electronicsPublisher",propertyName:"separator",propertyValue:"\t"})
+db.processPropertyInfo.insert({processName:"fashionPublisher",propertyName:"separator",propertyValue:"\t"})
+db.processPropertyInfo.insert({processName:"gmPublisher",propertyName:"separator",propertyValue:"\t"})
+db.processPropertyInfo.insert({processName:"allTopPublisher",propertyName:"separator",propertyValue:"\t"})
+
+/* Update field mapping for all the file publishers */
+db.processPropertyInfo.find({propertyName:"fieldMapping"}).forEach(function(p){
+    p.propertyValue = p.propertyValue + ",mrp:mrp,discount:discount,availability:availability";
+    db.processPropertyInfo.save(p);
+})
+
+/* Add Age gender attributes to Google Category Info collection */
+
+mongoimport --db CPS_DB --collection googleCategoryTemp --fields _id,gender,age --type csv --file ageGenderAttr.csv --stopOnError
+
+var ageCount = 0
+var genderCount = 0
+
+db.googleCategoryTemp.find().forEach(function(x){
+    var gc = db.googleCategoryInfo.findOne({_id:x._id})
+    if(gc!=null){
+        if(x.age!='na'){
+            gc.ageGroup = x.age;
+            ageCount = ageCount + 1;
+        }
+        if(x.gender!='na'){
+            gc.gender = x.gender;
+            genderCount = genderCount + 1;
+        }
+        db.googleCategoryInfo.save(gc);
+    }
+})
+
+ageCount
+genderCount
+
+/* Add exclude category property for google publisher process */
+db.processPropertyInfo.insert({processName:"googlePublisher", propertyName:"excludeCategories", propertyValue:"31,475"})
+
+/* Inserts for Sokrati Publisher */
+db.processPropertyInfo.insert([
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'fileName',
+    propertyValue: 'sokrati'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'type',
+    propertyValue: 'csv'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'filePath',
+    propertyValue: 'files'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'separator',
+    propertyValue: '\t'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'recordLimit',
+    propertyValue: '100000'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'categories',
+    propertyValue: '31,475'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'minDate',
+    propertyValue: '2007-01-01'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'ftpHost',
+    propertyValue: 'ftp.sokrati.com'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'ftpPort',
+    propertyValue: '21'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'ftpUser',
+    propertyValue: 'snapdeal.com'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'ftpPass',
+    propertyValue: '$n@P#3L'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'ftpDir',
+    propertyValue: '/'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'fieldMapping',
+    propertyValue: 'id:pogId,title:title,description:description,link:url,brand:brand,mobile_link:mLink,image_link:imageLink,product_type:productType,google_product_category:googleProductCategory,adwords_group:adwordsGroup,availability:availability,price:price,subaccount_id:subAccountId,operation:operation,age_group:ageGroup,gender:gender,custom_Label0:customLabel0,custom_Label1:customLabel1,custom_Label2:customLabel2,custom_Label3:customLabel3,language:lang,target_country:targetCountry,condition:condition,adult:adultFlag,channel:channel'
+},
+{
+    processName: 'sokratiPublisher',
+    propertyName: 'testSellers',
+    propertyValue: 'S03310,S03649,S03650,S03654'
+},
+])
+
+db.lastRunInfo.insert({processName:"sokratiPublisher",lastRunTs:ISODate("2014-09-23T06:30:00.017Z")})

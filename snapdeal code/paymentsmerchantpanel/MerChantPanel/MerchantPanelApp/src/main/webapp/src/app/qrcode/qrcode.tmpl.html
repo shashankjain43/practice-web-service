@@ -1,0 +1,44 @@
+<div class="qr-page">
+  <header>
+    <img src="assets/images/qrcode/qr-header.jpg" alt="pay with freecharge"/>
+  </header>
+  <section class="qr-category clearfix">
+    <div>
+      <img src="assets/images/qrcode/qr-wallet.png" alt="wallet" height="65px"/><br>
+      Ensure money in your<br>
+      FreeCharge account
+    </div>
+    <div>
+      <img src="assets/images/qrcode/chatnpay.png" alt="wallet" height="65px"/><br>
+      Tap on 'Pay Merchant'<br>
+      and scan the QR code shown below.
+    </div>
+    <div>
+      <img src="assets/images/qrcode/amount-pay.png" alt="wallet" height="65px"/><br>
+      Enter the<br>
+      amount to pay
+    </div>
+  </section>
+  <section class="clearfix pay-tag-cont">
+    <div class="pay-tag">
+      <div>
+        <span>PayTag</span>
+        <p>{{vm.payTag}}</p>
+      </div>
+    </div>
+    <div class="qr-code">
+      <h2>Scan QR Code</h2>
+      <qrcode version="2" error-correction-level="L" size="130" data="{{vm.qr}}"></qrcode>
+    </div>
+  </section>
+  <footer class="qr-footer">
+    <p class="foot-title"><span>AND COMPLETE TRANSACTION IN  JUST ONE TAP!</span></p>
+    <p><img src="assets/images/qrcode/fastest-pay.jpg" alt="alt" width="35%"></p>
+    <div>
+      Download the App Now
+      <span><img src="assets/images/qrcode/ios-icon.jpg"  alt="ios" width="20px"/></span>
+      <span><img src="assets/images/qrcode/android.jpg"  alt="android" width="20px"/></span>
+      <span><img src="assets/images/qrcode/window.jpg"  alt="window" width="20px"/></span> OR Give a missed call to 8509985099
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1467006365223_1" label="MerchantPanel" name="MerchantPanel">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/MerchantPanelApp" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/AmazonS3ServiceProvider" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/MerchantPanelCommons" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1467006345394_0" label="Window Working Set" name="Aggregate for window 1467006345394"/>
+</workingSetManager>

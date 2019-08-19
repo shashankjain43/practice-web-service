@@ -1,0 +1,112 @@
+<div class="container">
+
+  <div class="adduser-bg"></div>
+  <div class="row">
+    <div class="row haeding-area">
+      <div class="col-sm-12 sandbox-datepicker">
+        <div id="sandbox-container">
+          <input type="text" readonly="readonly" name="fromDate" required
+                 id="{{vm.filters.fromDateFilter.VALUE}}"
+                 ng-model="vm.filters.fromDateFilter.VALUE"
+                 placeholder="{{vm.filters.fromDateFilter.VALUE}}" class="fromDate">
+          <span>-</span>
+
+          <input type="text"  name="toDate"
+                 id="{{vm.filters.toDateFilter.VALUE}}" required min="{{vm.filters.fromDateFilter.VALUE}}"
+                 ng-model="vm.filters.toDateFilter.VALUE" placeholder="{{vm.filters.toDateFilter.VALUE}}"
+                 class="toDate">
+        </div>
+
+        <div id="errorMsg" class="error"
+             ng-if="vm.filters.fromDateFilter.VALUE != 'From Date' && vm.filters.fromDateFilter.VALUE != 'To Date'">
+          <div ng-if="vm.checkDateValidation(transactionForm.fromDate.$error.dateLowerThan)">
+            {{vm.dateMessage}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row wrapper">
+    <div class="col-xs-12">
+
+      <div class="login-error" ng-if="vm.invoicePageData==undefined||vm.invoicePageData.length < 1">
+        <div id="errorMessage" class="error-msz-box" id="successDiv">{{vm.errorMessage}}</div>
+      </div>
+      <div class="row" ng-if="vm.invoicePageData.length > 0">
+        <div class="col-xs-12 downloadhistory-table">
+          <a id='downloadFileTag' ng-hide='true'></a>
+          <table id="historyTable" class="table  table-hover  table-responsive">
+            <thead>
+            <tr id="headingRow" class="active table-heading">
+              <td id="{{headers.DISPLAY_VALUE}}" nowrap ng-repeat="headers in vm.allinvoiceHeader">
+                {{headers.DISPLAY_VALUE}}
+              </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="invoiceData in vm.invoicePageData">
+              <td ng-repeat="header in vm.allinvoiceHeader" nowrap>
+                <span ng-if="header.KEY =='reportName'">{{invoiceData[header.KEY]}}</span>
+                                <span nowrap align="left" ng-if="header.DISPLAY_VALUE=='Download'">
+                                <input nowrap alt="download" type="image" width="26px"
+                                       height="26px" ng-click="vm.downloadFiles(invoiceData)"
+                                       src="assets/images/downloadImage.png">
+                            </span>
+                                <span ng-if="header.KEY === 'startTime'||header.KEY === 'endTime'">
+                                    {{invoiceData[header.KEY] | date:'dd MMM yy, h:mm a'}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xs-12" ng-if="vm.invoicePageData.length >0">
+      <ul class="pagination pull-right">
+        <li ng-class="(vm.filters.page.DISPLAY_VALUE == 1)? 'disabled':''"
+            ng-click="vm.getReportOfPage(vm.filters.page.DISPLAY_VALUE-1)">
+          <a id="previous" href="javascript:void(0)">Previous</a></li>
+        <li class="active"><a id="{{vm.filters.page.DISPLAY_VALUE}}" href="javascript:void(0)">{{vm.filters.page.DISPLAY_VALUE}}</a>
+        </li>
+        <li ng-click="vm.invoicePageData.length<10?'':vm.getReportOfPage(vm.filters.page.DISPLAY_VALUE+1)"
+            ng-class="vm.invoicePageData.length<10 ?'disabled':''">
+          <a id="next" href="javascript:void(0)">Next</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+  <div class="f-bolt"></div>
+</div>
+
+<script>
+  $('.fromDate').datepicker({
+    autoclose: true,
+    startDate: '',
+    format: 'mm/yyyy',
+    startView:"year",
+    minViewMode:"months",
+    endDate: '+0d',
+  }).on('changeDate', function (selected) {
+    startDate = new Date(selected.date.valueOf());
+    startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+    $('.toDate').datepicker('setStartDate', startDate);
+  });
+  $('.toDate').datepicker({
+    autoclose: true,
+    endDate: '+0d',
+    format: 'mm/yyyy',
+    startView:"year",
+    minViewMode:"months",
+  }).on('changeDate', function (selected) {
+    FromEndDate = new Date(selected.date.valueOf());
+    FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
+    $('.fromDate').datepicker('setEndDate', FromEndDate);
+  });
+  $.material.init();
+</script>
+

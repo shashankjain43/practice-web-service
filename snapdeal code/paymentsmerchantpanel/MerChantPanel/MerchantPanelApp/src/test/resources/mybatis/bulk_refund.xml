@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.merchant.dao.IBulkRefundDao">
+
+	<resultMap id="bulkRefundResult" type="bulkRefundEntity">
+		<result property="id" column="id" />
+		<result property="merchantId" column="merchant_id" />
+		<result property="userLoginName" column="user_login_name" />
+		<result property="refundStatus" column="refund_status"
+			javaType="com.snapdeal.merchant.enums.RefundStatus" />
+		<result property="fileName" column="file_name" />
+		<result property="fileIdemKey" column="file_idem_key" />
+		<result property="createdOn" column="created_on" />
+		<result property="updatedOn" column="updated_on" />
+	</resultMap>
+
+	<select id="getBulkRefundInfoList" resultMap="bulkRefundResult"
+		parameterType="bulkRefundEntity">
+		select * from bulk_refund  where merchant_id = #{merchantId}
+		order by created_on DESC
+	</select>
+
+	<select id="getBulkRefundInfo" resultMap="bulkRefundResult"
+		parameterType="bulkRefundEntity">
+		select * from bulk_refund where id = #{id} 
+	</select>
+
+	<insert id="insertBulkRefundInfo" parameterType="bulkRefundEntity"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		insert into
+		bulk_refund
+		(merchant_id,user_login_name,refund_status,file_name,file_idem_key,created_on,updated_on)
+		values(#{merchantId},#{userLoginName},#{refundStatus},#{fileName},#{fileIdemKey},CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP())
+	</insert>
+
+	<update id="updateBulkRefundInfoStatus" parameterType="bulkRefundEntity">
+		update bulk_refund set refund_status = #{refundStatus} , updated_on = CURRENT_TIMESTAMP() where file_name = #{fileName}
+	</update>
+
+</mapper>
+	
+	
+	
+	

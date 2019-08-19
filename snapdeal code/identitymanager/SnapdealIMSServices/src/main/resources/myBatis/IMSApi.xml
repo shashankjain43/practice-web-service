@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IIMSApiMapper">
+	<resultMap id="result" type="com.snapdeal.ims.dbmapper.entity.IMSApi">
+		<result property="id" column="id" />
+		<result property="apiUri" column="api_uri" />
+		<result property="apiMethod" column="api_method" />
+		<result property="alias" column="alias" />
+	</resultMap>
+
+	<select id="getApiById" resultMap="result">
+		SELECT
+		id,
+		api_uri,
+		api_method,
+		alias
+		FROM ims_apis
+		WHERE id=#{id}
+	</select>
+	
+	<select id="getAllIMSApis" resultMap="result">
+		SELECT
+		id,
+		api_uri,
+		api_method,
+		alias
+		FROM ims_apis
+	</select>
+	
+
+</mapper>

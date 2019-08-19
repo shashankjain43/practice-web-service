@@ -1,0 +1,181 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- customerId need to be add -->
+<mapper
+	namespace="com.snapdeal.payments.view.mapper.IRequestViewMapper">
+
+	<resultMap id="resultTransactionDetails"
+		type="com.snapdeal.payments.view.entity.RequestViewEntity">
+		<result column="txn_id" property="txnId"/>
+		<result column="freecharge_txn_id" property="fcTxnId" />
+		<result column="txn_type" property="txnType" />
+		<result column="p2p_txn_state" property="p2pTxnState" />
+		<result column="tsm_txn_state" property="tsmTxnState" />
+		<result column="request_view_txn_state" property="rvTxnState" />
+		<result column="txn_amount" property="txnAmount" />
+		<result column="merchant_tag" property="merchantTag" />
+		<result column="source_party_type" property="srcPartyDetails.partyType" />
+		<result column="dest_party_type" property="destPartyDetails.partyType" />
+		<result column="src_party_id" property="srcPartyDetails.partyId" />
+		<result column="dest_party_id" property="destPartyDetails.partyId" />
+		<result column="src_email_id" property="srcPartyDetails.emailId" />
+		<result column="dest_email_id" property="destPartyDetails.emailId" />
+		<result column="src_mobile_number" property="srcPartyDetails.mobileNumber" />
+		<result column="dest_mobile_number" property="destPartyDetails.mobileNumber" />
+		<result column="txn_date" property="txnDate" />
+		<result column="tsm_time_stamp" property="tsmTimeStamp" />
+		<result column="src_party_tag" property="srcPartyDetails.partyTag" />
+		<result column="dest_party_tag" property="destPartyDetails.partyTag" />
+		<result column="src_party_jabber_id" property="srcPartyDetails.jabberId" />
+		<result column="dest_party_jabber_id" property="destPartyDetails.jabberId" />
+		<result column="meta_data" property="metaData" />
+	</resultMap>	
+	<resultMap type="com.snapdeal.payments.view.request.commons.dto.RVTransactionDto" id="rvTransactionalDetailsMap">
+		<result column="freecharge_txn_id" property="txnId" />
+		<result column="txn_type" property="txnType" />
+		<result column="request_view_txn_state" property="requestType" />
+		<result column="tsm_txn_state" property="txnStatus" />
+		<result column="txn_date" property="txnDate" />
+		<result column="txn_amount" property="txnAmount"/>
+		<association property="srcParty" resultMap="srcPartyDetailsMap" />
+		<association property="destParty" resultMap="destPartyDetailsMap"/>
+	</resultMap>
+	<resultMap type="com.snapdeal.payments.view.request.commons.dto.PartyDetailsDto" id="srcPartyDetailsMap">
+		<result column="source_party_type" property="partyType" />
+		<result column="src_party_id" property="id" />
+		<result column="src_email_id" property="emailId" />
+		<result column="src_mobile_number" property="mobileNumber" />
+		<result column="src_party_tag" property="partyTag" />
+	</resultMap>
+	<resultMap type="com.snapdeal.payments.view.request.commons.dto.PartyDetailsDto" id="destPartyDetailsMap">
+		<result column="dest_party_type" property="partyType" />
+		<result column="dest_party_id" property="id" />
+		<result column="dest_email_id" property="emailId" />
+		<result column="dest_party_tag" property="partyTag" />
+		<result column="dest_mobile_number" property="mobileNumber" />
+	</resultMap>
+
+
+	<sql id="base_column_list_txn_details">
+		txn_id,freecharge_txn_id,txn_type,
+		p2p_txn_state,tsm_txn_state,request_view_txn_state,
+		txn_amount,merchant_tag,source_party_type,
+		dest_party_type,src_party_id,dest_party_id,
+		txn_date,tsm_time_stamp,src_party_tag,
+		dest_party_tag,src_party_jabber_id,dest_party_jabber_id,
+		meta_data,dest_email_id,src_email_id,
+		src_mobile_number,dest_mobile_number
+	</sql>
+	<insert id="saveRequestViewEntity"
+		parameterType="java.util.List">
+		INSERT IGNORE INTO request_txn_details(
+		<include refid="base_column_list_txn_details" />
+		) VALUES
+		<foreach collection="list" item="element" index="index" separator=",">
+		(
+		#{element.txnId},#{element.fcTxnId},#{element.txnType},
+		#{element.p2pTxnState},#{element.tsmTxnState},#{element.rvTxnState},
+		#{element.txnAmount},#{element.merchantTag},#{element.srcPartyDetails.partyType},
+		#{element.destPartyDetails.partyType},#{element.srcPartyDetails.partyId},#{element.destPartyDetails.partyId},
+		#{element.txnDate},#{element.tsmTimeStamp},#{element.srcPartyDetails.partyTag},
+		#{element.destPartyDetails.partyTag},#{element.srcPartyDetails.jabberId},#{element.destPartyDetails.jabberId},
+		#{element.metaData},#{element.destPartyDetails.emailId},#{element.srcPartyDetails.emailId},
+		#{element.srcPartyDetails.mobileNumber},#{element.destPartyDetails.mobileNumber}
+		)
+		</foreach>
+	</insert>
+	<update id="updateTxnDetailsOfP2PTxnDetails" parameterType="java.util.Map">
+			UPDATE request_txn_details SET
+			tsm_txn_state = #{tsmTxnState},
+			request_view_txn_state = #{rvTxnState},
+			tsm_time_stamp = #{tsmCommitTime},
+			meta_data = #{metaData}
+			<if test="senderId!=null">
+				,src_party_id = #{senderId}
+			</if>
+			<if test="receiverId!=null">
+				,dest_party_id = #{receiverId} 
+			</if>
+			WHERE txn_id = #{txnId} AND 
+			<![CDATA[ 
+				tsm_time_stamp <= #{tsmCommitTime}
+				]]>
+	</update>
+	
+	<select id="getRequestViewTransactionDetails" parameterType="java.util.Map" 
+	resultMap="resultTransactionDetails">
+		select 	<include refid="base_column_list_txn_details" /> FROM request_txn_details
+		where freecharge_txn_id = #{fcTxnId} AND 
+		      txn_type = #{txnType};
+	</select>
+	
+	<select id="getRVTransactionDetails" parameterType="com.snapdeal.payments.view.request.commons.request.GetRequestViewSearchRequest"
+	resultMap="rvTransactionalDetailsMap">
+	SELECT freecharge_txn_id,txn_type,request_view_txn_state,
+			tsm_txn_state,txn_date,txn_amount,
+			source_party_type,src_party_id,src_email_id,
+			src_mobile_number,src_party_tag,dest_party_type,
+			dest_party_id,dest_email_id,dest_party_tag,dest_mobile_number
+	FROM request_txn_details
+	where
+		<if test="srcPartyId!=null">
+		src_party_id = #{srcPartyId} AND
+		</if>
+		<if test="destPartyId!=null">
+		dest_party_id = #{destPartyId} AND
+		</if>
+		<if test="requestType!=null">
+		txn_type =  #{requestType} AND
+		</if>
+		<if test="startDate!=null">
+			<![CDATA[
+			txn_date >= #{startDate} AND
+			]]>
+		</if>
+		<if test="endDate!=null">
+			<![CDATA[
+				txn_date <= #{endDate} AND 
+			]]>
+		</if>
+		<if test="txnView!=null">
+			source_party_type = #{txnView} AND 
+		</if>
+		<if test="status!=null">
+			tsm_txn_state = #{status} AND
+		</if>
+		<if test="fcTxnId!=null">
+			freecharge_txn_id = #{fcTxnId} AND
+		</if>
+		<if test="srcEmailId!=null">
+			src_email_id = #{srcEmailId} AND
+		</if>
+		<if test="destEmailId!=null">
+			dest_email_id = #{destEmailId} AND
+		</if>
+		<if test="srcMobileNumber!=null">
+			src_mobile_number = #{srcMobileNumber} AND
+		</if>
+		<if test="destMobileNumber!=null">
+			dest_mobile_number = #{destMobileNumber} AND
+		</if>
+		1=1
+		ORDER BY tsm_time_stamp
+		<if test="orderby==1">
+			DESC
+		</if>
+		LIMIT #{page}, #{limit}
+	</select>
+	
+	<select id="healthCheckForRequestView" resultMap="rvTransactionalDetailsMap">
+	SELECT
+		freecharge_txn_id,txn_type,request_view_txn_state,
+			tsm_txn_state,txn_date,txn_amount,
+			source_party_type,src_party_id,src_email_id,
+			src_mobile_number,src_party_tag,dest_party_type,
+			dest_party_id,dest_email_id,dest_party_tag,dest_mobile_number
+	FROM request_txn_details
+	LIMIT 0 ;
+	</select>
+</mapper>

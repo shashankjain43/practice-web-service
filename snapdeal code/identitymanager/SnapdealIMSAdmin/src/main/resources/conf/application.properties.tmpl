@@ -1,0 +1,46 @@
+logging.level.org.springframework.boot.autoconfigure.security.authenticationmanagerconfiguration=<%= @logging_level %>
+
+
+-- email templates 
+spring.velocity.checkTemplateLocation=<%= @spring_velocity_checktemplatelocation %>
+
+-- spring boot http endpoint security 
+security.user.name=<%= @security_user_name %>
+security.user.password=<%= @security_user_password %>
+security.basic.enabled=<%= @security_basic_enabled %>
+management.security.role=<%= @management_security_role %>
+
+-- spring boot health settings
+management.health.db.enabled=<%= @management_health_db_enabled %>
+management.health.diskspace.enabled=<%= @management_health_diskspace_enabled %>
+management.health.mongo.enabled=<%= @management_health_mongo_enabled %>
+management.health.rabbit.enabled=<%= @management_health_rabbit_enabled %>
+management.health.redis.enabled=<%= @management_health_redis_enabled %>
+management.health.solr.enabled=<%= @management_health_solr_enabled %>
+management.health.diskspace.path=<%= @management_health_diskspace_path %>
+management.health.diskspace.threshold=<%= @management_health_diskspace_threshold %>
+management.health.status.order=<%= @management_health_status_order %>
+
+
+-- DB Configurations
+snapdeal.identity.manager.database.driverClassName=<%= @snapdeal_identity_manager_database_driverclassname %>
+snapdeal.identity.manager.database.url=<%= @snapdeal_identity_manager_database_url %>
+snapdeal.identity.manager.database.username=<%= @snapdeal_identity_manager_database_username %>
+snapdeal.identity.manager.database.password=<%= @snapdeal_identity_manager_database_password %>
+snapdeal.identity.manager.database.inititalsize=<%= @snapdeal_identity_manager_database_inititalsize %>
+snapdeal.identity.manager.database.maxactive=<%= @snapdeal_identity_manager_database_maxactive %>
+snapdeal.identity.manager.database.maxwait=<%= @snapdeal_identity_manager_database_maxwait %>
+
+# Fixed delay(in minutes) to reload Cache using CacheUpdater.
+snapdeal.identity.manager.cacheUpdater.delay=<%= @snapdeal_identity_manager_cacheUpdater_delay %>
+
+snapdeal.notifier.email.octaneServiceUrl=<%= @snapdeal_notifier_email_octaneserviceurl %>
+snapdeal.notifier.email.octaneClientName=<%= @snapdeal_notifier_email_octaneclientname %>
+snapdeal.notifier.email.octaneTriggerId=<%= @snapdeal_notifier_email_octanetriggerid %>
+snapdeal.ims.email.createuser.template=<%= @snapdeal_ims_email_createuser_template %>
+
+snapdeal.ims.email.createuser.guest.template=<%= @snapdeal_ims_email_createuser_guest_template %>
+snapdeal.ims.email.forgotpassword.template=<%= @snapdeal_ims_email_forgotpassword_template %>
+
+
+snapdeal.identity.ums.url=<%= @snapdeal_identity_ums_url  %>

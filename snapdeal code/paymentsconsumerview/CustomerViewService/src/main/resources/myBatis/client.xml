@@ -1,0 +1,68 @@
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.payments.view.mapper.IClientDetailsMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.payments.view.commons.request.Client">
+		<result property="id" column="id" />
+		<result property="clientName" column="client_name" />
+		<result property="clientKey" column="client_key" />
+		<result property="clientStatus" column="client_status" 
+			javaType="com.snapdeal.payments.view.commons.enums.ClientStatus" 
+			typeHandler="com.snapdeal.payments.view.typehandler.ClientStatusTypeHandler"/>
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		id,client_name,client_key,
+		client_status,created_time,updated_time
+	</sql>
+	
+
+	<insert id="createClient"
+		parameterType="com.snapdeal.payments.view.commons.request.Client">
+		INSERT INTO client
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{id},#{clientName},#{clientKey},
+		#{clientStatus},#{createdTime}, #{updatedTime})
+	</insert>
+
+
+	<select id="updateClientStatus" 
+			parameterType="com.snapdeal.payments.view.commons.request.UpdateClientStatusRequest">
+		UPDATE client set
+			   client_status=#{clientStatus}, 
+			   updated_time=now() 
+		WHERE client_name =#{clientName}
+	</select>
+
+
+	<select id="getAllClients" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client
+	</select>
+
+	<select id="getClientById" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE id = #{id}
+	</select>
+
+	<select id="getClientByName" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name = #{clientName}
+	</select>
+
+</mapper>

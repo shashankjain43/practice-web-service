@@ -1,0 +1,8 @@
+Please update the systemconfig.xml by inserting the following on each ums web server
+
+<property name="monitoring.env.server" value="...set it to public IP of every UMS server and replace the dot ('.') in between with an underscore ('_')"/>
+
+something like this.. if IP is like 54.251.151.200 then value= "54_251_151_200"
+
+
+

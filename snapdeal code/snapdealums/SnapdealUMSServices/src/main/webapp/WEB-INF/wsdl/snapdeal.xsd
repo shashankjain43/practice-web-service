@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:sd="http://www.snapdeal.com/services/" targetNamespace="http://www.snapdeal.com/services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="GetLocalDealsByLocalityRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Categories">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="Category">
+								<xs:complexType>
+									<xs:attribute name="id" type="xs:integer" use="required" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="zoneId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+				<xs:element name="localityId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+				<xs:element name="start" type="xs:integer" minOccurs="1" maxOccurs="1" />
+				<xs:element name="noOfResults" type="xs:integer" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetLocalDealsByLocalityResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sd:Cities" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetLocalDealsByLatLongRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Categories">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="Category">
+								<xs:complexType>
+									<xs:attribute name="id" type="xs:integer" use="required" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="zoneId" type="xs:integer" minOccurs="1" maxOccurs="1" />
+				<xs:element name="latitude" type="xs:double" minOccurs="1" maxOccurs="1" />
+				<xs:element name="longitude" type="xs:double" minOccurs="1" maxOccurs="1" />
+				<xs:element name="start" type="xs:integer" minOccurs="1" maxOccurs="1" />
+				<xs:element name="noOfResults" type="xs:integer" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetLocalDealsByLatLongResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sd:Cities" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDealsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Zones">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="Zone">
+								<xs:complexType>
+									<xs:attribute name="id" type="xs:integer" use="required" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetDealsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sd:Cities" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Cities">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:City" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="City">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sd:Zones" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer" use="required" />
+			<xs:attribute name="name" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Zones">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:Zone" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Zone">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sd:Deals" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer" use="required" />
+			<xs:attribute name="name" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Deals">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:Deal" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Deal">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" name="title" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="1" name="url" type="xs:anyURI" />
+				<xs:element maxOccurs="1" minOccurs="1" name="price" type="xs:integer" />
+				<xs:element maxOccurs="1" minOccurs="1" name="payToMerchant" type="xs:integer" />
+				<xs:element maxOccurs="1" minOccurs="1" name="voucherPrice" type="xs:integer" />
+				<xs:element maxOccurs="1" minOccurs="1" name="discount" type="xs:integer" />
+				<xs:element maxOccurs="1" minOccurs="1" name="startTime" type="xs:date" />
+				<xs:element maxOccurs="1" minOccurs="1" name="endTime" type="xs:date" />
+				<xs:element maxOccurs="1" minOccurs="1" name="validUpto" type="xs:date" />
+				<xs:element maxOccurs="1" minOccurs="1" name="description" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" ref="sd:Highlights" />
+				<xs:element maxOccurs="1" minOccurs="0" ref="sd:FinePrints" />
+				<xs:element maxOccurs="1" minOccurs="1" ref="sd:Vendor" />
+				<xs:element maxOccurs="1" minOccurs="0" ref="sd:Images" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Highlights">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="highlight" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FinePrints">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="finePrint" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Vendor">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="description" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" name="website" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" ref="sd:Reviews" />
+				<xs:element maxOccurs="1" minOccurs="0" ref="sd:Outlets" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Reviews">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:Review" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Review">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="content" type="xs:string" />
+				<xs:element name="source" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Outlets">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:Outlet" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Outlet">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="addressLine1" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" name="addressLine2" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" name="pin" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" name="contact" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" name="fax" type="xs:string" />
+				<xs:element maxOccurs="1" minOccurs="0" name="timing" type="xs:string" />
+				<xs:sequence maxOccurs="1" minOccurs="0">
+					<xs:element name="latitude" type="xs:decimal" />
+					<xs:element name="longitude" type="xs:decimal" />
+				</xs:sequence>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Images">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:Image" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Image">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="url" type="xs:anyURI" />
+			</xs:sequence>
+			<xs:attribute name="displayOrder" type="xs:integer" use="required" />
+			<xs:attribute name="type" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Authentication">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="apiKey" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetZonesRequest">
+		<xs:complexType>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetZonesResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="sd:ZoneDetail" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ZoneDetail">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="pageUrl" type="xs:string" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="GetProductDealsRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="categoryId" type="xs:integer" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="GetProductDealsResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" name="ProductOfferGroups">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" minOccurs="0" ref="sd:ProductOfferGroup" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ProductOfferGroup">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:integer" />
+				<xs:element name="url" type="xs:string" />
+				<xs:element name="percentOff" type="xs:integer" />
+				<xs:element minOccurs="0" name="ProductOffers">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" minOccurs="0" ref="sd:ProductOffer" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="sd:DefaultProductOfferContent" />
+				<xs:element minOccurs="0" name="ProductScafolds">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" minOccurs="0" ref="sd:ProductScafold" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ProductOffer">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="startTime" type="xs:dateTime" />
+				<xs:element name="endTime" type="xs:dateTime" />
+				<xs:element ref="sd:ProductOfferContent" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="priority" type="xs:integer" />
+				<xs:element name="shippingCharges" type="xs:integer" />
+				<xs:element name="shippingChargesBorneBy" type="xs:integer" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:integer" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ProductOfferContent">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="id" type="xs:integer" />
+				<xs:element name="pageUrl" type="xs:string" />
+				<xs:element name="title" type="xs:string" />
+				<xs:element name="description" type="xs:string" />
+				<xs:element name="subTitle" type="xs:string" />
+				<xs:element name="newsletterLocations" type="xs:string" />
+				<xs:element name="warrantyDetails" type="xs:string" />
+				<xs:element minOccurs="0" name="ProductHighlights">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" minOccurs="0" name="ProductHighlight" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ProductScafold">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="scafoldCode" type="xs:string" />
+				<xs:element name="price" type="xs:integer" />
+				<xs:element name="sellingPrice" type="xs:integer" />
+				<xs:element name="offerId" type="xs:integer" />
+				<xs:element name="contentId" type="xs:integer" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="DefaultProductOfferContent">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sd:ProductOfferContent" />
+				<xs:element minOccurs="0" name="ProductContentTabs">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" minOccurs="0" ref="sd:ProductContentTab" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="ProductContentTab">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="heading" type="xs:string" />
+				<xs:element name="htmlContent" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

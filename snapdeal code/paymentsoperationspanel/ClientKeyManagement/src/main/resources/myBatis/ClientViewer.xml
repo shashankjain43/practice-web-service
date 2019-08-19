@@ -1,0 +1,85 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.clientkeymanagement.dao.ClientViewerDao">
+
+	<resultMap id="result" type="com.snapdeal.opspanel.clientkeymanagement.entity.ClientViewerEntity">
+		<result property="userId" column="user_id" />
+		<result property="clientName" column="client_name" />
+		<result property="sourceApplication" column="source_application" />
+		<result property="targetApplication" column="target_application" />
+		<result property="clientContext" column="client_context" />
+		<result property="createdBy" column="created_by" />
+		<result property="createdOn" column="created_on" />
+		<result property="remarks" column="remarks" />
+	</resultMap>
+	
+	
+	<resultMap type="java.lang.String" id="clientNames"> 
+     	<result property="clientName" column="client_name" />
+	</resultMap>
+	
+
+	<resultMap type="java.lang.String" id="userNames"> 
+     	<result property="userId" column="user_id" /> 
+	</resultMap>
+	
+	<sql id="base_column_list">
+		user_id,client_name,source_application,target_application,client_context,created_by,created_on,remarks;
+	</sql>
+
+	<insert id="insertClientViewer" parameterType="com.snapdeal.opspanel.clientkeymanagement.entity.ClientViewerEntity">
+		INSERT INTO client_key_mapper
+		(user_id,client_name,source_application,target_application,client_context,created_by,created_on,remarks)
+		VALUES
+		(#{userId},#{clientName},#{sourceApplication},#{targetApplication},#{clientContext},#{createdBy},#{createdOn},#{remarks})
+	</insert>
+
+	<select id="getAllClientViwer" resultMap="result">
+		SELECT user_id,client_name,source_application,target_application,client_context,created_by,created_on,remarks
+		FROM
+		client_key_mapper
+	</select>
+
+
+	<select id="getClientsforUser" resultMap="result">
+		SELECT user_id,client_name,source_application,target_application,client_context,created_by,created_on,remarks
+		FROM client_key_mapper
+		WHERE user_id = #{userId}
+
+	</select>
+
+	<select id="getClientsForTargetApplication" parameterType="java.lang.String" resultMap="clientNames">
+		SELECT DISTINCT client_name
+		FROM client_key_mapper
+		WHERE target_application = #{targetApplication}
+
+	</select>
+
+	<select id="getUsersForClient" parameterType="java.lang.String" resultMap="userNames">
+		SELECT user_id
+		FROM client_key_mapper
+		WHERE client_name = #{clientName} AND target_application = #{targetApplication}
+	</select>
+
+	<update id="updateClientForUser" parameterType="com.snapdeal.opspanel.clientkeymanagement.entity.ClientViewerEntity">
+		UPDATE client_key_mapper
+		SET client_name = #{clientName}
+		WHERE user_id = #{userId}
+	</update>
+	
+	<update id="updateUserForClient" parameterType="com.snapdeal.opspanel.clientkeymanagement.entity.ClientViewerEntity">
+		UPDATE client_key_mapper
+		SET user_id = #{userId}
+		WHERE client_name = #{clientName}
+	</update>
+	
+	<delete id = "deleteUser" parameterType = "com.snapdeal.opspanel.clientkeymanagement.entity.ClientViewerEntity">
+      DELETE from client_key_mapper
+      WHERE user_id = #{userId} AND client_name = #{clientName} AND target_application = #{targetApplication}
+   </delete>
+
+
+
+</mapper>

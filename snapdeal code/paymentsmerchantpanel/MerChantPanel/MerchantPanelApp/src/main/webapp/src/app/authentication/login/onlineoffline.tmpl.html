@@ -1,0 +1,20 @@
+<md-dialog ng-controller="LoginController as vm" style="width: 500px">
+    <md-dialog-content>
+         <md-list flex style="padding: 0">
+            <!--<md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>-->
+            <md-list-item class="md-1-line hoverlist topitm" ng-click="vm.offlinedialog($event)">
+              <div class="md-list-item-text" style="width: 100%; text-align: center;">
+              <img src="/assets/images/offline.png" style="width: 80px;">
+                <h3 style="text-align: center; width: 100%;">Do you have a physical store where you sell</h3>
+              </div>
+            </md-list-item>
+            <md-divider style="height: 0; z-index: 10; position: relative;"><span class="orBtn">OR</span></md-divider>
+            <md-list-item class="md-1-line hoverlist btmitm" ng-click="vm.onlinedialog($event)" style="z-index: 9; position: relative;">
+              <div class="md-list-item-text" style="width: 100%; text-align: center;">
+              <img src="/assets/images/online.png" style="width: 80px;">
+                <h3 style="text-align: center; width: 100%;">Do you sell online</h3>
+              </div>
+            </md-list-item>
+          </md-list>
+    </md-dialog-content>
+</md-dialog>

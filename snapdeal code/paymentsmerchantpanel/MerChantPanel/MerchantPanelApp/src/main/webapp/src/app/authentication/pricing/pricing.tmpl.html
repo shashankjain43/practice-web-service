@@ -1,0 +1,53 @@
+<div id="wrapper" ng-init="vm.loadPricingPage()">
+  <ng-include src="'app/authentication/sidemenu.tmpl.html'"></ng-include>
+  <div id="page-wrapper">
+      <div class="container-fluid">  
+
+        <div class="col-md-7 col-sm-6 bannerImgCont" style="float:right;">
+          <span class="helper"></span>
+          <img src="assets/images/bannerImages/Pricing.png" alt="Freecharge" class="bannerImg" style="max-width: 100%;  margin-left:-20px;">
+        </div>
+        <div class="col-md-5 col-sm-5" style="float:left; width:300px;">
+            <div class="bannerHeading">
+                <h1>Precise &amp;</h1>
+                <h1><span class="orange">Simple</span></h1>
+                <p>Competitive pricing that fits your requirement</p>
+                <button class="btn-orange-border btn pull-left"  ng-click="vm.signupbox($event)">GET STARTED</button> &nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+   </div>
+   <div class="divider">
+    <i><img src="assets/images/Arrow.png"></i>
+  </div>
+   <div class="container-fluid" style="text-align: center;">
+      <div class="pricing">
+          <h1>Pricing</h1>
+          <p>
+            Simple and competetive structure
+          </p>
+          <table align="center" class="pricingTable">
+            <tr>
+              <td style="font-size: 150px; color: #E3714D; display:block; height:70px; ">2%</td>
+            </tr>
+            
+            <tr>
+              <td style="font-size: 14px;
+  letter-spacing: -0.1px;
+  color: #7a7a79; margin-top: 20px;
+    display: block;    margin-left: 5px;">per successful transaction</td>
+            </tr>
+            <tr>
+              <td style="font-size: 14px;
+  letter-spacing: -0.1px;
+  color: #7a7a79;    margin-left: 5px;">*Service tax applicable</td>
+            </tr>
+
+          </table>
+      </div>
+   </div>
+</div>
+</div>
+<div ng-if="vm.isLoading" id="loadMask" style="display:block">
+    <div class="f-bolt"></div>
+</div>

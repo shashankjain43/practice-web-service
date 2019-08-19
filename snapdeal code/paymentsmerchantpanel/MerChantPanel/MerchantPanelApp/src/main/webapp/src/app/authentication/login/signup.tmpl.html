@@ -1,0 +1,122 @@
+<md-dialog ng-controller="LoginController as vm" style="width: 700px">
+  <form>
+    <md-toolbar style="background: #fff">
+      <div class="md-toolbar-tools">
+        <h2>You are just steps away from accepting payments</h2>
+        <span flex></span>
+        <!--<md-button class="md-icon-button" ng-click="vm.cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog" style="color: #d7d7d7"></md-icon>
+        </md-button>-->
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-tabs md-dynamic-height>
+            <md-tab id="tab1">
+              <md-tab-label><md-button class="md-icon-button">1</md-button> Basic Info</md-tab-label>
+              <md-tab-body>
+                <md-input-container class="md-block">
+                  <label>Primary Email Id</label>
+                  <input ng-model="signup.email">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Business Name</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Business Type</label>
+                  <md-select ng-model="signup.businessType">
+                    <md-option value="online">ONLINE</md-option>
+                    <md-option value="offline">OFFLINE</md-option>
+                  </md-select>
+                  <div class="md-errors-spacer"></div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <md-radio-group>
+                    <label>Business Mode</label> 
+                    <div layout="row">
+                    <md-radio-button value="online" style="margin-top: 5px;">ONLINE</md-radio-button> &nbsp; &nbsp;
+                    <md-radio-button value="offline" style="margin-top: 5px;">OFFLINE</md-radio-button>
+                    </div>
+                  </md-radio-group>
+                  <div class="md-errors-spacer"></div>
+                </md-input-container>
+              </md-tab-body>
+            </md-tab>
+            <md-tab id="tab2">
+              <md-tab-label><md-button class="md-icon-button">2</md-button> Contact Info</md-tab-label>
+              <md-tab-body>
+                <md-input-container class="md-block">
+                  <label>Mobile</label>
+                  <input ng-model="signup.email">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Address line 1</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Address line 2</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container>
+                  <label>Area Code</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container>
+                  <label>City</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>State</label>
+                  <md-select ng-model="signup.businessType">
+                    <md-option value="online">ONLINE</md-option>
+                    <md-option value="offline">OFFLINE</md-option>
+                  </md-select>
+                </md-input-container>
+              </md-tab-body>
+            </md-tab>
+            <md-tab id="tab3">
+              <md-tab-label><md-button class="md-icon-button">3</md-button> Business Info</md-tab-label>
+              <md-tab-body>
+                <md-input-container class="md-block">
+                  <label>Business Registeration</label>
+                  <input ng-model="signup.email">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>PAN/TIN</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Website</label>
+                  <input ng-model="signup.business">
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <label>Business Category</label>
+                  <md-select ng-model="signup.businessType">
+                    <md-option value="online">ONLINE</md-option>
+                    <md-option value="offline">OFFLINE</md-option>
+                  </md-select>
+                  <div class="md-errors-spacer"></div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                  <md-checkbox ng-model="signup.cb1" aria-label="Checkbox 1">
+                    Terms and Conditions
+                  </md-checkbox>
+                </md-input-container>
+                <md-input-container class="md-block">
+                <label>*Please take a print of this form, sign and upload.</label>
+                </md-input-container>
+              </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="vm.cancel()" class="btn-white">
+        CANCEL
+      </md-button>
+      <md-button style="margin-right:20px;" class="btn-orange">
+        SUBMIT AND DOWNLOAD
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

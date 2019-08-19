@@ -1,0 +1,206 @@
+
+
+Update email_template set trigger_id ='18590' where name ='cartDropoutAfter15days' ;
+
+
+
+
+Update email_template set trigger_id ='18591' where name ='cartDropoutWithin24hr' ;
+
+
+
+
+Update email_template set trigger_id ='18589' where name ='cartDropoutWithin24hrTo15days' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='sdCashRewardOnPurchaseEmail' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='confirmNewEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18573' where name ='dropoutTransactionEmail' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='confirmEmail' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='productShipped' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='dealfeedbackEmail' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='packageDelayedEmail' ;
+
+
+
+
+Update email_template set trigger_id ='8141' where name ='newSubscriberReferralOneTimeEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18604' where name ='dealfeedbackEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18605' where name ='productfeedbackEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18631' where name ='codOrderEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18628' where name ='orderCancellationRefundEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18627' where name ='orderRefundEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18626' where name ='orderReplacedSummaryEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18625' where name ='orderSummaryEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18623' where name ='pendingCODOrderEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18620' where name ='confirmNewEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18619' where name ='confirmAutoAccountEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18617' where name ='sdCashRewardOnPurchaseEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18618' where name ='promoCodeOnPurchaseEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18630' where name ='ShippedEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18624' where name ='packageDelayedEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18622' where name ='productReshipped' ;
+
+
+
+
+Update email_template set trigger_id ='18621' where name ='productSubOrderEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18629' where name ='reviewRequestEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18647' where name ='customerNotificationEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18670' where name ='similarProductEmailTemplate' ;
+
+
+
+
+Update email_template set trigger_id ='18649' where name ='reviewApprovedEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18669' where name ='reviewRequestEmailForDeals' ;
+
+
+
+
+Update email_template set trigger_id ='18713' where name ='reviewRequestEmailForDealsWithRatings' ;
+
+
+
+
+Update email_template set trigger_id ='18714' where name ='reviewRequestEmailWithRatings' ;
+
+
+
+
+Update email_template set trigger_id ='18715' where name ='secondReviewRequestEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18716' where name ='secondReviewRequestEmailForDeals' ;
+
+
+
+
+Update email_template set trigger_id ='18717' where name ='secondReviewRequestEmailForDealsWithRatings' ;
+
+
+
+
+Update email_template set trigger_id ='18718' where name ='secondReviewRequestEmailWithRatings' ;
+
+
+
+
+Update email_template set trigger_id ='18719' where name ='reviewerUsefulMail' ;
+
+
+
+
+Update email_template set trigger_id ='18722' where name ='forgotPasswordEmail' ;
+
+
+
+
+Update email_template set trigger_id ='18591' where name ='cartDropOutNotificationMail' ;
+
+
+

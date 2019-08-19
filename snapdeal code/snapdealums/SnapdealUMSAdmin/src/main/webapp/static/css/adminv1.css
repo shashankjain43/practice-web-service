@@ -1,0 +1,1364 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-attachment: fixed;
+    color: #000000;
+    font-family: Tahoma,Geneva,sans-serif;
+    font-size: 10px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1.35em;
+    background: #cbcdce url(/img/festival/adminv1/bg.png) repeat-x center top;
+}
+a {
+    color: #029ecb;
+    text-decoration: underline;
+}
+a:hover {
+    color: #029ecb;
+    text-decoration: none;
+}
+a img {
+   border:0px;
+}
+:focus {
+    outline-color: -moz-use-text-color;
+    outline-style: none;
+    outline-width: 0;
+}
+h1, h2, h3, h4 {
+    line-height: 1.4em;
+    margin-bottom: 0.5em;
+}
+h2 {
+    font-size: 1.7em;
+}
+h3 {
+    color: #253033;
+    font-size: 1.25em;
+    margin-bottom: 0.5em;
+}
+h4 {
+    color: #494848;
+    font-size: 1.05em;
+    margin-bottom: 0.6em;
+}
+h5 {
+    font-size: 1.05em;
+}
+h6 {
+    font-size: 1em;
+}
+h1 a, h1 a:hover, h2 a, h2 a:hover, h3 a, h3 a:hover, h4 a, h4 a:hover {
+    font-weight: normal;
+}
+th {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    text-align: center;
+    vertical-align: top;
+}
+td {
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    vertical-align: top;
+}
+p, address {
+    margin-bottom: 0.5em;
+}
+address {
+    font-style: normal;
+}
+cite {
+    font-size: 10px;
+    font-style: normal;
+}
+q:before, q:after {
+    content: "";
+}
+form {
+    display: inline;
+}
+fieldset {
+    border:0px;
+}
+legend {
+    display: block !important;
+    height: 0;
+    line-height: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    visibility: hidden;
+    width: 0;
+}
+label {
+    color: #333333;
+}
+input, select {
+    vertical-align: middle;
+}
+textarea {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+ul, ol {
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+}
+dt {
+    display: block;
+}
+small {
+    font-size: 0.9em;
+}
+big {
+    font-size: 1.25em;
+}
+
+#system_message {
+width:100%;
+font-weight:500;
+font-size:12px;
+margin:15px 0 10px;
+}
+
+.system_fail,.system_success {
+background:url('/img/system_fail_bg.jpg?v=5') #ffc703 repeat-x top;
+color:#0d0b09;
+border-bottom:1px #bf8a01 solid;
+overflow:hidden;
+padding:5px 10px;
+}
+
+.system_fail .message_inner {
+width:900px;
+background:url('/img/information_icon.png?v=5') no-repeat left;
+margin:0 auto;
+padding:2px 25px;
+}
+
+.system_success .message_inner {
+width:900px;
+background:url('/img/tick.png?v=5') no-repeat left;
+position:relative;
+margin:0 auto;
+padding:2px 25px;
+}
+
+.top {
+    position: relative;
+    text-align: left;
+    z-index: 999;
+}
+.top-bar {
+    background:url(/img/festival/adminv1/bg_top.png) repeat-x bottom;
+    cursor: pointer;
+    height: 9px;
+    margin:0 0 -6px 0;
+    padding: 0;
+    position: relative;
+    z-index: 999;
+}
+
+.header-container {
+    background-attachment: scroll;
+    background: transparent url(/img/festival/adminv1/bg_header.png) no-repeat 0 100%;
+    margin: 0 auto 3px auto;
+    padding-bottom: 0;
+    padding-left: 18px;
+    padding-right: 0;
+    padding-top: 0;
+}
+.header {
+    background-attachment: scroll;
+    background:transparent url(/img/festival/adminv1/bg_header.png) no-repeat 100% 100%;
+    padding: 0 18px 11px 0;
+    overflow:hidden;
+}
+
+.header-right {
+    color: #4C4C4C;
+    float: right;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 20px;
+    padding-top: 10px;
+    position: relative;
+    z-index: 2;
+}
+.header-right a, .header-right a:hover {
+    color: #029ecb;
+}
+.header-right a:hover {
+    text-decoration: none;
+}
+.header-right .separator {
+    color: #999999;
+}
+.header-right .link-account, .header-right .link-support, .header-right .link-suggest {
+    color: #4C4C4C;
+}
+
+.separator, .pipe {
+    color: #B8B8B8;
+    font-size: 0.9em;
+    padding-bottom: 0;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 0;
+}
+
+.header-top {
+    overflow:hidden;
+}
+
+.logo {
+    height: 55px;
+    margin: 2px 4px;
+}
+
+.nav-bar {
+    clear: left;
+    margin: 0;
+    padding:0 12px 7px 12px;
+}
+
+.nav-bar ul li{
+	display:inline;
+	padding-right:20px;
+	color:#535353;
+	cursor:pointer;
+	}
+
+#internal-content {
+    min-height: 450px;
+    padding: 11px;
+    min-width: 985px;
+}
+
+div.side-col {
+    float: left;
+    margin-right: -190px;
+    width: 190px;
+    border:2px solid #dedede;
+    -moz-box-shadow: 0 5px 10px #A4A3A3;
+     background: url(/img/festival/adminv1/side_menu_bg.gif) repeat-x bottom;
+}
+
+
+
+.graybox-admin {
+	margin-left: 190px;
+    min-height: 450px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+    padding-right: 0;
+    padding-top: 0;
+}
+
+.graybox-admin .gray-cont-admin {
+   overflow:hidden
+}
+
+.submit-head{
+    -moz-border-radius: 3px;
+    background-attachment: scroll;
+    background: #DFDFDF url(/img/festival/adminv1/bg_submit-header.png) repeat-x 0 0;
+    margin: 11px 0 15px 0;
+    padding: 0 0px 0 12px;
+    position: relative;
+    z-index: 1;
+    border:1px solid #DEDEDE;
+    -moz-box-shadow: 0 6px 10px #C4C4C4;
+    overflow:hidden;
+}
+
+h3.submit-head-text{
+	 min-height: 18px;
+	 color: #000000;
+    display: block;
+    float: left;
+    font-family: Tahoma,Arial,helvetica,sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.1;
+    margin: 8px 0 9px 0;
+    background: url(/img/festival/adminv1/submit-head.gif) no-repeat;
+    padding:0 0 0 21px;
+	 
+	}
+
+.head-lable{
+    -moz-box-shadow: 0 3px 6px #D7D7D7;
+    background-attachment: scroll;
+    background:#D5D6D6 url(/img/festival/adminv1/bg_head.png) repeat-x 0 0;
+  	border:1px solid #ACACAC;
+    margin-bottom: 6px;
+    z-index: 2;
+    max-height: 30px;
+    overflow:hidden;
+    padding: 15px 4px 0 12px;
+    }
+    
+h4.head-lable-text{
+	-x-system-font: none;
+    color: #000000;
+    display: block;
+    float: left;
+    font-family: Tahoma,Arial,helvetica,sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.1;
+    margin: 8px 0 8px 0;
+    padding-bottom: 5px;
+    padding:0 0 0 21px;
+    text-decoration: none;
+    background: url(/img/festival/adminv1/product-head.png) no-repeat;
+     
+}
+
+.submit-button-container{
+	float: right;
+	white-space: nowrap !important;
+	margin:0px;
+	padding:4px 0  0 0;	
+	margin-right:4px;
+	}
+	
+.submit-button, .continue-button, .editor-button, .upload-button, .do-assign-button, .assign-button, .confirm-button-yes, .confirm-button-no{
+	color: #f15a24;
+    float: left;
+    font-family: Tahoma,Verdana,Arial,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 27px;
+    width: auto;
+    margin-left:2px;
+    -moz-border-radius:3px;
+    background: url(/img/festival/adminv1/button_bg.gif) repeat-x;
+    border:1px solid #cecece;
+    cursor:pointer;
+    padding:0 8px;    
+	}
+	
+.continue-button span{
+	 background: url(/img/festival/adminv1/bg_cont.png) no-repeat right;
+	 display:block;
+	 padding-right:12px;
+	}
+	
+.editor-button span{
+	background: url(/img/festival/adminv1/btn-editor.png) no-repeat left;
+	display:block;
+	padding-left:25px;
+	}		
+	
+.submit-button:hover, .continue-button:hover, .editor-button:hover, .upload-button:hover, .do-assign-button:hover, .assign-button:hover, .confirm-button-yes:hover, .confirm-button-no:hover{
+	 background: url(/img/festival/adminv1/button_bg_hover.gif) repeat-x;
+	}
+	
+.continue-button{
+	width:70px;
+	height:26px;
+	}
+	
+.editor-button{
+	height:26px;
+	}		
+	
+.dealadmin{
+	background-attachment: scroll;
+    background: #ECEDED url(/img/festival/adminv1/bg_box.png) repeat-x 0 0 ;
+    margin: -6px 0 20px 0 ;
+    padding: 20px 16px;
+    -moz-border-radius:0 0 3px 3px;
+    border-left:2px solid #dedede;
+    border-right:2px solid #dedede;
+    border-bottom:2px solid #dedede;
+	}			
+
+ul.admin-tabs{
+	
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+   	}
+   	
+ul.vendor-tabs{
+	
+    display: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+   	}   	
+   	
+ul.admin-tabs li, ul.admin-tabs li ul li{
+    color: #000;
+    display: block;
+    font-size: 13px;
+    margin: 0;
+    padding:5px 10px 5px 20px;
+    text-decoration: none;
+    text-align: left;
+    cursor:pointer;
+}
+
+ul.admin-tabs li{
+	border-bottom:1px dotted #a7a7a7;
+	}
+	
+ul.admin-tabs li ul li{
+	border-bottom:0px dotted #cacaca;
+	}	
+
+ul.admin-tabs li ul li{
+	  padding:5px 5px 5px 19px;
+	  background: url(/img/festival/adminv1/arrow_hover.gif) no-repeat 3px 7px ;
+	  
+	}
+
+ul.admin-tabs li.current {
+	background: #029ecb ;	
+	color: #fff;
+	
+}
+
+ul.admin-tabs li ul li.current{
+	background:#029ecb url(/img/festival/adminv1/arrow.gif) no-repeat 3px 7px ;
+	color: #fff;
+	
+	}
+
+ul.vendor-tabs li {
+	-moz-border-radius: 10px 10px 10px 10px;
+    background: url("/img/sign.png?v=5") repeat-x scroll 0 0 transparent;
+    border: 0 none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 12px;
+    text-decoration: none;
+    text-align: center;
+    cursor: default;
+    cursor:pointer;
+    width:120px;
+    float:left;
+    margin: 0 15px 20px 0;
+    display: block !important;
+    
+}
+
+ul.vendor-tabs li.vendor-active {
+	background: #5599bb;
+	
+	
+}
+
+.admin-tabs-outer{
+	overflow:hidden;
+	margin:0 auto
+	}
+	
+
+ul#tabcontent, ul#vendor-tabcontent{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul#tabcontent li, ul#vendor-tabcontent li {
+    display: none;
+}
+
+ul#tabcontent .active_tab_content, ul#vendor-tabcontent .active_tab_content {
+    display: block;
+    zoom: 1;
+}
+
+.vendor_links{
+	width: 100%; 
+	display:block; 
+	overflow:hidden; 
+	margin-bottom: 20px
+	}
+	
+.vendor-search{
+	width: 100px;  
+	float:left; 
+	margin-right:15px; 
+	font-size:15px
+	}
+	
+.vendor-create{
+	width: 150px;  
+	float:left; 
+	font-size:15px
+	}
+
+.form-row-outer, .form-row-outer-wp{
+	overflow:hidden;
+	padding-bottom:9px;
+	}
+	
+.form-row-outer-wp{
+	padding-bottom:0px
+	}	
+	
+.vendor-outlets-outer-heading, .vendor-search-outer-heading{
+	overflow:hidden;
+	background: #029ecb url(/img/festival/adminv1/bg_int-col.gif) 0 0 repeat-x;
+	margin-bottom:3px;
+	padding:3px 10px;
+	border:1px solid #cbd3d4;	
+	}
+	
+.vendor-search-outer-heading{
+	padding:0px;
+	}	
+.catalog-search-outer-heading{
+	overflow:hidden;
+	background: #029ecb url(/img/festival/adminv1/bg_int-col.gif) 0 0 ;
+	margin-bottom:3px;
+	padding:0px;
+	border:1px solid #cbd3d4;	
+	}
+	
+.vendor-outlets-outer-heading .show-hide{
+	float:right;
+	color:#fff;
+	font-size:11px;
+	display:none
+	}	
+	
+.vendor-outlets-hide, .vendor-outlets-show{
+	cursor:pointer
+	}
+	
+.vendor-outlets-outer-heading .form-head-left{
+	text-align:left;
+	color:#fff;
+	
+	}
+	
+.vendor-outlets-outer-heading .form-head-left span{
+	cursor:pointer;
+	}	
+	
+.vendor-search-outer-heading .vendors-searchlist-name, .vendor-search-outer-heading .vendors-searchlist-date, .vendor-search-outer-heading .vendors-searchlist-live{
+	text-align:left;
+	color:#fff;
+	border-right:1px solid #cbd3d4;	
+	font-size:13px;
+	font-weight:normal;
+	float:left;
+	display:block;
+	padding:5px 8px;	
+	}
+	
+.vendor-search-outer-heading .vendors-searchlist-name{
+	width:40%;
+	}
+	
+.vendor-search-outer-heading .vendors-searchlist-date{
+	width:15%;
+	}			
+	
+.vendor-search-outer-heading .vendors-searchlist-live{
+	text-align:left;
+	color:#fff;
+	border-right:1px solid #cbd3d4;	
+	font-size:13px;
+	font-weight:normal;
+	float:left;
+	display:block;
+	padding:5px 8px;
+	width:20%;
+}
+	
+.vendor-outlets-outer, .vendor-outlets-searchouter{
+	border:1px solid #cbd3d4;	
+	margin-bottom:10px;
+	overflow:hidden;
+	padding:15px;
+}
+
+.vendor-outlets-searchouter{
+	padding:0;
+}
+
+.vendor-outlets-searchouter .vendor-search-list-outer{
+	font-size:12px;
+	border-bottom:1px solid #e5e5e5;
+	overflow:hidden;
+	}
+	
+.vendor-outlets-searchouter .vendor-search-list-outer .vendor-search-list-name, .vendor-outlets-searchouter .vendor-search-list-outer .vendor-search-list-date{
+	font-size:12px;
+	padding:5px 8px;
+	border-right:1px solid #e5e5e5;
+	float:left;
+	width:40%;
+	}
+	
+.vendor-outlets-searchouter .vendor-search-list-outer .vendor-search-list-date{
+	width:15%
+	}	
+	
+.vendor-outlets-searchouter .vendor-search-list-outer .vendors-search-list-live{
+	text-align:left;
+	border-right:1px solid #cbd3d4;	
+	font-size:12px;
+	font-weight:normal;
+	float:left;
+	display:block;
+	padding:5px 8px;
+	width:20%;
+}	
+	
+.vendorRadio{
+	margin-right:5px;
+	}	
+
+.vendor-outlets-outer .vendor-outlets-button, .vendor-outlets-searchouter .vendor-outlets-button{
+	background:#eeeeee url(/img/festival/adminv1/bg_int-bot-col.png) 0 0 repeat-x;
+	padding:5px;
+}
+			
+	
+.form-head-left {
+font-size:13px;
+font-weight:normal;
+color:#000;
+margin-bottom:3px;
+float:left;
+width:200px;
+padding-right: 15px;
+padding-top: 4px;
+text-align: right;
+display:block
+}
+	
+
+.form-row-small, td.form-row-small, .form-row-small-checkbox{
+margin-bottom:12px;
+float:left;
+width:450px;
+padding-right: 5px !important;
+}
+
+.form-row-small-checkbox{
+	padding-top:6px;
+	}
+
+td.form-row-small{
+	padding-bottom:15px;
+	}
+
+.form-row-large, td.form-row-large{
+	width: 60%;
+	padding-right: 5px !important;
+	padding-bottom:12px;
+	float:left;
+	}
+	
+td.form-row-large{
+	width:85%;
+	padding-bottom:15px;
+	float:none;
+	}	
+
+.form-row-small select, .form-row-small input.input-text, .form-row-small input.input-fld-small{
+	width: 296px;
+}
+
+input.input-fld-small-calendar{
+	width:150px;
+	background:#FFF url("/img/calendar.jpg") no-repeat center right;
+	}
+
+
+.form-row-large input, .form-row-large textarea{
+width: 95% !important;
+height:15px;
+}
+
+.form-row-large input, .form-row-large textarea{
+width: 274px;
+}
+
+.g_map_wrap {
+width:380px;
+float:right;
+overflow:hidden;
+}
+
+.g_map {
+height:303px;
+border:1px #ccc solid;
+margin:0px 0 0;
+}
+
+.tieriicities, .tieriicities2{
+	display:none
+	}
+
+.counter{
+	position:absolute;
+	top:0px;
+	font-size:13px;
+	font-weight:bold;
+	color:#333;
+	padding: 0 0 0 5px;
+	}
+	
+input.input-text, textarea, select, input.input-fld-small, input.input-fld-small-calendar, input.input-priority {
+    -moz-background-clip: border;
+    -moz-background-origin: padding;
+    -moz-background-size: auto auto;
+    -x-system-font: none;
+    background-color: #FFFFFF;   
+    border:1px solid #E0E0E0;
+    color: #000000;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 12px;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: normal;
+}
+input.input-text, textarea, select, input.input-fld-small, input.input-priority  {
+}
+
+input.input-text, textarea, select, input.input-fld-small, input.input-fld-small-calendar, input.input-priority  {
+    -moz-box-shadow: 0 3px 6px #DADADA;
+}
+
+input.input-file {
+}
+
+select {
+    min-height: 17px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+select option {
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+}
+
+input.input-text, textarea, input.input-fld-small, input.input-fld-small-calendar, input.input-priority  {
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+.error, a.error span, .required, .validation-advice {
+    color: #D40707 !important;
+    font-weight: bold !important;
+    
+}
+
+.error{
+	background:url(/img/festival/adminv1/error.gif) no-repeat;
+    padding-left:12px;
+    margin-top:5px;
+	}
+
+.errorTop{
+    color: #D40707 !important;
+    font-weight: bold !important;
+}
+
+.msgTop{
+    font-weight: bold !important;
+}
+
+.select-city-box {
+    float: left;
+    margin-bottom: 5px;
+    width: 25%;
+    font-size:11px;
+}
+
+.select-dealoutlet-box{
+	    float: left;
+    margin-bottom: 5px;
+    width: 33%;
+    font-size:11px;
+}
+.select-deal-outlet-box{
+	    float: left;
+    margin-bottom: 5px;
+    width: 30%;
+    font-size:11px;
+}
+
+.select-city-box-inner {
+    display: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-bottom: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0;
+}
+
+.zonesCheckboxii,.zonesCheckboxii2{
+	margin-right:5px;
+	}
+	
+.limittext {
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.fixed {
+    background-color: transparent;
+    background: url(/img/festival/adminv1/submit-float.png) repeat-x 0 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 99%;
+    z-index: 100;
+    margin:0px auto;
+     border:0px solid #DEDEDE;
+    -moz-box-shadow: 0 0px 0px #000;
+    height:50px;
+    color:#fff;
+    font-weight:bold;
+	}
+	
+.form-row-updown{
+	float:left;
+	display:block;
+	overflow:hidden;
+	width:30px;
+	margin-top:7px;
+	}
+	
+.form-row-help, .form-row-headhelp{
+	width:14px;
+	height:14px;
+	float:left;
+	display:block;
+	margin:5px 0 0 8px;
+	background: url(/img/festival/adminv1/help.png) no-repeat;
+	cursor:pointer;
+	}
+	
+.form-row-headhelp{
+	margin-top:10px
+	}		
+
+.form-row-updown span.up, .form-row-updown span.down{
+	background: url(/img/festival/adminv1/move-up.gif) no-repeat;
+	display:block;
+	width:13px;
+	height:13px;
+	margin-right:4px;
+	float:left;
+	cursor:pointer;
+	}
+	
+.form-row-updown span.down{
+	background: url(/img/festival/adminv1/move-down.gif) no-repeat;
+	margin-right:0px;
+	float:right;
+	}
+	
+.help-text{
+	-moz-border-radius:5px;
+	padding:10px;
+	background:#ffffe1;
+	font-size:11px;
+	position:absolute;
+	-moz-box-shadow: 0px 2px 10px #A4A3A3;
+	z-index:100;
+	margin:-20px 20px 0 10px;
+	display:none	
+}
+
+span.no-cursor{
+	display:block;
+	cursor:default;
+	}
+	
+.tabError{
+	color:#bc0800 !important;
+	background: url(/img/festival/adminv1/bullet_error.gif) no-repeat left !important;
+	font-weight:bold;	
+	}
+	
+.external-priority, .external-image, .external-delete, .external-doc{
+	width:33%;
+	float:left;
+	}
+	
+.delete-class{
+	display:block;
+	cursor:pointer;
+	color:#029ECB;
+	text-decoration:underline;
+	float:left;
+	}
+	
+.delete-class:hover{
+	text-decoration:none
+	}		
+
+input.input-priority{
+	width:40px;
+	}
+	
+.external-image, .external-doc{
+	margin:0 0 15px 0;
+	}
+	
+img.externalimage{
+	border:1px solid #CBD3D4 !important;
+	padding:1px;
+	}	
+	
+.main-content-class, .menu-content-class, .side-content-class, .recent-content-class, .vendor-content-class{
+	overflow:hidden;
+	margin-top:15px;
+	}	
+	
+.external-overlay, .lightbox-wrap, .sizeChart-overlay{
+background:url(/img/festival/adminv1/externalupload.png);
+height:100%;
+left:0;
+position:fixed;
+_position:absolute;
+_height:1020px;
+top:0;
+width:100%;
+z-index:1200;
+display:none;
+}		
+	
+.external-cont-upload{
+	width:450px;
+	margin:152px auto 0 auto;
+	background:#fff;
+	/*height:218px;*/
+	-moz-border-radius: 15px; 
+	-webkit-border-radius: 15px;
+	-moz-box-shadow:  0px 0px 12px  #4e4e4e;
+	-webkit-box-shadow: 0px 0px 12px #4e4e4e;
+	box-shadow: 0px 0px 12px #4e4e4e;
+	padding:0px;
+	border:2px solid #000;
+	
+}
+
+.externalupload_head{
+	background:#029ECB;
+	-moz-border-radius: 12px 12px 0 0 ; 	
+	-webkit-border-radius: 12px 12px 0 0 ; 
+	font-size:15px;
+	color:#fff;
+	padding:10px ;	
+	overflow:hidden;
+	}
+	
+.externalupload_head-text{
+	float:left;
+	}	
+	
+.skipit{
+	float: right; 
+	width: 15px;
+	height:15px;
+	background:url(/img/subscribe-close.png) no-repeat;
+	display:block;
+	cursor:pointer;
+	}
+	
+.copy-deal{
+	overflow:hidden;
+	padding:25px;
+	}
+	
+select.image-type{
+	width:150px;
+	}
+	
+.lightbox-cont{
+	width:200px;
+	}
+	
+.light_box-wrap-cont{
+	width:420px;
+	margin:152px auto 0 auto;
+	background:#fff;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+	-moz-box-shadow:  0px 0px 12px  #4e4e4e;
+	-webkit-box-shadow: 0px 0px 12px #4e4e4e;
+	box-shadow: 0px 0px 12px #4e4e4e;
+	padding:0px;
+	border:1px solid #000;
+	overflow:hidden;
+	padding:15px;
+}
+
+.light_box-wrap-cont select.form-fld{
+	float:left;
+	}
+	
+.system_success {
+background:#ffe678;
+color:#0d0b09;
+border:1px #f2c600 solid;
+overflow:hidden;
+padding:5px 10px;
+margin:0 10px;
+display:none
+}
+
+.system_success .message_inner {
+width:650px;
+background:url('/img/tick.png?v=5') no-repeat left;
+position:relative;
+margin:0 auto;
+padding:2px 25px;
+}
+	
+.system_success .system-close{
+text-decoration:none;
+color:#000;
+cursor:pointer;
+background:url(/img/home-sprite.png) no-repeat scroll -138px -228px transparent;
+width:15px;
+height:15px;
+float:right;
+overflow:hidden;
+}
+
+.raw-deal-images-outer{
+	border:1px solid #CBD3D4;
+	overflow:hidden;
+	}
+	
+.raw-deal-images-outer .raw-deal-images{
+	border-right:1px solid #CBD3D4;
+	padding:5px 8px;
+	float:left;
+	width:15%;
+	}	
+	
+.do-assign-button, .assign-button, table.display td .upload-button, table.display td .submit-button, .confirm-button-yes, .confirm-button-no{
+	color:#000 !important;
+	font-weight:normal !important;
+	height:20px !important;
+	font-size:11px !important;
+	padding:0 5px !important;
+}
+
+.light_box-wrap-cont .do-assign-button{	
+	color: #f15a24 !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    height: 28px !important;
+    padding:0 8px !important;
+	}
+	
+.light_box-wrap-msj-cont .info-text, .light_box-wrap-msj-cont .success-text{
+	background:url('/img/information_icon.png?v=5') no-repeat left;
+	color:#D40707 !important;
+	padding:2px 0px 2px 20px;	
+	}
+	
+.light_box-wrap-msj-cont .success-text{
+	background:url('/img/tick.png?v=5') no-repeat left !important;
+	color:#000 !important; 
+	}
+	
+.light_box-wrap-msj-cont{
+	width:350px;
+	margin:152px auto 0 auto;
+	background:#fff;
+	-moz-border-radius: 10px; 
+	-webkit-border-radius: 10px;
+	-moz-box-shadow:  0px 0px 12px  #4e4e4e;
+	-webkit-box-shadow: 0px 0px 12px #4e4e4e;
+	box-shadow: 0px 0px 12px #4e4e4e;
+	padding:0px;
+	border:1px solid #000;
+	overflow:hidden;
+	padding:15px;
+}
+
+.light_box-wrap-msj-cont .confirm-button-yes, .light_box-wrap-msj-cont .confirm-button-no{	
+	line-height:20px;
+	width:50px;
+	}
+.drag-drop-con-wrap{
+	width: 100%;
+	overflow: hidden;
+}
+#allDeal{
+	width: 29%;
+	float: left;
+	}
+#allDealBox{
+	border:1px #029ECB solid;
+	padding: 0 1px 1px 1px;
+	overflow: auto;
+	height: 400px;
+	}
+.drag-drop-outer{
+	width: 68%;
+	float: left;
+	margin:0 0 0 2%; 
+	overflow: hidden;
+}
+.dealListBox{
+	float: left;
+	margin: 0 0 0 2%;
+	position: relative;
+	width: 47%;
+	}
+#mainDealBox, #cMainDealBox,#sideDealBox, #cSideDealBox{
+	border:1px #029ECB solid;
+	padding: 0 1px 1px 1px;
+	}
+.dealItemBox{
+	background: url("/img/home-bg-sprite.jpg") repeat-x 0 -180px;
+	padding: 3px 5px;
+	color: #FFF;
+	}
+#sideDealBox .dealItemBox, #allDealBox .dealItemBox{
+	cursor:hand;cursor:grab;cursor:-moz-grab;cursor:-webkit-grab;
+	}
+.dealContBox {	
+	margin:1px 0 0 0;
+	height: 22px;	
+	}
+.line{
+	height: 1px;
+	overflow: hidden;
+	background: #CCC;
+	margin: 10px 0; 
+	}
+.ui-draggable-dragging{
+	width: 24.5%;
+	cursor:hand;cursor:grab;cursor:-moz-grab;cursor:-webkit-grab;
+	}
+	
+.dealOrderHeading{
+	font-weight:bold;
+	font-size: 12px;
+	color:#000000;
+	border-bottom: 1px solid #cccccc;
+	margin-bottom: 10px;
+}
+.dealOrderHeading1{
+	font-weight:bold;
+	font-size: 11px;
+	color:#000000;
+	margin-bottom: 2px;
+}
+
+/*product admin*/
+
+.vendor-outlets-outer-heading .submit-button-container .submit-button, .form-row-outer .submit-button{
+	height:20px;
+	font-size:11px !important;
+	line-height:20px !important;
+	}
+	
+.add-button{
+	width:330px !important; 
+	}
+
+.product-lbh{
+	width:50px !important;
+	}
+	
+table.product-dimensions{
+	border:1px solid #d3d3d3;
+	-moz-border-radius:5px;
+	background:#fff;
+	}
+	
+table.product-dimensions td{
+	padding:10px !important;
+	font-weight:bold;
+	}
+	
+.hlarge{
+	height:28px !important;
+	}
+	
+.product-checkbox-div{
+	float:left;
+	margin-right:10px;
+	}	
+	
+.product-checkbox{
+	margin-right:5px
+	}
+.product-doc-content-class, .product-image-content-class, .freebie-image-content-class, .brand-doc-content-class, .brand-image-content-class{
+	overflow:hidden;
+	clear:both;
+	}	
+.product-doc-content-outer, .product-image-content-outer, .freebie-image-content-outer, .brand-doc-content-outer, .brand-image-content-outer {
+	margin-left:217px;
+	-moz-border-radius:5px;
+	border:1px solid #cecece;
+	padding:5px;
+	background:#fff;
+	overflow:hidden;
+	} 
+	
+.readonly{
+	background:#ebebe4 !important;
+	border:1px solid #cecece !important;
+	}	
+	
+.techies-logo{
+		background:url(/img/festival/adminv1/techies.png) no-repeat right 16px;
+		float:right;
+		width:67px;
+		padding-left:15px;
+		border-left:1px solid #d0d0d0;
+		height:70px;
+		font-size:10px;
+		color:#000;
+		margin-top:3px;
+	}
+	
+	
+.techies-logo a{
+	display:block;
+	width:67px;
+	height:54px;
+	}
+	
+/* size chart */
+
+input.editBox{
+	background:#ebe7e6;
+	border:1px solid #b5b1b2;
+	font-size:11px;
+	padding:3px 5px;
+	width:70px !important;
+	
+}
+						
+input.editBox:focus{
+	background:#fff;
+}
+			
+.overhid{
+	overflow:hidden;
+}	
+.sizeChart-head-text{
+	font-size:16px;
+	font-weight:bold;
+	float:left;
+	padding:6px 0 0 13px;
+}
+
+.sizeChart-Close{
+	float:right;
+}
+
+.sizeChart-image-box{
+	width:250px;
+	height:220px;
+	float:left;
+}
+
+.sizeChart-box-outer{
+	float:left;
+	margin:15px 0px;
+	width:600px;
+}	
+
+.sizeChart-head-box{
+	font-size:12px;
+	font-weight:bold;
+	float:left;
+	background:#63b9ea;
+	padding:2px 5px;
+	width:79px;
+	border-right:1px solid #fff;
+	color:#fff;
+	min-height:33px;
+	text-align:center;
+}
+
+
+.sizeChart-head-box span{
+	font-size:11px;
+	font-weight:normal;
+}
+
+.sizeChart-size-box{
+	float:left;
+	font-size:12px;
+	padding:2px 5px;	
+	width:79px;
+	text-align:center;
+	border-right:1px solid #fff;
+}
+
+.sizeChart-brand-name{
+	font-size:18px;
+	color:#63b9ea;
+	text-transform:uppercase;
+	padding-bottom:5px;
+}
+
+.ajax-loader-outer{
+	background: #fff url(/img/checkout/ajax-loader.gif) no-repeat 5px 5px;
+	margin: 10px auto;
+	width: 68px;
+	border: 1px solid #e7e7e7;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	padding: 15px 0 12px 46px;
+	font-size: 13px;
+	color: #000;
+	height: 15px;
+	-moz-box-shadow: 2px 2px 3px #C2C2C2;
+	-webkit-box-shadow: 2px 2px 3px #C2C2C2;
+	box-shadow: 2px 2px 3px #C2C2C2;
+}
+
+.select-vendor-type{
+	width: 135px;
+}					

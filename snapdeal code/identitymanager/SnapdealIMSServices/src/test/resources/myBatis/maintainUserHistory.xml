@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IUserHistoryMapper">
+
+	<resultMap id="resultUser" type="com.snapdeal.ims.entity.UserHistory">
+		<result property="userId" column="user_id" />
+		<result property="field" column="field"/>
+		<result property="oldValue" column="old_value"/>
+		<result property="newValue" column="new_value"/>
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+ 
+	<sql id="base_column_list_user_history">
+		user_id,
+		field,
+		old_value,
+		new_value,
+		updated_time
+	</sql>
+	
+	<insert id="maintainUserHistory"
+		 parameterType="com.snapdeal.ims.entity.UserHistory">
+		INSERT INTO user_history
+		(
+		<include refid="base_column_list_user_history" />
+		)
+		VALUES
+		(#{userId},
+		#{field},
+		#{oldValue},
+		#{newValue},
+		now())
+	</insert>
+	
+	 </mapper>

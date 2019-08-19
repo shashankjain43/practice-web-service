@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias type="com.snapdeal.merchant.dao.entity.DownloadEntity"
+			alias="downloadEntity" />
+		<typeAlias type="com.snapdeal.merchant.dao.entity.FilterEntity"
+			alias="filterEntity" />
+		<typeAlias type="com.snapdeal.merchant.dao.entity.BulkRefundEntity"
+			alias="bulkRefundEntity" />
+	</typeAliases>
+
+	<typeHandlers>
+		<typeHandler javaType="com.snapdeal.merchant.enums.DownloadStatus"
+			handler="com.snapdeal.merchant.dao.type.handler.DownloadStatusTypeHandler" />
+		<typeHandler javaType="com.snapdeal.merchant.enums.RefundStatus"
+			handler="com.snapdeal.merchant.dao.type.handler.RefundStatusTypeHandler" />
+	</typeHandlers>
+
+
+	<mappers>
+		<mapper resource="mybatis/download_history.xml" />
+		<mapper resource="mybatis/filter_info.xml" />
+		<mapper resource="mybatis/bulk_refund.xml" />
+		<mapper resource="myBatis/task.xml" />
+   		 <mapper resource="myBatis/taskExecution.xml" />
+	</mappers>
+
+</configuration>

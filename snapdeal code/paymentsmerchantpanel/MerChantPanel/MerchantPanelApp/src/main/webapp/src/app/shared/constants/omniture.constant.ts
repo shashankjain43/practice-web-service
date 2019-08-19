@@ -1,0 +1,63 @@
+/**
+ * Created by chitra.parihar on 17-03-2016.
+ */
+export class OMNITURE_CONSTANT {
+
+  static get getOmnitureConstant() {
+    return {
+      VIEW_TRANSACTION: 'View Transactions : Home',
+      CONTACT_INFO: 'Profile : Contact Information',
+      BUSINESS_INFO: 'Profile : Business Information',
+      BANK_INFO: 'Profile : Bank Information',
+      MANAGE_HOME: 'Manage User : Home',
+      MANAGE_ADD: 'Manage User : Add',
+      MANAGE_EDIT: 'Manage User : Edit',
+      CHANGE_PWD: 'Change Password',
+      SEARCH_TRANSACTION: 'Search:Result',
+      FORGOT_PASSWORD: 'Forgot Password :Recovery Email',
+      SEARCH_REFUND_TRANSACTION: 'Initiate Refunds : Search',
+      REFUND_HOME: 'Initiate Refunds : Home',
+      REFUND_SUBMIT: 'Initiate Refunds : Reasons',
+      REFUND_SEARCH: 'Initiate Refunds : Home',
+      EXPORT: 'Export Excel : Success',
+      PRODUCTION: 'Integration : Production',
+      SANDBOX: 'Integration : Sandbox',
+      DOWNLOAD_HISTORY: 'Download History',
+      BULK_REFUND_HOME: 'Bulk Refund : Home',
+      BULK_REFUND_UPLOAD: 'Bulk Refund: Upload',
+      BULK_REFUND_VIEW: 'Bulk Refund : View',
+      BULK_REFUND_DOWNLOAD: 'Bulk Refund : Download',
+      CONTACT_US:'Contact Us',
+      SETTLEMENT_REPORT:'Settlement Report',
+      INVOICE_REPORT:'Invoice Report',
+      HELP_SUPPORT:'Help and Support',
+      HOME: 'merchant: Home',
+      REGISTER:'merchant: Register',
+      REGISTER_SUBMIT:'merchant: Register submit',
+      ONLINEPOP:'merchant: Online Merchant click',
+      OFFLINEPOP:'merchant: Offline Merchant click',
+      PRODUCTS:'merchant: Our Products click',
+      ONLINE_PRODUCTS:'merchant: product online store page',
+      ONLINE_PRODUCTS_CLICK:'merchant: product online store page click',
+      OFFLINE_PRODUCTS:'merchant: Physical store page',
+      OFFLINE_PRODUCTS_CLICK:'merchant: Physical store page click',
+      BANK_DETAIL_LOAD:'merchant: bank details',
+      BANK_DETAIL_SUBMIT:'merchant: bank details submit',
+      BUSINESSINFO_SUBMIT: 'merchant: basic info submit',
+      PRICING:'merchant: Pricing Page',
+      PRICING_LOAD:'merchant:Pricing Page load success',
+      HELP:'merchant: Help click',
+      HELP_LOAD:'merchant : Help page',
+      BASIC_INFO_LOAD:'merchant: basic info page',
+      INTEGRATIONKIT_LOAD:'merchant: integration kit',
+      INTEGRATIONKIT_CLICK:'merchant: integration kit submit',
+      LEARN_MORE:'merchant: Learn More',
+      KYC_LOAD:'merchant: kyc documents',
+      KYC_SUBMIT:'merchant: kyc submit',
+      GET_STARTED:'merchant: get started',
+      CLICK_LOGIN:'merchant: Login click',
+      LOGIN: 'merchant: Login submit',
+      LOGIN_SUCCESS:'merchant: login success'
+    }
+  }
+}

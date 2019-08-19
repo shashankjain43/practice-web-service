@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<mappers>
+		<!-- User IMS Dashboard API -->
+	 	<mapper resource="myBatis/UserSearch.xml" />
+		<mapper resource="myBatis/WalletCount.xml" />
+		<mapper resource="myBatis/userOtp.xml" />
+		<mapper resource="myBatis/discrepencyCount.xml" />
+		<mapper resource="myBatis/getAllblacklistEmails.xml" /> 
+		<mapper resource="myBatis/CheckUserByEmailId.xml" />
+		<mapper resource="myBatis/userHistory.xml" />
+		<!-- User IMS Dashboard API Ends  -->		
+	</mappers>
+</configuration>

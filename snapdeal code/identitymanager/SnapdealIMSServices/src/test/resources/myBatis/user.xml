@@ -1,0 +1,541 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IUserMapper">
+	<resultMap id="resultUser"
+		type="com.snapdeal.ims.dbmapper.entity.User" >
+		<result property="userId" column="user_id" />
+		<result property="sdUserId" column="sd_user_id" />
+		<result property="fcUserId" column="fc_user_id" />
+		<result property="sdFcUserId" column="sd_fc_user_id" />
+		<result property="originatingSrc" column="originating_src" />
+		<result property="enabled" column="is_enabled" />
+		<result property="emailId" column="email" />
+		<result property="password" column="password" />
+		<result property="userSetPassword" column="is_user_set_password" />
+		<result property="mobileNumber" column="mobile_number" />
+		<result property="status" column="status" />
+		<result property="googleUser" column="is_google_user" />
+		<result property="facebookUser" column="is_facebook_user" />
+		<result property="emailVerified" column="is_email_verified" />
+		<result property="mobileVerified" column="is_mobile_verified" />
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="middleName" column="middle_name" />
+		<result property="displayName" column="display_name" />
+		<result property="gender" column="gender" jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.Gender" typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler"/>
+		<result property="dob" column="dob" jdbcType="DATE"/>
+		<result property="languagePref" column="language_pref" />
+		<result property="purpose" column="purpose" />
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="base_column_list_user">
+		user_id,
+		sd_user_id,
+		fc_user_id,
+		sd_fc_user_id,
+		originating_src,
+		is_enabled,
+		email,
+		password,
+		is_user_set_password,
+		mobile_number,
+		status,
+		is_google_user,
+		is_facebook_user,
+		is_email_verified,
+		is_mobile_verified,
+		first_name,
+		last_name,
+		middle_name,
+		display_name,
+		gender,
+		dob,
+		language_pref,
+		purpose,
+		created_time,
+		updated_time
+	</sql>
+	
+	<insert id="create" parameterType="com.snapdeal.ims.dbmapper.entity.User" useGeneratedKeys="true" keyProperty="sdFcUserId" keyColumn="sd_fc_user_id"> 
+		INSERT INTO user
+		(
+		<include refid="base_column_list_user" />
+		)
+		VALUES
+		(#{userId},
+		#{sdUserId},
+		#{fcUserId},
+		#{sdFcUserId},
+		#{originatingSrc},
+		<choose>
+			<when test="enabled !=null">
+				#{enabled},
+			</when>
+			<when test="enabled ==null">
+				default,
+			</when>
+		</choose>
+		#{emailId},
+		#{password},
+		#{userSetPassword},
+		#{mobileNumber},
+		<choose>
+			<when test="status !=null">
+				#{status},
+			</when>
+			<when test="status ==null">
+				default,
+			</when>
+		</choose>
+		#{googleUser},
+		#{facebookUser },
+		#{emailVerified},
+		#{mobileVerified},
+		#{firstName},
+		#{lastName},
+		#{middleName},
+		#{displayName},
+		#{gender, typeHandler=com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler},
+		#{dob},
+		<choose>
+			<when test="languagePref !=null">
+				#{languagePref},
+			</when>
+			<when test="languagePref ==null">
+				default,
+			</when>
+		</choose>
+		#{purpose},
+		#{createdTime},
+		now())
+	</insert>
+	
+	<select id="getUserById" resultMap="resultUser"
+		parameterType="String">
+		select <include refid="base_column_list_user" />
+		from user
+		where user_id=#{userId}
+	</select>
+	
+	<select id="getUserBySdId" resultMap="resultUser"
+		parameterType="Integer">
+		select <include refid="base_column_list_user" />
+		from user
+		where sd_user_id=#{sdUserId}
+	</select>
+	
+	<select id="getUserByFcId" resultMap="resultUser"
+		parameterType="Integer">
+		select <include refid="base_column_list_user" />
+		from user
+		where fc_user_id=#{fcUserId}
+	</select>
+	
+	<select id="getUserBySdFcId" resultMap="resultUser"
+		parameterType="Integer">
+		select <include refid="base_column_list_user" />
+		from user
+		where sd_fc_user_id=#{sdFcUserId}
+	</select>
+	
+	<select id="getUserByEmail" resultMap="resultUser"
+		parameterType="String">
+		select <include refid="base_column_list_user" />
+		from user
+		where email=#{emailId}
+	</select>
+
+	<select id="getUserByMobileNumber" resultMap="resultUser"
+		parameterType="String">
+		select <include refid="base_column_list_user" />
+		from user
+		where mobile_number=#{mobileNumber}
+	</select>
+
+	<update id="updateById" parameterType="map">
+		update user 
+		set
+		<if test="user.sdUserId !=null">
+			sd_user_id = #{user.sdUserId},
+		</if>
+		<if test="user.fcUserId !=null">
+			fc_user_id = #{user.fcUserId},
+		</if>
+		<if test="user.sdFcUserId !=null">
+			sd_fc_user_id = #{user.sdFcUserId},
+		</if>
+		<if test="user.originatingSrc !=null">
+			originating_src = #{user.originatingSrc},
+		</if>
+		<if test="user.enabled !=null">
+			is_enabled = #{user.enabled},
+		</if>
+		<if test="user.emailId !=null">
+			email = #{user.emailId},
+		</if>
+		<if test="user.password !=null">
+			password = #{user.password},
+		</if>
+		<if test="user.userSetPassword !=null">
+			is_user_set_password = #{user.userSetPassword},
+		</if>
+		<if test="user.mobileNumber !=null">
+			mobile_number = #{user.mobileNumber},
+		</if>
+		<if test="user.status !=null">
+			status = #{user.status},
+		</if>
+		<if test="user.googleUser !=null">
+			is_google_user = #{user.googleUser},
+		</if>
+		<if test="user.facebookUser !=null">
+			is_facebook_user = #{user.facebookUser},
+		</if>
+		<if test="user.emailVerified !=null">
+			is_email_verified = #{user.emailVerified},
+		</if>
+		<if test="user.mobileVerified !=null">
+			is_mobile_verified = #{user.mobileVerified},
+		</if>
+		<if test="user.firstName !=null">
+			first_name = #{user.firstName},
+		</if>
+		<if test="user.lastName !=null">
+			last_name = #{user.lastName},
+		</if>
+		<if test="user.middleName !=null">
+			middle_name = #{user.middleName},
+		</if>
+		<if test="user.displayName !=null">
+			display_name = #{user.displayName},
+		</if>
+		<if test="user.gender !=null">
+			gender = #{user.gender, typeHandler=com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler},
+		</if>
+		<if test="user.dob !=null">
+			dob = #{user.dob},
+		</if>
+		<if test="user.languagePref !=null">
+			language_pref = #{user.languagePref},
+		</if>
+		<if test="user.purpose !=null">
+			purpose = #{user.purpose},
+		</if>
+		updated_time = now()
+		where user_id=#{user.userId}
+	</update>
+	
+	<update id="updateBySdId" parameterType="map">
+		update user 
+		set
+		<if test="user.sdUserId !=null">
+			sd_user_id = #{user.sdUserId},
+		</if>
+		<if test="user.fcUserId !=null">
+			fc_user_id = #{user.fcUserId},
+		</if>
+		<if test="user.sdFcUserId !=null">
+			sd_fc_user_id = #{user.sdFcUserId},
+		</if>
+		<if test="user.originatingSrc !=null">
+			originating_src = #{user.originatingSrc},
+		</if>
+		<if test="user.enabled !=null">
+			is_enabled = #{user.enabled},
+		</if>
+		<if test="user.emailId !=null">
+			email = #{user.emailId},
+		</if>
+		<if test="user.password !=null">
+			password = #{user.password},
+		</if>
+		<if test="user.userSetPassword !=null">
+			is_user_set_password = #{user.userSetPassword},
+		</if>
+		<if test="user.mobileNumber !=null">
+			mobile_number = #{user.mobileNumber},
+		</if>
+		<if test="user.status !=null">
+			status = #{user.status},
+		</if>
+		<if test="user.googleUser !=null">
+			is_google_user = #{user.googleUser},
+		</if>
+		<if test="user.facebookUser !=null">
+			is_facebook_user = #{user.facebookUser},
+		</if>
+		<if test="user.emailVerified !=null">
+			is_email_verified = #{user.emailVerified},
+		</if>
+		<if test="user.mobileVerified !=null">
+			is_mobile_verified = #{user.mobileVerified},
+		</if>
+		<if test="user.firstName !=null">
+			first_name = #{user.firstName},
+		</if>
+		<if test="user.lastName !=null">
+			last_name = #{user.lastName},
+		</if>
+		<if test="user.middleName !=null">
+			middle_name = #{user.middleName},
+		</if>
+		<if test="user.displayName !=null">
+			display_name = #{user.displayName},
+		</if>
+		<if test="user.gender !=null">
+			gender = #{user.gender, typeHandler=com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler},
+		</if>
+		<if test="user.dob !=null">
+			dob = #{user.dob},
+		</if>
+		<if test="user.languagePref !=null">
+			language_pref = #{user.languagePref},
+		</if>
+		<if test="user.purpose !=null">
+			purpose = #{user.purpose},
+		</if>
+		updated_time = now()
+		where sd_user_id = #{user.sdUserId}
+	</update>
+	
+	<update id="updateByFcId" parameterType="map">
+		update user 
+		set
+		<if test="user.sdUserId !=null">
+			sd_user_id = #{user.sdUserId},
+		</if>
+		<if test="user.fcUserId !=null">
+			fc_user_id = #{user.fcUserId},
+		</if>
+		<if test="user.sdFcUserId !=null">
+			sd_fc_user_id = #{user.sdFcUserId},
+		</if>
+		<if test="user.originatingSrc !=null">
+			originating_src = #{user.originatingSrc},
+		</if>
+		<if test="user.enabled !=null">
+			is_enabled = #{user.enabled},
+		</if>
+		<if test="user.emailId !=null">
+			email = #{user.emailId},
+		</if>
+		<if test="user.password !=null">
+			password = #{user.password},
+		</if>
+		<if test="user.userSetPassword !=null">
+			is_user_set_password = #{user.userSetPassword},
+		</if>
+		<if test="user.mobileNumber !=null">
+			mobile_number = #{user.mobileNumber},
+		</if>
+		<if test="user.status !=null">
+			status = #{user.status},
+		</if>
+		<if test="user.googleUser !=null">
+			is_google_user = #{user.googleUser},
+		</if>
+		<if test="user.facebookUser !=null">
+			is_facebook_user = #{user.facebookUser},
+		</if>
+		<if test="user.emailVerified !=null">
+			is_email_verified = #{user.emailVerified},
+		</if>
+		<if test="user.mobileVerified !=null">
+			is_mobile_verified = #{user.mobileVerified},
+		</if>
+		<if test="user.firstName !=null">
+			first_name = #{user.firstName},
+		</if>
+		<if test="user.lastName !=null">
+			last_name = #{user.lastName},
+		</if>
+		<if test="user.middleName !=null">
+			middle_name = #{user.middleName},
+		</if>
+		<if test="user.displayName !=null">
+			display_name = #{user.displayName},
+		</if>
+		<if test="user.gender !=null">
+			gender = #{user.gender, typeHandler=com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler},
+		</if>
+		<if test="user.dob !=null">
+			dob = #{user.dob},
+		</if>
+		<if test="user.languagePref !=null">
+			language_pref = #{user.languagePref},
+		</if>
+		<if test="user.purpose !=null">
+			purpose = #{user.purpose},
+		</if>
+		updated_time = now()
+		where fc_user_id = #{user.fcUserId}
+	</update>
+	
+	<update id="updateBySdFcId" parameterType="map">
+		update user 
+		set
+		<if test="user.sdUserId !=null">
+			sd_user_id = #{user.sdUserId},
+		</if>
+		<if test="user.fcUserId !=null">
+			fc_user_id = #{user.fcUserId},
+		</if>
+		<if test="user.sdFcUserId !=null">
+			sd_fc_user_id = #{user.sdFcUserId},
+		</if>
+		<if test="user.originatingSrc !=null">
+			originating_src = #{user.originatingSrc},
+		</if>
+		<if test="user.enabled !=null">
+			is_enabled = #{user.enabled},
+		</if>
+		<if test="user.emailId !=null">
+			email = #{user.emailId},
+		</if>
+		<if test="user.password !=null">
+			password = #{user.password},
+		</if>
+		<if test="user.userSetPassword !=null">
+			is_user_set_password = #{user.userSetPassword},
+		</if>
+		<if test="user.mobileNumber !=null">
+			mobile_number = #{user.mobileNumber},
+		</if>
+		<if test="user.status !=null">
+			status = #{user.status},
+		</if>
+		<if test="user.googleUser !=null">
+			is_google_user = #{user.googleUser},
+		</if>
+		<if test="user.facebookUser !=null">
+			is_facebook_user = #{user.facebookUser},
+		</if>
+		<if test="user.emailVerified !=null">
+			is_email_verified = #{user.emailVerified},
+		</if>
+		<if test="user.mobileVerified !=null">
+			is_mobile_verified = #{user.mobileVerified},
+		</if>
+		<if test="user.firstName !=null">
+			first_name = #{user.firstName},
+		</if>
+		<if test="user.lastName !=null">
+			last_name = #{user.lastName},
+		</if>
+		<if test="user.middleName !=null">
+			middle_name = #{user.middleName},
+		</if>
+		<if test="user.displayName !=null">
+			display_name = #{user.displayName},
+		</if>
+		<if test="user.gender !=null">
+			gender = #{user.gender, typeHandler=com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler},
+		</if>
+		<if test="user.dob !=null">
+			dob = #{user.dob},
+		</if>
+		<if test="user.languagePref !=null">
+			language_pref = #{user.languagePref},
+		</if>
+		<if test="user.purpose !=null">
+			purpose = #{user.purpose},
+		</if>
+		updated_time = now()
+		where sd_fc_user_id = #{user.sdFcUserId}
+	</update>
+	
+	<update id="updateByEmailId" parameterType="map">
+		update user 
+		set
+		<if test="user.sdUserId !=null">
+			sd_user_id = #{user.sdUserId},
+		</if>
+		<if test="user.fcUserId !=null">
+			fc_user_id = #{user.fcUserId},
+		</if>
+		<if test="user.sdFcUserId !=null">
+			sd_fc_user_id = #{user.sdFcUserId},
+		</if>
+		<if test="user.originatingSrc !=null">
+			originating_src = #{user.originatingSrc},
+		</if>
+		<if test="user.enabled !=null">
+			is_enabled = #{user.enabled},
+		</if>
+		<if test="user.password !=null">
+			password = #{user.password},
+		</if>
+		<if test="user.userSetPassword !=null">
+			is_user_set_password = #{user.userSetPassword},
+		</if>
+		<if test="user.mobileNumber !=null">
+			mobile_number = #{user.mobileNumber},
+		</if>
+		<if test="user.status !=null">
+			status = #{user.status},
+		</if>
+		<if test="user.googleUser !=null">
+			is_google_user = #{user.googleUser},
+		</if>
+		<if test="user.facebookUser !=null">
+			is_facebook_user = #{user.facebookUser},
+		</if>
+		<if test="user.emailVerified !=null">
+			is_email_verified = #{user.emailVerified},
+		</if>
+		<if test="user.mobileVerified !=null">
+			is_mobile_verified = #{user.mobileVerified},
+		</if>
+		<if test="user.firstName !=null">
+			first_name = #{user.firstName},
+		</if>
+		<if test="user.lastName !=null">
+			last_name = #{user.lastName},
+		</if>
+		<if test="user.middleName !=null">
+			middle_name = #{user.middleName},
+		</if>
+		<if test="user.displayName !=null">
+			display_name = #{user.displayName},
+		</if>
+		<if test="user.gender !=null">
+			gender = #{user.gender, typeHandler=com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler},
+		</if>
+		<if test="user.dob !=null">
+			dob = #{user.dob},
+		</if>
+		<if test="user.languagePref !=null">
+			language_pref = #{user.languagePref},
+		</if>
+		<if test="user.purpose !=null">
+			purpose = #{user.purpose},
+		</if>
+		updated_time = now()
+		where email=#{user.emailId}
+	</update>
+	
+	<update id="updateCreateWalletStatus" parameterType="map">
+		update user 
+		set
+		<if test="newStatus !=null">
+			create_wallet_status = #{newStatus}, 
+		</if>
+		updated_time = now()
+		where user_id = #{userId}
+	</update>
+	
+	<delete id='delete' parameterType='String'>
+		DELETE FROM user WHERE user_id = #{userId}
+	</delete>
+	
+	<select id="getDummyResult" parameterType="java.lang.String"
+		resultType="int">
+		SELECT
+		1
+		FROM user limit 1 
+	</select>
+</mapper>

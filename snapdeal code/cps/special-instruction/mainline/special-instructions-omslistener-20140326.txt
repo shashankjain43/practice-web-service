@@ -1,0 +1,69 @@
+1. Create a virtual OMS queue as per the steps mentioned below
+
+In the file conf/activemq.xml in the activemq folder, add a line
+<queue physicalName="CpsPOGUpdatesQueue"/>
+
+in the list of physical queues under-
+
+<compositeQueue name="VirtualPOGUpdatesQueue">
+    <forwardTo>
+
+Once this is done, open the activemq admin panel on browser, there is an option to create a queue on the top. Create a queue by the name "CpsPOGUpdatesQueue".
+
+There is no need to restart activemq.
+
+2. Log onto the CPS system
+
+3. Kill the running listener process
+
+[-bash-4.1$ ps -ef | grep VIPMSQueueListener
+root     21450     1  0 Mar13 ?        01:02:08 java -DpropertyDir=./appdata/properties -Denv=prod -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar
+st3703   25062 24957  0 14:23 pts/0    00:00:00 grep VIPMSQueueListener
+
+kill -15 21450
+
+4. Go to directory /apps01/cps
+5. Remove the following files:
+
+rm *.log*
+rm nohup.out
+rm startGoogleCPS.sh
+rm VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar_20140306
+rm appdata/properties/user.properties_bck
+
+6. Take backup of the existing JARs and files
+
+mv VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar_20140326
+mv appdata/properties/user.properties appdata/properties/user.properties_bck
+
+7. Copy the following JAR from Jenkins into /apps01/cps directory
+
+VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar
+
+8. Copy properties file to /apps01/cps/appdata/properties
+
+9. Rename the properties file to user.properties
+
+10. Check and replace if required, the following property values according to the environment.
+
+## OMS Queue Properties
+oms.queue.brokerURL=tcp://10.125.1.150:61616
+oms.queue.username=system
+oms.queue.password=manager
+oms.queue.sessionCacheSize=5
+oms.queue.explicitQOSEnabled=true
+oms.queue.deliveryMode=2
+oms.queue.sessionAcknowledgeMode=1
+oms.queue.name=CpsPOGUpdatesQueue
+
+
+11. Go back to the directory where the build JAR is kept.
+
+12. Run the jar using the following command:
+
+Staging:
+nohup java -DpropertyDir=./appdata/properties -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &
+
+Production:
+nohup java -DpropertyDir=./appdata/properties -Denv=prod -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &
+

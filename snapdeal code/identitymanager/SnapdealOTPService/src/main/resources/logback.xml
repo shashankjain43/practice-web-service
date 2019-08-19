@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="PROJECT_ID" value="example-spring-boot-actuator"/>
+    
+    <appender name="app_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/${PROJECT_ID}_APP.log</File>
+          
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+       
+    <!--    
+    <encoder>
+      <pattern>%d{YYYY-MM-DD HH:mm:ss.SSS} -APP- %X{HOST} [%t] %.-5level %logger{60}.%M-%L - %msg  %n</pattern>
+    </encoder>
+    -->
+     <!-- 
+     <Pattern> "%d [%t] %-5level %logger{36} - %msg%n"</Pattern>
+     -->
+    <!-- 	
+    	<Pattern>%X{first} %X{last} - %m%n</Pattern>
+  	 -->
+  	
+  	    
+         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <FileNamePattern>logs/${PROJECT_ID}_APP.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>16MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    
+    <appender name="metric_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/${PROJECT_ID}_METRIC.json</File>
+       
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+      
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>10</maxIndex>
+            <FileNamePattern>logs/${PROJECT_ID}_METRIC.json.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>16MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    
+     <logger name="com.snapdeal" additivity="false" level="DEBUG">
+        <appender-ref ref="app_file"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    
+    <root level="WARN">
+        <appender-ref ref="app_file"/>
+    </root>
+</configuration>

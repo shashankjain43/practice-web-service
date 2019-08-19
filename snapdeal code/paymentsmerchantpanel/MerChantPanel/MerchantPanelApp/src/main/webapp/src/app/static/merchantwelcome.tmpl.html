@@ -1,0 +1,108 @@
+<div style="display:block" tabindex="-1" class="modal fade in container-fluid" id="complete-dialog" ng-if="vm.merchantMethod == 'Online'">
+  <div style="height: 100%;" class="modal-backdrop fade in"></div>
+  <div style="width:auto;" class="modal-dialog row">
+    <div class="col-md-10 col-md-push-1">
+      <div class="modal-content row">
+        <div class="modal-header col-md-12">
+          <button class="close" type="button" ng-click="vm.closePopup()">×</button>
+          <h1 align="center"><img alt="logo" src="assets/images/lightbox-logo.png"></h1>
+          <h4 align="center">We’ve put together a to-do list to help you start transacting right away!</h4>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="pull-left light-box-sec">
+                <div class="col-sm-3">
+                  <i class="icon"><img src="assets/images/sendbox-icon.png"></i>
+                </div>
+                <div class="col-sm-9">
+                  <h4>Test on Sandbox</h4>
+                  <p> Start  testing your transactions with FreeCharge on our Sandbox. Go to “Integration” section in your dashboard for Sandbox credentials. For more</p>
+                  <a class="btn btn-material-green pull-right" ng-click="vm.navigate('base.default.static.content.contactus')">CONTACT US</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class=" light-box-sec">
+                <div class="col-sm-3">
+                  <i class="icon"><img src="assets/images/icon.png"></i>
+                </div>
+                <div class="col-sm-9">
+                  <h4>Complete Your KYC</h4>
+                  <p>Full KYC translates to seamless transactions. Reach out to your account manager and he/she will assist you through and through. </p>
+                  <a class="btn btn-material-green pull-right" ng-click="vm.navigate('base.default.static.content.contactus')">CONTACT US</a>
+                </div>
+              </div></div></div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class=" light-box-sec">
+                <div class="col-sm-3">
+                  <i class="icon"><img src="assets/images/setupbank-icon.png"></i>
+                </div>
+                <div class="col-sm-9">
+                  <h4>Setup Bank</h4>
+                  <p> Start getting payments from your customers into your linked bank account. Simply provide your bank account details and start earning now!</p>
+                  <a class="btn btn-material-green pull-right" ng-click="vm.navigate('base.default.static.content.contactus')">CONTACT US</a>
+                </div></div></div>
+
+            <div class="col-md-6">
+              <div class=" light-box-sec">
+                <div class="col-sm-3">
+                  <i class="icon"><img src="assets/images/product-icon.png"></i>
+                </div>
+                <div class="col-sm-9">
+                  <h4>Product Integration</h4>
+                  <p>Once you’ve completed testing code in the sandbox environment and KYC setup, you can start integrating your product with the payment gateway and go live. For more information:</p>
+                  <a class="btn btn-material-green pull-right" ng-click="vm.navigate('base.default.static.content.contactus')">CONTACT US</a>
+                </div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div style="display:block" tabindex="-1" class="modal fade in container-fluid" id="complete-dialog" ng-if="vm.merchantMethod == 'Offline'">
+  <div style="height: 100%;" class="modal-backdrop fade in"></div>
+  <div style="width:auto;" class="modal-dialog row">
+    <div class="col-md-10 col-md-push-1">
+      <div class="modal-content row">
+        <div class="modal-header col-md-12">
+          <button class="close" type="button" ng-click="vm.closePopup()">×</button>
+          <h1 align="center"><img alt="logo" src="assets/images/lightbox-logo.png"></h1>
+          <h4 align="center">We’ve put together a to-do list to help you start transacting right away!</h4>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class=" light-box-sec">
+                <div class="col-sm-3">
+                  <i class="icon"><img src="assets/images/icon.png"></i>
+                </div>
+                <div class="col-sm-9">
+                  <h4>Complete Your KYC</h4>
+                  <p>Full KYC translates to seamless transactions. Reach out to your account manager and he/she will assist you through and through. </p>
+                  <a class="btn btn-material-green pull-right" ng-click="vm.navigate('base.default.static.content.contactus')">CONTACT US</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class=" light-box-sec">
+                <div class="col-sm-3">
+                  <i class="icon"><img src="assets/images/setupbank-icon.png"></i>
+                </div>
+                <div class="col-sm-9">
+                  <h4>Setup Bank</h4>
+                  <p> Start getting payments from your customers into your linked bank account. Simply provide your bank account details and start earning now!</p>
+                  <a class="btn btn-material-green pull-right" ng-click="vm.navigate('base.default.static.content.contactus')">CONTACT US</a>
+                </div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

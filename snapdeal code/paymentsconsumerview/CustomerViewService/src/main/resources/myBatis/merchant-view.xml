@@ -1,0 +1,721 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.snapdeal.payments.view.mapper.IMerchantViewMapper">
+	<resultMap id="mvTxnDTO"
+		type="com.snapdeal.payments.view.merchant.commons.dto.MVTransactionDTO">
+		<result column="txn_date" property="txnDate" />
+		<result column="freecharge_txn_id" property="fcTxnId" />
+		<result column="txn_type" property="fcTxnType" />
+		<result column="instrument_type" property="instrumentType"/>
+		<result column="merchant_txn_id" property="merchantTxnId" />
+		<result column="merchant_txn_id" property="orderId" />
+		<result column="txn_ref" property="txnRefId" />
+		<result column="txn_ref_type" property="txnRefType" />
+		<result column="merchant_txn_type" property="txnType"
+			javaType="com.snapdeal.payments.view.merchant.commons.enums.MVTransactionType"
+			typeHandler="com.snapdeal.payments.view.typehandler.MVTransactionTypeHandler" />
+		<result column="txn_state" property="txnStatus"
+			javaType="com.snapdeal.payments.view.merchant.commons.enums.MVTransactionStatus"
+			typeHandler="com.snapdeal.payments.view.typehandler.MVTransactionStatusHandler" />
+		<result column="merchant_fee" property="merchantFee" />
+		<result column="service_tax" property="serviceTax" />
+		<result column="swach_bharat_cess" property="swachBharatCess" />
+		<result column="txn_amount" property="totalTxnAmount" />
+		<result column="net_deduction" property="netDeduction" />
+		<result column="amount_payable" property="payableAmount" />
+		<result column="merchant_Id" property="merchantId" />
+		<result column="store_name" property="storeName" />
+		<result column="store_id" property="storeId" />
+		<result column="terminal_id" property="terminalId" />
+		<result column="user_id" property="custId" />
+		<result column="customer_name" property="custName" />
+		<result column="product_id" property="productId" />
+		<result column="merchant_name" property="merchantName" />
+		<result column="custmer_ip" property="custIP" />
+		<result column="location" property="location" />
+		<result column="shipping_city" property="shippingCity" />
+		<result column="settlement_id" property="settlementId" />
+		<result column="merchant_tag" property="merchantTag" />
+		<result column="display_info" property="displayInfo" />
+		<result column="settlement_date" property="settlementDate" />
+		<result column="txn_meta_data" property="txnMetaData" />
+		<result column="payable_meta_data" property="payableMetaData" />
+		<result column="disbursement_engine_meta_data" property="disbursementMetaData" />
+	</resultMap>
+	
+	<resultMap id="mvTxnWithMetaDataDTO"
+		type="com.snapdeal.payments.view.merchant.commons.dto.MVTxnWithMetaDataDTO">
+		<result column="txn_date" property="txnDate" />
+		<result column="freecharge_txn_id" property="fcTxnId" />
+		<result column="txn_type" property="fcTxnType" />
+		<result column="instrument_type" property="instrumentType"/>
+		<result column="merchant_txn_id" property="merchantTxnId" />
+		<result column="merchant_txn_id" property="orderId" />
+		<result column="txn_ref" property="txnRefId" />
+		<result column="txn_ref_type" property="txnRefType" />
+		<result column="merchant_txn_type" property="txnType"
+			javaType="com.snapdeal.payments.view.merchant.commons.enums.MVTransactionType"
+			typeHandler="com.snapdeal.payments.view.typehandler.MVTransactionTypeHandler" />
+		<result column="txn_state" property="txnStatus"
+			javaType="com.snapdeal.payments.view.merchant.commons.enums.MVTransactionStatus"
+			typeHandler="com.snapdeal.payments.view.typehandler.MVTransactionStatusHandler" />
+		<result column="merchant_fee" property="merchantFee" />
+		<result column="service_tax" property="serviceTax" />
+		<result column="swach_bharat_cess" property="swachBharatCess" />
+		<result column="txn_amount" property="totalTxnAmount" />
+		<result column="net_deduction" property="netDeduction" />
+		<result column="amount_payable" property="payableAmount" />
+		<result column="merchant_Id" property="merchantId" />
+		<result column="store_name" property="storeName" />
+		<result column="store_id" property="storeId" />
+		<result column="terminal_id" property="terminalId" />
+		<result column="user_id" property="custId" />
+		<result column="customer_name" property="custName" />
+		<result column="product_id" property="productId" />
+		<result column="merchant_name" property="merchantName" />
+		<result column="custmer_ip" property="custIP" />
+		<result column="location" property="location" />
+		<result column="shipping_city" property="shippingCity" />
+		<result column="settlement_id" property="settlementId" />
+		<result column="merchant_tag" property="merchantTag" />
+		<result column="display_info" property="displayInfo" />
+		<result column="settlement_date" property="settlementDate" />
+		<result column="txn_meta_data" property="txnMetaData" />
+		<result column="payable_meta_data" property="payableMetaData" />
+		<result column="disbursement_engine_meta_data" property="disbursementMetaData" />
+	</resultMap>
+	<resultMap type="com.snapdeal.payments.view.merchant.commons.dto.MVTxnStatusDTO"		 id="mvTxnStatusDTO">
+		<result column="freecharge_txn_id" property="txnId"/>
+		<result column="txn_type" property="txnType"/>
+		<result column="instrument_type" property="instrumentType"/>
+		<result column="txn_state" property="txnState"/>
+		<result column="txn_ref" property="txnRef"/>
+		<result column="txn_ref_type" property="txnRefType"/>
+		<result column="tsm_time_stamp" property="txnDate"/>
+	</resultMap>
+	
+	<resultMap id="newMVTxnDTO"
+		type="com.snapdeal.payments.view.merchant.commons.dto.MVTxnDTO">
+		<result column="txn_date" property="txnDate" />
+		<result column="freecharge_txn_id" property="txnId" />
+		<result column="instrument_type" property="instrumentType"/>
+		<result column="merchant_txn_id" property="orderId" />
+		<result column="txn_ref" property="txnRefId" />
+		<result column="txn_ref_type" property="txnRefType" />
+		<result column="merchant_txn_type" property="txnType"
+			javaType="com.snapdeal.payments.view.merchant.commons.enums.MVTransactionType"
+			typeHandler="com.snapdeal.payments.view.typehandler.MVTransactionTypeHandler" />
+		<result column="txn_state" property="txnStatus"
+			javaType="com.snapdeal.payments.view.merchant.commons.enums.MVTransactionStatus"
+			typeHandler="com.snapdeal.payments.view.typehandler.MVTransactionStatusHandler" />
+		<result column="txn_amount" property="txnAmount" />
+		<result column="merchant_Id" property="merchantId" />
+		<result column="user_id" property="userId" />
+		<result column="settlement_id" property="settlementId" />
+		<result column="settlement_date" property="settlementDate" />
+		<result column="merchant_tag" property="merchantTag" />
+		<result column="txn_meta_data" property="txnMetaData" />
+		<result column="payable_meta_data" property="payableMetaData" />
+		<result column="disbursement_engine_meta_data" property="disbursementMetaData" />
+	</resultMap>
+
+	<sql id="base_column_list_txn_detail">
+		txn_date,
+		freecharge_txn_id,
+		txn_type,
+		instrument_type,
+		merchant_txn_id,
+		settlement_id,
+		merchant_txn_type,
+		merchant_txn_id,
+		merchant_fee,
+		txn_amount,
+		service_tax,
+		swach_bharat_cess,
+		amount_payable,
+		net_deduction,
+		merchant_Id,
+		merchant_name,
+		user_id,
+		customer_name,
+		store_id,
+		store_name,
+		product_id,
+		terminal_id,
+		custmer_ip,
+		location,
+		shipping_city,
+		txn_ref_type,
+		txn_ref,
+		merchant_tag,
+		display_info,
+		settlement_date
+	</sql>
+	
+	<sql id="base_column_list_new_txn_detail">
+		txn_date,
+		freecharge_txn_id,
+		txn_type,
+		instrument_type,
+		merchant_txn_id,
+		settlement_id,
+		merchant_txn_type,
+		txn_amount,
+		merchant_Id,
+		user_id,
+		txn_ref_type,
+		txn_ref,
+		merchant_tag,
+		settlement_date
+	</sql>
+	
+	<sql id="base_column_list_txn_state">
+		txn_state,txn_state_details.tsm_time_stamp,txn_state_details.txn_id
+	</sql>
+	
+	<sql id="base_column_list_meta_data">
+		txn_meta_data,payable_meta_data,disbursement_engine_meta_data
+	</sql>
+
+
+	<sql id="dynamic_sql_for_search">
+		<if test="searchCriteria!=null">
+			AND (
+			<if test="searchCriteria.transactionId!=null">
+				txn_details.txn_ref =
+				#{searchCriteria.transactionId} OR
+			</if>
+			<if test="searchCriteria.merchantTxnId!=null">
+				txn_details.merchant_txn_id =
+				#{searchCriteria.merchantTxnId} OR
+			</if>
+			<if test="searchCriteria.settlementId!=null">
+				txn_details.settlement_id =
+				#{searchCriteria.settlementId} OR
+			</if>
+			<if test="searchCriteria.customerId!=null">
+				txn_details.user_id = #{searchCriteria.customerId} OR
+			</if>
+
+			<if test="searchCriteria.merchantTag!=null">
+				txn_details.merchant_tag = #{searchCriteria.merchantTag}
+				OR
+			</if>
+			<if test="searchCriteria.orderId!=null">
+				txn_details.merchant_txn_id = #{searchCriteria.orderId}
+				OR
+			</if>
+			<if test="searchCriteria.productId!=null">
+				txn_details.product_id = #{searchCriteria.productId} OR
+			</if>
+			<if test="searchCriteria.terminalId!=null">
+				txn_details.terminal_id = #{searchCriteria.terminalId} OR
+			</if>
+			<if test="searchCriteria.storeId!=null">
+				txn_details.store_id = #{searchCriteria.storeId} OR
+			</if>
+			<![CDATA[
+			1>2)]]>
+		</if>
+
+	</sql>
+
+	<sql id="dynamic_sql_for_filter">
+
+		<if test="filters!=null">
+			<if test="filters.txnTypeList!=null and !filters.txnTypeList.isEmpty()">
+				AND txn_details.merchant_txn_type IN
+				<foreach item="item" index="index" collection="filters.txnTypeList"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+			<if
+				test="filters.txnStatusList!=null and !filters.txnStatusList.isEmpty()">
+				AND txn_state_details.txn_state IN
+				<foreach item="item" index="index" collection="filters.txnStatusList"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+
+
+			<if test="filters.fromAmount!=null and filters.toAmount!=null">
+				AND txn_details.txn_amount <![CDATA[>=]]>
+				#{filters.fromAmount}
+				AND txn_details.txn_amount <![CDATA[<=]]>
+				#{filters.toAmount}
+			</if>
+			<if test="filters.fromAmount!=null and filters.toAmount==null">
+				AND txn_details.txn_amount <![CDATA[>=]]>
+				#{filters.fromAmount}
+			</if>
+			<if test="filters.fromAmount==null and filters.toAmount!=null">
+				AND txn_details.txn_amount <![CDATA[<=]]>
+				#{filters.toAmount}
+			</if>
+
+			<if test="filters.startDate!=null and filters.endDate!=null">
+				AND txn_details.txn_date <![CDATA[>=]]>
+				#{filters.startDate}
+				AND txn_details.txn_date <![CDATA[<=]]>
+				#{filters.endDate}
+
+			</if>
+			<if test="filters.startDate!=null and filters.endDate==null">
+				AND txn_details.txn_date <![CDATA[>=]]>
+				#{filters.startDate}
+			</if>
+			<if test="filters.startDate==null and filters.endDate!=null">
+				AND txn_details.txn_date <![CDATA[<=]]>
+				#{filters.endDate}
+			</if>
+			<if test="filters.merchantTag!=null">
+				AND merchant_tag = #{filters.merchantTag}
+			</if>
+		</if>
+	</sql>
+
+	<select id="getTxnsForFilters" resultMap="mvTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantViewFilterMapperRequest">
+		SELECT
+		<include refid="base_column_list_txn_detail" />
+		,
+		<include refid="base_column_list_txn_state" />
+		FROM
+		txn_details, txn_state_details
+		WHERE
+		txn_details.txn_id =
+		txn_state_details.txn_id AND
+		txn_details.merchant_Id = #{merchantId}
+		AND
+		txn_details.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		
+		AND txn_state_details.tsm_time_stamp =
+		(
+		select max(tsd.tsm_time_stamp)
+		as latest_date from txn_state_details tsd
+		where
+		txn_state_details.txn_id=tsd.txn_id)
+
+		<include refid="dynamic_sql_for_filter" />
+
+		ORDER BY txn_details.txn_date
+
+		<if test="orderby ==1">
+			DESC
+		</if>
+
+		LIMIT #{offset}, #{limit}
+	</select>
+
+
+	<select id="getTxnsForSearchCriteria" resultMap="mvTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantViewSearchMapperRequest">
+		SELECT
+		<include refid="base_column_list_txn_detail" />
+		,
+		<include refid="base_column_list_txn_state" />
+		FROM
+		txn_details, txn_state_details
+		WHERE
+		txn_details.txn_id =
+		txn_state_details.txn_id AND
+		txn_details.merchant_Id = #{merchantId}
+		AND
+		txn_details.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		AND txn_state_details.tsm_time_stamp =
+		(
+		select max(tsd.tsm_time_stamp)
+		as latest_date from txn_state_details tsd
+		where
+		txn_state_details.txn_id=tsd.txn_id)
+
+		<include refid="dynamic_sql_for_search" />
+
+		ORDER BY txn_details.txn_date
+
+		<if test="orderby==1">
+			DESC
+		</if>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<select id="getTxnsMetaDataForSearchCriteria" resultMap="mvTxnWithMetaDataDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantViewSearchMapperRequest">
+		SELECT
+		<include refid="base_column_list_txn_detail" />
+		,
+		<include refid="base_column_list_txn_state" />
+		,
+		<include refid="base_column_list_meta_data" />
+		FROM
+		txn_details, txn_state_details
+		WHERE
+		txn_details.txn_id =
+		txn_state_details.txn_id AND
+		txn_details.merchant_Id = #{merchantId}
+		AND
+		txn_details.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		AND txn_state_details.tsm_time_stamp =
+		(
+		select max(tsd.tsm_time_stamp)
+		as latest_date from txn_state_details tsd
+		where
+		txn_state_details.txn_id=tsd.txn_id)
+
+		<include refid="dynamic_sql_for_search" />
+
+		ORDER BY txn_details.txn_date
+
+		<if test="orderby==1">
+			DESC
+		</if>
+		LIMIT #{offset}, #{limit}
+	</select>
+
+
+	<select id="getTxnsForSearchWithFilter" resultMap="mvTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantViewSearchWithFilterMapperRequest">
+		SELECT
+		<include refid="base_column_list_txn_detail" />
+		,txn_meta_data,payable_meta_data,disbursement_engine_meta_data
+		,<include refid="base_column_list_txn_state" />
+		FROM
+		txn_details, txn_state_details
+		WHERE
+		txn_details.txn_id =
+		txn_state_details.txn_id AND
+		txn_details.merchant_Id = #{merchantId}
+		AND
+		txn_details.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		AND txn_state_details.tsm_time_stamp =
+		(
+		select max(tsd.tsm_time_stamp)
+		as latest_date from txn_state_details tsd
+		where
+		txn_state_details.txn_id=tsd.txn_id)
+
+		<include refid="dynamic_sql_for_search" />
+		<include refid="dynamic_sql_for_filter" />
+
+		ORDER BY txn_details.txn_date
+
+		<if test="orderby==1">
+			DESC
+		</if>
+		LIMIT #{offset}, #{limit}
+	</select>
+
+
+	<select id="getTotalRefundedAmountForTxn" resultType="BigDecimal"
+		parameterType="com.snapdeal.payments.view.merchant.commons.request.GetTotalRefundedAmountForTxnRequest">
+		SELECT IFNULL((SELECT
+		sum(txn_details.txn_amount)
+		FROM
+		txn_details
+		WHERE
+		txn_details.merchant_Id = #{merchantId}
+		AND
+		txn_details.txn_ref= #{fcTxnId}
+		AND txn_details.txn_ref_type=
+		#{fcTxnRefType}
+		AND txn_details.merchant_txn_id= #{orderId}
+		AND
+		txn_details.merchant_txn_type= 'REFUND'),0)
+	</select>
+
+	<select id="getMerchantVewTransactionsWithCursor" resultMap="mvTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantTransactionWithCursor">
+
+		SELECT
+		<include refid="base_column_list_txn_detail" />
+		,
+		<include refid="base_column_list_txn_state" />
+		FROM
+		txn_details td, txn_state_details
+		WHERE
+		td.txn_id =
+		txn_state_details.txn_id AND
+		td.merchant_Id = #{merchantId}
+		AND
+		td.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		AND
+		txn_state_details.tsm_time_stamp =
+		(
+		select
+		max(tsd1.tsm_time_stamp)
+		as latest_date from
+		txn_state_details tsd1
+		where
+		txn_state_details.txn_id=tsd1.txn_id)
+
+		<if test="startDate!=null">
+			AND td.txn_date <![CDATA[>=]]>
+			#{startDate}
+		</if>
+		<if test="endDate!=null">
+			AND td.txn_date <![CDATA[<=]]>
+			#{endDate}
+		</if>
+
+		<if test="txnTypeList!=null and !txnTypeList.isEmpty()">
+			AND td.merchant_txn_type IN
+			<foreach item="item" index="index" collection="txnTypeList"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="txnStatusList!=null and !txnStatusList.isEmpty()">
+			AND txn_state_details.txn_state IN
+			<foreach item="item" index="index" collection="txnStatusList"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		<choose>
+			<when test="lastEvaluatedkey != null">
+				<choose>
+					<when test="isPrevious == 1">
+						AND td.txn_date <![CDATA[ >= ]]>
+						#{cursorKey}
+						ORDER BY td.txn_date
+						LIMIT #{limit},#{limit}  <!-- to skip one page -->
+					</when>
+					<otherwise>
+						AND td.txn_date <![CDATA[ < ]]>
+						#{cursorKey}
+						ORDER BY td.txn_date DESC
+						LIMIT #{limit}
+					</otherwise>
+				</choose>
+			</when>
+			<when test="lastEvaluatedkey == null">
+				ORDER BY td.txn_date DESC
+				LIMIT #{limit}
+			</when>
+		</choose>
+
+	</select>
+	
+	<select id="getMVSettledTxns" resultMap="newMVTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMVSettledTxnsMapperRequest">
+
+		SELECT
+		<include refid="base_column_list_new_txn_detail" />
+		,
+		<include refid="base_column_list_txn_state" />
+		,
+		payable_meta_data, disbursement_engine_meta_data
+		
+		FROM
+		txn_details td, txn_state_details
+		WHERE
+		td.txn_id =
+		txn_state_details.txn_id AND
+		td.merchant_Id = #{merchantId}
+		AND
+		td.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		AND
+		txn_state_details.tsm_time_stamp =
+		(
+		select
+		max(tsd1.tsm_time_stamp)
+		as latest_date from
+		txn_state_details tsd1
+		where
+		txn_state_details.txn_id=tsd1.txn_id)
+
+		<if test="startDate!=null">
+			AND td.settlement_date <![CDATA[>=]]>
+			#{startDate}
+		</if>
+		<if test="endDate!=null">
+			AND td.settlement_date <![CDATA[<=]]>
+			#{endDate}
+		</if>
+
+		<if test="txnStatus!=null">
+			AND txn_state_details.txn_state = #{txnStatus}
+		</if>
+		
+		ORDER BY td.txn_date
+
+		<if test="orderby==1">
+			DESC
+		</if>
+		LIMIT #{offset}, #{limit}
+
+	</select>
+
+	<select id="getTxnsForSearchWithFilterCursor" resultMap="mvTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantViewSearchWithFilterCursorMapperRequest">
+
+		SELECT
+		<include refid="base_column_list_txn_detail" />
+		,
+		<include refid="base_column_list_txn_state" />
+		FROM
+		txn_details, txn_state_details
+		WHERE
+		txn_details.txn_id = txn_state_details.txn_id AND
+		txn_details.merchant_Id = #{merchantId} 
+		AND
+		txn_details.txn_type NOT IN ('OPS_WALLET_CREDIT',
+		'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+		AND
+		txn_details.txn_date <![CDATA[>=]]>
+		#{startDate} AND
+		txn_details.txn_date <![CDATA[<=]]>
+		#{endDate} AND
+
+		txn_state_details.tsm_time_stamp =
+		(SELECT max(tsd.tsm_time_stamp) as latest_date
+		FROM txn_state_details tsd
+		WHERE txn_state_details.txn_id=tsd.txn_id)
+
+		<include refid="dynamic_sql_for_search" />
+		<include refid="dynamic_sql_for_filter" />
+
+		<choose>
+			<when test="lastEvaluatedkey != null">
+				<choose>
+					<when test="isPrevious == 1">
+						AND txn_details.txn_date <![CDATA[ >= ]]>
+						#{cursorKey}
+						ORDER BY txn_details.txn_date
+						LIMIT #{limit},#{limit}  <!-- to skip one page -->
+					</when>
+					<otherwise>
+						AND txn_details.txn_date <![CDATA[ < ]]>
+						#{cursorKey}
+						ORDER BY txn_details.txn_date DESC
+						LIMIT #{limit}
+					</otherwise>
+				</choose>
+			</when>
+			<when test="lastEvaluatedkey == null">
+				ORDER BY txn_details.txn_date DESC
+				LIMIT #{limit}
+			</when>
+		</choose>
+	</select>
+	
+	<select id="getMerchantTxnStatusHistoryByTxnId" resultMap="mvTxnStatusDTO" 
+		parameterType="com.snapdeal.payments.view.merchant.commons.request.GetMerchantTxnStatusHistoryByTxnIdRequest">
+		SELECT temp.freecharge_txn_id, temp.txn_type,tsd.txn_state,
+			   temp.txn_ref,temp.txn_ref_type,tsd.tsm_time_stamp
+		FROM (
+		        SELECT txn_id,freecharge_txn_id,txn_type,
+					  txn_ref,txn_ref_type
+			    FROM txn_details
+				WHERE txn_ref = #{txnRefId}
+					  AND txn_ref_type = #{txnRefType}
+					  AND merchant_id = #{merchantId}
+			 ) AS temp
+			INNER JOIN txn_state_details tsd
+		ON temp.txn_id = tsd.txn_id
+		ORDER BY tsd.tsm_time_stamp DESC;
+	</select>
+	
+	<select id="getTxnsForSearchFilterWithMetaData" resultMap="newMVTxnDTO"
+		parameterType="com.snapdeal.payments.view.service.request.GetMerchantTxnsSearchFilterWithMetaDataMapperRequest">
+		SELECT
+			<include refid="base_column_list_txn_detail" />
+			,
+			<include refid="base_column_list_txn_state" />
+			,
+			<include refid="base_column_list_meta_data" />
+		FROM
+			txn_details , txn_state_details
+		WHERE
+			txn_details.txn_id = txn_state_details.txn_id AND
+			txn_details.merchant_Id = #{merchantId} 
+			AND
+			txn_details.txn_type NOT IN ('OPS_WALLET_CREDIT',
+			'OPS_WALLET_CREDIT_REVERSE','OPS_WALLET_CREDIT_VOID')
+			AND
+			txn_state_details.tsm_time_stamp = (SELECT max(tsd1.tsm_time_stamp)
+								  AS latest_date FROM txn_state_details tsd1
+								  WHERE txn_state_details.txn_id=tsd1.txn_id)
+				
+		<include refid="new_dynamic_sql_for_search" />
+		<include refid="new_dynamic_sql_for_filter" />
+
+		ORDER BY txn_details.txn_date
+
+		<if test="orderby==1">
+			DESC
+		</if>
+		LIMIT #{offset}, #{limit}
+	</select>
+	
+	<sql id="new_dynamic_sql_for_search">
+		<if test="searchCriteria!=null">
+			AND (
+			<if test="searchCriteria.txnId!=null">
+				txn_details.txn_ref =
+				#{searchCriteria.txnId} OR
+			</if>
+			<if test="searchCriteria.settlementId!=null">
+				txn_details.settlement_id =
+				#{searchCriteria.settlementId} OR
+			</if>
+			<if test="searchCriteria.userId!=null">
+				txn_details.user_id = #{searchCriteria.userId} OR
+			</if>
+			<if test="searchCriteria.orderId!=null">
+				txn_details.merchant_txn_id = #{searchCriteria.orderId}
+				OR
+			</if>
+			<![CDATA[
+			1>2)]]>
+		</if>
+
+	</sql>
+
+	<sql id="new_dynamic_sql_for_filter">
+
+		<if test="filters!=null">
+			<if test="filters.txnTypeList!=null and !filters.txnTypeList.isEmpty()">
+				AND txn_details.merchant_txn_type IN
+				<foreach item="item" index="index" collection="filters.txnTypeList"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if
+				test="filters.txnStatusList!=null and !filters.txnStatusList.isEmpty()">
+				AND txn_state_details.txn_state IN
+				<foreach item="item" index="index" collection="filters.txnStatusList"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="filters.startDate!=null and filters.endDate!=null">
+				AND txn_details.txn_date <![CDATA[>=]]>
+				#{filters.startDate}
+				AND txn_details.txn_date <![CDATA[<=]]>
+				#{filters.endDate}
+			</if>
+			<if test="filters.startDate!=null and filters.endDate==null">
+				AND txn_details.txn_date <![CDATA[>=]]>
+				#{filters.startDate}
+			</if>
+			<if test="filters.startDate==null and filters.endDate!=null">
+				AND txn_details.txn_date <![CDATA[<=]]>
+				#{filters.endDate}
+			</if>
+		</if>
+	</sql>
+</mapper>

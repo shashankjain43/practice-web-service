@@ -1,0 +1,156 @@
+<div id="wrapper" ng-init="vm.offlineproductsPage()">
+  <ng-include src="'app/authentication/sidemenu.tmpl.html'"></ng-include>
+  <div id="page-wrapper">
+        <div class="container-fluid">  
+        <div>
+          
+           <div class="col-md-7 col-sm-6 bannerImgCont" style="float:right;">
+              <span class="helper"></span>
+              <img src="assets/images/bannerImages/PhysicalStore.png" alt="Free Charge Wallet for offline store" class="bannerImg" style="max-width: 100%;  margin-left:-20px;">
+            </div>
+            <div class="col-md-5 col-sm-5" style="float:left; width:300px;">
+                <div class="bannerHeading">
+                    <h1>Pay on the</h1>
+                    <h1><span class="orange">Go</span></h1>
+                    <p>Pay in the store using mobile number &amp; secured pin with no network connectivity</p>
+                    <button class="btn-orange-border btn pull-left"  ng-click="vm.offlinedialog($event)">GET STARTED</button>
+                </div>
+            </div>
+
+        </div> 
+   <div class="divider">
+    <i><img src="assets/images/Arrow.png"></i>
+  </div>
+          <div class="productsBox" >
+              <md-tabs md-dynamic-height>
+                <md-tab id="tab1">
+                    <md-tab-label>
+                       <span ng-click="vm.setProdBanner('offline','offlineproducts'); vm.clickOfflineProd()">For Physical Store</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="row grey">
+                          <div class="col-md-4">
+                            <img src="assets/images/offlinevideo.PNG" alt="Free Charge Wallet for offline store" ng-click="vm.showVideo()"/>
+                          </div>
+                          <div class="col-md-8 prodbox">
+                            <p class="prodhead">Who should use FreeCharge offline payment solution?</p>
+                            <p class="prodcont">
+                              Our freecharge offline payment solution is ideal for merchants who have physical stores, e.g, retail chains, supermarkets, restaurants. Consumers can transact using their FreeCharge wallet at any FreeCharge enabled partner store.
+                            </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-md-4" style="float:right"><img src="assets/images/products/offlineprod2.png" alt="Free Charge Wallet for offline store"></div>
+                              <div class="col-md-8 prodbox" style="float:left">
+                                <p class="prodhead">Why should one use it?</p>
+                                  <ol class="prodcont">
+                                    <li>Simple and fast integration for any business size</li>
+                                    <li>Quick and easy payment method</li>
+                                    <li>All that Customer needs is FreeCharge app and account for #OnTheGoPin to pay</li>
+                                    <li>Works even for users without data or network connectivity</li>
+                                    <li>30+ million accounts</li>
+                                  </ol>
+                              </div>
+                        </div>
+                        <div class="row grey">
+                              <div class="col-md-4"><img src="assets/images/products/offlineproduct3.png" alt="Free Charge Wallet for offline store"></div>
+                              <div class="col-md-8 prodbox">
+                                <p class="prodhead">How to use it?</p>
+                                <p class="prodcont">FreeCharge offline payments work as follows</p>
+                                <ul class="prodcont" style="list-style: none; padding-left: 0px;">
+                                  <li><span style="font-weight: 400">Step 1:</span> FreeCharge customer enters registered mobile number</li>
+                                  <li><span style="font-weight: 400">Step 2:</span> Customer enters dynamically generated #OnTheGoPin to authorise the payment</li>
+                                  <li><span style="font-weight: 400">Step 3:</span> FreeCharge authenticates and completes the transaction</li>
+                                </ul>
+                              </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="tab2">
+                    <md-tab-label>
+                       <span ng-click="vm.setProdBanner('online','onlineproducts'); vm.clickOnlineProd()">For Online Store</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <!--<div class="row">
+                          <div class="col-md-4"><img src="assets/images/products/2.png"></div>
+                          <div class="col-md-8 prodbox">
+                            <p class="prodIcon"><img src="assets/images/products/3.png"></p>
+                            <p class="prodhead online">Merchant Page where the user chooses to pay through Freecharge</p>
+                            <p class="prodcont">Merchant Page where the user chooses to pay through Freecharge Merchant Page where the user chooses to pay through Freecharge Merchant Page where the user chooses to pay through Freecharge Merchant Page where the user chooses to pay through Freecharge</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-md-8 prodbox">
+                                <p class="prodIcon"><img class="floatRight" src="assets/images/products/4.png"></p>
+                                <p class="prodhead online"></p>
+                                <p class="prodcont"></p>
+                              </div>
+                              <div class="col-md-4"><img src="assets/images/products/5.png"></div>
+                        </div>
+                        <div class="row">
+                              <div class="col-md-4"><img src="assets/images/products/6.png"></div>
+                              <div class="col-md-8 prodbox">
+                                <p class="prodIcon"><img src="assets/images/products/7.png"></p>
+                                <p class="prodhead online"></p>
+                                <p class="prodcont"></p>
+                              </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-md-8 prodbox">
+                                <p class="prodIcon"><img class="floatRight" src="assets/images/products/8.png"></p>
+                                <p class="prodhead online"></p>
+                                <p class="prodcont"></p>
+                              </div>
+                              <div class="col-md-4"><img src="assets/images/products/9.png"></div>
+                        </div>-->
+                        <div class="row grey">
+                              <div class="col-md-4"><img src="assets/images/products/10.png" alt="Free Charge Wallet for online store"></div>
+                              <div class="col-md-8 prodbox">
+                                <p class="prodhead">Who should use FreeCharge online payment solution?</p>
+                                <p class="prodcont">Our freecharge online payment solution is ideal for online merchant store who wish to accept single click payments for their app or website with near perfect success rate.</p>
+                              </div>
+                        </div>
+                        <div class="row">
+                              <div class="col-md-4 wm100" style="float: right; margin-bottom: 20px; text-align:center;">
+                                <!--<ng-include src="'app/authentication/products/onlineuse.tmpl.html'"></ng-include>-->
+                                <img src="assets/images/Merchant.gif" alt="Free Charge Wallet for online store"/>
+                              </div>
+                              <div class="col-md-8 prodbox" style="float:left;">
+                                <p class="prodhead">Why should one use it?</p>
+                                <ol class="prodcont">
+                                  <li>Fastest and Safest way to pay online</li>
+                                  <li>Most trusted payment platform</li>
+                                  <li>30+ million accounts</li>
+                                  <li>20+ million saved cards</li>
+                                  <li>Unmatched success rate in the industry</li>
+                                  <li>Advanced fraud prevention</li>
+                                  <li>Quick and Easy integration process</li>
+                                  <li>Fastest Merchant On-boarding</li>
+                                </ol>
+                              </div>
+                             
+                        </div>
+                        <div class="row grey">
+                              <div class="col-md-4"><img src="assets/images/products/12.png" alt="Free Charge Wallet for online store"/></div>
+                              <div class="col-md-8 prodbox">
+                                <p class="prodhead">How to use it?</p>
+                                <p class="prodcont">Customer can pay in 3 simple steps:</p>
+                                <ol class="prodcont">
+                                  <li>Select FreeCharge wallet in payment method</li>
+                                  <li>Sign-in to your FreeCharge account</li>
+                                  <li>Pay in one click</li>
+                                </ol>
+                                <p class="prodcont">Customer also has options to pay via Debit/Credit cards, saved cards and net banking to complete the payment.</p>
+                              </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+              </md-tabs>
+          </div>
+   </div>
+</div>
+
+<div ng-if="vm.isLoading" id="loadMask" style="display:block">
+    <div class="f-bolt"></div>
+</div>
+

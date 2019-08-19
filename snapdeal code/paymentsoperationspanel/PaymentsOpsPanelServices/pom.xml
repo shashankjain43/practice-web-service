@@ -1,0 +1,558 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.snapdeal.dashboard</groupId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<distributionManagement>
+		<repository>
+			<id>gitserver.snapdeal.com</id>
+			<name>libs-snapshot-local</name>
+			<url>http://artifactory.ops.snapdeal.io:8080/libs-snapshot-local</url>
+		</repository>
+	</distributionManagement>
+
+
+	<repositories>
+		<repository>
+			<id>gitserver.snapdeal.com</id>
+			<name>libs-snapshot-local</name>
+			<url>http://artifactory.ops.snapdeal.io:8080/libs-snapshot-local</url>
+		</repository>
+	</repositories>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.2.1.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<profiles>
+		<profile>
+			<id> production </id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<finalName>PaymentsOpsPanelServices</finalName>
+				<plugins>
+					<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
+						<version>1.2.6.RELEASE</version> <configuration> <jvmArguments> -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 
+						</jvmArguments> </configuration> </plugin> -->
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<version>1.2.6.RELEASE</version>
+						<configuration>
+							<arguments>
+								<argument>--spring.profiles.active=prod</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>0.0.26</version>
+						<configuration>
+							<workingDirectory>src/main/webapp</workingDirectory>
+							<installDirectory>
+								src/main/webapp
+							</installDirectory>
+						</configuration>
+						<executions>
+							<execution>
+								<id>install node and npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+								<configuration>
+									<nodeVersion>v0.12.2</nodeVersion>
+									<npmVersion>2.7.6</npmVersion>
+								</configuration>
+							</execution>
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<!-- Optional configuration which provides for running any npm command -->
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>bower install</id>
+								<goals>
+									<goal>bower</goal>
+								</goals>
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>gulp build</id>
+								<goals>
+									<goal>gulp</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<arguments>build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>development</id>
+		</profile>
+	</profiles>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>com.snapdeal.opspanel.init.Application</start-class>
+		<java.version>1.7</java.version>
+		<logstash-logback-encoder.version>3.4</logstash-logback-encoder.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>SettlementReportClient</artifactId>
+			<version>1.2.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>SDMoneyAdminClient</artifactId>
+					<groupId>com.snapdeal.payments</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>SDMoneyJavaClient</artifactId>
+			<version>4.0.8-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-validator</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>validation-api</artifactId>
+					<groupId>javax.validation</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>PaymentsAuthCore</artifactId>
+					<groupId>com.snapdeal.payments</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- <dependency> <groupId>com.snapdeal.payments</groupId> <artifactId>SDMoneyJavaClient</artifactId> 
+			<version>1.0.4-SNAPSHOT</version> <exclusions> <exclusion> <artifactId>hibernate-validator</artifactId> 
+			<groupId>org.hibernate</groupId> </exclusion> <exclusion> <artifactId>validation-api</artifactId> 
+			<groupId>javax.validation</groupId> </exclusion> <exclusion> <artifactId>commons-logging</artifactId> 
+			<groupId>commons-logging</groupId> </exclusion> </exclusions> </dependency> -->
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-core</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<artifactId>OpsPanelCommons</artifactId>
+			<groupId>com.snapdeal.dashboard</groupId>
+			<version>1.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.onecheck</groupId>
+			<artifactId>SocialInteractionComponent</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-social-web</artifactId>
+					<groupId>org.springframework.social</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-core</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.11</version>
+		</dependency>
+		<dependency>
+			<artifactId>SnapdealIMSClient</artifactId>
+			<groupId>com.snapdeal.ims</groupId>
+			<version>2.7.3-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>P2PEngineClient</artifactId>
+			<version>2.1.3-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback	</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-ws</artifactId> 
+			</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-actuator</artifactId> 
+			</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-test</artifactId> 
+			<scope>test</scope> </dependency> -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+		</dependency>
+
+		<!-- Merchant OnBoarding -->
+		<dependency>
+			<groupId>com.snapdeal</groupId>
+			<artifactId>VanilaConsoleServices</artifactId>
+			<version>1.0.2-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Logstash Logback Encoder -->
+
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${logstash-logback-encoder.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+
+		<!-- Mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>roleManagementClient</artifactId>
+			<version>0.0.7-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.23</version>
+		</dependency>
+
+		<!-- for transaction of mybaitis -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.1.1.RELEASE</version>
+		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>PaymentsTaskScheduler</artifactId>
+			<version>2.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>
+						spring-boot-starter-security
+					</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>PaymentsAuthCore</artifactId>
+			<version>1.0.3-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>PaymentsReportClient</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>PaymentsAuthCore</artifactId>
+					<groupId>com.snapdeal.payments</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>SDMoneyAdminClient</artifactId>
+					<groupId>com.snapdeal.payments</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+			<version>1.2.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>NotificationLib</artifactId>
+			<version>1.0.4-SNAPSHOT</version>
+		
+		</dependency>
+
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.10.22</version>
+		</dependency>
+		<!-- <dependency> <groupId>com.snapdeal.payments</groupId> <artifactId>WorkFlowManager</artifactId> 
+			<version>2.0.0-SNAPSHOT</version> </dependency> -->
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>2.10.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.dashboard</groupId>
+			<artifactId>InfoPanelServices</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.opspanel</groupId>
+			<artifactId>ClientKeyManagement</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments.view</groupId>
+			<artifactId>PaymentsViewClient</artifactId>
+			<version>2.0.7-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.opspanel</groupId>
+			<artifactId>AbstractComponent</artifactId>
+			<version>1.2.7-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>DisbursementClient</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>PaymentsAuthCore</artifactId>
+					<groupId>com.snapdeal.payments</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>SDMoneyAdminClient</artifactId>
+					<groupId>com.snapdeal.payments</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.opspanel.bulk</groupId>
+			<artifactId>BulkComponent</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>logback-core</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>OpsPanelCommons</artifactId>
+					<groupId>com.snapdeal.dashboard</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.opspanel</groupId>
+			<artifactId>ClientIntegrationsComponent</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>OpsPanelCommons</artifactId>
+					<groupId>com.snapdeal.dashboard</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.opspanel</groupId>
+			<artifactId>GenericClientComponent</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.bulkprocess</groupId>
+			<artifactId>BulkProcessorComponent</artifactId>
+			<version>1.0.2-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>OpsPanelCommons</artifactId>
+					<groupId>com.snapdeal.dashboard</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<artifactId>BulkPromotionComponent</artifactId>
+			<groupId>com.snapdeal.opspanel</groupId>
+			<version>1.0.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>OpsPanelCommons</artifactId>
+					<groupId>com.snapdeal.dashboard</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments.tsm</groupId>
+			<artifactId>PaymentsTSMClient</artifactId>
+			<version>2.4.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>FeeEngineClient</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>PayablesClient</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+        	<groupId>com.github.ziplet</groupId>
+        	<artifactId>ziplet</artifactId>
+        	<version>2.1.2</version>
+    	</dependency>
+    	
+    	<dependency>
+			<groupId>com.snapdeal.payments</groupId>
+			<artifactId>FPSClient</artifactId>
+			<version>2.0.0-SNAPSHOT</version>
+		</dependency>
+    	<dependency>
+			<groupId>com.snapdeal.opspanel.FCclient</groupId>
+			<artifactId>ops-klickpay-merchant-client</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+    	</dependency>
+
+		<dependency>
+			<groupId>com.freecharge.commons</groupId>
+			<artifactId>api-authenticator-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.snapdeal.opspanel</groupId>
+			<artifactId>WebappComponent</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.snapdeal</groupId>
+			<artifactId>PaymentsCommunicatorClient</artifactId>
+			<version>0.1.1-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+	<artifactId>PromotionService</artifactId>
+</project>

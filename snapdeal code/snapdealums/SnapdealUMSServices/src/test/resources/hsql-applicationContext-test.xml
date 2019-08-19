@@ -1,0 +1,66 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+
+	<!-- Activate @Configurable injection -->
+	<context:spring-configured />
+
+	<!-- enable auto-scan for all @Repository, @Service, @Controller java files 
+		for beans -->
+	<context:component-scan base-package="com.snapdeal.newsletter" />
+	<context:component-scan base-package="com.snapdeal.exComm" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:testdb" />
+		<!-- <property name="url" value="jdbc:hsqldb:file:/home/ghanshyam/hsqldb/testdb" 
+			/> -->
+		<property name="username" value="SA" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="sessionFactory" depends-on="schemaCreator"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<qualifier value="ums_prodn"></qualifier>
+		<property name="configLocation">
+			<value>hsql-hibernate.cfg.xml</value>
+		</property>
+		<property name="configurationClass">
+			<value>org.hibernate.cfg.AnnotationConfiguration</value>
+		</property>
+	</bean>
+
+	<bean id="schemaCreator" class="com.snapdeal.ums.creator.SchemaCreator">
+		<property name="dataSource" ref="dataSource" />
+		<property name="schema" value="ums" />
+	</bean>
+
+	<!-- add platform transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<aop:aspectj-autoproxy />
+
+	<bean id='mockUMSConvertorService'
+		class="com.snapdeal.ums.test.mockumsconvertor.MockUMSConvertorServiceImpl"></bean>
+	<bean id="umsNewsletterService"
+		class="com.snapdeal.ums.admin.server.services.impl.NewsletterServiceImpl"></bean>
+	<bean id="newsletterServiceInternal"
+		class="com.snapdeal.ums.admin.server.services.impl.NewsletterServiceInternalImpl"></bean>
+	<bean id="umsNewsletterDao" class="com.snapdeal.ums.admin.dao.newsletter.NewsletterDaoImpl"></bean>
+	<bean id="newsletterDao" class="com.snapdeal.ums.admin.dao.newsletter.NewsletterDaoImpl"></bean>
+	<bean id="userDao" class="com.snapdeal.ums.dao.users.impl.UsersDaoImpl"></bean>
+</beans>

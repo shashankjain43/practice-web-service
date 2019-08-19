@@ -1,0 +1,126 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.promotion.dao.AccessDao">
+
+	<resultMap id="roleResult" type="java.lang.String">
+		<result property="roles" column="user_role" />
+	</resultMap>
+
+	<select id="getUserRole" resultMap="roleResult" parameterType="java.lang.String">
+		SELECT user_role from users
+		where email_id=#{emailId}
+	</select>
+
+
+	<insert id="insertClient" parameterType="com.snapdeal.opspanel.promotion.model.ClientEntity">
+		INSERT INTO
+		client_permissions
+		(email_id,merchant_name,corp_id,instrument_name)
+		VALUES
+		(#{clientId},#{merchantName},#{corpId},#{instrumentType})
+	</insert>
+
+	<insert id="addUserRole" parameterType="com.snapdeal.opspanel.promotion.model.RoleEntity">
+		INSERT INTO
+		users
+		(email_id,user_role)
+		VALUES
+		(#{clientId},#{userRole})
+	</insert>
+
+	<update id="updateUserRole" parameterType="com.snapdeal.opspanel.promotion.model.RoleEntity">
+		UPDATE users
+		SET
+		user_role=#{userRole}
+		where email_id=#{clientId}
+	</update>
+
+	<update id="updateInstrument" parameterType="com.snapdeal.opspanel.promotion.model.RoleEntity">
+		UPDATE
+		client_permissions
+		SET instrument_name=#{instrumentType}
+		where
+		email_id=#{clientId}
+	</update>
+
+
+	<resultMap id="clientsResult"
+		type="com.snapdeal.opspanel.promotion.model.ClientEntity">
+		<result property="clientId" column="email_id" />
+		<result property="merchantName" column="merchant_name" />
+		<result property="corpId" column="corp_id" />
+		<result property="instrumentType" column="instrument_name" />
+	</resultMap>
+
+	<select id="getAllClients" resultMap="clientsResult">
+		SELECT *
+		FROM
+		client_permissions
+	</select>
+
+	<delete id="deletePermissions" parameterType="com.snapdeal.opspanel.promotion.model.ClientEntity">
+		delete from
+		client_permissions
+		WHERE email_id = #{clientId} AND
+		merchant_name=#{merchantName} AND corp_id=#{corpId}
+	</delete>
+
+
+	<delete id="deleteClient" parameterType="java.lang.String">
+		DELETE from
+		client_permissions WHERE email_id=#{clientId}
+	</delete>
+
+	<delete id="deleteClientFromUser" parameterType="java.lang.String">
+		DELETE from
+		users WHERE email_id=#{clientId}
+	</delete>
+
+	<resultMap id="permissionsResult"
+		type="com.snapdeal.opspanel.promotion.model.ClientEntity">
+		<result property="merchantName" column="merchant_name" />
+		<result property="corpId" column="corp_id" />
+		<result property="instrumentType" column="instrument_name" />
+	</resultMap>
+
+	<select id="getAllPermissions" resultMap="permissionsResult"
+		parameterType="java.lang.String">
+		SELECT *
+		FROM
+		client_permissions where
+		email_id=#{clientId}
+	</select>
+
+	<select id="checkPermission" resultMap="permissionsResult"
+		parameterType="com.snapdeal.opspanel.promotion.model.ClientEntity">
+		SELECT *
+		FROM
+		client_permissions where
+		email_id=#{clientId} and merchant_name=#{merchantName} and
+		corp_id=#{corpId}
+	</select>
+
+	<select id="checkForExistingPermission" resultMap="permissionsResult"
+		parameterType="com.snapdeal.opspanel.promotion.model.ClientEntity">
+		SELECT *
+		FROM
+		client_permissions where
+		email_id=#{clientId} and merchant_name=#{merchantName} and
+		corp_id=#{corpId}
+	</select>
+
+
+	<resultMap id="usersResults"
+		type="com.snapdeal.opspanel.promotion.model.UsersEntity">
+		<result property="email_id" column="email_id" />
+		<result property="user_role" column="user_role" />
+	</resultMap>
+
+	<select id="getUsers" resultMap="usersResults">
+		select * from users
+	</select>
+
+
+</mapper>

@@ -1,0 +1,29 @@
+/* Update LastRun */
+
+db.lastPublished.renameCollection("lastRunInfo");
+db.lastRunInfo.update({},{$rename:{"publisherName" : "processName"}});
+db.lastRunInfo.update({processName:"google"},{$set:{processName:"googlePublisher"}});
+db.lastRunInfo.insert({processName:"googleDataFeedPublisher"});
+db.lastRunInfo.insert({processName:"rankPogMonthly",lastRunTs: ISODate("2014-05-09T11:12:00.001Z")});
+db.lastRunInfo.insert({processName:"rankPogWeekly",lastRunTs: ISODate("2014-05-09T11:12:00.001Z")});
+
+/* Insert parent category names */
+
+db.categoryTemp.find().forEach(function(t){
+    var id = t._id;
+    var cursor = db.categoryInfo.find({parentCategoryId: id});
+    while(cursor.hasNext()){
+        var cdoc = cursor.next();
+        cdoc.parentCategoryName = t.name;
+        db.categoryInfo.save(cdoc);
+        printjson({"Updated": cdoc._id});
+    }
+
+});
+
+
+/* Clean up */
+
+db.categoryTemp.drop();
+db.updatePOG.remove()
+

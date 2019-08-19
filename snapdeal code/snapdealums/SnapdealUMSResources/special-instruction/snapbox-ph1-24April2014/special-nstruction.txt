@@ -1,0 +1,26 @@
+
+
+@Release team,
+
+Please set up an new and exclusive activemq instance for UMS - on java 1.6 - on release, staging and production.
+A new box is not required but in case needed, 4GB-RAM and 80GB-HDD should be sufficient.
+
+
+
+@DBA team,
+
+Please insert the details to `ums`.`ums_property` for respective environments :
+
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.url",<{value: }>);
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.port",<{value: }>);
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.username",<{value: }>);
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.password",<{value: }>);
+
+
+
+Until activemq is set up on release please run the following:
+
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.url","54.251.153.22");
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.port","61616");
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.username","snapdeal_coms_esb");
+INSERT INTO `ums`.`ums_property`(`name`,`value`) VALUES("activemq.password","coms_esb");

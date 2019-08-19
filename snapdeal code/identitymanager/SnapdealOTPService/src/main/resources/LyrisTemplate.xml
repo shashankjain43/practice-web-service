@@ -1,0 +1,17 @@
+<DATASET>
+	<SITE_ID>$siteId</SITE_ID>
+	<DATA type='extra' id='password'>snapdeal123</DATA>
+	<MLID>$mlid</MLID>
+	<DATA type='extra' id='trigger_ID'>$triggerId</DATA>
+	<DATA type='extra' id='recipients'>$recipients</DATA>
+	<DATA type='extra' id='subject'>$subject</DATA>
+	<DATA type='extra' id='from_email'>$fromEmail</DATA>
+	<DATA type='extra' id='from_name'>$fromName</DATA>
+	<DATA type='extra' id='clickthru'>$tracking</DATA>
+	<DATA type='extra' id='message_text'>India’s largest e-commerce marketplace
+	</DATA>
+	<DATA type='extra' id='message'>
+		$bodyTemplate
+		<div class="unsubscribe"></div>
+	</DATA>
+</DATASET>		

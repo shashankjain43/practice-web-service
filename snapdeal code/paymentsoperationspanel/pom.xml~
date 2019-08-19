@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.snapdeal.dashboard</groupId>
+	<artifactId>OpsPanel</artifactId>
+	<version>1.0.0-RELEASE</version>
+	<packaging>pom</packaging>
+	<name>OpsPanel</name>
+	<url>http://maven.apache.org</url>
+	<modules>
+		<module>AbstractComponent</module>
+		<module>OpsPanelCommons</module>
+		<module>ClientKeyManagement</module>
+		<module>ClientIntegrationsComponent</module>
+		<module>LegalAndInformationComponent</module>
+		<module>MOBComponent</module>
+		<module>MOBBulkRefundComponent</module>
+		<module>WebappCommons</module>
+		<module>PaymentsOpsPanelServices</module>
+		<module>BulkFramework</module>
+	</modules>
+</project>

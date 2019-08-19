@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		   http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd 
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd">
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="classpath:/resources" />
+
+	<context:component-scan
+		base-package="
+		com.snapdeal.ims.cache.set.impl,
+		com.snapdeal.ims.dao.aerospike.common
+		">
+		<context:exclude-filter type="assignable"
+			expression="com.snapdeal.ims.cache.service.impl.IMSCacheServiceProviderImpl" />
+
+	</context:component-scan>
+
+	<bean
+		class="com.snapdeal.ims.dao.aerospike.impl.UserVerificationDetailsCacheImpl"></bean>
+	<bean class="com.snapdeal.ims.dao.impl.ConfigDetailsDao"></bean>
+	<bean class="com.snapdeal.ims.dao.impl.UserLockDaoImpl"></bean>
+	<bean class="com.snapdeal.ims.dao.impl.UserDaoImpl"></bean>
+	<bean class="com.snapdeal.ims.token.service.impl.IDGeneratorImpl"></bean>
+	<bean
+		class="com.snapdeal.ims.cache.service.impl.UserVerificationCacheServiceImpl"></bean>
+	<bean
+		class="com.snapdeal.ims.token.dao.aerospike.impl.GlobalTokenDetailsCacheImpl"></bean>
+	<bean class="com.snapdeal.ims.cache.service.impl.TokenCacheServiceImpl"></bean>
+	<bean class="com.snapdeal.ims.client.dao.impl.ClientDetailsDao"></bean>
+	<bean class="com.snapdeal.ims.client.dao.impl.ActivityDetailsDao"></bean>
+	<bean class="com.snapdeal.ims.cache.util.IMSCacheUtil"></bean>
+	<bean class="com.snapdeal.ims.cache.service.impl.UserCacheServiceImpl"></bean>
+	<bean class="com.snapdeal.ims.service.provider.UmsMerchantProvider"></bean>
+	<bean class="com.snapdeal.ims.authorize.AuthorizationContext"></bean>
+	<bean class="com.snapdeal.ims.cache.service.impl.GTokenCleanUpImpl"></bean>
+	<bean class="com.snapdeal.ims.service.impl.UserOtpServiceImpl"></bean>
+	<bean class="com.snapdeal.ims.service.impl.DiscrepencyCountServiceImpl"></bean>
+	<bean class="com.snapdeal.ims.service.impl.UserSearchServiceImpl"></bean>
+	<bean class="com.snapdeal.ims.service.impl.WalletCountServiceImpl"></bean>
+	<bean class="com.snapdeal.ims.service.impl.BlacklistEmailServiceImpl"></bean>
+	
+
+
+	<bean id="imsPlaceholderConfig" class="com.snapdeal.ims.utils.SpringPropertiesUtil">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="locations">
+			<list>
+				<value>classpath:conf/application-junit.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<bean id="umsClientService"
+		class="com.snapdeal.ums.client.services.impl.UMSClientServiceImpl">
+		<property name="webServiceBaseURL" value="${snapdeal.identity.ums.url}" />
+	</bean>
+
+	<bean class="com.snapdeal.base.startup.config.AppEnvironmentContext"
+		id="appEnvironmentContext">
+		<constructor-arg value="IDM" />
+	</bean>
+
+	<!-- Task scheduler for Cache Update. -->
+
+	<!-- <task:scheduled-tasks scheduler="scheduler"> <task:scheduled ref="CacheUpdater" 
+		method="loadAll" cron="0 0/${snapdeal.identity.manager.cacheUpdater.delay} 
+		0-23 * * *" /> </task:scheduled-tasks> <task:scheduler id="scheduler" pool-size="1" 
+		/> -->
+
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:migration/closeAccount.sql" />
+		<jdbc:script location="classpath:migration/activity_log.sql" />
+		<jdbc:script location="classpath:migration/client.sql" />
+		<jdbc:script location="classpath:migration/configuration.sql" />
+		<jdbc:script location="classpath:migration/freeze_account.sql" />
+
+		<jdbc:script location="classpath:migration/global_token_details.sql" />
+		<jdbc:script location="classpath:migration/lock_user.sql" />
+		<jdbc:script location="classpath:migration/token_details.sql" />
+		<jdbc:script location="classpath:migration/user_otp.sql" />
+		<jdbc:script location="classpath:migration/user_verification.sql" />
+		<jdbc:script location="classpath:migration/discrepencyCount.sql" />
+		<jdbc:script location="classpath:migration/user.sql" />
+		<jdbc:script location="classpath:migration/blacklist.sql" />
+		<jdbc:script location="classpath:migration/user_history.sql" />
+	</jdbc:embedded-database>
+	
+	
+	<!-- <jdbc:embedded-database id="dataSource_replica" type="H2">
+		<jdbc:script location="classpath:migration/closeAccount.sql" />
+		<jdbc:script location="classpath:migration/activity_log.sql" />
+		<jdbc:script location="classpath:migration/client.sql" />
+		<jdbc:script location="classpath:migration/configuration.sql" />
+		<jdbc:script location="classpath:migration/freeze_account.sql" />
+
+		<jdbc:script location="classpath:migration/global_token_details.sql" />
+		<jdbc:script location="classpath:migration/lock_user.sql" />
+		<jdbc:script location="classpath:migration/token_details.sql" />
+		<jdbc:script location="classpath:migration/user_otp.sql" />
+		<jdbc:script location="classpath:migration/user_verification.sql" />
+		<jdbc:script location="classpath:migration/discrepencyCount.sql" />
+		<jdbc:script location="classpath:migration/user.sql" />
+		<jdbc:script location="classpath:migration/blacklist.sql" />
+		<jdbc:script location="classpath:migration/user_history.sql" />
+	</jdbc:embedded-database> -->
+	
+	
+	
+	
+	
+	<!-- MyBatis related beans -->
+	<bean id="sqlSessionFactoryMybatis" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:myBatis/sqlmap-config.xml" />
+	</bean>
+
+	<bean name="myBatisIMSDB" id="myBatisIMSDB"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryMybatis" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.snapdeal.ims.activity.dbmapper,com.snapdeal.ims.client.dbmapper,com.snapdeal.ims.dbmapper,com.snapdeal.payments.ts.dao" />
+		<property name="sqlSessionTemplateBeanName" value="myBatisIMSDB"></property>
+	</bean>
+	
+	
+		<!-- MyBatis IMS Replica DB related beans -->
+	<bean id="sqlSessionFactoryMybatisIMSReplicaDB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:myBatis/sqlmap-config-ims-replica.xml" />
+	</bean>
+	
+	<bean name="mybatisIMSReplicaDB" id="mybatisIMSReplicaDB"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryMybatisIMSReplicaDB" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.snapdeal.ims.dashboard.dbmapper" />
+			<property name="sqlSessionTemplateBeanName" value="mybatisIMSReplicaDB"></property>
+			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryMybatisIMSReplicaDB"></property>
+	</bean>
+	<!-- MyBatis IMS Replica DB Ends Here -->
+
+
+	<bean id="aerospikeGtokenMap" class="java.util.HashMap" scope="prototype">
+		<constructor-arg>
+			<map key-type="java.lang.String"
+				value-type="com.snapdeal.ims.token.entity.GlobalTokenDetailsEntity">
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="aerospikeUserTokenMap" class="java.util.HashMap" scope="prototype">
+		<constructor-arg>
+			<map key-type="java.lang.String" value-type="java.util.HashSet">
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="aerospikeUserVerificationMap" class="java.util.HashMap"
+		scope="prototype">
+		<constructor-arg>
+			<map key-type="java.lang.String" value-type="com.snapdeal.ims.dbmapper.entity.UserVerification">
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="aeropsikeCleanupTaskExecutor" name="aeropsikeCleanupTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${snapdeal.ims.activity.corepoolsize}" />
+		<property name="maxPoolSize" value="${snapdeal.ims.activity.maxpoolsize}" />
+		<property name="queueCapacity" value="${snapdeal.ims.activity.queuecapacity}" />
+	</bean> 
+</beans>

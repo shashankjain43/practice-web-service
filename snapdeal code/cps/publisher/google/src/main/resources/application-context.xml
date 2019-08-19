@@ -1,0 +1,159 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/data/mongo
+          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <context:annotation-config />
+
+
+    <bean id="propertyPlaceholder"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="location">
+            <value>file:${propertyDir}/user.properties</value>
+        </property>
+    </bean>
+
+    <!-- Setting up Mongo -->
+<!--     <mongo:mongo host="${mongo.hostname}" port="${mongo.port}" /> -->
+<!--     <mongo:db-factory dbname="${mongo.db.name}"></mongo:db-factory> -->
+
+<!--     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> -->
+<!--         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" /> -->
+<!--     </bean> -->
+
+	<!-- Setting up mongo -->
+	<mongo:mongo replica-set="${mongo.replicaSet}" id="mongoCPS">
+        <mongo:options auto-connect-retry="true" 
+                       connections-per-host="${mongo.connectionsPerHost}"
+                       slave-ok="true" />
+    </mongo:mongo>
+    
+    <mongo:db-factory dbname="${mongo.db.name}" mongo-ref="mongoCPS" id="mongoDbFactoryCPS" />
+
+    <bean id="readPref" class="com.mongodb.ReadPreference" factory-method="secondaryPreferred" />
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactoryCPS" />
+        <property name="readPreference" ref="readPref" />
+    </bean>
+    
+    <context:component-scan base-package="com.snapdeal.cps" />
+    
+    <!-- Define google Publishers -->
+    <bean id="electronicsPublisher" class="com.snapdeal.cps.google.GooglePublisher">
+        <constructor-arg type="java.lang.String" value="googleElectronicsPublisher" />
+    </bean>
+
+    <bean id="fashionPublisher" class="com.snapdeal.cps.google.GooglePublisher">
+        <constructor-arg type="java.lang.String" value="googleFashionPublisher" />
+    </bean>
+
+    <bean id="gmPublisher" class="com.snapdeal.cps.google.GooglePublisher">
+        <constructor-arg type="java.lang.String" value="googleGmPublisher" />
+    </bean>
+    
+    <bean id="customPublisher" class="com.snapdeal.cps.google.GooglePublisher">
+        <constructor-arg type="java.lang.String" value="googleCustomPublisher" />
+    </bean>
+
+
+    <bean id="electronicsPublisherJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="electronicsPublisher" />
+        <property name="targetMethod" value="publish" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <bean id="fashionPublisherJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="fashionPublisher" />
+        <property name="targetMethod" value="publish" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+    <bean id="gmPublisherJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="gmPublisher" />
+        <property name="targetMethod" value="publish" />
+        <property name="concurrent" value="false" />
+    </bean>
+    
+    <bean id="customPublisherJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="customPublisher" />
+        <property name="targetMethod" value="publish" />
+        <property name="concurrent" value="false" />
+    </bean>
+    
+    <bean id="sokratiPublisherJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="sokratiPublisher" />
+        <property name="targetMethod" value="publish" />
+        <property name="concurrent" value="false" />
+    </bean>
+
+
+    <bean id="electronicsPublisherJobTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="electronicsPublisherJob" />
+        <property name="cronExpression"
+            value="${cps.google.publisher.electronics.cron}" />
+    </bean>
+
+    <bean id="fashionPublisherJobTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="fashionPublisherJob" />
+        <property name="cronExpression"
+            value="${cps.google.publisher.fashion.cron}" />
+    </bean>
+
+    <bean id="gmPublisherJobTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="gmPublisherJob" />
+        <property name="cronExpression" value="${cps.google.publisher.gm.cron}" />
+    </bean>
+    
+    <bean id="customPublisherJobTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="customPublisherJob" />
+        <property name="cronExpression" value="${cps.google.publisher.custom.cron}" />
+    </bean>
+    
+    <bean id="sokratiPublisherJobTrigger1"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sokratiPublisherJob" />
+        <property name="cronExpression"
+            value="${cps.sokrati.publisher.cron.first}" />
+    </bean>
+    
+    <bean id="sokratiPublisherJobTrigger2"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sokratiPublisherJob" />
+        <property name="cronExpression"
+            value="${cps.sokrati.publisher.cron.second}" />
+    </bean>
+
+    <!-- Scheduling the quartz triggers -->
+    <bean id="quartzScheduler"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+        destroy-method="destroy">
+        <property name="triggers">
+            <list>
+                <ref bean="electronicsPublisherJobTrigger" />
+                <ref bean="fashionPublisherJobTrigger" />
+                <ref bean="gmPublisherJobTrigger" />
+                <ref bean="customPublisherJobTrigger" />
+                <ref bean="sokratiPublisherJobTrigger1" />
+                <ref bean="sokratiPublisherJobTrigger2" />
+            </list>
+        </property>
+        </bean>
+    
+</beans>

@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GlobalTokenDetails">
+
+	<resultMap id="result"
+		type="com.snapdeal.ims.token.entity.GlobalTokenDetailsEntity">
+		<result property="globalTokenId" column="global_token_id" />
+		<result property="globalToken" column="global_token_string" />
+		<result property="userAgent" column="user_agent" />
+		<result property="machineIdentifier" column="user_identifier" />
+		<result property="expiryTime" column="expiry_time" javaType="java.util.Date"/>
+		<result property="userId" column="user_id"/>
+		<result property="createdTime" column="created_time" javaType="java.util.Date"/>
+	</resultMap>
+
+	<sql id="base_column_list">
+		global_token_id,global_token_string,user_agent,user_identifier,expiry_time,user_id,created_time
+	</sql>
+
+	<insert id="save"
+		parameterType="com.snapdeal.ims.token.entity.GlobalTokenDetailsEntity"
+		keyProperty="globalTokenId" keyColumn="global_token_id">
+		INSERT INTO global_token_details
+		(global_token_id,global_token_string,user_agent,user_identifier,expiry_time,user_id)
+		values (#{globalTokenId}, #{globalToken}, #{userAgent}, #{machineIdentifier}, #{expiryTime}, #{userId})
+	</insert>
+	
+	<select id="fetchById" parameterType="com.snapdeal.ims.token.entity.GlobalTokenDetailsEntity" resultMap="result">
+		SELECT <include refid="base_column_list"/> FROM global_token_details WHERE global_token_id=#{globalTokenId}
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.String">
+		DELETE from global_token_details where global_token_id = #{globalTokenId}
+	</delete>
+	<delete id="deleteAllTokenForUser" parameterType="java.lang.String">
+		DELETE from global_token_details where user_id = #{userId}
+	</delete>
+	<update id="updateExpiryDate" parameterType="com.snapdeal.ims.token.entity.GlobalTokenDetailsEntity">
+		UPDATE global_token_details SET expiry_time=#{expiryTime} WHERE global_token_id=#{globalTokenId}
+	</update>
+</mapper>

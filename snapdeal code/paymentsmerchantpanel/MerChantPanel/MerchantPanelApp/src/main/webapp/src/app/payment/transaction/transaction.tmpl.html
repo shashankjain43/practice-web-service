@@ -1,0 +1,254 @@
+<form name="transactionForm" novalidate>
+    <div class="container">
+        <!--div class="row">
+            <div class="col-xs-12 sub-breadcrumb">
+                <a href="javascript:void(0)">Home /</a><a href="javascript:void(0)"> Payment / </a>
+                <span>View Transaction</span></div>
+        </div-->
+        <div class="row haeding-area">
+            <!--div class="col-sm-6">
+                <h3>View Transaction</h3>
+            </div-->
+            <div class="col-sm-12 sandbox-datepicker">
+                <div id="sandbox-container">
+                    <input type="text" readonly="readonly" name="fromDate" required
+                           id="{{vm.filtersVM.fromDateFilter.value}}"
+                           ng-model="vm.filtersVM.fromDateFilter.value"
+                           date-lower-than="{{vm.filtersVM.toDateFilter.value}}"
+                           placeholder="{{::vm.filtersVM.fromDateFilter.value}}" class="fromDate">
+                    <span>-</span>
+
+                    <input type="text" readonly="readonly" name="toDate"
+                           date-greater-than="{{vm.filtersVM.fromDateFilter.value}}"
+                           id="{{vm.filtersVM.toDateFilter.value}}" required min="{{vm.filtersVM.fromDateFilter.value}}"
+                           ng-model="vm.filtersVM.toDateFilter.value" placeholder="{{::vm.filtersVM.toDateFilter.value}}"
+                           class="toDate">
+                </div>
+
+                <div id="errorMsg" class="error"
+                     ng-if="vm.filtersVM.fromDateFilter.value != 'From Date' && vm.filtersVM.fromDateFilter.value != 'To Date'">
+                    <div ng-if="vm.checkDateValidation(transactionForm.fromDate.$error.dateLowerThan,
+                    transactionForm.toDate.$error.dateGreaterThan)">
+                        {{vm.dateMessage}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row wrapper">
+            <div class="col-xs-12">
+                <div class="row transaction-row">
+                    <div class="col-md-2 col-sm-4   btl-dropdown">
+                        <select id="dropdownCriteria" class="select" name="singleSelect"
+                                ng-model="vm.selectedDrodownItem">
+                            <option id="all" value="{{::vm.filtersVM.dropdown[0]}}">ALL</option>
+                            <option id="settled" value="{{::vm.filtersVM.dropdown[1]}}">
+                                {{::vm.filtersVM.dropdown[1].displayValue}}
+                            </option>
+                            <option id='refund' value="{{::vm.filtersVM.dropdown[2]}}">
+                                {{::vm.filtersVM.dropdown[2].displayValue}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-10 col-sm-8  col-md-push-0 col-sm-push-0 text-right transaction-button">
+                        <a href="javascript:void(0)" id="filter"
+                           class="btn btn-default btn-raised filter-button">Filter</a>
+                        <a ng-hide="vm.transactions.length < 1" href="javascript:void(0)" id="chooseField"
+                           class="btn btn-default btn-raised choose-field-button"
+                        >Choose Field</a>
+                        <a id="exportToexcel" href="javascript:void(0)" ng-click="vm.generateReport()"
+                           class="btn btn-default btn-raised export-xl">Export EXCEL</a>
+                    </div>
+                </div>
+                <div class="row filter-area" id="filterTab">
+                    <div class="col-xs-12">
+                        <div class="row filter-content-row">
+                            <div class="col-sm-3">
+                                <div class="row filter-heading-row">
+                                    <div class="col-sm-12">Transactions Status</div>
+                                </div>
+                                <div class="checkbox"
+                                     ng-repeat="transactionStatusFilter in vm.filtersVM.transactionStatus">
+                                    <label><input id="{{::transactionStatusFilter.displayValue}}" type="checkbox"
+                                                  ng-model="transactionStatusFilter.selected">
+                                        {{::transactionStatusFilter.displayValue}}</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="row filter-heading-row">
+                                    <div class="col-sm-12">Transactions Type</div>
+                                </div>
+                                <div class="checkbox" ng-repeat="transactionTypeFilter in vm.filtersVM.transactionType">
+                                    <label><input id="{{::transactionTypeFilter.displayValue}}type" type="checkbox"
+                                                  ng-model="transactionTypeFilter.selected">
+                                        {{::transactionTypeFilter.displayValue}}</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 ">
+                                <div class="row filter-heading-row">
+                                    <div class="col-sm-12">Amount</div>
+                                </div>
+                                <div class="amount-range clearfix">
+                                    <div class="form-control-wrapper">
+                                        <input class="form-control empty" id="{{::vm.filtersVM.amount[0].value}}" min="0"
+                                               allow-only-numbers ng-model="vm.filtersVM.amount[0].value" type="number"
+                                               class="fromAmount"
+                                               ng-change="vm.compareRange(vm.filtersVM.amount[1].value, vm.filtersVM.amount[0].value)"
+                                               placeholder="From Amount">
+                                        <div class="floating-label">From Amount</div>
+                                        <span class="material-input"></span>
+                                    </div>
+                                    <span>-</span>
+                                    <div class="form-control-wrapper">
+                                        <input class="form-control empty" id="{{::vm.filtersVM.amount[1].value}}" min="0"
+                                               allow-only-numbers ng-model="vm.filtersVM.amount[1].value" type="number"
+                                               class="toAmount"
+                                               ng-change="vm.compareRange(vm.filtersVM.amount[1].value, vm.filtersVM.amount[0].value)"
+                                               placeholder="To Amount">
+
+                                        <div class="floating-label">To Amount</div>
+                                        <span class="material-input"></span>
+                                    </div>
+                                </div>
+                                <div ng-show="::vm.amountError"
+                                     style="color:red;padding: 5px 33px; font-size: 12px;">Enter proper amount range.
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="row filter-heading-row">
+                                    <div class="col-sm-12"><a id="apply" href="javascript:void(0)"
+                                                              ng-click="vm.applyFilters()">Apply</a>
+                                        <a id="reset" href="javascript:void(0)" ng-click="vm.resetFilters()">Reset</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row choose-field-area">
+                    <div class="col-xs-12">
+                        <div class="row choose-field-heading-row">
+                            <div id="chooseFieldToDisplay" class="col-md-12">Choose fields To Display</div>
+                        </div>
+                        <div class="row choose-field-content-row">
+                            <div class="col-sm-3">
+                                <div class="checkbox" ng-repeat="fieldHeader in ::vm.chooseFieldHeaders | limitTo:5">
+                                    <label>
+                                        <input id="{{::fieldHeader.displayValue}}" type="checkbox"
+                                               ng-model="fieldHeder.isShown"
+                                               ng-click="vm.updateFieldHeader(fieldHeader)">
+                                        {{::fieldHeader.displayValue}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox" ng-repeat="fieldHeader in ::vm.chooseFieldHeaders | limitTo:5:5">
+                                    <label>
+                                        <input id="{{::fieldHeader.displayValue}}1" type="checkbox"
+                                               ng-model="fieldHeder.isShown"
+                                               ng-click="vm.updateFieldHeader(fieldHeader)">
+                                        {{::fieldHeader.displayValue}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="checkbox" ng-repeat="fieldHeader in ::vm.chooseFieldHeaders | limitTo:2:10">
+                                    <label>
+                                        <input id="{{::fieldHeader.displayValue}}2" type="checkbox"
+                                               ng-model="fieldHeder.isShown"
+                                               ng-click="vm.updateFieldHeader(fieldHeader)">
+                                        {{::fieldHeader.displayValue}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="vm.transactions.length < 1">
+                    <div class="error-msz-box" id="successDiv">{{vm.errorMessage}}</div>
+                </div>
+                <div class="row" ng-if="vm.transactions.length > 0">
+                    <div class="col-xs-12 transaction-table">
+                        <table id='transactionTable' class="table  table-hover  table-responsive">
+                            <thead>
+                            <tr id="tableHeader" class="active table-heading">
+                                <td nowrap id="{{::headers.key}}" ng-repeat="headers in vm.transactionHeaders" bind-html-compile="headers.displayValue">
+                                    
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="transaction in vm.transactions">
+                                <td ng-repeat="header in vm.transactionHeaders" nowrap>
+                                    <span ng-if="header.key=='email'||header.key=='mobile'">{{JSON.parse(transaction
+                                        ['displayInfo'])}}</span>
+                                    <span
+                                            ng-if="header.key !== 'txnDate' && !(header.key === 'txnStatus' && transaction[header.key] === 'ROLLBACK')">{{::transaction[header.key]}}</span>
+                                    <span
+                                            ng-if="header.key !== 'txnDate' && (header.key === 'txnStatus' && transaction[header.key] === 'ROLLBACK')">FAILED</span>
+                                    <span
+                                            ng-if="header.key === 'txnDate' && !(header.key === 'txnStatus' && transaction[header.key] === 'ROLLBACK')"> {{::transaction[header.key] | date:'dd MMM yy, h:mm a'}}</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <ul class="pagination pull-right">
+                        <li ng-class="(vm.filtersVM.page.displayValue == 1)? 'disabled':''"
+                            ng-click="vm.getTransactionsOfPage(vm.filtersVM.page.displayValue-1)">
+                            <a id="previous" href="javascript:void(0)">Previous</a></li>
+                        <li class="active"><a id="{{vm.filtersVM.page.displayValue}}" href="javascript:void(0)">{{vm.filtersVM.page.displayValue}}</a>
+                        </li>
+                        <li ng-click="vm.transactions.length<10?'':vm.getTransactionsOfPage(vm.filtersVM.page.displayValue+1)"
+                            ng-class="vm.transactions.length<10?'disabled':''">
+                            <a id="next" href="javascript:void(0)">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>
+
+<div class="modal export-xl-popup" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button id="crossButton" type="button" class="close close-popup">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p bind-html-compile="vm.initiateGenerateReport.message"
+                   ng-class="vm.initiateGenerateReport.status?'success-msz-box':'error-msz-box'"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox-bg" style="display: none"></div>
+
+<script>
+    $('.fromDate').datepicker({
+        autoclose: true,
+        startDate: '',
+        format: 'dd/mm/yyyy',
+        endDate: '+0d',
+    }).on('changeDate', function (selected) {
+        startDate = new Date(selected.date.valueOf());
+        startDate.setDate(startDate.getDate(new Date(selected.date.valueOf())));
+        $('.toDate').datepicker('setStartDate', startDate);
+    });
+
+    $('.toDate').datepicker({
+        autoclose: true,
+        endDate: '+0d',
+        format: 'dd/mm/yyyy',
+    }).on('changeDate', function (selected) {
+        FromEndDate = new Date(selected.date.valueOf());
+        FromEndDate.setDate(FromEndDate.getDate(new Date(selected.date.valueOf())));
+        $('.fromDate').datepicker('setEndDate', FromEndDate);
+    });
+    $.material.init();
+</script>

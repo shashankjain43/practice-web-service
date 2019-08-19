@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{YYYY-MM-dd HH:mm:ss.SSS} -APP- %X{HOST} %X{requestId} [%t] %.-5level %logger{36}.%M-%L - %msg %n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.snapdeal.payments.metrics.TimedMethodInterceptor"
+		additivity="false" level="DEBUG">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger name="com.snapdeal" additivity="false" level="DEBUG">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+	
+	<logger name="com.snapdeal.mail" additivity="false" level="INFO">
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<root level="ERROR">
+		<appender-ref ref="CONSOLE" />
+	</root>
+</configuration>

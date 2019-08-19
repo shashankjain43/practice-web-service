@@ -1,0 +1,181 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.snapdeal.ims.dashboard.dbmapper.ICheckUserDetailsByEmailIdDao">
+
+	<resultMap type="com.snapdeal.ims.entity.GetUpgradeStatusEntity"
+		id="userStatus">
+		<result column="sd_id" property="sd_id" />
+		<result column="fc_id" property="fc_id" />
+	</resultMap>
+
+	<resultMap id="userUpgradeResult"
+		type="com.snapdeal.ims.migration.model.entity.UpgradeStatus">
+		<result property="id" column="id" />
+		<result property="email" column="email" />
+		<result property="initialState" column="initial_state"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.State"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStateTypeHandler" />
+		<result property="currentState" column="current_state"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.State"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStateTypeHandler" />
+		<result property="upgradeStatus" column="upgrade_status"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.Upgrade"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeStatusTypeHandler" />
+		<result property="userId" column="user_id" />
+		<result property="fcId" column="fc_id" />
+		<result property="sdId" column="sd_id" />
+		<result property="dontUpgrade" column="dont_upgrade" />
+		<result property="upgradeChannel" column="upgrade_channel"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.UpgradeChannel"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeChannelTypeHandler" />
+		<result property="upgradeSource" column="upgrade_source"
+			jdbcType="VARCHAR" javaType="com.snapdeal.ims.enums.UpgradeSource"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.UpgradeSourceTypeHandler" />
+		<result property="createdDate" column="created_date" />
+	</resultMap>
+
+	<resultMap id="resultUser" type="com.snapdeal.ims.dbmapper.entity.User">
+		<result property="userId" column="user_id" />
+		<result property="sdUserId" column="sd_user_id" />
+		<result property="fcUserId" column="fc_user_id" />
+		<result property="sdFcUserId" column="sd_fc_user_id" />
+		<result property="originatingSrc" column="originating_src" />
+		<result property="enabled" column="is_enabled" />
+		<result property="emailId" column="email" />
+		<result property="password" column="password" />
+		<result property="userSetPassword" column="is_user_set_password" />
+		<result property="mobileNumber" column="mobile_number" />
+		<result property="status" column="status" />
+		<result property="googleUser" column="is_google_user" />
+		<result property="facebookUser" column="is_facebook_user" />
+		<result property="emailVerified" column="is_email_verified" />
+		<result property="mobileVerified" column="is_mobile_verified" />
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="middleName" column="middle_name" />
+		<result property="displayName" column="display_name" />
+		<result property="gender" column="gender" jdbcType="VARCHAR"
+			javaType="com.snapdeal.ims.enums.Gender"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.GenderTypeHandler" />
+		<result property="dob" column="dob" jdbcType="DATE" />
+		<result property="languagePref" column="language_pref" />
+		<result property="purpose" column="purpose" />
+		<result property="walletStatus" column="create_wallet_status" />
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="base_column_list_user">
+		user_id,
+		sd_user_id,
+		fc_user_id,
+		sd_fc_user_id,
+		originating_src,
+		is_enabled,
+		email,
+		password,
+		is_user_set_password,
+		mobile_number,
+		status,
+		is_google_user,
+		is_facebook_user,
+		is_email_verified,
+		is_mobile_verified,
+		first_name,
+		last_name,
+		middle_name,
+		display_name,
+		gender,
+		dob,
+		language_pref,
+		purpose,
+		create_wallet_status,
+		created_time,
+		updated_time
+	</sql>
+
+	<sql id="base_column_list_upgradeUser">
+		id,email,initial_state,current_state,upgrade_status,user_id,fc_id,sd_id,upgrade_source,upgrade_channel,dont_upgrade,created_date
+	</sql>
+
+	<select id="getWalletStatus" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(*) FROM user where email=#{emailId} and
+		status!='TEMP' and
+		create_wallet_status='CREATED';
+	</select>
+	<select id="getSocialStatusAsFacebook" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(*) FROM social_user
+		where user_id in (select user_id from user where email=#{emailId}) and
+		social_src='FACEBOOK';
+	</select>
+	<select id="getSocialStatusAsGoogle" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(*) FROM social_user where user_id
+		in (select
+		user_id from user where email=#{emailId}) and
+		social_src='GOOGLE' ;
+	</select>
+
+	<select id="getFortknoxStatusByEmailId" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(*) FROM task_execution where task_id =
+		#{taskId};
+	</select>
+
+	<select id="getUpgradeStatus" resultMap="userUpgradeResult"
+		parameterType="String">
+		select
+		<include refid="base_column_list_upgradeUser" />
+		from upgrade
+		where email=#{email}
+	</select>
+
+	<select id="getUserStatus" parameterType="java.lang.String"
+		resultMap="userStatus">
+		select sd_user_id,fc_user_id from user where user.email =
+		#{emailId}
+	</select>
+
+	<select id="getUpgradeStatusByEmailID" parameterType="java.lang.String"
+		resultType="int">
+		SELECT count(*) FROM upgrade where  email=#{emailId} and upgrade_status = 'UPGRADE_COMPLETED' OR
+		'LINK_SD_ACCOUNT' OR 'LINK_FC_ACCOUNT' ;
+	</select>
+	
+	<select id="getWalletMobileVerifiedStatus" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from user where email=#{emailId} and
+		create_wallet_status='CREATED' and
+		is_mobile_verified !=0;
+	</select>
+	<select id="getUserMobileVerifiedStatus" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from user where email=#{emailId} and
+		!(status ='TEMP' and is_mobile_verified!=0);
+	</select>
+	<select id="getFcIdUpgradeStatus" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from upgrade where email=#{emailId} and
+		(fc_id IS NULL and upgrade_status
+		!='LINK_FC_ACCOUNT');
+	</select>
+	<select id="getSdIdUpgradeStatus" parameterType="java.lang.String"
+		resultType="int">
+		select count(*) from upgrade where email=#{emailId} and
+		(sd_id IS NULL and upgrade_status
+		!='LINK_SD_ACCOUNT');
+	</select>
+
+	<select id="getUserByEmail" resultMap="resultUser"
+		parameterType="String">
+		select
+		<include refid="base_column_list_user" />
+		from user
+		where email=#{emailId}
+	</select>
+</mapper>

@@ -1,0 +1,96 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.payments.view.mapper.IClientMigrateMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.payments.authorize.core.model.ClientDetails">
+		<result property="clientName" column="client_name" />
+		<result property="clientKey" column="client_key" />
+		<result property="versionNo" column="version_no" />
+		<result property="clientStatus" column="client_status" />
+		<result property="authEnable" column="auth_mode" />
+		<result property="apiList" column="authorized_api" />
+		<result property="bussinessEntities" column="bussiness_entity" />
+		<result property="createdTime" column="created_time" />
+		<result property="createdBy" column="created_by" />
+		<result property="updatedTime" column="updated_time" />
+		<result property="updatedBy" column="updated_by" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		client_name,client_key,version_no,client_status,auth_mode,authorized_api,bussiness_entity,created_time,created_by,updated_time,updated_by
+	</sql>
+
+	<select id="getAllClient" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client_migrate
+	</select>
+
+<!-- 	<insert id="createClient" -->
+<!-- 		parameterType="com.snapdeal.payments.authorize.core.model.ClientDetails"> -->
+<!-- 		INSERT INTO client_migrate -->
+<!-- 		( -->
+<!-- 		<include refid="base_column_list" /> -->
+<!-- 		) -->
+<!-- 		VALUES -->
+<!-- 		(#{clientName},#{clientKey},#{versionNo},#{clientStatus},#{authEnable},#{apiList},#{bussinessEntities}, -->
+<!-- 		now(),#{createdBy} ,now(),#{updatedBy}) -->
+<!-- 	</insert> -->
+
+<!-- 	<select id="getClientByName" parameterType="java.lang.String" -->
+<!-- 		resultMap="result"> -->
+<!-- 		SELECT -->
+<!-- 		<include refid="base_column_list" /> -->
+<!-- 		FROM client_details WHERE client_name = #{clientName} order by -->
+<!-- 		version_no DESC; -->
+<!-- 	</select> -->
+
+<!-- 	<update id="updateClientStatus" -->
+<!-- 		parameterType="com.snapdeal.payments.authorize.core.model.ClientDetails"> -->
+<!-- 		update client_details set -->
+<!-- 		client_status=#{clientStatus}, -->
+<!-- 		updated_time=now() where client_name = -->
+<!-- 		#{clientName} and version_no = -->
+<!-- 		#{versionNo} -->
+<!-- 	</update> -->
+
+<!-- 	<update id="updateClientKey" -->
+<!-- 		parameterType="com.snapdeal.payments.authorize.core.model.ClientDetails"> -->
+<!-- 		update client_details set -->
+<!-- 		client_key=#{clientKey}, -->
+<!-- 		updated_time=now() where client_name = -->
+<!-- 		#{clientName} and version_no = -->
+<!-- 		#{versionNo} -->
+<!-- 	</update> -->
+
+<!-- 	<select id="getClientByClientStatus" parameterType="java.lang.String" -->
+<!-- 		resultMap="result"> -->
+<!-- 		SELECT -->
+<!-- 		<include refid="base_column_list" /> -->
+<!-- 		FROM client_details WHERE client_status = <![CDATA['${clientStatus.toString()}']]> -->
+<!-- 		order by -->
+<!-- 		version_no DESC -->
+<!-- 	</select> -->
+
+<!-- 	<select id="getClientByClientNameAndVersion" -->
+<!-- 		parameterType="com.snapdeal.payments.authorize.core.model.ClientDetails" -->
+<!-- 		resultMap="result"> -->
+<!-- 		SELECT -->
+<!-- 		<include refid="base_column_list" /> -->
+<!-- 		FROM client_details WHERE client_name = -->
+<!-- 		#{clientName} and version_no = -->
+<!-- 		#{versionNo} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="getLatestClient" parameterType="java.lang.String" -->
+<!-- 		resultMap="result"> -->
+<!-- 		SELECT -->
+<!-- 		<include refid="base_column_list" /> -->
+<!-- 		FROM client_details WHERE client_name = #{clientName} order by -->
+<!-- 		version_no DESC limit 1; -->
+<!-- 	</select> -->
+</mapper>

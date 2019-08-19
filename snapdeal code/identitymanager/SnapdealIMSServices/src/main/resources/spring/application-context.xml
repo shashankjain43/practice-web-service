@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="classpath:/resources" />
+
+	<bean id="imsPlaceholderConfig" class="com.snapdeal.ims.utils.SpringPropertiesUtil">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="locations">
+			<list>
+				<value>file:${config.path}/app.properties</value>
+				<value>file:${config.path}/api.properties</value>
+				<value>file:${config.path}/db.properties</value>
+				<value>file:${config.path}/vault.properties</value>
+				<value>classpath*:*application.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="initialization"
+		class="com.snapdeal.ims.notifierClient.FCNotifier"
+		init-method="init" destroy-method="destroyApplicationVariables">
+		<property name="host" value="${fcNotifier.host}" />
+		<property name="port" value="${fcNotifier.port}" />
+		<property name="apiTimeout" value="${fcNotifier.apiTimeout}" />
+	</bean>
+	
+	<bean id="mojoClientInitialization" class="com.freecharge.mojo.MojoClient">
+		<constructor-arg index="0" value="${freecharge.mojoclient.accessKey}"/>
+		<constructor-arg index="1" value="${freecharge.mojoclient.secretKey}" />
+		<constructor-arg index="2" value="${freecharge.mojoclient.connectTimeout}"/>
+		<constructor-arg index="3" value="${freecharge.mojoclient.readTimeout}"/>
+		<constructor-arg index="4" value="${freecharge.mojoclient.environment}" />
+	</bean>
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<bean id="umsClientService"
+		class="com.snapdeal.ums.client.services.impl.UMSClientServiceImpl">
+		<!-- <property name="webServiceBaseURL" value="http://52.74.67.190:9001/service/ums" 
+			/> -->
+		<property name="webServiceBaseURL" value="${snapdeal.identity.ums.url}" />
+	</bean>
+
+	<bean class="com.snapdeal.base.startup.config.AppEnvironmentContext"
+		id="appEnvironmentContext">
+		<constructor-arg value="IDM" />
+	</bean>
+
+	<!-- Task scheduler for Cache Update. -->
+	<task:scheduled-tasks scheduler="scheduler">
+		<task:scheduled ref="CacheUpdater" method="loadAll"
+			cron="0 0/${snapdeal.identity.manager.cacheUpdater.delay} 0-23 * * *" />
+	</task:scheduled-tasks>
+	<task:scheduler id="scheduler" pool-size="1" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${snapdeal.identity.manager.database.driverClassName}" />
+		<property name="url" value="${snapdeal.identity.manager.database.url}" />
+		<property name="username"
+			value="${snapdeal.identity.manager.database.username}" />
+		<property name="password"
+			value="${snapdeal.identity.manager.database.password}" />
+		<property name="maxActive"
+			value="${snapdeal.identity.manager.database.maxactive}" />
+		<property name="maxWait"
+			value="${snapdeal.identity.manager.database.maxwait}" />
+		<property name="maxIdle"
+            value="${snapdeal.identity.manager.database.maxIdle}" />
+        <property name="initialSize"
+            value="${snapdeal.identity.manager.database.inititalsize}" />
+        <property name="minIdle"
+            value="${snapdeal.identity.manager.database.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis"
+            value="${snapdeal.identity.manager.database.timebetweenevictionrunsmillis}" />
+        <property name="minEvictableIdleTimeMillis"
+            value="${snapdeal.identity.manager.database.minevictableidletimemillis}" />
+	</bean>
+	
+	<!-- MyBatis related beans -->
+	<bean id="sqlSessionFactoryMybatis" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:myBatis/sqlmap-config.xml" />
+	</bean>
+
+	<bean name="myBatisIMSDB" id="myBatisIMSDB"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryMybatis" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.snapdeal.ims.client.dbmapper,com.snapdeal.ims.dbmapper,com.snapdeal.payments.ts.dao,com.snapdeal.ims.migration.dbmapper" />
+		<property name="sqlSessionTemplateBeanName" value="myBatisIMSDB"></property>
+	</bean>
+
+	<!-- MyBatis Activity Log DB related beans starts -->	
+	<bean id="activityLog_dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${snapdeal.identity.manager.activityLog.database.driverClassName}" />
+		<property name="url" value="${snapdeal.identity.manager.activityLog.database.url}" />
+		<property name="username"
+			value="${snapdeal.identity.manager.activityLog.database.username}" />
+		<property name="password"
+			value="${snapdeal.identity.manager.activityLog.database.password}" />
+		<property name="maxActive"
+			value="${snapdeal.identity.manager.activityLog.database.maxactive}" />
+		<property name="maxWait"
+			value="${snapdeal.identity.manager.activityLog.database.maxwait}" />
+		<property name="maxIdle"
+            value="${snapdeal.identity.manager.activityLog.database.maxIdle}" />
+        <property name="initialSize"
+            value="${snapdeal.identity.manager.activityLog.database.inititalsize}" />
+        <property name="minIdle"
+            value="${snapdeal.identity.manager.activityLog.database.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis"
+            value="${snapdeal.identity.manager.activityLog.database.timebetweenevictionrunsmillis}" />
+        <property name="minEvictableIdleTimeMillis"
+            value="${snapdeal.identity.manager.activityLog.database.minevictableidletimemillis}" />
+	</bean>
+
+	<bean id="sqlSessionFactoryMybatisActivityLogDB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="activityLog_dataSource" />
+		<property name="configLocation" value="classpath:myBatis/sqlmap-config-activity-log.xml" />
+	</bean>
+	
+	<bean name="mybatisActivityLogDB" id="mybatisActivityLogDB"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryMybatisActivityLogDB" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.snapdeal.ims.activity.dbmapper" />
+			<property name="sqlSessionTemplateBeanName" value="mybatisActivityLogDB"></property>
+			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryMybatisActivityLogDB"></property>
+	</bean>
+	<!--MyBatis Activity log DB ends here  -->
+	<!-- MyBatis IMS Replica DB related beans starts -->
+	<bean id="imsReplica_dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${snapdeal.identity.manager.imsReplica.database.driverClassName}" />
+		<property name="url" value="${snapdeal.identity.manager.imsReplica.database.url}" />
+		<property name="username"
+			value="${snapdeal.identity.manager.imsReplica.database.username}" />
+		<property name="password"
+			value="${snapdeal.identity.manager.imsReplica.database.password}" />
+		<property name="maxActive"
+			value="${snapdeal.identity.manager.imsReplica.database.maxactive}" />
+		<property name="maxWait"
+			value="${snapdeal.identity.manager.imsReplica.database.maxwait}" />
+		<property name="maxIdle"
+            value="${snapdeal.identity.manager.imsReplica.database.maxIdle}" />
+        <property name="initialSize"
+            value="${snapdeal.identity.manager.imsReplica.database.inititalsize}" />
+        <property name="minIdle"
+            value="${snapdeal.identity.manager.imsReplica.database.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis"
+            value="${snapdeal.identity.manager.imsReplica.database.timebetweenevictionrunsmillis}" />
+        <property name="minEvictableIdleTimeMillis"
+            value="${snapdeal.identity.manager.imsReplica.database.minevictableidletimemillis}" />
+	</bean>
+	
+	<bean id="sqlSessionFactoryMybatisIMSReplicaDB" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="imsReplica_dataSource" />
+		<property name="configLocation" value="classpath:myBatis/sqlmap-config-ims-replica.xml" />
+	</bean>
+	
+	<bean name="mybatisIMSReplicaDB" id="mybatisIMSReplicaDB"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryMybatisIMSReplicaDB" />
+		<constructor-arg index="1" value="REUSE" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"
+			value="com.snapdeal.ims.dashboard.dbmapper" />
+			<property name="sqlSessionTemplateBeanName" value="mybatisIMSReplicaDB"></property>
+			<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryMybatisIMSReplicaDB"></property>
+	</bean>
+	<!-- MyBatis IMS Replica DB Ends Here -->
+
+	
+
+	<bean id="activityTaskExecutor" name="activityTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${snapdeal.ims.activity.corepoolsize}" />
+		<property name="maxPoolSize" value="${snapdeal.ims.activity.maxpoolsize}" />
+		<property name="queueCapacity" value="${snapdeal.ims.activity.queuecapacity}" />
+	</bean>
+	
+ 	<bean id="aeropsikeCleanupTaskExecutor" name="aeropsikeCleanupTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${snapdeal.ims.activity.corepoolsize}" />
+		<property name="maxPoolSize" value="${snapdeal.ims.activity.maxpoolsize}" />
+		<property name="queueCapacity" value="${snapdeal.ims.activity.queuecapacity}" />
+	</bean> 
+	
+
+	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+         <property name="targetObject">
+                    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                            <property name="targetClass" value="java.lang.System" />
+                            <property name="targetMethod" value="getProperties" />
+                        </bean>
+          </property>
+          <property name="targetMethod" value="putAll"/>
+          <property name="arguments">
+             <util:properties>
+                 <!--    <prop key="javax.net.ssl.trustStore">${javax.net.ssl.trustStore}</prop>
+                    <prop key="javax.net.ssl.trustStorePassword">${javax.net.ssl.trustStorePassword}</prop> -->
+                    <prop key="javax.net.ssl.keyStore">${javax.net.ssl.keyStore}</prop>
+                    <prop key="javax.net.ssl.keyStorePassword">${javax.net.ssl.keyStorePassword}</prop>
+                    <prop key="sslEnabled">${sslEnabled}</prop>
+                    <prop key="javax.net.ssl.keyStoreType">${javax.net.ssl.keyStoreType}</prop>
+                    <!-- <prop key="javax.net.ssl.trustStoreType">${javax.net.ssl.trustStoreType}</prop> -->
+					<!-- <prop key="javax.net.debug">${javax.net.debug}</prop>	-->
+              </util:properties>
+         </property>
+	</bean>
+	
+	<!-- Wallet Service BEans -->
+	<bean id="sdMoneyClientDetails"
+		class="com.snapdeal.payments.sdmoney.client.utils.ClientDetails">
+		<property name="clientKey" value="${snapdeal.payments.sdmoney.clientKey}" />
+		<property name="url" value="${snapdeal.payments.sdmoney.url}" />
+		<property name="clientName" value="${snapdeal.payments.sdmoney.clientName}" />
+		<property name="connectionRequestTimeout"
+			value="${snapdeal.payments.sdmoney.connectionRequestTimeout}" />
+		<property name="connectTimeout" value="${snapdeal.payments.sdmoney.connectTimeout}" />
+		<property name="socketTimeout" value="${snapdeal.payments.sdmoney.socketTimeout}" />
+	</bean>
+
+	<bean id="sdMoneyServiceClient" class="com.snapdeal.payments.sdmoney.client.SDMoneyClient">
+		<constructor-arg index="0" ref="sdMoneyClientDetails" />
+	</bean>
+
+	<bean id="fortknoxcl" class="com.klickpay.fortknox.FortKnoxClient">
+		<constructor-arg name="accessKey"
+			value="${freecharge.fortknox.accessKey}"></constructor-arg>
+		<constructor-arg name="secretKey"
+			value="${freecharge.fortknox.secretKey}"></constructor-arg>
+		<constructor-arg name="connectTimeout"
+			value="${freecharge.fortknox.connectTimeout}"></constructor-arg>
+		<constructor-arg name="readTimeout"
+			value="${freecharge.fortknox.readTimeout}"></constructor-arg>
+		<constructor-arg name="environment"
+			type="com.klickpay.fortknox.Environment" value="${freecharge.fortknox.environment}"></constructor-arg>
+	</bean>
+	
+	<mvc:interceptors>
+		<bean class="com.snapdeal.payments.interceptors.RequestContextInterceptor">
+		</bean>
+	</mvc:interceptors>
+</beans>

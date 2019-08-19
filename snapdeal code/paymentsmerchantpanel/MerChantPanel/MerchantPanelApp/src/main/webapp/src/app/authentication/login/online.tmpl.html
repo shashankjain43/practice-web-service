@@ -1,0 +1,48 @@
+<md-dialog ng-controller="LoginController as vm" style="width: 500px;padding: 10px;">
+<div ng-if="vm.isLoading" class="popupLoader">
+  <md-progress-circular class="md-warn md-hue-3" md-mode="indeterminate" md-diameter="70"></md-progress-circular>
+</div>
+<div class="text-center" style="margin-bottom:30px;">
+  <h2  class="text-orange" style="font-weight:500">Register Here</h2>
+  <p style="display: block; width: 100%; color:#BBBBBB">You are few steps away from accepting payments</p> 
+  <span flex></span>
+</div>
+  <form name="onlineForm">
+    <md-dialog-content style="padding:20px;">
+        <md-input-container class="md-block">
+          <label>Email Id</label>
+          <input ng-model="signup.email" name="email" ng-pattern="'[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'"  required>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Password</label>
+          <input ng-model="signup.pswd" name="password" type="password" required>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>Confirm Password</label>
+          <input ng-model="signup.confpswd" compare-to="signup.pswd" name="confpassword" type="password" required>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <md-checkbox aria-label="Checkbox 1" ng-model="signup.tnc">
+              I Agree <a href="/assets/templates/Online_merchant_agreement.pdf" target="_blank" class="text-orange">Terms and Conditions</a>
+          </md-checkbox>
+        </md-input-container>
+        
+    </md-dialog-content>
+    <div class="alert alert-danger" ng-if="vm.error" style="width: 100%;">
+      <p><strong>{{vm.errorMessage}}</strong></p>
+    </div>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="vm.cancel()" class="btn-grey-border" style="height:40px; line-height: 20px;">
+        CANCEL
+      </md-button>
+      <md-button style="margin-right:20px; height:40px; line-height: 20px;" class="btn-orange-border" ng-disabled="onlineForm.$invalid || !signup.tnc" ng-click="vm.createNewMerchant(signup.email, signup.pswd, 'online')">
+        SUBMIT
+      </md-button>
+    </md-dialog-actions>
+  </form>
+  <div class="col-xs-12 col-sm-12 text-center" style="font-weight:400; margin-top:30px;">Already have an account? <a ng-click="vm.loginbox($event)" class="text-orange">Login</a></div>
+</md-dialog>
+
+<route-loading-indicator/>
+

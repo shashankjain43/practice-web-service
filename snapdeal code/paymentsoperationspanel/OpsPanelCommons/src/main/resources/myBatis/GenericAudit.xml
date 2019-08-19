@@ -1,0 +1,119 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.audit.dao.GenericAuditDao">
+
+	<insert id="setAuditEntry" parameterType="com.snapdeal.opspanel.audit.entity.AuditEntity">
+		INSERT INTO
+		generic_audit
+		(request_id,ip,email_id,methodname,timestamp,request,response,failure,exception,reason,search_id,context,viewable)
+		VALUES
+		(#{requestId},#{IP},#{emailId},#{methodName},#{timeStamp},#{request},#{response},#{failure},#{exception},#{reason},#{searchId},#{context},#{viewable})
+	</insert>
+
+	<!-- <resultMap type="java.lang.String" id="requestId"> <result property="requestId" 
+		column="request_id" /> </resultMap> <select id="checkAuditRequestIdExistance" 
+		parameterType="java.lang.String" resultMap="requestId"> SELECT request_id 
+		FROM generic_audit WHERE request_id = #{requestId} </select> -->
+
+
+	<update id="updateAuditResponse" parameterType="com.snapdeal.opspanel.audit.entity.AuditEntity">
+		UPDATE
+		generic_audit
+		SET response = #{response}
+		WHERE request_id = #{requestId}
+	</update>
+
+	<update id="updateAuditException" parameterType="com.snapdeal.opspanel.audit.entity.AuditEntity">
+		UPDATE
+		generic_audit
+		SET failure = #{failure},
+		exception = #{exception}
+		WHERE
+		request_id = #{requestId}
+	</update>
+
+	<select id="getResponse" parameterType="com.snapdeal.opspanel.audit.entity.AuditEntity"
+		resultMap="response">
+		SELECT request , response , methodname , email_id ,timestamp FROM
+		generic_audit
+		where viewable=1
+		and
+		context = #{context}
+		and email_id is not NULL
+		<if test="emailId != null and emailId != ''">
+			and email_id = #{emailId}
+		</if>
+		<if test="searchId != null and searchId != ''">
+			and search_id = #{searchId}
+		</if>
+		and timestamp between #{startDate} and #{endDate}
+		order by timestamp desc
+		limit #{pageSize} offset #{offset} ;
+	</select>
+	
+	<select id="getLastSuccess" parameterType="com.snapdeal.opspanel.audit.entity.AuditEntity"
+		resultMap="response">
+		SELECT methodname , email_id ,timestamp FROM
+		generic_audit
+		where viewable=1
+		and
+		context = #{context}
+		and failure=0
+		and email_id is not NULL
+		<if test="emailId != null and emailId != ''">
+			and email_id = #{emailId}
+		</if>
+		<if test="searchId != null and searchId != ''">
+			and search_id = #{searchId}
+		</if>
+		order by timestamp desc
+		limit 1 ;
+	</select>
+	
+	
+	<select id="getCount" parameterType="com.snapdeal.opspanel.audit.entity.AuditEntity"
+		resultType="int">
+		SELECT count(*) FROM
+		generic_audit
+		where viewable=1
+		and
+		context = #{context}
+		and email_id is not NULL
+		<if test="emailId != null and emailId != ''">
+			and email_id = #{emailId}
+		</if>
+		<if test="searchId != null and searchId != ''">
+			and search_id = #{searchId}
+		</if>
+		and timestamp between #{startDate} and #{endDate} ;
+	</select>
+
+	<resultMap id="result"
+		type="com.snapdeal.opspanel.audit.entity.AuditEntity">
+		<result property="requestId" column="request_id" />
+		<result property="IP" column="ip" />
+		<result property="emailId" column="email_id" />
+		<result property="methodName" column="methodname" />
+		<result property="timeStamp" column="timestamp" />
+		<result property="request" column="request" />
+		<result property="response" column="response" />
+		<result property="failure" column="failure" />
+		<result property="exception" column="exception" />
+		<result property="reason" column="reason" />
+		<result property="searchId" column="search_id" />
+		<result property="context" column="context" />
+	</resultMap>
+
+	<resultMap id="response"
+		type="com.snapdeal.opspanel.audit.response.AuditResponse">
+		<result property="email" column="email_id" />
+		<result property="methodName" column="methodname" />
+		<result property="jsonRequest" column="request" />
+		<result property="jsonResponse" column="response" />
+		<result property="timeStamp" column="timestamp" />
+	</resultMap>
+
+
+</mapper>

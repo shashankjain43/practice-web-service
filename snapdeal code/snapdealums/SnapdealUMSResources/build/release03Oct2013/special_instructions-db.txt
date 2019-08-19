@@ -1,0 +1,21 @@
+------------------------------------------------------------------------------------
+------------------------------DBA - Instructions---------------------------------
+--------------------------------Developer Ghanshyam----------------------------------
+------------------------------------------------------------------------------------
+
+1) Take dump of following tables from snapdeal databases and copy to ums database
+	email_template;
+	sms_service_provider;
+	sms_template;
+	server_info;
+	locality;
+	snapdeal_property;
+
+2) SnapdealUMS/SnapdealUMSResources/build/release03Oct2013/wrapper.sql
+
+3) update value of 's4.web.service.url' in ums_property.
+
+4) update value of 'static.resources.path'in ums_property with "://ums-admin-ip:port/"
+	e.g: "://127.0.0.1:31000/"
+
+

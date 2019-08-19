@@ -1,0 +1,89 @@
+db.processPropertyInfo.insert([
+{
+    processName: 'googleElectronicsPublisher', 
+    propertyName: 'updatesLimit',
+    propertyValue: '100'
+},
+{
+    processName: 'googleElectronicsPublisher', 
+    propertyName: 'categories',
+    propertyValue: '7,9,19,290,310,461,516,575,753'
+},
+{
+    processName: 'googleElectronicsPublisher', 
+    propertyName: 'testSellers',
+    propertyValue: 'S03310,S03649,S03650,S03654'
+}])
+
+db.processPropertyInfo.insert([
+{
+    processName: 'googleFashionPublisher', 
+    propertyName: 'updatesLimit',
+    propertyValue: '100'
+},
+{
+    processName: 'googleFashionPublisher', 
+    propertyName: 'categories',
+    propertyValue: '6,17,23,31,66,159,226,227,310,318,403,473,474,476,481,493,502,524,539,557,586,643,658,682,691,715,764,777,814,830'
+},
+{
+    processName: 'googleFashionPublisher', 
+    propertyName: 'testSellers',
+    propertyValue: 'S03310,S03649,S03650,S03654'
+}])
+
+db.processPropertyInfo.insert([
+{
+    processName: 'googleGmPublisher', 
+    propertyName: 'updatesLimit',
+    propertyValue: '100'
+},
+{
+    processName: 'googleGmPublisher', 
+    propertyName: 'categories',
+    propertyValue: '5,66,217,475,580,694,720,864'
+},
+{
+    processName: 'googleGmPublisher', 
+
+    propertyName: 'testSellers',
+    propertyValue: 'S03310,S03649,S03650,S03654'
+}])
+
+db.processPropertyInfo.insert([
+{
+    processName: 'googleCustomPublisher', 
+    propertyName: 'updatesLimit',
+    propertyValue: '100'
+},
+{
+    processName: 'googleCustomPublisher', 
+    propertyName: 'categories',
+    propertyValue: '12,21'
+},
+{
+    processName: 'googleCustomPublisher', 
+    propertyName: 'testSellers',
+    propertyValue: 'S03310,S03649,S03650,S03654'
+}])
+
+db.lastRunInfo.insert([
+{
+    processName: 'googleElectronicsPublisher',
+    lastRunTs: ISODate('2014-11-19')
+},
+{
+    processName: 'googleFashionPublisher',
+    lastRunTs: ISODate('2014-11-19')
+},
+{
+    processName: 'googleGmPublisher',
+    lastRunTs: ISODate('2014-11-19')
+}])
+
+db.lastRunInfo.insert([
+{
+    processName: 'googleCustomPublisher',
+    lastRunTs: ISODate('2014-11-19')
+}])
+

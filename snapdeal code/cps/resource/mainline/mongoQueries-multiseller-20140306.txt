@@ -1,0 +1,10 @@
+use CPS_DB
+
+/* Cleans error log table*/
+db.errorInfo.remove()
+
+/* Cleans update pipeline */
+db.updatePOG.remove()
+
+/* Updates field name in vendorInfo collection */
+db.vendorInfo.update({},{$rename:{'vendorDisplayName':'googleVendorName'}},false,true)

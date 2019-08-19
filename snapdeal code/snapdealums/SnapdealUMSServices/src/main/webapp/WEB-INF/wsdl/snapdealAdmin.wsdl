@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch0="http://www.snapdeal.com/services/" xmlns:sch1="http://www.snapdeal.com/services/traveldeals"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.snapdeal.com/services/"
+	targetNamespace="http://www.snapdeal.com/services/" xmlns:p="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema xmlns:sd="http://www.snapdeal.com/services/"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+			elementFormDefault="qualified" targetNamespace="http://www.snapdeal.com/services/">
+
+			<xs:element name="UpdateShippingPackageStatusRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="packageId" type="xs:string" />
+						<xs:element name="packageType" type="xs:string" />
+						<xs:element name="manifestId" type="xs:string" />
+						<xs:element name="statusCode" type="xs:string" />
+						<xs:element name="byUserId" type="xs:string" />
+						<xs:element name="remarks" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UpdateShippingPackageStatusResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="updateSuccessful" type="xs:boolean"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="Authentication">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="apiKey" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+
+	<wsdl:message name="AuthenticationHeader">
+		<wsdl:part name="Authentication" element="tns:Authentication" />
+	</wsdl:message>
+	<wsdl:message name="UpdateShippingPackageStatusRequest">
+		<wsdl:part name="UpdateShippingPackageStatusRequest" element="tns:UpdateShippingPackageStatusRequest"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="UpdateShippingPackageStatusResponse">
+		<wsdl:part name="UpdateShippingPackageStatusResponse" element="tns:UpdateShippingPackageStatusResponse"></wsdl:part>
+	</wsdl:message>
+
+	<wsdl:portType name="Snapdeal">
+		<wsdl:operation name="UpdateShippingPackageStatus">
+			<wsdl:input message="tns:UpdateShippingPackageStatusRequest" name="UpdateShippingPackageStatusRequest"></wsdl:input>
+			<wsdl:output message="tns:UpdateShippingPackageStatusResponse" name="UpdateShippingPackageStatusResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="SnapdealSoapAdmin" type="tns:Snapdeal">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="UpdateShippingPackageStatus">
+			<soap:operation soapAction="UpdateShippingPackageStatus" />
+			<wsdl:input name="UpdateShippingPackageStatusRequest">
+				<soap:body use="literal" />
+				<soap:header message="tns:AuthenticationHeader" part="Authentication"
+					use="literal" />
+			</wsdl:input>
+			<wsdl:output name="UpdateShippingPackageStatusResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="SnapdealService">
+		<wsdl:port binding="tns:SnapdealSoapAdmin" name="SnapdealSoapAdmin">
+			<soap:address location="http://localhost:80/services/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
+

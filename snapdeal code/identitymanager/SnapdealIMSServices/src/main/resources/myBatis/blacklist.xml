@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IBlackListMapper">
+	<resultMap id="resultBlackList"
+		type="com.snapdeal.ims.dbmapper.entity.BlackList" >
+		<result property="entity" column="entity" />
+		<result property="entityType" column="entity_type" />
+	</resultMap>
+	
+	<insert id="create" parameterType="com.snapdeal.ims.dbmapper.entity.BlackList"> 
+		INSERT INTO blacklist_entities
+		(	
+		entity,
+		entity_type
+		)
+		VALUES
+		(
+		#{entity},
+		#{entityType}
+		)
+	</insert>
+	
+	<select id="getAllEntities" parameterType="java.lang.String"
+		resultMap="resultBlackList">
+		SELECT
+		entity,
+		entity_type
+		FROM blacklist_entities
+	</select>
+	
+	<delete id="remove" parameterType="com.snapdeal.ims.dbmapper.entity.BlackList">
+		DELETE FROM blacklist_entities
+		WHERE
+		entity=#{entity} 
+		AND 
+		entity_type=#{entityType}
+	</delete>
+		
+</mapper>

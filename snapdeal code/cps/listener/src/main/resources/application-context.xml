@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.1.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.1.xsd         
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-3.1.xsd         
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-3.1.xsd         
+						http://www.springframework.org/schema/task
+						http://www.springframework.org/schema/task/spring-task-3.1.xsd
+                        http://www.springframework.org/schema/data/mongo
+                        http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
+    
+    <!-- Activate @Configurable injection -->
+    <context:spring-configured />
+    
+    <!-- enable auto-scan for all @Repository, @Service, @Controller java files for beans -->
+    <context:component-scan
+        base-package="com.snapdeal.base, com.snapdeal.ipms, com.snapdeal.product, com.snapdeal.catalog, com.snapdeal.cps">
+        <context:exclude-filter type="regex"
+            expression="com\.snapdeal\.base\.services\..*Service.*" />
+        <context:exclude-filter type="regex"
+            expression="com\.snapdeal\.base\.startup\..*" />
+        <context:exclude-filter type="regex"
+            expression="com\.snapdeal\.base\.notification\..*Service.*" />
+    </context:component-scan>
+
+    <!-- <aop:aspectj-autoproxy expose-proxy="true" /> -->
+
+    <bean id="propertyPlaceholder"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="location">
+            <value>file:${propertyDir}/user.properties</value>
+        </property>
+    </bean>
+
+    <!-- Configuration for VIPMS Queue Listener -->
+    
+    <!-- creates an activemq connection factory using the amq namespace -->
+    <bean id="ipmsAmqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${ipms.queue.brokerURL}" />
+        <property name="userName" value="${ipms.queue.username}" />
+        <property name="password" value="${ipms.queue.password}" />
+    </bean>
+
+<!--     CachingConnectionFactory Definition, sessionCacheSize property is  -->
+<!--        the number of sessions to cache  -->
+<!--     <bean id="ipmsCachingConnectionFactory" -->
+<!--         class="org.springframework.jms.connection.CachingConnectionFactory"> -->
+<!--         <constructor-arg ref="ipmsAmqConnectionFactory" /> -->
+<!--         <property name="sessionCacheSize" value="${ipms.queue.sessionCacheSize}" /> --> 
+<!--     </bean> -->
+
+<!--     JmsTemplate Definition -->
+<!--     <bean id="ipmsJmsTemplate" class="org.springframework.jms.core.JmsTemplate"> -->
+<!--         <constructor-arg ref="ipmsCachingConnectionFactory" /> -->
+<!--         <property name="explicitQosEnabled" value="${ipms.queue.explicitQOSEnabled}" /> -->
+<!--         <property name="deliveryMode" value="${ipms.queue.deliveryMode}" /> -->
+<!--         <property name="sessionAcknowledgeMode" value="${ipms.queue.sessionAcknowledgeMode}" /> -->
+<!--     </bean> -->
+    
+    <bean id="singleJmsConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="ipmsAmqConnectionFactory" />
+        <property name="reconnectOnException" value="true" />
+    </bean>
+
+    <!-- Message Receiver Definition -->
+    <bean
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="singleJmsConnectionFactory" />
+        <property name="destinationName" value="${ipms.rank.update.queue.name}" />
+        <property name="messageListener" ref="VIPMSRankUpdateQListener" />
+    </bean>
+    
+    <bean
+        class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="singleJmsConnectionFactory" />
+        <property name="destinationName" value="${ipms.inventory.status.queue.name}" />
+        <property name="messageListener" ref="VIPMSInventoryStatusQListener" />
+    </bean>
+        
+    
+    <!-- Setting up Mongo -->
+<!--     <mongo:mongo host="${mongo.hostname}" port="${mongo.port}" /> -->
+<!--     <mongo:db-factory dbname="${mongo.db.name}"></mongo:db-factory> -->
+
+<!--     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate"> -->
+<!--         <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" /> -->
+<!--     </bean> -->
+    
+    <!-- Setting up mongo -->
+	<mongo:mongo replica-set="${mongo.replicaSet}" id="mongoCPS">
+        <mongo:options auto-connect-retry="true" 
+                       connections-per-host="${mongo.connectionsPerHost}"
+                       slave-ok="true" />
+    </mongo:mongo>
+    
+    <mongo:db-factory dbname="${mongo.db.name}" mongo-ref="mongoCPS" id="mongoDbFactoryCPS" />
+
+    <bean id="readPref" class="com.mongodb.ReadPreference" factory-method="secondaryPreferred" />
+
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactoryCPS" />
+        <property name="readPreference" ref="readPref" />
+    </bean>
+
+    <!-- load http client properties file -->
+    <bean id="httpclientProperties" class="com.snapdeal.base.utils.HttpClientPropertiesUtil">
+        <property name="location" value="classpath:http-client.properties"/>
+    </bean>
+    
+</beans>

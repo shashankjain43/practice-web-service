@@ -1,0 +1,12 @@
+db.pogDetailVO.find({"enabled":true}).forEach(function(x) {
+     db.pogMigrationVO.insert({
+          "_id": x._id, 
+          "url": x.fullPageUrl,
+          "name": x.name,
+          "highlights": x.highlights,
+          "offers": x.offers, 
+          "categories": x.categories,
+          "brand": x.brand,
+          "bucket": x._id % 10
+     })
+});

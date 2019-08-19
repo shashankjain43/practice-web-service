@@ -1,0 +1,148 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="otp">
+
+	<resultMap type="com.snapdeal.ims.otp.entity.UserOTPEntity"
+		id="resultSetForOtpValidation">
+		<result column="user_id" property="userId"/>
+		<result column="mobile_number" property="mobileNumber" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="otp" property="otp" jdbcType="VARCHAR" />
+		<result column="otp_id" property="otpId" />
+		<result column="invalid_attempts" property="invalidAttempts" />
+		<result column="resend_attempts" property="resendAttempts" />
+		<result column="expiry_time" property="expiryTime" />
+		<result column="otp_type" property="otpType" />
+		<result column="otp_status" property="otpStatus" />
+		<result column="created_date" property="createdOn" />
+		<result column="updated_date" property="modifiedOn" />
+		<result column="client_id" property="clientId" />
+		<result column="token" property="token" />
+		<result column="send_otp_by" property="sendOTPBy" />
+	</resultMap>
+
+	<sql id="base_result_map">
+		user_id,mobile_number,email,case when ifnull(otp,'') = '' then otp_encrypted else otp end as otp,
+		otp_id,invalid_attempts,resend_attempts,expiry_time,
+		otp_type,otp_status,created_date,updated_date,client_id,token,send_otp_by
+	</sql>
+<!-- will be used by resend -->
+	<select id="isOtpPresent" resultMap="resultSetForOtpValidation"
+		parameterType="com.snapdeal.ims.otp.internal.request.FetchLatestOTPRequest">
+		select <include refid="base_result_map" />
+		from user_otp
+		where otp_id=#{otpId}
+	</select>
+
+	<select id="getOtpId" resultMap="resultSetForOtpValidation"
+		parameterType="com.snapdeal.ims.otp.entity.UserOTPEntity">
+		select <include refid="base_result_map" />
+		from user_otp
+		where client_id=#{clientId}
+			  AND otp_type=#{otpType}
+			  AND user_id=#{userId}
+		order by created_date DESC;
+	</select>
+	
+	<select id="getLatestOTP" resultMap="resultSetForOtpValidation"
+		parameterType="com.snapdeal.ims.request.GenerateOTPServiceRequest">
+		select <include refid="base_result_map" />
+		from user_otp
+		where  client_id=#{clientId}
+				AND otp_type=#{otpType}
+				AND user_id=#{userId}
+				<if test="mobileNumber !=null">
+				AND mobile_number=#{mobileNumber}
+				</if>
+				<if test="emailId !=null">
+				AND email = #{emailId}
+				</if>
+		order by created_date DESC;
+	</select>
+
+	<insert id="saveOTP" parameterType="com.snapdeal.ims.otp.entity.UserOTPEntity">
+		insert into
+		user_otp(otp_id,user_id,mobile_number,email,otp,invalid_attempts,resend_attempts,
+		expiry_time,otp_type,otp_status,created_date,updated_date,
+		client_id,token, send_otp_by)
+		values(
+		#{otpId},
+		#{userId},
+		#{mobileNumber},
+		#{email},
+		#{otp},
+		#{invalidAttempts},
+		#{resendAttempts},
+		#{expiryTime},
+		#{otpType},
+		#{otpStatus},
+		#{createdOn},
+		#{modifiedOn},
+		#{clientId},
+		#{token},
+		#{sendOTPBy}
+		)
+	</insert>
+	
+	<insert id="saveOTPWithEncryption" parameterType="com.snapdeal.ims.otp.entity.UserOTPEntity">
+		insert into
+		user_otp(otp_id,user_id,mobile_number,email,otp_encrypted,invalid_attempts,resend_attempts,
+		expiry_time,otp_type,otp_status,created_date,updated_date,
+		client_id,token, send_otp_by)
+		values(
+		#{otpId},
+		#{userId},
+		#{mobileNumber},
+		#{email},
+		#{otp},
+		#{invalidAttempts},
+		#{resendAttempts},
+		#{expiryTime},
+		#{otpType},
+		#{otpStatus},
+		#{createdOn},
+		#{modifiedOn},
+		#{clientId},
+		#{token},
+		#{sendOTPBy}
+		)
+	</insert>
+
+	<update id="incrementInvalidAttempts"
+		parameterType="com.snapdeal.ims.otp.internal.request.UpdateInvalidAttemptsRequest">
+		update user_otp 
+		set invalid_attempts=invalid_attempts+1,
+		updated_date=now()
+		where otp_id=#{otpId}
+	</update>
+
+	<update id="incrementResendAttempts"
+		parameterType="com.snapdeal.ims.otp.internal.request.UpdateResendAttemptsRequest">
+		update user_otp 
+		set resend_attempts=resend_attempts+1,
+			updated_date=now()
+		where otp_id=#{otpId}
+	</update>
+
+
+	<update id="updateCurrentOtpStatus"
+		parameterType="com.snapdeal.ims.otp.internal.request.UpdateOTPStatusRequest">
+		update user_otp
+		set otp_status=#{otpStatusExpected},
+		 	updated_date=now()
+		where otp_id=#{otpId}
+	</update>
+
+<!-- will be user for otp validation -->
+	<select id="fetchOtpForValidation" resultMap="resultSetForOtpValidation"
+		parameterType="com.snapdeal.ims.request.VerifyOTPServiceRequest">
+		select <include refid="base_result_map" />
+		from user_otp
+		where otp_id=#{otpId}
+	</select>
+	<select id="getActiveOtp" resultMap="resultSetForOtpValidation"
+		parameterType="com.snapdeal.ims.otp.internal.request.IsOTPVerifiedRequest">
+		select <include refid="base_result_map" />
+		from user_otp
+		where otp_id=#{otpId}
+	</select>
+</mapper>

@@ -1,0 +1,133 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- customerId need to be add -->
+<mapper
+	namespace="com.snapdeal.payments.view.mapper.ITransactionDetailsMapper">
+
+	<resultMap id="resultTransactionDetails"
+		type="com.snapdeal.payments.view.merchant.commons.dto.TransactionDetailsDTO">
+		<result column="txn_id" property="txnId" />
+		<result column="freecharge_txn_id" property="fcTxnId" />
+		<result column="txn_type" property="txnType" />
+		<result column="merchant_txn_type" property="merchantTxnType" />
+		<!-- <result column="txn_state" property="transactionState" /> -->
+		<result column="txn_ref" property="parentTxnId" />
+		<result column="txn_ref_type" property="parentTxnType" />
+	</resultMap>
+
+	<sql id="base_column_list_txn_details">
+		txn_id,freecharge_txn_id,
+		txn_type,merchant_txn_type,merchant_txn_id,
+		settlement_id,settlement_date,txn_ref ,txn_ref_type,merchant_fee,
+		txn_amount,service_tax,swach_bharat_cess,amount_payable,net_deduction,
+		merchant_Id,merchant_name,customer_name,bts_txn_ref,
+		store_id,store_name,product_id,terminal_id,platform,
+		os_version,custmer_ip,location,shipping_city,source,
+		txn_date,created_on,updated_on,user_id,tsm_time_stamp,
+		merchant_tag,display_info,
+		txn_meta_data,payable_meta_data,disbursement_engine_meta_data
+	</sql>
+	<insert id="saveTransactionDetails"
+		parameterType="com.snapdeal.payments.view.entity.TransactionDetailsEntity">
+		INSERT INTO txn_details(
+		<include refid="base_column_list_txn_details" />
+		)
+		VALUES(
+		#{txnId},#{fcTxnId},#{txnType},#{merchantTxnType},#{merchantTxnId},
+		#{settlementId},#{settlementDate},#{txnRef},#{txnRefType},#{merchantFee},
+		#{txnAmount},#{serviceTax},#{swachBharatCess},#{amountPayable},#{netDeduction},
+		#{merchantId},#{merchantName},#{customerName},#{btsTxnRef},
+		#{storeId},#{storeName},#{productId},#{terminalId},#{platform},
+		#{osVersion},#{custmerIP},#{location},#{shippingCity},#{source},
+		#{txnDate},now(3),now(3),#{userId},#{tsmTimeStamp},#{merchantTag},#{displayInfo},
+		#{txnMetaData},#{payableMetaData},#{disbursementEngineMetadata}
+		)ON DUPLICATE KEY UPDATE 
+			<![CDATA[ 
+			 txn_ref = IF(tsm_time_stamp <= #{tsmTimeStamp}, #{txnRef}, txn_ref),
+             txn_ref_type = IF(tsm_time_stamp <= #{tsmTimeStamp},#{txnRefType}, txn_ref_type),
+             updated_on = IF(tsm_time_stamp <= #{tsmTimeStamp},now(3), updated_on),
+             tsm_time_stamp = IF(tsm_time_stamp <= #{tsmTimeStamp},#{tsmTimeStamp}, tsm_time_stamp)
+			]]>
+	</insert>
+	<select id="getTransactionDetails" parameterType="java.util.Map"
+		resultMap="resultTransactionDetails">
+		select
+		txn_details.txn_id,
+		txn_details.freecharge_txn_id,
+		txn_details.txn_type,
+		txn_details.merchant_txn_type,
+		txn_details.txn_ref,
+		txn_details.txn_ref_type
+		from txn_details
+		where
+		txn_details.freecharge_txn_id=#{fcTxnId} AND
+		txn_type = #{txnType};
+	</select>
+
+	<update id="updateTxnDeatilsPayableSystem"
+		parameterType="com.snapdeal.payments.view.merchant.commons.dto.TransactionPaybleDto">
+		<![CDATA[
+		update txn_details
+		set merchant_fee = #{merchantFee},
+		service_tax = #{serviceTax},
+		swach_bharat_cess = #{swachBharatCess},
+		amount_payable = #{amountPayable},
+		net_deduction = #{netDeduction},
+		bts_txn_ref = #{btsTxnRef},
+		updated_on = now(3),
+		payable_meta_data = #{payableMetaData}
+		where freecharge_txn_id = #{fcTxnId} AND
+		txn_type = #{fcTxnType}  
+		]]>
+	</update>
+
+	<update id="updateTxnDeatilsDisbursmentSystem" parameterType="com.snapdeal.payments.view.entity.TransactionDetailsForDisbursment">
+		<![CDATA[ update txn_details
+		set settlement_id = #{settlementId},
+		settlement_date = #{settlementDate},
+		updated_on = now(3),
+		tsm_time_stamp = #{tsmTimeStamp},
+		disbursement_engine_meta_data = #{disbursementEngineMetadata}
+		where
+		txn_id=#{txnId} 
+		
+		]]>
+		
+	</update>
+
+
+	<select id="getTransactionByTxnBtsRef" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		SELECT txn_id
+		FROM txn_details
+		where bts_txn_ref = #{txnRef}
+	</select>
+
+
+
+	<update id="updateTxnDetailsOFDirectSystem"
+		parameterType="com.snapdeal.payments.view.entity.TransactionDetailsEntity">
+		update txn_details
+		SET txn_ref = #{txnRef},
+			txn_ref_type = #{txnRefType},
+			updated_on = now(3),
+			tsm_time_stamp = #{tsmTimeStamp},
+			txn_meta_data = #{txnMetaData}
+		where freecharge_txn_id = #{fcTxnId} AND
+			txn_type = #{txnType} AND
+			tsm_time_stamp >= #{tsmTimeStamp}
+	</update>
+	<select id="healthCheckForMerchant" resultMap="resultTransactionDetails">
+	select
+		txn_details.txn_id,
+		txn_details.freecharge_txn_id,
+		txn_details.txn_type,
+		txn_details.merchant_txn_type,
+		txn_details.txn_ref,
+		txn_details.txn_ref_type
+	from txn_details
+	limit 1 ;
+	</select>
+</mapper>

@@ -1,0 +1,57 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="frozen_account">
+
+	<resultMap type="com.snapdeal.ims.otp.entity.FreezeAccountEntity"
+		id="resultSetForFrozenAccount">
+		<result column="user_id" property="userId" />
+		<result column="otp_type" property="otpType" />
+		<result column="expiry_time" property="expiryTime" />
+		<result column="freeze_reason" property="freezeReason" />
+		<result column="is_deleted" property="isdeleted" />
+
+	</resultMap>
+
+	<sql id="freeze_account_result_map">
+		user_id,otp_type,expiry_time,
+		freeze_reason,is_deleted
+	</sql>
+	<update id="updateFreezedUser" parameterType="com.snapdeal.ims.otp.entity.FreezeAccountEntity">
+		update freeze_account
+		set freeze_reason=#{freezeReason},
+			expiry_time=#{expiryTime} ,
+			is_deleted="false"
+		where user_id=#{userId}
+		AND otp_type=#{otpType}
+		AND expiry_time > now()
+	</update>
+
+	<select id="getFreezedUser" resultMap="resultSetForFrozenAccount"
+		parameterType="com.snapdeal.ims.otp.internal.request.GetFrozenAccount">
+		select <include refid="freeze_account_result_map" />
+		from freeze_account
+		where user_id=#{userId}
+			  AND otp_type=#{otpType}
+			  AND is_deleted="false"
+			  AND expiry_time > now()
+		ORDER BY expiry_time DESC;
+	</select>
+
+	<insert id="freezeUser" parameterType="com.snapdeal.ims.otp.entity.FreezeAccountEntity">
+		insert into
+		freeze_account(user_id,otp_type,expiry_time,freeze_reason)
+		values(
+		#{userId},
+		#{otpType},
+		#{expiryTime},
+		#{freezeReason}
+		)
+	</insert>
+	<update id="dropfreezedUser"
+		parameterType="com.snapdeal.ims.otp.internal.request.DropUserFromFreezeRequest">
+		update freeze_account
+		set is_deleted=#{isDeleted}
+		where user_id=#{userId}
+			  AND otp_type=#{otpType}
+			  AND expiry_time >#{currentTime}
+	</update>
+</mapper>

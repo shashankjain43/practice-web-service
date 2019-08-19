@@ -1,0 +1,40 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.admin.dao.IImsApisDao">
+	
+	<resultMap id="result"
+		type="com.snapdeal.admin.dao.entity.IMSAPIDetails">
+		<result property="id" column="id" />
+		<result property="apiMethod" column="api_method" />
+		<result property="apiURI" column="api_uri" />
+		<result property="alias" column="alias" />
+	</resultMap>
+	
+	<sql id="base_column_list">
+		id, api_method, api_uri, alias
+	</sql>
+	
+	<select id="getAllApis" resultMap="result">
+		SELECT *
+		FROM ims_apis
+	</select>
+	
+	<insert id="insert"
+		parameterType="com.snapdeal.admin.dao.entity.IMSAPIDetails" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO ims_apis
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{id},#{apiMethod},#{apiURI},#{alias})
+	</insert>
+	
+	<update id="update">
+		update ims_apis set
+		api_method=#{apiMethod}, api_uri=#{apiURI},alias=#{alias} where id =
+		#{id}
+	</update>
+		
+</mapper>

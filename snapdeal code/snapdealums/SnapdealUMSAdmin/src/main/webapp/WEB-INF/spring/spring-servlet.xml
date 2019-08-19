@@ -1,0 +1,125 @@
+<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+		
+	<!-- Tracing -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+<!-- 	<annotation-driven conversion-service="applicationConversionService" /> -->
+	<beans:import resource="classpath:springmvc-resteasy.xml" />
+<!-- 	<resources location="/" mapping="index.htm" /> -->
+	<!-- Akamai Sure route and test objects -->
+<!-- 	<resources location="/akamai/" mapping="akamai/*" /> -->
+<!-- 	<resources location="/akamai/files/" mapping="akamai/files/*" /> -->
+
+	<!-- register "global" interceptor beans to apply to all registered HandlerMappings -->
+<!-- 	<interceptors> -->
+<!-- 		<beans:bean -->
+<!-- 			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" -->
+<!-- 			p:paramName="lang" /> -->
+<!-- 	</interceptors> -->
+
+	<beans:bean name="traceInterceptor" class="com.snapdeal.web.interceptor.ResponseTimeInterceptor">
+		<beans:property name="exitMessage"
+			value=" $[targetClassShortName].$[methodName]() : $[invocationTime]ms " />
+	</beans:bean>
+	
+	<beans:bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<beans:property name="beanNames" value="*Resource,*Controller" />
+		<beans:property name="interceptorNames">
+			<beans:list>
+				<beans:value>traceInterceptor</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="proxyTargetClass" value="true" />
+		<beans:property name="exposeProxy" value="true" />
+		<beans:property name="order" value="2" />
+	</beans:bean>
+
+
+	<!--Installs application converters and formatters -->
+	<beans:bean
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean"
+		id="applicationConversionService" />
+
+	<beans:bean
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		id="messageSource" p:basenames="WEB-INF/i18n/messages,WEB-INF/i18n/application"
+		p:fallbackToSystemLocale="false" />
+
+	<!-- store preferred language configuration in a cookie -->
+	<beans:bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+		id="localeResolver" p:cookieName="loc" />
+
+
+	<!-- tiles configuration -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+		<beans:property name="maxUploadSize" value="40000000" />
+	</beans:bean>
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+		<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.XmlViewResolver">
+		<beans:property name="order" value="1" />
+		<beans:property name="location">
+			<beans:value>/WEB-INF/spring/views.xml</beans:value>
+		</beans:property>
+	</beans:bean>
+	<beans:bean id="permanentViewResolver"
+		class="org.springframework.viewresolver.PermanentRedirectViewResolver">
+		<beans:property name="order" value="2" />
+		<beans:property name="viewClass"
+    		value="org.springframework.web.servlet.view.tiles2.TilesView"/>
+		<beans:property name="prefix" value="/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	
+	<!-- Tiles Configurator -->
+	
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles-defs.xml</beans:value>
+			</beans:list>
+		</beans:property>
+		<beans:property name="preparerFactoryClass"
+			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
+	</beans:bean>
+	
+	
+
+	<beans:bean id="jacksonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+	<beans:bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<beans:property name="messageConverters">
+			<beans:list>
+				<beans:ref bean="jacksonMessageConverter" />
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<beans:bean class="com.snapdeal.base.spring.http.converter.SDServiceHttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<context:component-scan base-package="com.snapdeal.web.controller" />
+</beans:beans>

@@ -1,0 +1,109 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.payments.view.mapper.IClientDetailsMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.payments.view.entity.Client">
+		<result property="clientId" column="client_id" />
+		<result property="clientName" column="client_name" />
+		<result property="clientKey" column="client_key" />
+		<result property="clientPlatform" column="client_platform"
+			javaType="com.snapdeal.payments.view.commons.enums.ClientPlatform"
+			typeHandler="com.snapdeal.payments.view.typeHandler.ClientPlatformTypeHandler" />
+		<result property="clientStatus" column="client_status"
+			javaType="com.snapdeal.payments.view.commons.enums.ClientStatus"
+			typeHandler="com.snapdeal.payments.view.typeHandler.ClientStatusTypeHandler" />
+		<result property="merchant" column="merchant" />
+		<result property="clientRole" column="client_role"
+			javaType="com.snapdeal.payments.view.commons.enums.ClientRole"
+			typeHandler="com.snapdeal.payments.view.typeHandler.ClientRoleTypeHandler" />
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		client_id,client_name,client_key,client_platform,client_status,merchant,client_role,created_time,updated_time
+	</sql>
+
+	<insert id="createClient" parameterType="com.snapdeal.payments.view.entity.Client">
+		INSERT INTO client
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{clientId},#{clientName},#{clientKey},#{clientPlatform},
+		#{clientStatus},#{merchant},#{clientRole},now(), now())
+	</insert>
+
+	<select id="updateClient" parameterType="java.lang.String">
+		update client set
+		<if test = "newStatus != null">
+			client_status=#{newStatus}, 
+		</if>
+		<if test = "newKey != null">
+			client_key=#{newKey}, 
+		</if>
+		updated_time=now() 
+		where client_id = #{clientId}
+	</select>
+	
+
+	<select id="getAllClient" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client
+	</select>
+
+	<select id="getClientById" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_id = #{clientId}
+	</select>
+
+	<select id="getClientByName" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name = #{clientName}
+	</select>
+
+	
+
+	<select id="getClientByPlatform" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_platform = <![CDATA['${clientPlatform.toString()}']]>
+	</select>
+
+	<select id="getClientByClientStatus" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_status = <![CDATA['${clientStatus.toString()}']]>
+	</select>
+
+	<select id="getClientByMerchant" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE merchant = <![CDATA['${merchant.toString()}']]>
+	</select>
+
+	<select id="getClientByNameAndMerchant" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM client WHERE client_name=#{clientName} and merchant = <![CDATA['${merchant.toString()}']]>
+	</select>
+	
+	<delete id="deleteClient" parameterType="java.lang.String">
+		delete from client
+		where client_id = #{clientId}
+	</delete>
+
+</mapper>

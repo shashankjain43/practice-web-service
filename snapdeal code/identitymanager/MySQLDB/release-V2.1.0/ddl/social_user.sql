@@ -1,0 +1,1 @@
+ALTER TABLE `social_user` CHANGE COLUMN `social_token` `social_token` VARCHAR(512) NULL DEFAULT NULL;

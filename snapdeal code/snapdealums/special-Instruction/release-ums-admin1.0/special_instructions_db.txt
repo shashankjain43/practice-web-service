@@ -1,0 +1,4 @@
+-change ip/port as per the environment in which ums admin is hosted.
+insert into ums_property values('content.path','http://<admin-server-ip>:<port>/');
+insert into ums_property values('images.contextPath',' http://<admin-server-ip>:<port>/');
+insert into ums_property values('static.resources.path','');

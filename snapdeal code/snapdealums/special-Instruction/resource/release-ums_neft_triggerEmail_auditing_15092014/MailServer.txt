@@ -1,0 +1,9 @@
+Have mail client URL inserted into the db by updating and executing the following query.
+Please check with prod support for the value!
+
+INSERT INTO `ums`.`ums_property`
+(`name`,
+`value`)
+VALUES
+("mailClient.url",
+....the url goes here. Should be something like: http://54.251.151.200:10490);

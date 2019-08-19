@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.snapdeal.merchant</groupId>
+		<artifactId>MerchantPanel</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>AeroSpikeConnectorComponent</artifactId>
+	<packaging>jar</packaging>
+
+	<name>AeroSpikeConnectorComponent</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<pos.version>0.0.1-SNAPSHOT</pos.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.aerospike</groupId>
+			<artifactId>aerospike-client</artifactId>
+			<version>3.0.32</version>
+		</dependency>
+		
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev-rel</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.5.1</version>
+						<configuration>
+							<source>1.7</source>
+							<target>1.7</target>
+							<compilerArgument>-Xlint:all</compilerArgument>
+							<showWarnings>true</showWarnings>
+							<showDeprecation>true</showDeprecation>
+							<excludes>
+								<exclude>com/snapdeal/posprocessor/service/stub/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<excludes>
+								<exclude>com/snapdeal/posprocessor/services/stub/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>dev-stub</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>2.5.1</version>
+						<configuration>
+							<source>1.7</source>
+							<target>1.7</target>
+							<compilerArgument>-Xlint:all</compilerArgument>
+							<showWarnings>true</showWarnings>
+							<showDeprecation>true</showDeprecation>
+							<excludes>
+								<exclude>com/snapdeal/posprocessor/service/service/impl/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<excludes>
+								<exclude>com/snapdeal/posprocessor/service/impl/**</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	<build>
+		<finalName>aerospikeclient</finalName>
+	</build>
+
+</project>

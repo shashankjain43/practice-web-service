@@ -1,0 +1,122 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- customerId need to be add -->
+<mapper
+	namespace="requestViewAudit">
+
+	<resultMap id="resultRequestViewAudit"
+		type="com.snapdeal.payments.view.entity.RequestViewAuditEntity">
+		<result column="freecharge_txn_id" property="fcTxnId" />
+		<result column="txn_type" property="txnType" />
+		<result column="source_user_id" property="sourceUserId" />
+		<result column="exception_type" property="exceptionType" />
+		 <result column="exception_msg" property="exceptionMsg" /> 
+		<result column="exception_code" property="exceptionCode" />
+		<result column="retry_count" property="retryCount" />
+		<result column="created_on" property="createdDate" />
+		<result column="updated_on" property="updatedDate" />
+		<result column="tsm_time_stamp" property="tsmTimeStamp" />
+	</resultMap>
+	
+	<resultMap id="resultPaymentsViewAudit"
+		type="com.snapdeal.payments.view.entity.PaymentsViewAuditEntity">
+		<result column="freecharge_txn_id" property="fcTxnId" />
+		<result column="txn_type" property="txnType" />
+		<!-- <result column="exception_type" property="exceptionType" />
+		 <result column="exception_msg" property="exceptionMsg" /> 
+		<result column="exception_code" property="exceptionCode" />
+		<result column="retry_count" property="retryCount" />
+		<result column="created_on" property="createdDate" />
+		<result column="updated_on" property="updatedDate" />
+		<result column="tsm_time_stamp" property="tsmTimeStamp" /> -->
+	</resultMap>
+
+	<sql id="base_column_list_payment_view_aaudit">
+		freecharge_txn_id,txn_type,exception_type,exception_msg,
+		exception_code,tsm_time_stamp
+	</sql>
+
+	<sql id="base_column_list_request_view_audit">
+		freecharge_txn_id,txn_type,source_user_id,exception_type,exception_msg,
+		exception_code,tsm_time_stamp
+	</sql>	
+	<insert id="saveRequestViewAuditEntity"
+		parameterType="com.snapdeal.payments.view.entity.RequestViewAuditEntity">
+		INSERT INTO request_view_audit(
+		<include refid="base_column_list_request_view_audit" />
+		)
+		VALUES(
+			#{fcTxnId},#{txnType},#{sourceUserId},#{exceptionType},#{exceptionMsg},
+			#{exceptionCode},#{tsmTimeStamp}
+		)
+	</insert>
+	<update id="updateRequestViewAuditEntity" parameterType="com.snapdeal.payments.view.entity.RequestViewAuditEntity">
+		<![CDATA[
+		UPDATE request_view_audit
+		SET exception_type = #{exceptionType},
+			exception_msg = #{exceptionMsg},
+			exception_code = #{exceptionCode},
+			retry_count = retry_count+1,
+			tsm_time_stamp = #{tsmTimeStamp},
+			status=#{status}
+		WHERE freecharge_txn_id = #{fcTxnId} AND 
+				txn_type = #{txnType} 
+		]]>
+	</update>	
+	<update id="updateRequestViewAuditStatus" parameterType="java.util.Map">
+		UPDATE request_view_audit
+		set status = #{status} 
+		where freecharge_txn_id = #{fcTxnId} AND
+				txn_type = #{txnType} 
+	</update>
+	
+	<select id="getRequestViewAuditEntity" parameterType="java.util.Map"
+		resultMap="resultRequestViewAudit">
+		SELECT freecharge_txn_id,txn_type
+		FROM request_view_audit
+		where freecharge_txn_id = #{fcTxnId} AND
+				txn_type = #{txnType};
+	</select>	
+	<select id="getRequestViewAuditDetailsInChunks" 
+			parameterType="com.snapdeal.payments.view.merchant.commons.request.RetryPaymentsViewAuditRequest" 
+			resultMap="resultPaymentsViewAudit">
+			SELECT freecharge_txn_id,txn_type
+			FROM request_view_audit 
+			<![CDATA[
+			WHERE retry_count < #{retryCount} 
+			]]> 
+			AND status = #{status}
+			<if test="txnTypeList!=null and !txnTypeList.isEmpty()">
+				AND txn_type IN
+				<foreach item="item" index = "index" collection="txnTypeList" 
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="errorCode!=null and !errorCode.isEmpty()">
+				AND exception_code IN
+				<foreach item="item" index = "index" collection="errorCode" 
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="exceptionType!=null and !exceptionType.isEmpty()">
+				AND exception_type IN
+				<foreach item="item" index = "index" collection="exceptionType" 
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="txnType!=null and !txnType.isEmpty()">
+				AND txn_type IN
+				<foreach item="item" index = "index" collection="txnType" 
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			ORDER BY freecharge_txn_id
+			LIMIT #{limit}
+	</select>
+</mapper>

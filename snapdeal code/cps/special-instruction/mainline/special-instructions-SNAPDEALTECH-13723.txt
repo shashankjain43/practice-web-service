@@ -1,0 +1,27 @@
+1. Checkout the code from git branch migration-release-20131028
+2. Compile the maven projects present in the folders: GoogleCPS, GoogleContentAPI, VIPMSQueueListener and two projects present under the migration folder CatalogMigration and VendorMigration
+3. Copy the JARs and files under appdata/properties folder to the destination directory (staging: /home/cps, production: /apps01/cps)
+4. Rename the staging.properties/production.properties (depending on the environment) to user.properties
+5. Kill the running listener process :
+
+ps -ef | grep cps-
+
+and delete the nohup.out and listenerLog*.log files present in the destination directory
+
+6. Restart the listener using the following command:
+
+nohup java -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &
+
+7. After the DBA takes the data dumps, copy the files vendorOut.txt, categExport.json, brandExport.json and pogExport.json to the CPS directory.
+
+8. Run the following commands:
+
+sed -i 1d vendorOut.txt
+mongoimport --db CPS_DB --collection vendorMigration --file vendorOut.txt --type tsv --stopOnError --fields vendorName,vendorCode,isPublished
+mongoimport --db CPS_DB --collection productCategoryVO --file categExport.json
+mongoimport --db CPS_DB --collection productBrandVO --file brandExport.json 
+mongoimport --db CPS_DB --collection pogDetailVO --file pogExport.json
+
+
+
+

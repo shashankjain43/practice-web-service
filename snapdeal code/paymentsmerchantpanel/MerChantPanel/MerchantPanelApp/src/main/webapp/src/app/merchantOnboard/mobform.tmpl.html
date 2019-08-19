@@ -1,0 +1,139 @@
+<div class="container" style="background: #fff; margin-top: 50px; padding: 20px 50px;">
+
+  <div class="md-block" style="margin-bottom: 40px; text-align: center;">
+    <h3 class="text-orange">Congratulation!! Your Merchant account has been successfully created.</h3>
+    <h3 class="text-orange" style="line-height: 4px;">Please fill up the form below to help us understand your business better</h3>
+  </div>
+
+  <form name="mobSignUp">  
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Merchant Name (As it appears on TIN/TAN)</label>
+        <input ng-model="signup.business">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>PAN/TIN</label>
+        <input ng-model="signup.business">
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Business Name</label>
+        <input ng-model="signup.business">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Mobile</label>
+        <input ng-model="signup.email">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Business Mobile</label>
+        <input ng-model="user.city">
+      </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Business Type</label>
+        <md-select ng-model="user.state">
+          <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+            {{state.abbrev}}
+          </md-option>
+        </md-select>
+        <div class="md-errors-spacer"></div>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Business Category</label>
+        <md-select ng-model="user.state">
+          <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+            {{state.abbrev}}
+          </md-option>
+        </md-select>
+        <div class="md-errors-spacer"></div>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Business Sub-category</label>
+        <md-select ng-model="user.state">
+          <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+            {{state.abbrev}}
+          </md-option>
+        </md-select>
+        <div class="md-errors-spacer"></div>
+      </md-input-container>
+    </div>
+
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Website</label>
+        <input ng-model="user.city">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>App Name</label>
+        <input ng-model="user.city">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Logo</label>
+        <input ng-model="user.city">
+      </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Address line 1</label>
+        <input ng-model="signup.business">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Address line 2</label>
+        <input ng-model="signup.business">
+      </md-input-container>
+    </div>
+
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>City</label>
+        <input ng-model="user.city">
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>State</label>
+        <md-select ng-model="user.state">
+          <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+            {{state.abbrev}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Postal Code</label>
+        <input name="postalCode" ng-model="user.postalCode" placeholder="12345"
+               required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+        <div ng-messages="mobSignUp.postalCode.$error" role="alert" multiple>
+          <div ng-message="required" class="my-message">You must supply a postal code.</div>
+          <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+            code.
+          </div>
+          <div ng-message="md-maxlength" class="my-message">
+            Don't use the long version silly...we don't need to be that specific...
+          </div>
+        </div>
+      </md-input-container>
+    </div>
+
+    
+    
+    
+    <md-input-container class="md-block">
+      <md-checkbox ng-model="signup.cb1" aria-label="Checkbox 1">
+        Terms and Conditions
+      </md-checkbox>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+      
+      <md-button style="margin-right:20px; margin-left: 0;" class="btn-orange">
+          SUBMIT AND DOWNLOAD
+      </md-button>*Please take a print of this form, sign and upload.
+    </md-input-container>
+
+    </form>
+</div>

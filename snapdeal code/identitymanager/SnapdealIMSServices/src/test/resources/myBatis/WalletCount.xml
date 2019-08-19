@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snapdeal.ims.dashboard.dbmapper.IWalletCountDao">
+	<select id="retrieveWalletStatus" resultType="int"
+		parameterType="com.snapdeal.ims.entity.FilterEntity">
+		select count(upgrade.upgrade_status)
+		from
+		user,upgrade where
+		upgrade.email =
+		user.email and
+		<if test="status!=null">
+			user.create_wallet_status = #{status} and
+		</if>
+		<if test="originating_src!=null">
+			user.originating_src = #{originating_src} and
+		</if>
+		<if test="!upgradeChannel.isEmpty()">
+			<foreach item="item" index="index" collection="#{upgradeChannel}">
+				upgrade.upgrade_channel = #{item} OR
+			</foreach>
+		</if>
+		<if test="!upgradeSource.isEmpty()">
+			<foreach item="item" index="index" collection="#{upgradeSource}">
+				upgrade.upgrade_source = #{item} OR
+			</foreach>
+		</if>
+		upgrade.upgrade_status = 'UPGRADE_COMPLETED'
+	</select>
+
+	<select id="retrieveEmailListForUpgradeFilter" resultType="java.lang.String"
+		parameterType="com.snapdeal.ims.entity.FilterEntity">
+		select user.email
+		from
+		user,upgrade where
+		upgrade.email =
+		user.email and
+		user.create_wallet_status = 'FAILED' and
+		<if test="originating_src!=null">
+			user.originating_src = #{originating_src} and
+		</if>
+		<if test="!upgradeChannel.isEmpty()">
+			<foreach item="item" index="index" collection="#{upgradeChannel}">
+				upgrade.upgrade_channel = #{item} OR
+			</foreach>
+		</if>
+		<if test="!upgradeSource.isEmpty()">
+			<foreach item="item" index="index" collection="#{upgradeSource}">
+				upgrade.upgrade_source = #{item} OR
+			</foreach>
+		</if>
+		upgrade.upgrade_status = 'UPGRADE_COMPLETED';
+	</select>
+</mapper>

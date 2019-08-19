@@ -1,0 +1,15 @@
+###################################Naveen Upadhyay##########################################
+1- UMS server's deployment stays the same as mvn clean package.
+
+2-
+UMS admin is a new server for Admin activities releated to UMS.
+
+Pls create a new server accordingly.Copy Root.xml and catalina.sh entries just like UMS servers.
+
+
+
+Build instructions:
+mvn clean package -f pom-admin.xml
+
+
+3- The UMS war is located at SnapdealUMSWeb project.

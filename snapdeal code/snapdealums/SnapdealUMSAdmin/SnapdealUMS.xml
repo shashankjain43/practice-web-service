@@ -1,0 +1,15 @@
+<project name="NewsletterMangaer" default="newsletter.manager.copy.resources">
+<!-- sample -->
+    <property file="../user.properties"/>
+
+    <target name="newsletter.manager.copy.resources" description="Push jsps and other static content to tomcat webapps folder">
+       <!-- Copy class files. -->
+       <!-- Copy class files. -->
+        <copy todir="${tomcat.home}/webapps/ROOT/">
+			<fileset dir="src/main/webapp">
+				<include name="**/*" />
+                <exclude name="**/WEB-INF/**"/>
+			</fileset>
+        </copy>
+    </target>
+</project>

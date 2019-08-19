@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 subheader">
+      <h3>{{vm.subHeaderVM.heading}}</h3>
+      <ul>
+        <li ng-repeat="tab in vm.subHeaderVM.tabs">
+          <a ng-if="tab.checkPermission"  has-permission="{{tab.name}}" ng-class="(vm.$state.current.name === tab.state)?'active btn':'btn'" ng-click="vm.tabNavClick(tab.state)" id="{{tab.displayName}}">
+            {{tab.displayName}}
+          </a>
+          <a ng-if="!tab.checkPermission" ng-class="(vm.$state.current.name === tab.state)?'active btn':'btn'" ng-click="vm.tabNavClick(tab.state)" id="{{tab.displayName}}">
+            {{tab.displayName}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

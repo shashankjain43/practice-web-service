@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workingSetManager>
+<workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1473240756585_1" label="OpsPanel" name="OpsPanel">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/WebappCommons" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/MOBComponent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/AbstractComponent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/BulkFramework" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/MOBBulkRefundComponent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/ClientIntegrationsComponent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/PaymentsOpsPanelServices" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/ClientKeyManagement" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/OpsPanelCommons" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/LegalAndInformationComponent" type="4"/>
+</workingSet>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1473240704620_0" label="Window Working Set" name="Aggregate for window 1473240704620"/>
+</workingSetManager>

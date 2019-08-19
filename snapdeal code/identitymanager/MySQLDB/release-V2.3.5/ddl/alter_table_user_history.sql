@@ -1,0 +1,4 @@
+ALTER TABLE `user_history` 
+CHANGE COLUMN `old_value` `old_value` VARCHAR(4000) NULL DEFAULT NULL COMMENT '' ,
+CHANGE COLUMN `new_value` `new_value` VARCHAR(4000) NULL DEFAULT NULL COMMENT '' ;
+

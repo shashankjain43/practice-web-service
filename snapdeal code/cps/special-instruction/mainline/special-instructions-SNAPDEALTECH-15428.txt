@@ -1,0 +1,36 @@
+1. Log on to CPS production system
+2. Kill the already running listener process
+
+ps -ef | grep cps
+tomcat    1284     1  0  2013 ?        01:03:19 java -jar cps-0.0.1-SNAPSHOT.one-jar.jar
+2055     27499 27329  0 12:19 pts/0    00:00:00 grep cps
+
+kill -s 9 1284
+
+3. Go to directory /apps01/cps
+4. Remove the unwanted files using the following commands:
+
+rm GoogleContentAPI-0.0.1-SNAPSHOT.jar
+rm VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar
+rm VendorMigration-0.0.1-SNAPSHOT.one-jar.jar
+rm ProductDeletor-0.0.1-SNAPSHOT.one-jar.jar
+rm CatalogMigration-0.0.1-SNAPSHOT.one-jar.jar
+rm migration.sh vendorOut.txt vendorMigration.log delete_products.sh delete_products.log *.json activity_cps_migration.log log_*.log listenerLog*
+rm nohup.out
+
+5. cp /home/st_temp01/production.properties /apps01/cps/appdata/properties/user.properties
+
+6. Backup the existing jar with the following command
+mv GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar GoogleCPS-0.0.1-SNAPSHOT.one-jar-backup.jar
+
+7. Copy the updated JARs using the following commands
+
+cp /home/st_temp01/VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar /apps01/cps
+cp /home/st_temp01/GoogleCPS-0.0.1-SNAPSHOT.one-jar.jar /apps01/cps
+
+8. Run the listener process using the following command:
+
+nohup java -jar VIPMSQueueListener-0.0.1-SNAPSHOT.one-jar.jar &
+
+
+

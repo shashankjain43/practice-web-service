@@ -1,0 +1,55 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.IUserVerificationDetailsMapper">
+
+	<resultMap id="result"
+		type="com.snapdeal.ims.dbmapper.entity.UserVerification">
+		<result property="code" column="code" />
+		<result property="codeExpiryTime" column="code_expiry_time" />
+		<result property="userId" column="user_id" />
+		<result property="purpose" column="purpose" 
+			jdbcType="VARCHAR" 
+			javaType="com.snapdeal.ims.dbmapper.entity.VerificationPurpose" 
+			typeHandler="com.snapdeal.ims.dbmapper.entity.VerificationPurposeTypeHandler"/>
+		<result property="createdTime" column="created_time" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		code,code_expiry_time,user_id,purpose,created_time
+	</sql>
+
+	<insert id="create" parameterType="com.snapdeal.ims.dbmapper.entity.UserVerification">
+		INSERT INTO user_verification
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{code},#{codeExpiryTime},#{userId},#{purpose},now())
+	</insert>
+
+	<update id="update" parameterType="java.lang.String">
+		update  user_verification set
+		code_expiry_time=#{codeExpiryTime} where
+		code=#{code}
+	</update>
+
+	<select id="getUserVerificationDetailsByUserId" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM user_verification where user_id=#{userId}
+	</select>
+	
+	<select id="getUserVerificationDetailsByCode" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM user_verification where code=#{code} and code_expiry_time &gt; now()
+	</select>
+	<delete id="deleteUserVerificationDetailsByCode" parameterType="java.lang.String">
+		delete FROM user_verification where code=#{code}
+	</delete>
+	
+</mapper>

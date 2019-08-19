@@ -1,0 +1,27 @@
+<div class="container-fluid footerContainer">
+  <div class="footer">
+  <div class="row">
+  	<ul class="pull-left hideInMob">
+  		  <li><a ng-href="/#" ng-class="{'sidemenuActive': vm.getActiveTab('/')}">Home</a></li>
+        <li><a ng-href="#offlineproducts" ng-click="vm.productsPage()" ng-class="{'sidemenuActive': vm.getActiveTab('/ourproducts')}">Our Products</a></li>
+        <li><a ng-href="#pricing" ng-click="vm.pricingPage()" ng-class="{'sidemenuActive': vm.getActiveTab('/pricing')}">Pricing</a></li>
+        <li><a ng-href="#helpsupport" target="_blank" ng-class="{'sidemenuActive': vm.getActiveTab('/helpsupport')}">Help</a></li>
+        <li><a ng-href="#contactus" ng-class="{'sidemenuActive': vm.getActiveTab('/contactus')}">Contact Us</a></li>
+  	</ul>
+  	<ul class="pull-right social">
+  		<li><a href="https://www.facebook.com/FreeCharge/" target="_blank"><img src="assets/images/socialFb.jpg"></a></li>
+  		<li><a href="https://twitter.com/freecharge" target="_blank"><img src="assets/images/socialTwitter.jpg"></a></li>
+  		<li><a href="https://plus.google.com/+freecharge/videos" target="_blank"><img src="assets/images/socialGoogle.jpg"></a></li>
+  	</ul>
+    <p class="copyright">&copy; FreeCharge Payment Technologies Pvt. Ltd. All Rights Reserved.</p>
+    </div>
+    <div class="row">
+    	<ul class="pull-left hideInMob">
+    		<li style="border-right:1px solid #ccc; padding-right:20px;">DOWNLOAD THE APP</li>
+    		<li><a href="https://play.google.com/store/apps/details?id=com.freecharge.android" target="_blank"><img src="assets/images/googleplay.png" width="125"></a></li>
+  			<li><a href="https://itunes.apple.com/us/app/recharge-mobile-dth-online/id877495926" target="_blank"><img src="assets/images/appstore.png" width="120"></a></li>
+    	</ul>
+    </div>
+  </div>
+  <!--<div class="sideBarStatic"><a  ng-click="vm.navigate('base.default.static.content.helpsupport')">Help and Support</a> <span> | </span> <a ng-click="vm.navigate('base.default.static.content.contactus')">Contact Us</a></div>-->
+</div>

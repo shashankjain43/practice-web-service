@@ -1,0 +1,8 @@
+
+
+Take dump of following tables.
+ insert into access_control values(null,'/admin/emailTemplate/','admin,SUPER,product','Email Template Admin','/admin/emailTemplate/',now(),now());
+
+- For SD wallet concurrency
+ alter table sd_wallet add column version tinyint(1) default 0 after reference_id;
+

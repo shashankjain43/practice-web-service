@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="org.springframework.web.client.RestTemplate"/>
+<fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpHeaders"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.ObjectMapper"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpEntity"/>
+<fullyQualifiedTypeName name="org.springframework.http.HttpMethod"/>
+<fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.promotion.utils.HttpUtil"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.promotion.request.ReverseType"/>
+<fullyQualifiedTypeName name="org.hibernate.validator.constraints.NotBlank"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.promotion.request.ReverseLoadMoneyRequest"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.commons.exceptions.OpsPanelException"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.promotion.Response.ReverseLoadMoneyResponse"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.core.JsonProcessingException"/>
+<fullyQualifiedTypeName name="groovy.util.logging.Slf4j"/>
+<fullyQualifiedTypeName name="lombok.extern.slf4j.Slf4j"/>
+<fullyQualifiedTypeName name="lombok.Data"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.promotion.Response.GenericOneCheckResponse"/>
+<fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonPropertyOrder"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion"/>
+<fullyQualifiedTypeName name="org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonInclude.Include"/>
+<fullyQualifiedTypeName name="org.codehaus.jackson.map.ObjectMapper"/>
+<fullyQualifiedTypeName name="org.codehaus.jackson.JsonProcessingException"/>
+<fullyQualifiedTypeName name="com.snapdeal.opspanel.promotion.exception.OneCheckServiceException"/>
+</qualifiedTypeNameHistroy>

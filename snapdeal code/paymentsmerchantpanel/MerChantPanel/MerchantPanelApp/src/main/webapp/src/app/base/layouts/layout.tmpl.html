@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ui-view="header" ></div>
+    <div ui-view="subHeader"></div>
+    <div ui-view="sidebarLeft"></div>
+    <route-loading-indicator />
+    <div ng-show="!vm.checkPopup()" ng-include="'app/static/merchantwelcome.tmpl.html'"></div>
+  </div>
+</div>
+<div ui-view="content" class="content"></div>
+<div ui-view="footer"></div>

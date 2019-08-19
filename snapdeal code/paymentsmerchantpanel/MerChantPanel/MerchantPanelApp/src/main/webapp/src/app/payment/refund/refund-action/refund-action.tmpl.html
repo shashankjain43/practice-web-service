@@ -1,0 +1,85 @@
+<form name="refundForm" id="refundForm" novalidate>
+    <div class="edit-user initiate-refund-popup">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Initiate Refund</h3>
+            </div>
+        </div>
+        <div class="success-msz-box" id="successDiv" ng-if="vm.message.successMessage!=undefined">{{vm.message.successMessage}}</div>
+        <div class="error-msz-box" id="erorDiv" ng-if="vm.message.errorMessage!=undefined">{{vm.message.errorMessage}}</div>
+        <div class="row">
+            <div class="col-sm-6" ng-if="vm.transactionInfo.fcTxnId!=undefined">
+                <h4>Order Id</h4>
+                <p style="word-wrap: break-word">{{vm.transactionInfo.orderId}}</p>
+            </div>
+            <div class="col-sm-6">
+                <h4>Date</h4>
+                <p style="word-wrap: break-word">
+                    {{vm.transactionInfo.txnDate | date:'d MMM yy, h:mm a'}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="refundPopHeading">Transaction Amount</th>
+                        <th class="refundPopHeading">Already Refunded</th>
+                        <th class="refundPopHeading">Max Refundable Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{vm.transactionInfo.totalTxnAmount}}</td>
+                        <td>{{vm.totalRefundAmount}}</td>
+                        <td>{{vm.maxRefund}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-group clearfix" style="margin-top:20px;" ng-if="vm.maxRefund > 0">
+                    <div class="form-control-wrapper">
+                        <input type="text" id="amount" name="amount" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                               ng-model="vm.transactionInfo.amount"
+                               ng-max="'vm.maxRefund'"
+                               ng-min="'1'"
+                               required class="form-control" form-value-empty
+                               ng-class={'empty':!vm.transactionInfo.amount}>
+                        <div required class="floating-label">Amount</div>
+                        <span class="material-input"></span>
+                    </div>
+                    <div ng-messages="refundForm.amount.$error" ng-if="refundForm.amount.$dirty" class="error">
+                        <div ng-message="required" id="reqError">{{vm.message.requiredMessage}} amount</div>
+                        <div ng-message="pattern" id="patternError">{{vm.message.patternMessage}} amount</div>
+                        <div ng-message="ngMax" id="maxError">{{vm.message.amountGreater}} {{vm.maxRefund}}</div>
+                        <div ng-message="ngMin" id="minError">{{vm.message.nonZeroValue}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px" ng-if="vm.maxRefund > 0">
+            <div class="col-sm-12">
+                <div class="form-group clearfix">
+                    <div class="form-control-wrapper">
+                        <input type="text" name="reason" id="reason"
+                               ng-model="vm.transactionInfo.reason" class="form-control empty" form-value-empty
+                               ng-class={'empty':!vm.transactionInfo.reason}>
+                        <div class="floating-label">Reason</div>
+                        <span class="material-input"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="refundPopHeading" ng-if="vm.maxRefund == 0">Complete amount has been refunded for this
+            transaction.</p>
+        <div align="center" class="adduser-button">
+            <button id="submitButton" type="button" name="submit" class="btn btn-lg btn-material-green"
+                    ng-disabled="refundForm.$invalid || vm.maxRefund == 0"
+                    ng-click="vm.refund()">Refund
+            </button>
+            <button type="button" class="btn btn-lg " ng-click="vm.cancel()">Cancel</button>
+        </div>
+    </div>
+</form>
+<div id="loadMask" style="display:block" ng-if="vm.isLoading">
+    <div class="f-bolt"></div>
+</div>

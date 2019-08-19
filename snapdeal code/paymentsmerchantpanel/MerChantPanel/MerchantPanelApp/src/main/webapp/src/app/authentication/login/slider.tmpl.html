@@ -1,0 +1,96 @@
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="min-height:270px;">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <!--<div class="item active">
+      <div class="col-md-5">
+          <div class="bannerHeading">
+              <h1>Complete</h1>
+              <h1><span class="orange">Payments</span> Solution</h1>
+              <p>Take your business to the next level with our <br>quantum mechanic fulcrum blasters. Believe it!</p>
+              <button class="btn-orange-border btn pull-left" ng-click="vm.signupbox($event)">GET STARTED</button> &nbsp;&nbsp;
+              <button class="btn pull-left btn-white" style="margin-left: 20px;">LEARN MORE</button> -->
+         <!-- </div>
+      </div>
+      <div class="col-md-6">
+          <img src="assets/images/mobhomepage.png" alt="Merchant accounts for Online and Offline Stores" class="pull-left" style="width: 100%; margin-left:-20px;;">
+      </div>
+    </div>-->
+
+    <div class="item active">
+    <div class="col-md-7 col-sm-6 bannerImgCont" style="float:right;">
+          <span class="helper"></span>
+          <img src="assets/images/bannerImages/01.png" alt="Merchant accounts for Online and Offline Stores" class="bannerImg" style="max-width: 100%; margin-left:-20px;">
+      </div>
+      <div class="col-md-5 col-sm-5" style="float:left; width:300px;">
+          <div class="bannerHeading">
+              <h1>Experience</h1>
+              <h1><span class="orange">Incredible </span> Reach</h1>
+              <p>Accept payments from 30 million FreeCharge users!</p>
+              <button class="btn-orange-border btn pull-left" ng-click="vm.clickGetStarted(); vm.signupbox($event)">GET STARTED</button> &nbsp;&nbsp;
+              <button class="btn pull-left btn-grey-border" style="margin-left: 10px;" ><a class="btnlink" href="#offlineproducts" ng-click="vm.clickLearnMore()">LEARN MORE</a></button>
+          </div>
+      </div>
+      
+    </div>
+
+    <div class="item">
+    <div class="col-md-7 col-sm-6 bannerImgCont" style="float:right;">
+          <span class="helper"></span>
+          <img src="assets/images/bannerImages/02.png" alt="Merchant accounts for Online and Offline Stores" class="bannerImg" style="max-width: 100%;  margin-left:-20px;">
+      </div>
+      <div class="col-md-5 col-sm-5" style="float:left; width:300px;">
+          <div class="bannerHeading">
+              <h1>Payments</h1>
+                    <h1>made <span class="orange">Easy</span></h1>
+                    <p>Experience near-perfect success rates!</p>
+              <button class="btn-orange-border btn pull-left" ng-click="vm.clickGetStarted(); vm.signupbox($event)">GET STARTED</button> &nbsp;&nbsp;
+              <button class="btn pull-left btn-grey-border" style="margin-left: 10px;" ><a class="btnlink" href="#offlineproducts" ng-click="vm.clickLearnMore()">LEARN MORE</a></button>
+          </div>
+      </div>
+      
+    </div>
+
+    <div class="item">
+    <div class="col-md-7 col-sm-6 bannerImgCont" style="float:right;">
+          <span class="helper"></span>
+          <img src="assets/images/bannerImages/03.png" alt="Merchant accounts for Online and Offline Stores" class="bannerImg" style="max-width: 100%;  margin-left:-20px;">
+      </div>
+      <div class="col-md-5 col-sm-5" style="float:left; width:300px;">
+          <div class="bannerHeading">
+              <h1><span class="orange">Integration</span> in a</h1>
+              <h1>Snap</h1>
+              <p>Experience amazingly quick and easy integrations!</p>
+              <button class="btn-orange-border btn pull-left" ng-click="vm.clickGetStarted(); vm.signupbox($event)">GET STARTED</button> &nbsp;&nbsp;
+              <button class="btn pull-left btn-grey-border" style="margin-left: 10px;" ><a class="btnlink" href="#offlineproducts" ng-click="vm.clickLearnMore()">LEARN MORE</a></button>
+          </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+ <!-- <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a> -->
+</div>
+
+<script>
+  $(function(){
+    $('#myCarousel').carousel({
+      interval: 6000,
+      cycle: true
+    });
+  });
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.opspanel.promotion.dao.TemplateDao">
+
+	<resultMap id="templates" type="com.snapdeal.opspanel.promotion.model.TemplatesEntity">
+		<result property="templateName" column="template_name" />
+		<result property="templateUrl" column="template_url" />
+		<result property="templateType" column="template_type" />
+		<result property="messageString" column="template_data" />
+		
+	</resultMap>
+
+	<sql id="base_column_list">
+		template_id,activity_name,instrument_name,template_name,template_data
+	</sql>
+
+
+	 <insert id="addTemplate" parameterType="com.snapdeal.opspanel.promotion.model.FileSpecificTemplateEntity">
+		INSERT INTO
+		file_templates
+		(template_id,user_id,template_name,template_params,template_values)
+		VALUES
+		(#{templateId},#{userId},#{templateName},#{templateParamsName},#{templateParamsValue})
+	</insert> 
+
+	<select id="getAllTemplatesList" resultMap="templates"
+		parameterType="java.lang.String">
+		SELECT template_name,template_url,template_type,template_data
+		FROM global_templates where
+		merchant_name=#{merchantId}
+	</select>
+	
+	<resultMap id="templatesData" type="com.snapdeal.opspanel.promotion.model.FileSpecificTemplateEntity">
+		<result property="templateId" column="template_id" />
+		<result property="templateName" column="template_name" />
+		<result property="templateParamsValue" column="template_values" />
+		<result property="templateParamsName" column="template_params" />
+	</resultMap>
+	
+	<select id="getTemplateDetails" resultMap="templatesData"
+		parameterType="java.lang.String">
+		SELECT template_id,template_name,template_params,template_values
+		FROM file_templates where
+		template_id=#{templateId}
+	</select>
+	
+	
+	<select id="getTemplateData" resultMap="templates"
+		parameterType="java.lang.String">
+		SELECT template_url,template_data
+		FROM global_templates where
+		template_name=#{templateName}
+	</select>
+	
+	
+</mapper>

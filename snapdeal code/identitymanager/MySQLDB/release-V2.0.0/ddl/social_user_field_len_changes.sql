@@ -1,0 +1,1 @@
+ALTER TABLE social_user CHANGE COLUMN photo_url photo_url VARCHAR(1024)  DEFAULT NULL, CHANGE COLUMN about_me about_me VARCHAR(1024) DEFAULT NULL ;

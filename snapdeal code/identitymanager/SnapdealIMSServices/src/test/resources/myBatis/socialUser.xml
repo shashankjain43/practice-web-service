@@ -1,0 +1,89 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.ims.dbmapper.ISocialUserMapper">
+	<resultMap id="resultSocialUser" type="com.snapdeal.ims.dbmapper.entity.SocialUser">
+		<result property="userId" column="user_id" />
+		<result property="socialId" column="social_id" />
+		<result property="socialSrc" column="social_src" jdbcType="VARCHAR"
+			javaType="com.snapdeal.ims.enums.SocialSource"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.SocialSourceTypeHandler" />
+		<result property="socialToken" column="social_token" />
+		<result property="secret" column="secret" />
+		<result property="expiry" column="expiry" />
+		<result property="photoURL" column="photo_url" />
+		<result property="merchant" column="merchant" jdbcType="VARCHAR"
+			javaType="com.snapdeal.ims.enums.SocialSource"
+			typeHandler="com.snapdeal.ims.client.dbmapper.entity.typehandler.MerchantTypeHandler" />
+		<result property="aboutMe" column="about_me" />
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="base_column_list_social_user">
+		user_id,
+		social_id,
+		social_src,
+		social_token,
+		secret,
+		expiry,
+		photo_url,
+		about_me,
+		created_time,
+		updated_time,
+		merchant
+	</sql>
+
+
+	<insert id="createSocialUser" parameterType="com.snapdeal.ims.dbmapper.entity.SocialUser"
+		useGeneratedKeys="true" keyProperty="soacialUser.userId" keyColumn="user_id">
+		INSERT INTO social_user
+		(
+		<include refid="base_column_list_social_user" />
+		)
+		VALUES
+		(
+		#{userId},
+		#{socialId},
+		#{socialSrc},
+		#{socialToken},
+		#{secret},
+		#{expiry},
+		#{photoURL},
+		#{aboutMe},
+		#{createdTime},
+		now(),
+		#{merchant}
+		)
+	</insert>
+
+	<select id="getSocialUserbyUserId" resultMap="resultSocialUser"
+		parameterType="com.snapdeal.ims.dbmapper.entity.SocialUser">
+		select
+		<include refid="base_column_list_social_user" />
+		from social_user
+		where user_id=#{userId}
+		and social_src=#{socialSrc}
+		and
+		merchant=#{merchant}
+	</select>
+
+	<update id="updateSocialUser" parameterType="com.snapdeal.ims.dbmapper.entity.SocialUser">
+		update social_user
+		set
+		social_id =#{socialId},
+		social_token = #{socialToken},
+		secret=#{secret},
+		expiry=#{expiry},
+		photo_url =#{photoURL},
+		about_me =
+		#{aboutMe},
+		updated_time=now()
+		where user_id=#{userId}
+		and
+		social_src=#{socialSrc}
+		and merchant=#{merchant}
+	</update>
+
+</mapper>

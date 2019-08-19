@@ -1,0 +1,103 @@
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapdeal.admin.dao.IConfigurationDetailsDao">
+	<resultMap id="result"
+		type="com.snapdeal.admin.dao.entity.ConfigurationEntity">
+		<result property="configKey" column="config_key" />
+		<result property="configType" column="config_type" />
+		<result property="configValue" column="config_value" />
+		<result property="description" column="description" />
+	</resultMap>
+
+	<sql id="base_column_list">
+		config_key,config_type,config_value, description
+	</sql>
+
+	<select id="getAllConfiguration" resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		from configuration
+	</select>
+
+	<select id="getConfigurationByField" resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		from configuration where config_key is not null
+		<if test="configKey !=null and configKey != ''">
+			and config_key=#{configKey}
+		</if>
+		<if test="configType !=null and configType != ''">
+			and config_type=#{configType}
+		</if>
+		<if test="configValue !=null and configValue != ''">
+			and config_value=#{configValue}
+		</if>
+	</select>
+
+
+	<insert id="createConfiguration" parameterType="com.snapdeal.admin.dao.entity.ConfigurationEntity">
+		INSERT INTO configuration
+		(
+		<include refid="base_column_list" />
+		)
+		VALUES
+		(#{configKey},#{configType},#{configValue},#{description})
+	</insert>
+
+	<select id="updateConfiguration" parameterType="com.snapdeal.admin.dao.entity.ConfigurationEntity">
+		update
+		configuration set
+		config_value = #{configValue} ,
+		description =
+		#{description}
+
+		where config_type = #{configType}
+		and
+		config_key =
+		#{configKey}
+	</select>
+
+	<delete id="deleteConfiguration" parameterType="java.lang.String">
+		DELETE
+		FROM
+		configuration
+		WHERE config_key = #{configKey} and
+		config_type=#{configType}
+	</delete>
+
+	<delete id="deleteConfigurationByKey" parameterType="java.lang.String">
+		DELETE
+		FROM
+		configuration
+		WHERE config_key = #{configKey}
+	</delete>
+
+	<select id="getConfig" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM configuration WHERE config_key = #{configKey} and
+		config_type=#{configType}
+	</select>
+
+	<select id="getConfigsByKey" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM configuration WHERE config_key = #{configKey}
+	</select>
+
+	<select id="getConfigsByType" parameterType="java.lang.String"
+		resultMap="result">
+		SELECT
+		<include refid="base_column_list" />
+		FROM configuration WHERE config_type = #{configType}
+	</select>
+
+
+
+
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="PROJECT_ID" value="MerchantPanel" />
+	<property file="${config.path}/api.properties" />
+	<appender name="app_file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.folder}/${log.file}</File>
+		<encoder>
+			<pattern>[%date][%X{requestId}][%t][%logger{0}] - %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>${log.folder}/${log.file}.%d{yyyy-MM-dd}.%i
+			</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>1GB</MaxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	<appender name="activity_appender"
+                class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <File>${log.folder}/${log.activity.filename}</File>
+                <encoder>
+                        <pattern>%date %X{HOST} %X{requestId} [%t] %.-5level %logger{36}.%M-%L - %msg %n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                        <!-- rollover daily -->
+                        <fileNamePattern>${log.folder}/${log.activity.fileName}-%d{YYYY-MM-dd}.%i
+                        </fileNamePattern>
+                        <timeBasedFileNamingAndTriggeringPolicy
+                                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                                <maxFileSize>1GB</maxFileSize>
+                        </timeBasedFileNamingAndTriggeringPolicy>
+                </rollingPolicy>
+    </appender>
+	
+	<appender name="ASYNC_APP" class="ch.qos.logback.classic.AsyncAppender">
+		<queueSize>500</queueSize>
+		<discardingThreshold>0</discardingThreshold>
+		<appender-ref ref="app_file" />
+	</appender>
+	<appender name="ASYNC_ACTIVITY" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="activity_appender" />
+    </appender>
+    
+    <logger name="com.snapdeal.payments.metrics.TimedMethodInterceptor" additivity="false" level="TRACE">
+                <appender-ref ref="ASYNC_ACTIVITY" />
+    </logger>
+	
+	<!-- <logger name="com.snapdeal.ims" additivity="false" level="${log.level}">
+                <appender-ref ref="ASYNC_APP" />
+    </logger> -->
+    
+    <logger name="com.snapdeal.merchant" additivity="false" level="INFO">
+                <appender-ref ref="ASYNC_APP" />
+    </logger>
+	
+	<root level="${log.level}">
+		<appender-ref ref="ASYNC_APP" />
+	</root>
+</configuration>

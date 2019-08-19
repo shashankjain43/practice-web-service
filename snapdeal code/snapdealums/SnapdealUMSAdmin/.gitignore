@@ -1,0 +1,5 @@
+/target
+/\$\{snapdeal.omsadmin.home\}/
+/bin
+/src/test/resources/server.log
+/test-output

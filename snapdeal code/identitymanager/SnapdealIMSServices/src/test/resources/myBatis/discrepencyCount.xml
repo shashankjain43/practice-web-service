@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.snapdeal.ims.dashboard.dbmapper.IDiscrepencyCountDao">
+
+	<select id="getFcDiscrepencyCount" resultType="Integer"
+		parameterType="com.snapdeal.ims.request.GetDiscrepencyCountServiceRequest">
+		select count(*)
+		from
+		user, upgrade
+		where
+		user.email=upgrade.email
+		and user.created_time between #{fromDate}
+		and
+		#{toDate}
+		and fc_user_id is NULL and fc_id is NOT NULL
+	</select>
+
+	<select id="getSdDiscrepencyCount" resultType="Integer"
+		parameterType="com.snapdeal.ims.request.GetDiscrepencyCountServiceRequest">
+		select count(*)
+		from
+		user,upgrade
+		where
+		user.email=upgrade.email
+		and user.created_time between #{fromDate}
+		and
+		#{toDate}
+		and sd_user_id is NULL and sd_id is NOT NULL;
+	</select>
+
+	<select id="getSdFcDiscrepencyCount" resultType="Integer"
+		parameterType="com.snapdeal.ims.request.GetDiscrepencyCountServiceRequest">
+
+		select count(*)
+		from
+		user,upgrade
+		where
+		(
+		user.email=upgrade.email
+		and
+		user.created_time between #{fromDate}
+		and #{toDate}
+		and
+		sd_user_id is NULL and sd_id is
+		NOT NULL
+		and
+		fc_user_id
+		is NULL and fc_id is NOT NULL
+		)
+
+	</select>
+
+	<select id="getFcDiscrepencyEmailList" resultType="String"
+		parameterType="com.snapdeal.ims.request.GetEmailForDiscrepencyCasesServiceRequest">
+		select user.email
+		from
+		user,upgrade
+		where
+		user.email=upgrade.email
+		and
+		user.created_time between #{fromDate}
+		and
+		#{toDate}
+		and fc_user_id is
+		NULL and fc_id is NOT NULL
+	</select>
+
+	<select id="getSdDiscrepencyEmailList" resultType="String"
+		parameterType="com.snapdeal.ims.request.GetEmailForDiscrepencyCasesServiceRequest">
+		select user.email
+		from
+		user , upgrade
+		where
+		user.email=upgrade.email
+		and user.created_time between #{fromDate}
+		and
+		#{toDate}
+		and sd_user_id is NULL and sd_id is NOT NULL
+	</select>
+
+
+	<select id="getSdFcDiscrepencyEmailList" resultType="String"
+		parameterType="com.snapdeal.ims.request.GetEmailForDiscrepencyCasesServiceRequest">
+		select user.email
+		from
+		user , upgrade
+		where
+		(
+		user.email=upgrade.email
+		and
+		user.created_time between #{fromDate}
+		and
+		#{toDate}
+		and
+		sd_user_id is NULL and sd_id is NOT NULL
+		and
+		fc_user_id
+		is
+		NULL and fc_id is NOT NULL
+		)
+
+	</select>
+</mapper>

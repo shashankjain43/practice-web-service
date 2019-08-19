@@ -1,0 +1,6 @@
+1474285340487	Rename field 'checksumClientId'
+1474285348524	Rename field 'checksumClientKey'
+1474285358580	Rename field 'oneCheckUrl'
+1474353020380	Rename type 'HttpUtil'
+1474359941223	Rename field 'httpUtil'
+1474468115193	Copy compilation unit
