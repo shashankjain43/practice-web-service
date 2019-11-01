@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 public class MatchServiceImpl implements IMatchService {
 
     @Autowired
-    IMatchDao matchDao;
+    private IMatchDao matchDao;
 
     @Autowired
-    IMatchPlayerDao matchPlayerDao;
+    private IMatchPlayerDao matchPlayerDao;
 
     @Autowired
-    IPlayerDao playerDao;
+    private IPlayerDao playerDao;
 
     @Override
     public boolean addPlayersToMatch(AddPlayersToMatchRequest request) {

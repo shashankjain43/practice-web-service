@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 public class TeamServiceImpl implements ITeamService {
 
     @Autowired
-    ITeamDao teamDao;
+    private ITeamDao teamDao;
 
     @Autowired
-    IPlayerDao playerDao;
+    private IPlayerDao playerDao;
 
     @Autowired
-    ITeamPlayerDao teamPlayerDao;
+    private ITeamPlayerDao teamPlayerDao;
 
 
     @Override

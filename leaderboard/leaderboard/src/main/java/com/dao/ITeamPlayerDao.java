@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ITeamPlayerDao extends CrudRepository<TeamPlayer, Integer> {
-	
+
+    TeamPlayer findByPlayerIdAndTeamId(int playerId, int teamId);
+
 }

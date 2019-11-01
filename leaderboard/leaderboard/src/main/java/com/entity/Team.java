@@ -1,7 +1,9 @@
 package com.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
 @Entity
 @Table(name = "team")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Team {
 
     @Id
@@ -23,5 +27,4 @@ public class Team {
     double totalScore;
     @OneToMany(mappedBy = "team")
     List<TeamPlayer> teamPlayers;
-
 }

@@ -20,4 +20,5 @@ public class Match {
     String opponent2;
     @OneToMany(mappedBy = "match")
     List<MatchPlayer> matchPlayers;
+
 }
