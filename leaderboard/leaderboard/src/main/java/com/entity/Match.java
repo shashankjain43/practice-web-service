@@ -3,18 +3,21 @@ package com.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Match")
-public class MatchDO {
+@Table(name = "match")
+public class Match {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     int id;
     String name;
     String desc;
     String location;
     String opponent1;
     String opponent2;
+    @OneToMany(mappedBy = "match")
+    List<MatchPlayer> matchPlayers;
 }

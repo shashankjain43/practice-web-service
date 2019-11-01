@@ -1,5 +1,6 @@
 package com.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,18 +8,20 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Team")
-public class TeamDO {
+@Table(name = "team")
+@Builder
+public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    int teamId;
+    @GeneratedValue
+    int id;
     String teamName;
     int userId;
     int matchId;
     int captainId;
     int vcaptainId;
     double totalScore;
-    List<PlayerDO> players;
+    @OneToMany(mappedBy = "team")
+    List<TeamPlayer> teamPlayers;
 
 }
