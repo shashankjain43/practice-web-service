@@ -53,7 +53,8 @@ public class ScoreBoard {
             List<MatchPlayer> matchPlayers = match.getMatchPlayers();
             if (Objects.nonNull(matchPlayers) && !matchPlayers.isEmpty()) {
                 MatchPlayer randomMatchPlayer = matchPlayers.get(random.nextInt(matchPlayers.size() - 1));
-                randomMatchPlayer.setScore(randomMatchPlayer.getScore() + random.nextDouble() * 10);
+                double randomScore = random.nextDouble();
+                randomMatchPlayer.setScore(randomMatchPlayer.getScore() + randomScore);
                 matchPlayerDao.save(randomMatchPlayer);
                 List<Team> teams = teamDao.findByMatchId(match.getId());
                 if (Objects.nonNull(teams)) {
@@ -62,6 +63,8 @@ public class ScoreBoard {
                         if (Objects.nonNull(teamPlayer)) {
                             teamPlayer.setScore(randomMatchPlayer.getScore());
                             teamPlayerDao.save(teamPlayer);
+                            team.setTotalScore(team.getTotalScore() + randomScore);
+                            teamDao.save(team);
                         }
                     }
                 }
